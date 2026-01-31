@@ -381,6 +381,20 @@ def merge_pr(repo: str, number: int) -> tuple[int, str]:
     )
 
 
+def comment_pr(repo: str, number: int, body: str) -> None:
+    # Use gh api to avoid GraphQL field regressions.
+    run(
+        [
+            "gh",
+            "api",
+            f"repos/{repo}/issues/{number}/comments",
+            "-f",
+            f"body={body}",
+        ],
+        check=False,
+    )
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--repo", required=True, help="owner/repo")
@@ -426,19 +440,42 @@ def main() -> int:
                 if apply_requested_changes(paper_dir, api_key, requested):
                     pr_rec["actions"].append("applied_requests")
 
+            pushed = False
             if commit_if_dirty(f"Moltbot: update {paper}"):
                 push_branch(pr.head_ref)
+                pushed = True
                 pr_rec["actions"].append("pushed_commits")
 
             ok, reason = pr_checks_green(args.repo, pr.number)
             pr_rec["checks"] = {"ok": ok, "reason": reason}
+
+            # Comment for auditability whenever we took action.
+            if pr_rec["actions"]:
+                lines = [
+                    f"## Moltbot autonomy update",
+                    f"- Paper: `{paper}`",
+                    f"- Actions: {', '.join(pr_rec['actions'])}",
+                ]
+                if requested:
+                    lines.append("- Requests detected in PR body:")
+                    for r in requested[:6]:
+                        r1 = r.strip().replace("\r", "")
+                        if len(r1) > 300:
+                            r1 = r1[:300] + "…"
+                        lines.append(f"  - {r1}")
+                lines.append(f"- Checks: {'OK' if ok else 'NOT OK'} ({reason})")
+                comment_pr(args.repo, pr.number, "\n".join(lines))
+
+            # Auto-merge by default when ready.
             if ok:
                 code, out = merge_pr(args.repo, pr.number)
                 if code == 0:
                     pr_rec["actions"].append("merged")
+                    comment_pr(args.repo, pr.number, "## Moltbot\nMerged (squash) ✅")
                 else:
                     pr_rec["actions"].append("merge_failed")
                     pr_rec["merge_error"] = out[-2000:]
+                    comment_pr(args.repo, pr.number, "## Moltbot\nMerge attempt failed. See logs / branch protection output.")
 
         run_summary["prs"].append(pr_rec)
 
