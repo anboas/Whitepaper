@@ -73,3 +73,20 @@ checks:
     # Ensure recommendations are framed as actions.
     required_phrases_any: ["Adopt", "Require", "Instrument", "Implement", "Establish", "Define"]
     min_hits: 2
+
+  # --- Semantic / subjective checks (OpenAI API; optional) ---
+  # Enabled in CI only when OPENAI_API_KEY secret is present.
+  llm_semantic:
+    # Note: this check is enforced by scripts/llm_rubric_check.py (separate from deterministic score).
+    model: gpt-4o-mini
+    min_overall: 0.75
+    min_per_category: 0.60
+    categories:
+      - tone
+      - clarity
+      - structure
+      - argument_strength
+      - specificity
+      - actionability
+      - evidence_quality
+      - executive_readiness
