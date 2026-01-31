@@ -22,3 +22,4 @@ Placements:
 - After A Bounded Vignette:
   - “If humans must approve every action, you have already lost the tempo advantage.”
 
+<!-- rerun -->
