@@ -39,6 +39,12 @@ fi
 
 SEARCH=${VAULT_OPENAI_SEARCH:-OPENAI_API_KEY}
 
+# Allow self-signed certs if requested (Vaultwarden local TLS).
+# WARNING: only safe for localhost / trusted LAN.
+if [[ "${BW_INSECURE:-}" == "1" ]]; then
+  export NODE_TLS_REJECT_UNAUTHORIZED=0
+fi
+
 # Configure server
 bw config server "$BW_HOST" >/dev/null
 
