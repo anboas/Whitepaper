@@ -104,7 +104,7 @@ def main() -> int:
             "top_issues": {"type": "array", "items": {"type": "string"}},
             "top_fixes": {"type": "array", "items": {"type": "string"}},
         },
-        "required": ["overall", "categories", "top_issues", "top_fixes"],
+        "required": ["overall", "categories", "reasons", "top_issues", "top_fixes"],
     }
 
     user = {
