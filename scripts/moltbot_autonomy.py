@@ -59,6 +59,20 @@ def now_ms() -> int:
     return int(time.time() * 1000)
 
 
+def log_event(repo_root: Path, msg: str) -> None:
+    """Append a short line to logs/moltbot-autonomy/runner.log.
+
+    Must never throw (logging cannot break autonomy).
+    """
+    try:
+        log_dir = repo_root / "logs" / "moltbot-autonomy"
+        log_dir.mkdir(parents=True, exist_ok=True)
+        fp = log_dir / "runner.log"
+        fp.open("a", encoding="utf-8").write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {msg}\n")
+    except Exception:
+        pass
+
+
 def openai_model(api_key: str) -> str:
     # Prefer a codex model if available; fall back.
     try:
