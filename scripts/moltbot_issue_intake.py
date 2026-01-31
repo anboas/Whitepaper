@@ -77,9 +77,11 @@ def comment_issue(repo: str, number: int, body: str) -> None:
 def add_labels(repo: str, number: int, labels: list[str]) -> None:
     if not labels:
         return
-    # GitHub expects JSON array for labels
-    payload = json.dumps(labels)
-    run(["gh", "api", f"repos/{repo}/issues/{number}", "--method", "PATCH", "-f", f"labels={payload}"], check=False)
+    # Use POST /issues/{issue_number}/labels to add without clobbering existing labels.
+    cmd = ["gh", "api", f"repos/{repo}/issues/{number}/labels", "--method", "POST"]
+    for lab in labels:
+        cmd += ["-f", f"labels[]={lab}"]
+    run(cmd, check=False)
 
 
 def list_moltbot_issues(repo: str) -> list[dict]:
@@ -153,7 +155,7 @@ def main() -> int:
                 num,
                 "## Moltbot\nI opened a PR for this issue and will execute it autonomously.\n\nPR: " + pr_url,
             )
-            add_labels(args.repo, num, ["moltbot", "moltbot/claimed"])
+            add_labels(args.repo, num, ["moltbot/claimed"])
         except Exception as e:
             comment_issue(args.repo, num, "## Moltbot\nFailed to open PR for this issue. Error:\n\n```\n" + str(e)[:1500] + "\n```")
 
