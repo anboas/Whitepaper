@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+TIMEOUT_SEC=${BW_TIMEOUT_SECONDS:-25}
+
 # Fetch OPENAI_API_KEY from Vaultwarden/Bitwarden via bw CLI.
 #
 # Requirements:
@@ -47,16 +49,16 @@ if [[ "${BW_INSECURE:-}" == "1" ]]; then
 fi
 
 # Ensure a clean state (bw refuses server change while logged in)
-bw logout --quiet >/dev/null 2>&1 || true
+timeout "$TIMEOUT_SEC" bw logout --quiet >/dev/null 2>&1 || true
 
 # Configure server
-bw config server "$BW_HOST" >/dev/null
+timeout "$TIMEOUT_SEC" bw config server "$BW_HOST" >/dev/null
 
 # Login non-interactively and capture session
-BW_SESSION=$(bw login "$BW_EMAIL" "$BW_PASSWORD" --raw --nointeraction 2>/dev/null || true)
+BW_SESSION=$(timeout "$TIMEOUT_SEC" bw login "$BW_EMAIL" "$BW_PASSWORD" --raw --nointeraction 2>/dev/null || true)
 if [[ -z "$BW_SESSION" ]]; then
   # If already logged in, unlock.
-  BW_SESSION=$(bw unlock "$BW_PASSWORD" --raw --nointeraction 2>/dev/null || true)
+  BW_SESSION=$(timeout "$TIMEOUT_SEC" bw unlock "$BW_PASSWORD" --raw --nointeraction 2>/dev/null || true)
 fi
 if [[ -z "$BW_SESSION" ]]; then
   echo "Failed to login/unlock via bw" >&2
@@ -64,7 +66,7 @@ if [[ -z "$BW_SESSION" ]]; then
 fi
 
 export BW_SESSION
-bw sync >/dev/null || true
+timeout "$TIMEOUT_SEC" bw sync >/dev/null 2>&1 || true
 
 pick_first() {
   # NOTE: we must not use a here-doc for the python source here, because that
@@ -76,7 +78,7 @@ print(json.dumps(items[0]))'
 
 item=""
 for term in "$SEARCH" "openai" "OpenAI" "OpenAI API" "api key"; do
-  items_json=$(bw list items --search "$term" --session "$BW_SESSION" 2>/dev/null || echo '[]')
+  items_json=$(timeout "$TIMEOUT_SEC" bw list items --search "$term" --session "$BW_SESSION" --nointeraction 2>/dev/null || echo '[]')
   item=$(echo "$items_json" | pick_first 2>/dev/null || true)
   if [[ -n "$item" ]]; then
     break
