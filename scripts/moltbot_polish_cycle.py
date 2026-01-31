@@ -19,7 +19,9 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import random
 import subprocess
+import time
 from pathlib import Path
 
 import requests
@@ -63,14 +65,33 @@ def openai_json(api_key: str, model: str, intent_md: str, tex: str) -> dict:
         ],
     }
 
-    rr = requests.post(
-        "https://api.openai.com/v1/responses",
-        headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-        json=payload,
-        timeout=180,
-    )
-    rr.raise_for_status()
-    data = rr.json()
+    last_err: Exception | None = None
+    for attempt in range(1, 6):
+        try:
+            rr = requests.post(
+                "https://api.openai.com/v1/responses",
+                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+                json=payload,
+                timeout=180,
+            )
+            # Retry on rate limits / transient upstream errors.
+            if rr.status_code in (429, 500, 502, 503, 504):
+                wait_s = min(60.0, (2 ** (attempt - 1)) * 5.0) + random.random()
+                print(f"OpenAI HTTP {rr.status_code}; retrying in {wait_s:.1f}s (attempt {attempt}/5)")
+                time.sleep(wait_s)
+                continue
+            rr.raise_for_status()
+            data = rr.json()
+            break
+        except Exception as e:
+            last_err = e
+            wait_s = min(60.0, (2 ** (attempt - 1)) * 5.0) + random.random()
+            print(f"OpenAI call failed ({type(e).__name__}); retrying in {wait_s:.1f}s (attempt {attempt}/5)")
+            time.sleep(wait_s)
+    else:
+        if last_err:
+            raise last_err
+        raise RuntimeError("OpenAI call failed after retries (rate limit or transient error)")
     out_text = None
     for item in data.get("output", []):
         if item.get("type") == "message":
@@ -113,6 +134,8 @@ def main() -> int:
 
     model = pick_model(api_key)
     critique = openai_json(api_key, model, intent, tex)
+    if not critique:
+        raise SystemExit("Empty critique returned; refusing to open an issue")
 
     stop = critique.get("stop_condition") or {}
     if stop.get("is_polished") is True:
