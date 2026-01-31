@@ -1,0 +1,36 @@
+# Rubric used by scripts/rubric_check.py
+# Goal: fail PRs that are obviously not publishable yet.
+# This is intentionally simple and deterministic; evolve it over time.
+
+min_total_score: 0.75
+
+checks:
+  no_todos:
+    weight: 0.20
+    patterns:
+      - "TODO"
+      - "TBD"
+      - "FIXME"
+
+  has_executive_summary:
+    weight: 0.20
+    required_phrases:
+      - "Executive Summary"
+
+  has_recommendations:
+    weight: 0.20
+    required_phrases:
+      - "Recommendations"
+
+  has_sources_or_refs:
+    weight: 0.20
+    # Accept either a References section or at least 2 bracketed citations like [1]
+    required_phrases_any:
+      - "References"
+      - "Bibliography"
+    min_citation_markers: 2
+
+  length_sanity:
+    weight: 0.20
+    # Rough minimum; tune per series.
+    min_words: 600

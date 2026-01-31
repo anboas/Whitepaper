@@ -160,7 +160,7 @@
     \item \textbf{Problem:} Many “strategy documents” are not falsifiable, not owned, and not operational.
     \item \textbf{Insight:} Strategy becomes real only when it is translated into constraints, measurements, and commitments.
     \item \textbf{Why it matters:} Unowned narratives create drift: slow decisions, duplicated work, and security/operational debt.
-    \item \textbf{What to do:} Standardize an auditable format (GitHub + LaTeX), require testable recommendations, and instrument outcomes.
+    \item \textbf{What to do:} Standardize an auditable format (GitHub + LaTeX), require testable recommendations, and instrument outcomes \,[1].
   \end{itemize}
 \end{execsummary}
 
@@ -204,6 +204,27 @@ Make recommendations specific, testable, and operational:
   \item \textbf{Require ownership:} every recommendation must have an owner, a deadline, and a success metric.
   \item \textbf{Instrument outcomes:} define what will be measured in 30/60/90 days and where it will be reported.
 \end{enumerate}
+
+\section{Workflow: From Draft to Release}
+The workflow matters as much as the writing. A paper becomes durable when it is produced by a repeatable pipeline that makes quality visible.
+
+\subsection{Draft in branches, review in pull requests}
+Draft changes in branches and use pull requests to create a structured discussion: reviewers can comment on specific lines, request changes, and confirm that recommendations are implementable. This does two things: it improves the content, and it leaves an audit trail of the decision-making.
+
+\subsection{Automate builds for multiple targets}
+Every pull request should automatically build the artifacts leaders consume (PDF) and the artifacts systems consume (HTML). The same source should produce both outputs so you do not maintain parallel documents that drift over time.
+
+\subsection{Gate with a deterministic rubric}
+Not every draft deserves human attention. Use a deterministic rubric to catch obvious problems early: missing executive summary, missing recommendations, no references, or leftover placeholders. The goal is not to replace editorial judgment; it is to eliminate low-value review cycles and force the paper toward publishable structure \,[2].
+
+\subsection{Human approval and publishing}
+Once the rubric passes and reviewers approve, tag a release and publish the outputs. This can later be extended to posting a LinkedIn announcement and publishing a corresponding blog post, but the core principle stays the same: quality first, approval second, distribution last.
+
+\section{References}
+\begin{itemize}
+  \item [1] Docs-as-code / version-controlled documentation practices in modern engineering organizations.
+  \item [2] CI-style pipelines for documentation: automated builds, quality checks, and release workflows.
+\end{itemize}
 
 \section{Conclusion}
 High-impact writing is a lever: it compresses ambiguity into decisions. This repository is a starting point for producing a series of strategy documents that are designed to be read, debated, and executed.

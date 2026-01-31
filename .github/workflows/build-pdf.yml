@@ -1,4 +1,4 @@
-name: build-pdf
+name: build-whitepaper
 
 on:
   push:
@@ -6,10 +6,24 @@ on:
   pull_request:
 
 jobs:
-  latex:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install rubric deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml
+
+      - name: Rubric gate (fails if draft is not publishable yet)
+        run: |
+          python scripts/rubric_check.py --tex tex/whitepaper.tex --rubric rubric.yml
 
       # Compiles LaTeX into build/whitepaper.pdf
       - name: Compile PDF
@@ -18,8 +32,17 @@ jobs:
           root_file: tex/whitepaper.tex
           args: -interaction=nonstopmode -halt-on-error -output-directory=build
 
-      - name: Upload PDF artifact
+      - name: Build HTML (pandoc)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+          mkdir -p build
+          pandoc tex/whitepaper.tex -s -o build/whitepaper.html
+
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: whitepaper-pdf
-          path: build/*.pdf
+          name: whitepaper-build
+          path: |
+            build/*.pdf
+            build/*.html
