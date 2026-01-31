@@ -348,7 +348,9 @@ def apply_requested_changes(paper_dir: Path, api_key: str, requested: list[str])
     reqs = read_requirements(paper_dir)
     model = openai_model(api_key)
 
-    target_path = str(tex_path.as_posix())
+    # IMPORTANT: diff paths must be repo-relative for safe_apply_patch.
+    repo_root = paper_dir.parents[1]
+    target_path = str(tex_path.relative_to(repo_root).as_posix())
     tex = tex_path.read_text(encoding="utf-8", errors="ignore")
 
     # Retry once if the model doesn't output a valid diff.
