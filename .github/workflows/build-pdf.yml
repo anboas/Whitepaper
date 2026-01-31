@@ -32,12 +32,19 @@ jobs:
           root_file: tex/whitepaper.tex
           args: -interaction=nonstopmode -halt-on-error -output-directory=build
 
+      # latex-action may create build/ as root (depending on container execution);
+      # ensure subsequent steps can write into it.
+      - name: Fix build/ permissions
+        run: |
+          sudo chown -R "$USER":"$USER" build || true
+          chmod -R u+rwX build || true
+
       - name: Build HTML (pandoc)
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc
           mkdir -p build
-          pandoc tex/whitepaper.tex -s -o build/whitepaper.html
+          pandoc tex/whitepaper.tex -s --metadata title="Whitepaper" -o build/whitepaper.html
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
