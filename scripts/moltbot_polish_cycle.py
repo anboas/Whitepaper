@@ -114,6 +114,13 @@ def main() -> int:
     model = pick_model(api_key)
     critique = openai_json(api_key, model, intent, tex)
 
+    stop = critique.get("stop_condition") or {}
+    if stop.get("is_polished") is True:
+        # Write a marker so cron can stop generating more issues.
+        (root / ".polish_done").write_text("polished\n", encoding="utf-8")
+        print("POLISHED: stop_condition.is_polished=true")
+        return 0
+
     fixes = (critique.get("priority_fixes") or [])[: args.max_fixes]
     title = f"Polish cycle: {args.paper} (iterate)"
 
