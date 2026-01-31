@@ -66,6 +66,15 @@ def main() -> int:
     checks = (cfg.get("checks") or {})
     key = "llm_semantic_full" if args.tier == "full" else "llm_semantic_cheap"
     llm_cfg = checks.get(key)
+
+    # If a paper-local rubric.yml exists but doesn't define llm tiers, fall back to repo root rubric.yml.
+    if not llm_cfg and rubric_path != Path(args.rubric):
+        try:
+            root_cfg = yaml.safe_load(read_text(Path(args.rubric))) or {}
+            llm_cfg = (root_cfg.get("checks") or {}).get(key)
+        except Exception:
+            llm_cfg = None
+
     if not llm_cfg:
         print(f"LLM rubric: SKIP (checks.{key} not configured)")
         return 0
