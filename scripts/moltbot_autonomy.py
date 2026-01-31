@@ -175,6 +175,21 @@ def openai_request_with_backoff(
     raise RuntimeError("OpenAI request retry loop fell through")
 
 
+    """Append a lightweight event record for operator-side debugging/audit."""
+    try:
+        log_dir = repo_root / "logs" / "moltbot-autonomy"
+        log_dir.mkdir(parents=True, exist_ok=True)
+        path = log_dir / "events.jsonl"
+        rec: dict[str, Any] = {"ts": now_ms(), "msg": msg}
+        if extra:
+            rec.update(extra)
+        with path.open("a", encoding="utf-8") as f:
+            f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    except Exception:
+        # Logging must never break the autonomy loop.
+        pass
+
+
 def openai_model(api_key: str) -> str:
     # Prefer a codex model if available; fall back.
     try:
