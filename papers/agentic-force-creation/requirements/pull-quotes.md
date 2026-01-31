@@ -21,3 +21,4 @@ Placements:
   - “Humans govern the loop; machines execute it.”
 - After A Bounded Vignette:
   - “If humans must approve every action, you have already lost the tempo advantage.”
+
