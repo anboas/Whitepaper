@@ -67,13 +67,11 @@ export BW_SESSION
 bw sync >/dev/null || true
 
 pick_first() {
-  python3 - <<'PY'
-import json,sys
-items=json.loads(sys.stdin.read() or '[]')
-if not items:
-    raise SystemExit(1)
-print(json.dumps(items[0]))
-PY
+  # NOTE: we must not use a here-doc for the python source here, because that
+  # consumes stdin (and we need stdin for the JSON pipe).
+  python3 -c 'import json,sys; items=json.loads(sys.stdin.read() or "[]");
+if not items: raise SystemExit(1);
+print(json.dumps(items[0]))'
 }
 
 item=""
@@ -94,23 +92,23 @@ if [[ -z "$item" ]]; then
   exit 4
 fi
 
-key=$(python3 - <<'PY'
-import json,sys
+key=$(python3 -c 'import json,sys,re
 it=json.loads(sys.stdin.read())
-# Prefer login.password
-login=it.get('login') or {}
-if isinstance(login, dict) and login.get('password'):
-    print(login['password'])
-    raise SystemExit(0)
-# Else try custom fields
-fields=it.get('fields') or []
+login=it.get("login") or {}
+if isinstance(login, dict) and login.get("password"):
+    print(login["password"]); raise SystemExit(0)
+fields=it.get("fields") or []
 for f in fields:
-    if (f.get('name') or '').strip() == 'OPENAI_API_KEY' and f.get('value'):
-        print(f['value'])
-        raise SystemExit(0)
+    if (f.get("name") or "").strip() == "OPENAI_API_KEY" and f.get("value"):
+        print(f["value"]); raise SystemExit(0)
+notes=(it.get("notes") or "").strip()
+if notes.startswith("sk-"):
+    print(notes); raise SystemExit(0)
+m=re.search(r"(sk-[A-Za-z0-9_\-]{20,})", notes)
+if m:
+    print(m.group(1)); raise SystemExit(0)
 raise SystemExit(2)
-PY
-<<< "$item" || true)
+' <<< "$item" || true)
 
 if [[ -z "$key" ]]; then
   echo "Found item but could not extract OPENAI_API_KEY (use login.password or a custom field named OPENAI_API_KEY)" >&2
