@@ -51,6 +51,17 @@ This is a **deterministic + heuristic** quality bar (no LLM) meant to catch:
 - too much passive voice (heuristic)
 - recommendations that aren’t framed as actions
 
+## Human review + AI feedback loop (PR-native)
+You can drive the entire iteration loop from GitHub PRs without chatting here:
+
+1) Open a PR (normal).
+2) Add label **`full-review`** → triggers **expensive** semantic review and posts results as a PR comment.
+3) To request auto-fixes, leave one or more PR comments starting with:
+   - `FIX: <what to change>`
+4) Add label **`apply-fixes`** → Moltbot will attempt to apply the `FIX:` comments to `tex/whitepaper.tex`, commit, and push to the PR branch.
+
+The deterministic gates always run first; LLM work is layered on top.
+
 ## Layout
 - `tex/whitepaper.tex` — current working paper + template
 - `rubric.yml` — publishability rubric
