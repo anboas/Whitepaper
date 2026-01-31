@@ -25,13 +25,6 @@ jobs:
         run: |
           python scripts/rubric_check.py --tex tex/whitepaper.tex --rubric rubric.yml
 
-      - name: Rubric check (LLM semantic; optional, non-blocking)
-        continue-on-error: true
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          python scripts/llm_rubric_check.py --tex tex/whitepaper.tex --rubric rubric.yml
-
       # Compiles LaTeX into build/whitepaper.pdf
       - name: Compile PDF
         uses: xu-cheng/latex-action@v3

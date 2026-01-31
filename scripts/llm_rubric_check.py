@@ -43,6 +43,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--tex", default="tex/whitepaper.tex")
     ap.add_argument("--rubric", default="rubric.yml")
+    ap.add_argument("--tier", default="cheap", choices=["cheap", "full"], help="which LLM config tier to use")
     args = ap.parse_args()
 
     api_key = os.environ.get("OPENAI_API_KEY", "").strip()
@@ -58,12 +59,13 @@ def main() -> int:
 
     cfg = yaml.safe_load(read_text(rubric_path)) or {}
     checks = (cfg.get("checks") or {})
-    llm_cfg = checks.get("llm_semantic")
+    key = "llm_semantic_full" if args.tier == "full" else "llm_semantic_cheap"
+    llm_cfg = checks.get(key)
     if not llm_cfg:
-        print("LLM rubric: SKIP (checks.llm_semantic not configured)")
+        print(f"LLM rubric: SKIP (checks.{key} not configured)")
         return 0
 
-    requested_model = llm_cfg.get("model", "gpt-4o-mini")
+    requested_model = llm_cfg.get("model", "auto")
     min_overall = float(llm_cfg.get("min_overall", 0.75))
     categories = llm_cfg.get(
         "categories",

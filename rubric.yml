@@ -75,13 +75,27 @@ checks:
     min_hits: 2
 
   # --- Semantic / subjective checks (OpenAI API; optional) ---
-  # Enabled in CI only when OPENAI_API_KEY secret is present.
-  llm_semantic:
-    # Note: this check is enforced by scripts/llm_rubric_check.py (separate from deterministic score).
-    # Set to "auto" to select a Codex-capable model if available to your key, else fallback.
+  # Two tiers:
+  # - cheap: always-on PR feedback, low-cost model, non-blocking
+  # - full: human-triggered (workflow_dispatch), stronger model + stricter bar
+  llm_semantic_cheap:
     model: auto
-    min_overall: 0.75
-    min_per_category: 0.60
+    min_overall: 0.55
+    min_per_category: 0.45
+    categories:
+      - tone
+      - clarity
+      - structure
+      - argument_strength
+      - specificity
+      - actionability
+      - evidence_quality
+      - executive_readiness
+
+  llm_semantic_full:
+    model: auto
+    min_overall: 0.80
+    min_per_category: 0.65
     categories:
       - tone
       - clarity
