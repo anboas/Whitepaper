@@ -46,6 +46,9 @@ if [[ "${BW_INSECURE:-}" == "1" ]]; then
   export NODE_TLS_REJECT_UNAUTHORIZED=0
 fi
 
+# Ensure a clean state (bw refuses server change while logged in)
+bw logout --quiet >/dev/null 2>&1 || true
+
 # Configure server
 bw config server "$BW_HOST" >/dev/null
 
