@@ -33,6 +33,7 @@ import argparse
 import json
 import os
 import re
+import random
 import subprocess
 import time
 from dataclasses import dataclass
@@ -89,16 +90,106 @@ def log_event(repo_root: Path, msg: str, **extra: Any) -> None:
         pass
 
 
+class OpenAIRateLimitError(RuntimeError):
+    def __init__(self, message: str, retry_after_sec: int | None = None):
+        super().__init__(message)
+        self.retry_after_sec = retry_after_sec
+
+
+def _parse_retry_after_sec(headers: dict[str, str] | None) -> int | None:
+    if not headers:
+        return None
+    ra = headers.get("retry-after") or headers.get("Retry-After")
+    if not ra:
+        return None
+    try:
+        return max(0, int(float(ra)))
+    except Exception:
+        return None
+
+
+def openai_request_with_backoff(
+    method: str,
+    url: str,
+    *,
+    headers: dict[str, str],
+    json_body: dict[str, Any] | None = None,
+    timeout_sec: int = 300,
+    max_attempts: int = 6,
+    base_sleep_sec: float = 2.0,
+    max_sleep_sec: float = 60.0,
+) -> requests.Response:
+    """Bounded retry w/ exponential backoff + jitter on 429/5xx.
+
+    Raises OpenAIRateLimitError when we exhaust attempts due to 429.
+    """
+
+    last_429: OpenAIRateLimitError | None = None
+
+    for attempt in range(1, max_attempts + 1):
+        try:
+            rr = requests.request(
+                method,
+                url,
+                headers=headers,
+                json=json_body,
+                timeout=timeout_sec,
+            )
+        except requests.RequestException as e:
+            # Network-y. Retry a few times.
+            if attempt >= max_attempts:
+                raise
+            sleep = min(max_sleep_sec, base_sleep_sec * (2 ** (attempt - 1)))
+            sleep *= random.uniform(0.7, 1.3)
+            time.sleep(sleep)
+            continue
+
+        if rr.status_code == 429:
+            ra = _parse_retry_after_sec(rr.headers)
+            msg = f"429 Too Many Requests for {url}"
+            last_429 = OpenAIRateLimitError(msg, retry_after_sec=ra)
+
+            if attempt >= max_attempts:
+                raise last_429
+
+            # Prefer server hint if present.
+            sleep = float(ra) if ra is not None else min(max_sleep_sec, base_sleep_sec * (2 ** (attempt - 1)))
+            sleep *= random.uniform(0.7, 1.3)
+            time.sleep(sleep)
+            continue
+
+        if rr.status_code >= 500:
+            if attempt >= max_attempts:
+                rr.raise_for_status()
+            sleep = min(max_sleep_sec, base_sleep_sec * (2 ** (attempt - 1)))
+            sleep *= random.uniform(0.7, 1.3)
+            time.sleep(sleep)
+            continue
+
+        rr.raise_for_status()
+        return rr
+
+    # Defensive: should never happen.
+    if last_429:
+        raise last_429
+    raise RuntimeError("OpenAI request retry loop fell through")
+
+
 def openai_model(api_key: str) -> str:
     # Prefer a codex model if available; fall back.
     try:
-        r = requests.get("https://api.openai.com/v1/models", headers={"Authorization": f"Bearer {api_key}"}, timeout=30)
-        if r.status_code < 300:
-            ids = [m.get("id", "") for m in (r.json().get("data") or []) if isinstance(m, dict)]
-            cand = [i for i in ids if i and "codex" in i.lower()]
-            if cand:
-                cand.sort(key=lambda x: ("preview" in x.lower(), len(x)))
-                return cand[0]
+        r = openai_request_with_backoff(
+            "GET",
+            "https://api.openai.com/v1/models",
+            headers={"Authorization": f"Bearer {api_key}"},
+            timeout_sec=30,
+            max_attempts=3,
+        )
+        ids = [m.get("id", "") for m in (r.json().get("data") or []) if isinstance(m, dict)]
+        cand = [i for i in ids if i and "codex" in i.lower()]
+        if cand:
+            cand.sort(key=lambda x: ("preview" in x.lower(), len(x)))
+            return cand[0]
     except Exception:
         pass
     return "gpt-5-codex"
@@ -138,13 +229,14 @@ def openai_generate_latex(api_key: str, model: str, intent_md: str, requirements
         ],
     }
 
-    rr = requests.post(
+    rr = openai_request_with_backoff(
+        "POST",
         "https://api.openai.com/v1/responses",
         headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-        json=payload,
-        timeout=300,
+        json_body=payload,
+        timeout_sec=300,
+        max_attempts=6,
     )
-    rr.raise_for_status()
 
     tex = openai_response_text(rr.json())
     if not tex.startswith("\\documentclass"):
@@ -191,13 +283,14 @@ def openai_patch_tex(
         ],
     }
 
-    rr = requests.post(
+    rr = openai_request_with_backoff(
+        "POST",
         "https://api.openai.com/v1/responses",
         headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-        json=payload,
-        timeout=timeout_sec,
+        json_body=payload,
+        timeout_sec=timeout_sec,
+        max_attempts=6,
     )
-    rr.raise_for_status()
     patch = openai_response_text(rr.json())
     return patch
 
@@ -520,6 +613,33 @@ def extract_issue_numbers_from_requests(repo: str, requested: list[str]) -> list
     return sorted(set(nums))
 
 
+def _cooldown_path(repo_root: Path) -> Path:
+    return repo_root / "logs" / "moltbot-autonomy" / "cooldown.json"
+
+
+def _load_cooldown(repo_root: Path) -> dict[str, Any]:
+    p = _cooldown_path(repo_root)
+    if not p.exists():
+        return {}
+    try:
+        return json.loads(p.read_text(encoding="utf-8")) or {}
+    except Exception:
+        return {}
+
+
+def _write_cooldown(repo_root: Path, next_ts_ms: int, reason: str, pr: int | None = None) -> None:
+    try:
+        rec = {
+            "next_ts_ms": int(next_ts_ms),
+            "reason": reason,
+            "pr": pr,
+            "written_ts_ms": now_ms(),
+        }
+        _cooldown_path(repo_root).write_text(json.dumps(rec, indent=2) + "\n", encoding="utf-8")
+    except Exception:
+        pass
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--repo", required=True, help="owner/repo")
@@ -533,6 +653,15 @@ def main() -> int:
     log_dir = repo_root / "logs" / "moltbot-autonomy"
     log_dir.mkdir(parents=True, exist_ok=True)
     log_path = log_dir / "runs.jsonl"
+
+    cd = _load_cooldown(repo_root)
+    next_ts_ms = int(cd.get("next_ts_ms") or 0)
+    if next_ts_ms and now_ms() < next_ts_ms:
+        # Respect cooldown window to avoid hammering the API across cron ticks.
+        wait_sec = max(0, (next_ts_ms - now_ms()) / 1000.0)
+        log_event(repo_root, f"Cooldown active ({wait_sec:.0f}s remaining). Skipping autonomy run.")
+        # Exit 0 so cron doesn't treat this as a hard failure loop.
+        return 0
 
     run_summary: dict[str, Any] = {"ts": now_ms(), "repo": args.repo, "prs": []}
 
@@ -581,9 +710,20 @@ def main() -> int:
                     log_event(repo_root, f"PR #{pr.number}: apply_requested_changes FAILED: {e}")
 
                     # Detect rate limiting and stop the run early (prevents hammering API).
-                    if "429" in str(e) or "Too Many Requests" in str(e):
+                    is_rl = isinstance(e, OpenAIRateLimitError) or ("429" in str(e)) or ("Too Many Requests" in str(e))
+                    if is_rl:
                         saw_rate_limit = True
-                        comment_pr(args.repo, pr.number, "## Moltbot\nOpenAI rate limit (HTTP 429). Backing off and will retry later.")
+
+                        # Back off across cron ticks. Default to 30 minutes, or use Retry-After if larger.
+                        ra = getattr(e, "retry_after_sec", None)
+                        cooldown_sec = max(30 * 60, int(ra) if isinstance(ra, int) else 0)
+                        _write_cooldown(repo_root, now_ms() + cooldown_sec * 1000, "openai_rate_limited", pr=pr.number)
+
+                        comment_pr(
+                            args.repo,
+                            pr.number,
+                            "## Moltbot\nOpenAI rate limit (HTTP 429). Backing off and will retry later.",
+                        )
                     else:
                         comment_pr(args.repo, pr.number, "## Moltbot\nFailed applying requested changes (LLM patch).\n\nError: `" + str(e).replace("`", "'")[:400] + "`\n\nI will retry on next run.")
 
@@ -641,9 +781,10 @@ def main() -> int:
 
     log_path.open("a", encoding="utf-8").write(json.dumps(run_summary) + "\n")
 
-    # If we hit rate limiting, exit nonzero so the supervisor can record it.
+    # If we hit rate limiting, we've already set a cooldown; exit 0 to avoid
+    # a cron hard-failure loop while still leaving breadcrumbs in logs.
     if saw_rate_limit:
-        return 3
+        return 0
 
     return 0
 
