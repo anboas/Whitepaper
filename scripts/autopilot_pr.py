@@ -193,7 +193,7 @@ def detect_target_paper(owner: str, repo: str, pr: int, gh_token: str) -> Path:
     paper_dirs = []
     for f in pr_files:
         fn = f.get("filename") or ""
-        m = re.match(r"^(papers/[^/]+)/tex/paper\\.tex$", fn)
+        m = re.match(r"^(papers/[^/]+)/tex/paper\.tex$", fn)
         if m:
             paper_dirs.append(m.group(1))
 
