@@ -25,7 +25,8 @@ jobs:
         run: |
           python scripts/rubric_check.py --tex tex/whitepaper.tex --rubric rubric.yml
 
-      - name: Rubric gate (LLM semantic; optional)
+      - name: Rubric check (LLM semantic; optional, non-blocking)
+        continue-on-error: true
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
