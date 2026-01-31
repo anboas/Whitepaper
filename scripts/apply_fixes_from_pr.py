@@ -5,18 +5,23 @@ Trigger model:
 - PR must be labeled `apply-fixes`.
 - User leaves one or more PR comments starting with `FIX:`.
 
+Target selection (multi-paper aware):
+- If exactly one file matching `papers/*/tex/paper.tex` is changed in the PR, that file is targeted.
+- Else if a PR comment begins with `TARGET: <path>`, that path is targeted.
+- Else fallback to legacy `tex/whitepaper.tex`.
+
 Behavior:
-- Runs an LLM to generate a unified diff patch LIMITED to tex/whitepaper.tex.
+- Runs an LLM to generate a unified diff patch LIMITED to the chosen target file.
 - Applies patch, commits to the PR branch, and pushes.
 
 Safety constraints:
-- Only edits tex/whitepaper.tex
-- Rejects patches touching other files
-- If patch fails to apply, exits non-zero so workflow can comment back
+- Only edits the chosen target file.
+- Rejects patches touching other files.
+- If patch fails to apply, exits non-zero.
 
 Requires:
 - OPENAI_API_KEY
-- GITHUB_TOKEN (for fetching comments)
+- GITHUB_TOKEN (for GitHub API)
 """
 
 from __future__ import annotations
@@ -45,21 +50,39 @@ def die(msg: str) -> int:
     return 2
 
 
-def strip_latex(text: str) -> str:
-    text = re.sub(r"%.*", "", text)
-    text = re.sub(r"\\(begin|end)\{[^}]+\}", " ", text)
-    text = re.sub(r"\\[a-zA-Z@]+\*?(\[[^\]]*\])?(\{[^}]*\})?", " ", text)
-    text = re.sub(r"\{[^{}]*\}", " ", text)
-    text = re.sub(r"\s+", " ", text)
-    return text.strip()
+def gh_get(url: str, token: str) -> requests.Response:
+    return requests.get(
+        url,
+        headers={"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json"},
+        timeout=30,
+    )
+
+
+def pick_model(api_key: str, requested: str = "auto") -> str:
+    req = (requested or "").strip().lower()
+    if req not in ("auto", "codex", ""):
+        return requested
+    try:
+        mr = requests.get("https://api.openai.com/v1/models", headers={"Authorization": f"Bearer {api_key}"}, timeout=30)
+        if mr.status_code >= 300:
+            return "gpt-5-codex"
+        ids = [m.get("id", "") for m in (mr.json().get("data") or []) if isinstance(m, dict)]
+        ids = [i for i in ids if i]
+        cand = [i for i in ids if "codex" in i.lower()]
+        if cand:
+            cand.sort(key=lambda x: ("preview" in x.lower(), len(x)))
+            return cand[0]
+    except Exception:
+        pass
+    return "gpt-5-codex"
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--repo", required=True, help="owner/repo")
     ap.add_argument("--pr", required=True, type=int)
-    ap.add_argument("--file", default="tex/whitepaper.tex")
     ap.add_argument("--model", default="auto")
+    ap.add_argument("--fallback", default="tex/whitepaper.tex")
     args = ap.parse_args()
 
     api_key = os.environ.get("OPENAI_API_KEY", "").strip()
@@ -72,59 +95,63 @@ def main() -> int:
     owner, repo = args.repo.split("/", 1)
 
     # Fetch PR comments
-    url = f"https://api.github.com/repos/{owner}/{repo}/issues/{args.pr}/comments"
-    r = requests.get(url, headers={"Authorization": f"Bearer {gh_token}", "Accept": "application/vnd.github+json"}, timeout=30)
-    if r.status_code >= 300:
-        return die(f"Failed to fetch comments: {r.status_code} {r.text[:500]}")
-    comments = r.json()
+    comments_url = f"https://api.github.com/repos/{owner}/{repo}/issues/{args.pr}/comments"
+    rc = gh_get(comments_url, gh_token)
+    if rc.status_code >= 300:
+        return die(f"Failed to fetch comments: {rc.status_code} {rc.text[:500]}")
+    comments = rc.json()
 
     fix_blocks: list[str] = []
+    target_override: str | None = None
     for c in comments:
         body = (c.get("body") or "").strip()
         if body.startswith("FIX:"):
             fix_blocks.append(body[len("FIX:"):].strip())
+        if body.startswith("TARGET:"):
+            target_override = body[len("TARGET:"):].strip()
 
     if not fix_blocks:
         print("No FIX: comments found; nothing to do.")
         return 0
 
-    target = Path(args.file)
+    # Determine target file from PR changed files
+    files_url = f"https://api.github.com/repos/{owner}/{repo}/pulls/{args.pr}/files?per_page=100"
+    rf = gh_get(files_url, gh_token)
+    if rf.status_code >= 300:
+        return die(f"Failed to fetch PR files: {rf.status_code} {rf.text[:500]}")
+    pr_files = rf.json()
+
+    paper_tex_changes = []
+    for f in pr_files:
+        fn = f.get("filename") or ""
+        if re.match(r"^papers/[^/]+/tex/paper\.tex$", fn):
+            paper_tex_changes.append(fn)
+
+    if target_override:
+        target_path = target_override
+    elif len(set(paper_tex_changes)) == 1:
+        target_path = paper_tex_changes[0]
+    else:
+        target_path = args.fallback
+
+    target = Path(target_path)
     if not target.exists():
-        return die(f"Target file not found: {target}")
+        return die(f"Target file not found in checkout: {target}")
 
     original = target.read_text(encoding="utf-8", errors="ignore")
 
-    def pick_model() -> str:
-        req = (args.model or "").strip().lower()
-        if req not in ("auto", "codex", ""):
-            return args.model
-        try:
-            mr = requests.get("https://api.openai.com/v1/models", headers={"Authorization": f"Bearer {api_key}"}, timeout=30)
-            if mr.status_code >= 300:
-                return "gpt-5-codex"
-            ids = [m.get("id", "") for m in (mr.json().get("data") or []) if isinstance(m, dict)]
-            ids = [i for i in ids if i]
-            # prefer codex
-            cand = [i for i in ids if "codex" in i.lower()]
-            if cand:
-                cand.sort(key=lambda x: ("preview" in x.lower(), len(x)))
-                return cand[0]
-        except Exception:
-            pass
-        return "gpt-5-codex"
-
-    model = pick_model()
+    model = pick_model(api_key, args.model)
 
     instruction = {
         "task": "Apply requested edits to the LaTeX whitepaper file.",
         "constraints": [
             "Return ONLY a unified diff patch.",
-            "The diff MUST modify ONLY tex/whitepaper.tex.",
+            f"The diff MUST modify ONLY {target_path}.",
             "Do not add new files.",
             "Keep LaTeX compiling (do not break braces/commands).",
         ],
         "requested_fixes": fix_blocks,
-        "file_path": str(target),
+        "file_path": target_path,
         "file_contents": original,
     }
 
@@ -140,7 +167,7 @@ def main() -> int:
         "https://api.openai.com/v1/responses",
         headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
         json=payload,
-        timeout=120,
+        timeout=180,
     )
     if rr.status_code >= 300:
         return die(f"OpenAI error: {rr.status_code} {rr.text[:1000]}")
@@ -170,21 +197,19 @@ def main() -> int:
     if files != {str(target)}:
         return die(f"Unsafe patch touches files: {sorted(files)}")
 
-    # Apply
     proc = subprocess.run(["git", "apply", "--whitespace=fix"], input=patch, text=True)
     if proc.returncode != 0:
         return die("git apply failed")
 
-    # Commit
     git("add", str(target))
     if git("status", "--porcelain") == "":
         print("Patch applied but no changes detected")
         return 0
 
-    git("commit", "-m", "Apply PR FIX comments")
+    git("commit", "-m", f"Apply PR FIX comments ({target_path})")
     git("push")
 
-    print("Applied fixes and pushed.")
+    print(f"Applied fixes and pushed to {target_path}.")
     return 0
 
 
