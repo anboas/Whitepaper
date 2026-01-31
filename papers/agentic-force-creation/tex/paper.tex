@@ -51,7 +51,20 @@
 \newpage
 
 \begin{execsummary}
-This white paper addresses a critical oversight in the Department of Defense (DoD)\textquotesingle s approach to AI adoption: the failure to fully recognize and prepare for the transition from force multiplication---where AI serves as an efficiency-enhancing assistant---to force creation, where autonomous, intent-driven agents operate independently, scaling through compute rather than human resources. Drawing on recent DoD strategies, industry insights, and academic research, it examines the core elements of this shift, including intent-driven development, context engineering, and the evolving trust scopes for reliable autonomy in high-stakes military domains. A key alignment is explored in the paradigm change from "build vs. buy" decisions to "write specs," where humans specify intents and agents autonomously generate solutions. New sections define a Trust Scope Framework, Agent Control Plane, policy partitioning, acquisition guidance, adversarial threat models, and a 12-24 month roadmap aligned to DoD AI Strategy Priority Strategic Projects (PSPs). Current developments and case studies illustrate early progress but highlight gaps in embracing full autonomy. Strategic posturing guidance is provided to help personnel adapt, emphasizing upstream value creation. Policy recommendations urge accelerated governance, trust-building measures, and investments to avoid being outpaced by adversaries. A glossary and workforce appendix enhance auditability and implementation.
+\textbf{The shift:} The DoD is adopting AI as a \emph{force multiplier} (assistants) while the strategic inflection is \emph{force creation}: autonomous, intent-driven agents that execute mission threads within bounded authority and scale with compute.
+
+\textbf{Why it matters:} In contested environments, decision tempo and execution density will exceed human relevance windows. If the DoD cannot field autonomy with verifiable trust scopes at tempo, adversaries will.
+
+\textbf{What to do Monday (concrete actions):}
+\begin{enumerate}
+  \item \textbf{Require a Trust Scope Manifest for every agent deployment} (Authority, Consequence, Environment, Uncertainty Tolerance) with explicit escalation triggers and measurable acceptance thresholds.
+  \item \textbf{Stand up an Agent Control Plane MVP} that enforces identity/ABAC, tool mediation (allowlists + budgets), policy-as-code guardrails, immutable logs, and a kill switch.
+  \item \textbf{Change acquisition outputs:} make \emph{spec-as-deliverable} and \emph{eval-as-deliverable} mandatory (intent spec, trust scope, evaluation harness, transparency artifacts).
+  \item \textbf{Run two pilots in 60 days} (Category A enterprise + Category B intel) and measure: agent-hours/day, exception rate, context freshness SLA, and MTTR under deception.
+  \item \textbf{Scale only after regression gates pass:} treat evals as blocking checks, not documentation.
+\end{enumerate}
+
+\textbf{This paper provides:} a Trust Scope Framework, an Agent Control Plane blueprint, a partitioning model (enterprise → weapon autonomy), an adversarial threat model, and a 12--24 month roadmap aligned to DoD AI Strategy PSPs.
 \end{execsummary}
 
 \section{Introduction: The Overlooked Transition in DoD AI Adoption}\label{introduction-the-overlooked-transition-in-dod-ai-adoption}
