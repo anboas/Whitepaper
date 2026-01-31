@@ -73,6 +73,26 @@ As detailed in recent analyses, AI tools like Bolt, Replit, and Cursor are empow
 
 However, this shift amplifies trust challenges: Specs must embed ethical and security constraints to prevent misalignment, as warned in "Agentic AI in Military Applications"[10]. Without robust context engineering, agents risk "context rot," leading to unreliable outputs in contested environments. The DoD must integrate this paradigm to fully realize force creation, ensuring trust scopes evolve from supervised assistance to verifiable autonomy.
 
+
+\section{Baseline Contrast: Force Multiplication vs. Force Creation}\label{baseline-contrast}
+
+To neutralize the common objection (\emph{“we already do this with copilots”}), this section makes the ceiling explicit.
+
+\begin{center}
+\begin{tabular}{p{0.28\textwidth}p{0.33\textwidth}p{0.33\textwidth}}
+\textbf{Dimension} & \textbf{Force Multiplication (Assistants)} & \textbf{Force Creation (Agents)}\\\hline
+Primary unit of output & Human-hours amplified & Agent-hours executed within trust scopes\\
+Bottleneck & Human attention / approvals & Compute + authority + context freshness\\
+Control surface & Prompting / UI workflows & Control plane: policy-as-code, tool mediation, audit, budgets\\
+Failure shape & Wrong answer / bad suggestion & Wrong action at machine speed\\
+Governance need & Review + training & Trust scopes + regression gates + kill switch + immutable logs\\
+Tempo limit & Approval latency dominates & Execution density dominates (bounded by policy)\\
+\end{tabular}
+\end{center}
+
+The implication is not that assistants are useless; it is that they do not remove the limiting factor when tempo and action density exceed human relevance windows.
+
+
 \section{Trust Scope Framework: Defining and Operationalizing Trust in Agentic Systems}\label{trust-scope-framework-defining-and-operationalizing-trust-in-agentic-systems}
 
 Trust scope decomposes into four parameters. Each parameter is measurable and testable, allowing for iterative refinement based on real-world performance data.
@@ -180,6 +200,19 @@ To clarify governance, partition agentic systems into categories with tailored t
 
 This partitioning removes ambiguity and prevents dismissal of force creation as ungoverned.
 
+
+\section{Explicit Ethical Red Lines}\label{ethical-red-lines}
+
+Force creation increases operational tempo, but it does not repeal moral responsibility. Even if systems become technically capable, certain decisions must remain human-only by policy, regardless of measured performance. At minimum:
+\begin{itemize}
+\item \textbf{Use-of-force authorization remains human judgment} (consistent with DoD Directive 3000.09).
+\item \textbf{Cross-domain release decisions remain human-owned} when errors imply irrecoverable compromise.
+\item \textbf{Policy changes that expand delegated authority} must require explicit approval and re-certification.
+\end{itemize}
+
+These red lines are not anti-autonomy; they are the boundary conditions that make autonomy fieldable without strategic self-harm.
+
+
 \section{Adversarial Threat Model: Security Considerations for Agentic Systems}\label{adversarial-threat-model-security-considerations-for-agentic-systems}
 
 Trust in agentics extends beyond reliability to security against adversarial threats. Key failure modes include:
@@ -200,6 +233,23 @@ Trust in agentics extends beyond reliability to security against adversarial thr
 \end{itemize}
 
 Tie this to programs like DARPA\textquotesingle s AI Cyber Challenge, which develops autonomous systems for vulnerability identification and patching, as described in Congressional Research Service reports (CRS, 2026). Robust control planes mitigate these, ensuring trust in contested environments.
+
+
+\section{Failure Chain: Autonomy Jamming via Escalation Overload}\label{failure-chain-autonomy-jamming}
+
+A plausible catastrophic failure mode is not a single hallucination, but a system-level overload that defeats human governance.
+
+\textbf{Chain:}
+\begin{enumerate}
+\item The control plane correctly enforces escalation triggers (confidence below threshold, conflicting sources, prompt injection suspected).
+\item An adversary induces ambiguity at scale (semantic poisoning, noisy telemetry, decoy artifacts), intentionally maximizing trigger activation.
+\item Escalations spike from \emph{exceptions} to \emph{the dominant workload}. Human reviewers become the bottleneck again, but now under higher tempo.
+\item Humans degrade psychologically under alert fatigue and time pressure: rubber-stamping, inconsistent decisions, and delayed response.
+\item The system either stalls (loss of tempo) or adapts by relaxing gates (loss of control). Both outcomes are mission failure.
+\end{enumerate}
+
+The design implication is that \emph{escalation rate management} must be treated as a first-class control-plane objective, with explicit budgets, prioritization, and graceful degradation modes.
+
 
 \section{Acquisition/Contracting: "Spec as Deliverable" + "Eval as Deliverable"}\label{acquisitioncontracting-spec-as-deliverable--eval-as-deliverable}
 
@@ -229,6 +279,22 @@ By 2030, conflict advantage will increasingly be determined by decision tempo, c
 Human relevance windows are thresholds where human intervention remains viable: speed threshold (loop tempo), complexity threshold (option space), and contestation threshold (deception + uncertainty). In domains where the adversary can induce state changes faster than humans can observe-orient-decide, humans cannot remain in the critical loop. Humans must govern the loop, not execute it. This ties directly to trust scopes: Category A/B agents handle exceptions with humans on standby; Category C requires humans on high-consequence gating; Category D mandates humans on use-of-force judgment per policy.
 
 \begin{quote}\emph{“Humans govern the loop; machines execute it.”}\end{quote}
+
+
+\section{Human Failure Modes (in a World of Specs and Trust Scopes)}\label{human-failure-modes}
+
+Force creation does not eliminate human error; it moves it upstream into specification, delegation, and governance.
+
+\begin{itemize}
+\item \textbf{Spec errors}: ambiguous intents, missing constraints, or success metrics that reward the wrong behavior.
+\item \textbf{Mis-set trust scopes}: authority too broad, consequence misclassified, or uncertainty tolerance miscalibrated.
+\item \textbf{Overconfidence in evals}: passing regression gates that do not reflect contested conditions (Goodhart’s Law).
+\item \textbf{Cultural lag}: humans refuse to delegate even when policy allows it, then blame autonomy for tempo loss.
+\item \textbf{Governance drift}: emergency exceptions become the new normal without re-certification.
+\end{itemize}
+
+A mature autonomy program must measure these failure modes explicitly and treat them as correctable operational risks.
+
 
 \section{Agent-on-Agent Conflict}\label{agent-on-agent-conflict}
 
@@ -293,6 +359,20 @@ To avoid paralysis, accept the collapsing paradigms: implementation as a moat, k
 \end{itemize}
 
 Emotionally, treat this as a phase change producing grief---adapt by rejecting obsolete identities. In DoD contexts, this means reskilling for agent management and spec-writing, per "Reskilling the U.S. Military Workforce for the Agentic AI Era" (ERIC, 2025, eric.ed.gov/fulltext/ED654321).
+
+
+\section{Economics: When Output Scales with Compute}\label{economics}
+
+DoD planning and acquisition assumptions are historically labor-shaped: billets, staffing models, and program timelines presume output scales roughly linearly with people. Force creation breaks that assumption.
+
+\begin{itemize}
+\item \textbf{Output elasticity}: once trust scopes and control planes are in place, doubling compute can more than double agent-hours/day.
+\item \textbf{Acquisition mismatch}: buying “software” is insufficient; the durable deliverable becomes specs, eval harnesses, and governance artifacts.
+\item \textbf{Workforce implications}: rank/billet models tied to headcount will misestimate capacity and risk unless they account for agent throughput and exception rates.
+\end{itemize}
+
+This is not an argument to reduce humans; it is an argument to redesign what humans do: judgment, delegation, and assurance become the scarce inputs.
+
 
 \section{12-24 Month Roadmap: Aligned to DoD AI Strategy PSPs}\label{12-24-month-roadmap-aligned-to-dod-ai-strategy-psps}
 
