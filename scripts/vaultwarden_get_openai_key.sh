@@ -38,6 +38,7 @@ if [[ -z "$BW_PASSWORD" ]]; then
 fi
 
 SEARCH=${VAULT_OPENAI_SEARCH:-OPENAI_API_KEY}
+FALLBACK_FILE=/home/anboas/.secrets/openai_api_key
 
 # Allow self-signed certs if requested (Vaultwarden local TLS).
 # WARNING: only safe for localhost / trusted LAN.
@@ -62,18 +63,30 @@ fi
 export BW_SESSION
 bw sync >/dev/null || true
 
-items_json=$(bw list items --search "$SEARCH" --session "$BW_SESSION")
-# Choose first match
-item=$(python3 - <<'PY'
+pick_first() {
+  python3 - <<'PY'
 import json,sys
 items=json.loads(sys.stdin.read() or '[]')
 if not items:
     raise SystemExit(1)
 print(json.dumps(items[0]))
 PY
-<<< "$items_json" || true)
+}
+
+item=""
+for term in "$SEARCH" "openai" "OpenAI" "OpenAI API" "api key"; do
+  items_json=$(bw list items --search "$term" --session "$BW_SESSION" 2>/dev/null || echo '[]')
+  item=$(echo "$items_json" | pick_first 2>/dev/null || true)
+  if [[ -n "$item" ]]; then
+    break
+  fi
+done
 
 if [[ -z "$item" ]]; then
+  if [[ -f "$FALLBACK_FILE" ]] && [[ -s "$FALLBACK_FILE" ]]; then
+    cat "$FALLBACK_FILE"
+    exit 0
+  fi
   echo "No vault items found for search: $SEARCH" >&2
   exit 4
 fi
