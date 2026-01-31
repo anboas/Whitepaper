@@ -63,7 +63,7 @@ def main() -> int:
         print("LLM rubric: SKIP (checks.llm_semantic not configured)")
         return 0
 
-    model = llm_cfg.get("model", "gpt-4o-mini")
+    requested_model = llm_cfg.get("model", "gpt-4o-mini")
     min_overall = float(llm_cfg.get("min_overall", 0.75))
     categories = llm_cfg.get(
         "categories",
@@ -117,6 +117,46 @@ def main() -> int:
         ],
         "json_schema": schema,
     }
+
+    def pick_model() -> str:
+        # Allow CI to auto-select a Codex-ish model without hardcoding an ID.
+        # We never print the full model list.
+        req = (requested_model or "").strip().lower()
+        if req not in ("auto", "codex", "", None):
+            return requested_model
+
+        try:
+            mr = requests.get(
+                "https://api.openai.com/v1/models",
+                headers={"Authorization": f"Bearer {api_key}"},
+                timeout=30,
+            )
+            if mr.status_code >= 300:
+                return "gpt-4o-mini"
+            data = mr.json()
+            ids = [m.get("id", "") for m in (data.get("data") or []) if isinstance(m, dict)]
+            ids = [i for i in ids if i]
+
+            # Prefer anything that looks like codex; then gpt-5/4o; then fallback.
+            prefer = [
+                lambda s: "codex" in s,
+                lambda s: "gpt-5" in s,
+                lambda s: "gpt-4o" in s,
+                lambda s: "gpt-4.1" in s,
+                lambda s: "gpt-4" in s,
+            ]
+            for rule in prefer:
+                cand = [i for i in ids if rule(i.lower())]
+                if cand:
+                    # pick shortest id (often canonical) to avoid preview variants unless that's all we have
+                    cand.sort(key=lambda x: ("preview" in x.lower(), len(x)))
+                    return cand[0]
+        except Exception:
+            pass
+
+        return "gpt-4o-mini"
+
+    model = pick_model()
 
     # OpenAI Responses API
     payload = {

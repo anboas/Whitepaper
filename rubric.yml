@@ -78,7 +78,8 @@ checks:
   # Enabled in CI only when OPENAI_API_KEY secret is present.
   llm_semantic:
     # Note: this check is enforced by scripts/llm_rubric_check.py (separate from deterministic score).
-    model: gpt-4o-mini
+    # Set to "auto" to select a Codex-capable model if available to your key, else fallback.
+    model: auto
     min_overall: 0.75
     min_per_category: 0.60
     categories:
