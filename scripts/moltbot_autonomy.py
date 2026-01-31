@@ -7,12 +7,13 @@ Principles
 
 This script is designed to be run periodically (cron) on the operator machine.
 
-Current behavior (v1)
+Current behavior
 - Scans open PRs.
 - For PRs touching exactly one paper (papers/<id>/...), it will:
   - Read PR body for fenced code blocks / FIX: lines as explicit requests.
-  - If the PR includes a requirements file describing insertions, it may apply deterministic edits.
-  - If a new paper has INTENT.md but no tex/paper.tex, it will generate an initial draft via OpenAI.
+  - Generate tex/paper.tex if missing.
+  - Apply explicit PR-body requests by producing a unified diff patch that ONLY edits tex/paper.tex.
+  - Auto-merge when checks are green + PR is mergeable.
 
 Safety
 - Only modifies files under papers/<paper-id>/tex/paper.tex (and creates it if missing).
@@ -20,7 +21,7 @@ Safety
 
 Env
 - Requires `gh` authenticated locally.
-- Requires OPENAI_API_KEY for generation.
+- Requires OPENAI_API_KEY for generation/patching.
 
 Usage
   python scripts/moltbot_autonomy.py --repo anboas/Whitepaper
@@ -46,8 +47,8 @@ def sh(*cmd: str) -> str:
     return subprocess.check_output(list(cmd), text=True).strip()
 
 
-def run(cmd: list[str], check: bool = False) -> tuple[int, str]:
-    p = subprocess.run(cmd, text=True, capture_output=True)
+def run(cmd: list[str], check: bool = False, input_text: str | None = None) -> tuple[int, str]:
+    p = subprocess.run(cmd, text=True, capture_output=True, input=input_text)
     out = (p.stdout or "") + ("\n" if p.stderr else "") + (p.stderr or "")
     if check and p.returncode != 0:
         raise RuntimeError(out)
@@ -71,6 +72,19 @@ def openai_model(api_key: str) -> str:
     except Exception:
         pass
     return "gpt-5-codex"
+
+
+def openai_response_text(rr_json: dict) -> str:
+    out_text = None
+    for item in rr_json.get("output", []):
+        if item.get("type") == "message":
+            for c in item.get("content", []):
+                if c.get("type") == "output_text":
+                    out_text = c.get("text")
+                    break
+    if not out_text:
+        raise RuntimeError("No output_text from OpenAI")
+    return out_text.strip()
 
 
 def openai_generate_latex(api_key: str, model: str, intent_md: str, requirements_md: str) -> str:
@@ -102,24 +116,66 @@ def openai_generate_latex(api_key: str, model: str, intent_md: str, requirements
     )
     rr.raise_for_status()
 
-    data = rr.json()
-    out_text = None
-    for item in data.get("output", []):
-        if item.get("type") == "message":
-            for c in item.get("content", []):
-                if c.get("type") == "output_text":
-                    out_text = c.get("text")
-                    break
-    if not out_text:
-        raise RuntimeError("No output_text from OpenAI")
-
-    tex = out_text.strip()
+    tex = openai_response_text(rr.json())
     if not tex.startswith("\\documentclass"):
-        # best-effort strip any accidental wrappers
         m = re.search(r"(\\documentclass\[.*?\].*|\\documentclass\{.*?\}.*)", tex, re.S)
         if m:
             tex = tex[m.start():].strip()
     return tex
+
+
+def openai_patch_tex(api_key: str, model: str, target_path: str, intent_md: str, requirements_md: str, requested: list[str], tex: str) -> str:
+    instruction = {
+        "task": "Apply the requested changes to the LaTeX paper.",
+        "constraints": [
+            "Return ONLY a unified diff (git-style).",
+            f"The diff MUST modify ONLY {target_path}.",
+            "Do not add new files.",
+            "Do not remove content unless explicitly requested.",
+            "Keep LaTeX compiling (balanced braces, valid commands).",
+        ],
+        "intent_md": intent_md,
+        "requirements_md": requirements_md,
+        "requested_changes": requested,
+        "file_path": target_path,
+        "file_contents": tex,
+    }
+
+    payload = {
+        "model": model,
+        "input": [
+            {"role": "system", "content": "You are a meticulous LaTeX editor. Output only a unified diff."},
+            {"role": "user", "content": json.dumps(instruction)},
+        ],
+    }
+
+    rr = requests.post(
+        "https://api.openai.com/v1/responses",
+        headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+        json=payload,
+        timeout=300,
+    )
+    rr.raise_for_status()
+    patch = openai_response_text(rr.json())
+    return patch
+
+
+def safe_apply_patch(patch: str, only_path: str) -> None:
+    if not patch.startswith("diff --git"):
+        raise RuntimeError("Model did not return a git-style unified diff")
+
+    touched = re.findall(r"^diff --git a/(.+?) b/(.+?)$", patch, flags=re.MULTILINE)
+    files = set()
+    for a, b in touched:
+        files.add(a)
+        files.add(b)
+    files = {f for f in files if f != "dev/null"}
+    if files != {only_path}:
+        raise RuntimeError(f"Unsafe patch touches files: {sorted(files)}")
+
+    code, out = run(["git", "apply", "--whitespace=fix"], check=False, input_text=patch)
+    if code != 0:
+        raise RuntimeError("git apply failed:\n" + out)
 
 
 def extract_requests(pr_body: str) -> list[str]:
@@ -146,7 +202,19 @@ class PR:
 
 
 def list_open_prs(repo: str) -> list[PR]:
-    raw = sh("gh", "pr", "list", "--repo", repo, "--state", "open", "--limit", "50", "--json", "number,headRefName,baseRefName,title,body")
+    raw = sh(
+        "gh",
+        "pr",
+        "list",
+        "--repo",
+        repo,
+        "--state",
+        "open",
+        "--limit",
+        "50",
+        "--json",
+        "number,headRefName,baseRefName,title,body",
+    )
     data = json.loads(raw)
     prs: list[PR] = []
     for it in data:
@@ -179,8 +247,7 @@ def detect_single_paper(filenames: list[str]) -> str | None:
     return None
 
 
-def checkout_pr_branch(repo: str, pr: PR) -> None:
-    # Fetch branch and check out locally.
+def checkout_pr_branch(pr: PR) -> None:
     run(["git", "fetch", "origin", f"{pr.head_ref}:{pr.head_ref}"], check=False)
     run(["git", "checkout", pr.head_ref], check=True)
     run(["git", "pull", "--ff-only", "origin", pr.head_ref], check=False)
@@ -222,8 +289,29 @@ def ensure_generated_paper(paper_dir: Path, api_key: str) -> bool:
     return True
 
 
+def apply_requested_changes(paper_dir: Path, api_key: str, requested: list[str]) -> bool:
+    """Apply requested changes to tex/paper.tex via OpenAI patch. Returns True if modified."""
+    if not requested:
+        return False
+
+    tex_path = paper_dir / "tex" / "paper.tex"
+    if not tex_path.exists():
+        return False
+
+    intent = (paper_dir / "INTENT.md").read_text(encoding="utf-8", errors="ignore") if (paper_dir / "INTENT.md").exists() else ""
+    reqs = read_requirements(paper_dir)
+    model = openai_model(api_key)
+
+    target_path = str(tex_path.as_posix())
+    tex = tex_path.read_text(encoding="utf-8", errors="ignore")
+
+    patch = openai_patch_tex(api_key, model, target_path, intent, reqs, requested, tex)
+    safe_apply_patch(patch, target_path)
+    return True
+
+
 def commit_if_dirty(msg: str) -> bool:
-    code, out = run(["git", "status", "--porcelain"], check=True)
+    _, out = run(["git", "status", "--porcelain"], check=True)
     if not out.strip():
         return False
     run(["git", "add", "-A"], check=True)
@@ -307,7 +395,7 @@ def main() -> int:
     log_dir.mkdir(parents=True, exist_ok=True)
     log_path = log_dir / "runs.jsonl"
 
-    run_summary = {"ts": now_ms(), "repo": args.repo, "prs": []}
+    run_summary: dict[str, Any] = {"ts": now_ms(), "repo": args.repo, "prs": []}
 
     prs = list_open_prs(args.repo)
     for pr in prs:
@@ -318,7 +406,7 @@ def main() -> int:
 
         paper_dir = repo_root / paper
         cfg = load_autopilot_cfg(paper_dir)
-        autonomous = bool(((cfg.get("mode") or {}).get("autonomous")) )
+        autonomous = bool(((cfg.get("mode") or {}).get("autonomous")))
         requested = extract_requests(pr.body)
 
         # Trigger condition: AUTOPILOT.yml says autonomous OR PR body includes explicit request blocks.
@@ -327,19 +415,21 @@ def main() -> int:
 
         pr_rec: dict[str, Any] = {"number": pr.number, "paper": paper, "actions": []}
 
-        # Safety: we only auto-generate if API key is available.
         if api_key:
-            checkout_pr_branch(args.repo, pr)
+            checkout_pr_branch(pr)
 
             changed = ensure_generated_paper(paper_dir, api_key)
             if changed:
                 pr_rec["actions"].append("generated tex/paper.tex")
 
-            if commit_if_dirty(f"Moltbot: generate/update {paper}"):
-                push_branch(pr.head_ref)
-                pr_rec["actions"].append("pushed commits")
+            if requested:
+                if apply_requested_changes(paper_dir, api_key, requested):
+                    pr_rec["actions"].append("applied_requests")
 
-            # Auto-merge by default if checks are green.
+            if commit_if_dirty(f"Moltbot: update {paper}"):
+                push_branch(pr.head_ref)
+                pr_rec["actions"].append("pushed_commits")
+
             ok, reason = pr_checks_green(args.repo, pr.number)
             pr_rec["checks"] = {"ok": ok, "reason": reason}
             if ok:
