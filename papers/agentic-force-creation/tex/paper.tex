@@ -48,137 +48,357 @@
 \newpage
 
 \begin{execsummary}
-This white paper argues that the Department of Defense is framing AI primarily as \emph{force multiplication} (assistants and efficiency tools) while the strategic inflection point is \emph{force creation}: autonomous, intent-driven agents that execute mission threads within bounded authority and scale primarily with compute.
-
-It proposes a practical Trust Scope Framework (Authority, Consequence, Environment, Uncertainty Tolerance) and an Agent Control Plane that makes autonomy governable: identity/ABAC, tool mediation, policy-as-code guardrails, immutable logs, continuous evaluation, and kill switches.
-
-The policy implication is operational: if the DoD cannot field autonomy with verifiable trust scopes at tempo, adversaries will. The paper provides an adversarial threat model, acquisition guidance (spec-as-deliverable + eval-as-deliverable), and a 12--24 month roadmap aligned to DoD strategic projects.
+This white paper addresses a critical oversight in the Department of Defense (DoD)\textquotesingle s approach to AI adoption: the failure to fully recognize and prepare for the transition from force multiplication---where AI serves as an efficiency-enhancing assistant---to force creation, where autonomous, intent-driven agents operate independently, scaling through compute rather than human resources. Drawing on recent DoD strategies, industry insights, and academic research, it examines the core elements of this shift, including intent-driven development, context engineering, and the evolving trust scopes for reliable autonomy in high-stakes military domains. A key alignment is explored in the paradigm change from "build vs. buy" decisions to "write specs," where humans specify intents and agents autonomously generate solutions. New sections define a Trust Scope Framework, Agent Control Plane, policy partitioning, acquisition guidance, adversarial threat models, and a 12-24 month roadmap aligned to DoD AI Strategy Priority Strategic Projects (PSPs). Current developments and case studies illustrate early progress but highlight gaps in embracing full autonomy. Strategic posturing guidance is provided to help personnel adapt, emphasizing upstream value creation. Policy recommendations urge accelerated governance, trust-building measures, and investments to avoid being outpaced by adversaries. A glossary and workforce appendix enhance auditability and implementation.
 \end{execsummary}
 
-\section{Introduction}
-The DoD is adopting AI, but much of that adoption is anchored in a limited frame: AI as a supervised assistant. That frame captures near-term productivity gains, but it under-prepares the institution for the next regime, where autonomy is the only way to operate inside human relevance windows.
+\section{Introduction: The Overlooked Transition in DoD AI Adoption}\label{introduction-the-overlooked-transition-in-dod-ai-adoption}}
 
-Force creation is not ``bigger copilots.'' It is intent-driven systems that can plan, call tools, and execute actions toward goals with bounded authority.
+The Department of Defense stands at a pivotal juncture in AI integration, yet there persists a disconnect between current perceptions and the impending reality. As evidenced by statements from senior leaders, such as the Army CIO\textquotesingle s view of AI as merely a "good assistant," much of the DoD remains anchored in the force multiplication phase---where AI amplifies human efficiency in tasks like software development lifecycle (SDLC) processes, code generation, and analysis. This phase is valuable but limited, treating AI as a tool bound by human oversight and scale.
 
-\section{Paradigm Shift: From ``Build vs Buy'' to ``Write Specs''}
-As agentic systems mature, the binding constraint in system creation moves from implementation capacity to specification quality. Humans increasingly provide \emph{intents} and \emph{constraints}; agents generate solutions, test them, and iterate.
+In contrast, the horizon reveals force creation: autonomous agents driven by high-level intents, decoupling operational scale from human limitations and leveraging silicon and compute for exponential growth. In this paper, an `agent' is a software system that can plan, call tools, and execute actions toward a goal with bounded authority.
 
-In defense contexts, this means shifting investment from manual delivery toward context engineering, evaluation harnesses, and governance layers that keep agent execution inside authorized trust scopes.
+This shift is not speculative. Industry leaders like Anthropic CEO Dario Amodei have observed: "I have engineers within Anthropic who say I don\textquotesingle t write any code anymore. I just let the model write the code, I edit it," projecting AI handling most or all coding end-to-end within 6-12 months[1]. OpenAI CEO Sam Altman echoes: "We believe that, in 2025, we may see the first AI agents \textquotesingle join the workforce\textquotesingle{} and materially change the output of companies"[2]. In a recent update, Altman further emphasized the democratizing power of this technology: ``By the end of this year, for \(100–\)1000 of inference and a good idea, you\textquotesingle ll be able to create a company that could have been a unicorn 10 years ago''[3]. Elon Musk, CEO of xAI and Tesla, warns of the competitive edge: ``Companies that are entirely AI will demolish companies that are not''[4], underscoring that AI-native entities will operate at speeds and scales unattainable by legacy systems, making adaptation non-optional. The DoD\textquotesingle s own "Artificial Intelligence Strategy" (released January 9, 2026) acknowledges this momentum, calling for an "AI-first" warfighting force and initiatives like the "Agent Network" for AI-enabled battle management[5]. Yet, the strategy\textquotesingle s emphasis on experimentation and decision support risks underplaying the full autonomy required for force creation, potentially leaving the DoD vulnerable.
 
-\section{Trust Scope Framework}
-Trust scope decomposes into four parameters. Each parameter should be measurable and testable:
+Central to this transition is the trust scope of agentics and autonomy: How much can we rely on these systems in classified, high-risk environments? Trust encompasses reliability, ethical alignment, verifiability, and risk tolerance. The DoD strategy prioritizes "model objectivity" and accepts "risks of not moving fast enough outweigh the risks of imperfect alignment," but lacks detailed frameworks for trust in fully autonomous operations[5]. This white paper explores these elements to urge a more proactive stance, with a focus on intent-driven development and context engineering as foundational to force creation.
+
+\section{Reality Check: Why Agents Didn't `Join the Workforce' in 2025}\label{reality-check-why-agents-didnt-join-the-workforce-in-2025}}
+
+Optimistic forecasts from leaders like Altman and Amodei suggested 2025 would see AI agents transforming workflows, yet this did not fully materialize. As Cal Newport reflected in his January 2026 essay, "Why Didn\textquotesingle t AI \textquotesingle Join the Workforce\textquotesingle{} in 2025?", agents struggled with reliability outside constrained environments, often failing in dynamic, real-world settings due to issues like context drift and unpredictable interactions[6]. Similarly, The New Yorker\textquotesingle s 2025-in-review piece noted that agents excelled in text-based terminals but faltered in broader applications, labeling 2025 as the start of a "decade of the agent" rather than an immediate revolution[7]. This reframes force creation as an engineering and governance challenge, not mere hype---underscoring the need for robust trust scopes and control planes to enable scalable autonomy in defense contexts.
+
+\section{The Paradigm Shift: From "Build vs. Buy" to "Write Specs" in Intent-Driven Development}\label{the-paradigm-shift-from-build-vs-buy-to-write-specs-in-intent-driven-development}}
+
+A profound realignment in software and system creation underscores the move to force creation: the traditional "build vs. buy" dilemma is evolving into "write specs," where humans provide high-level specifications (intents), and autonomous agents generate, test, and deploy solutions. This aligns directly with intent-driven development---specifying goals like "Secure this network against peer threats"---and context engineering, the process of curating environmental data, constraints, and real-time feeds to ensure agents adapt without drift.
+
+As detailed in recent analyses, AI tools like Bolt, Replit, and Cursor are empowering "AI-native" development, upending the build-vs-buy debate by enabling rapid generation from specs[8]. VentureBeat reports that "build vs buy is dead---AI just killed it," shifting focus from core business construction to precise intent articulation[9]. In defense contexts, this means DoD teams move from manual coding or procuring off-the-shelf tools to engineering contexts that guide agents in creating bespoke, secure systems. For instance, agents could autonomously assemble cyber defenses from specs, scaling via compute while humans verify trust scopes.
+
+However, this shift amplifies trust challenges: Specs must embed ethical and security constraints to prevent misalignment, as warned in "Agentic AI in Military Applications"[10]. Without robust context engineering, agents risk "context rot," leading to unreliable outputs in contested environments. The DoD must integrate this paradigm to fully realize force creation, ensuring trust scopes evolve from supervised assistance to verifiable autonomy.
+
+\section{Trust Scope Framework: Defining and Operationalizing Trust in Agentic Systems}\label{trust-scope-framework-defining-and-operationalizing-trust-in-agentic-systems}}
+
+Trust scope decomposes into four parameters. Each parameter is measurable and testable, allowing for iterative refinement based on real-world performance data.
+
 \begin{itemize}
-  \item \textbf{Authority:} what the agent is allowed to do.
-  \item \textbf{Consequence:} the impact class of mistakes.
-  \item \textbf{Environment:} classification/connectivity/contestation conditions.
-  \item \textbf{Uncertainty tolerance:} confidence thresholds and escalation triggers.
+\item
+  \textbf{Authority}: Defines the delegated powers of the agent, including allowed and prohibited actions. In a DoD cyber defense scenario, authority might permit an agent to "draft and recommend patches" but prohibit "direct execution on live systems" without escalation. Auditable metric: Action compliance rate \textgreater{} 99\%, tracked via immutable logs.
+\item
+  \textbf{Consequence}: Assesses the potential impact of agent decisions, categorized as low (e.g., administrative tasks), moderate (e.g., intelligence fusion), high (e.g., operational planning), or life-safety (e.g., weapon systems). Higher levels require stricter human authority gates. Example: For Category D (weapon autonomy), consequence is always "life-safety," mandating DoD Directive 3000.09 compliance. Auditable metric: Consequence level alignment with mission risk assessments, reviewed quarterly.
+\item
+  \textbf{Environment}: Specifies operational conditions, such as classification levels (UNCLAS to TS) and connectivity (online, intermittent, offline). In contested battlespaces, offline modes demand fallback to pre-engineered contexts. Auditable metric: Environment adaptability test pass rate \textgreater{} 95\%, simulated in red-team exercises.
+\item
+  \textbf{Uncertainty Tolerance}: Sets thresholds for agent confidence and escalation, e.g., triggering human review if confidence drops below 0.85 or conflicting data is detected. This integrates with context engineering to handle "silent drift." Auditable metric: Escalation trigger activation rate \textless{} 5\% false positives, with post-incident reviews.
 \end{itemize}
 
-\begin{keytakeaway}
-\textbf{Key takeaway:} Trust is not a vibe. It is a scope with measurable gates.
-\end{keytakeaway}
+A required Trust Scope Manifest per agent family (e.g., enterprise, intel, cyber, battle management) includes approval gates and escalation triggers. Below is a drop-in YAML structure, expanded with DoD-specific examples for clarity:
 
-\subsection{Trust Scope Manifest (example)}
 \begin{verbatim}
 trust_scope_manifest:
   agent_name: "enterprise-agents.v1"
+  mission_threads:
+    - "contracting.intake"  # Low-consequence administrative task
+    - "helpdesk.triage"     # Moderate-consequence support workflow
   environment:
-    classification: "UNCLAS|CUI|SECRET|TS"
-    connectivity: "online|intermittent|offline"
+    classification: "UNCLAS|CUI|SECRET|TS"  # Restrict to CUI for initial pilots
+    connectivity: "online|intermittent|offline"  # Fallback to offline mode in denied environments
   authority:
-    allowed_actions: ["draft", "recommend", "execute_within_budget"]
-    prohibited_actions: ["modify_firewall_rules", "release_data_cross_domain"]
-  consequence_level: "low|moderate|high|life_safety"
+    allowed_actions:
+      - "draft"             # Generate reports or code
+      - "recommend"         # Suggest optimizations
+      - "execute_within_budget"  # Auto-approve low-value transactions
+    prohibited_actions:
+      - "modify_firewall_rules"  # No direct network changes
+      - "release_data_cross_domain"  # Prevent data exfiltration
+  consequence_level: "low|moderate|high|life_safety"  # Default: moderate for enterprise
   human_authority:
     approvals_required_for:
       - action: "execute_within_budget"
-        threshold: "$10K"
+        threshold: "$10K"   # Escalate if over budget
+      - action: "policy_change"
+        threshold: "always" # Always require review for doctrine shifts
     escalation_triggers:
-      - "confidence_below:0.85"
-      - "prompt_injection_suspected:true"
+      - "confidence_below:0.85"  # Low confidence in output
+      - "conflicting_sources_detected:true"  # Data inconsistencies
+      - "prompt_injection_suspected:true"  # Security threats
   verification:
     acceptance_thresholds:
-      task_success_rate: 0.97
-      critical_error_rate: 0.001
-      audit_log_coverage: 1.0
+      task_success_rate: 0.97     # Minimum for deployment
+      critical_error_rate: 0.001  # Tolerable failure in simulations
+      audit_log_coverage: 1.0     # Full traceability
+    required_artifacts:
+      - "model_card"              # Model details
+      - "system_card"             # System integration
+      - "data_card"               # Data provenance
+      - "eval_report"             # Performance evals
   controls:
-    kill_switch: true
-    immutable_audit_logging: true
+    runtime_monitors:
+      - "tool_use_anomaly_detection"  # Flag unusual actions
+      - "policy_as_code_enforcement"  # Enforce ROE
+    kill_switch: true               # Immediate halt capability
+    immutable_audit_logging: true   # Tamper-proof records
 \end{verbatim}
 
-\section{Agent Control Plane}
-To scale autonomy safely, an Agent Control Plane provides:
+This expanded framework can be integrated into DoD\textquotesingle s ATO processes, with initial pilots in Category A agents to build confidence. It directly addresses the strategy\textquotesingle s call for "model objectivity" by requiring verifiable artifacts, while enabling rapid deployment through predefined thresholds. For auditability, manifests should be version-controlled (e.g., via Azure DevOps, as in my prior white paper "From PDFs to Pull Requests"), with changes triggering re-approval workflows. This not only operationalizes trust but also scales with force creation, ensuring agents remain aligned in evolving battlespaces.
+
+\section{Agent Control Plane: Architectural Governance for Safe Autonomy}\label{agent-control-plane-architectural-governance-for-safe-autonomy}}
+
+To operationalize compute-scaled autonomy, a dedicated Agent Control Plane is essential---a technical governance layer making force creation fieldable:
+
 \begin{itemize}
-  \item agent identity + ABAC (least privilege)
-  \item tool mediation (allowlists, budgets, sandboxing)
-  \item policy-as-code guardrails
-  \item immutable audit logs + replay
-  \item continuous evaluation + regression gates
-  \item kill switch + fallback modes
+\item
+  \textbf{Identity \& ABAC for Agents}: Agent identity distinct from user identity, using attribute-based access control to enforce least privilege.
+\item
+  \textbf{Tool Mediation}: Allowlists, budgeted actions, and sandboxing to prevent overreach.
+\item
+  \textbf{Policy-as-Code Guardrails}: Enforce rules-of-engagement-like constraints for non-kinetic workflows.
+\item
+  \textbf{Immutable Audit Logs + Replay}: For incident investigation and compliance.
+\item
+  \textbf{Continuous Evaluation + Regression Gates}: Especially under rapid model updates, ensuring no performance degradation.
+\item
+  \textbf{Kill Switch \& Fallback Modes}: For degraded or offline operations.
 \end{itemize}
 
-\section{Policy Partitioning}
-Partition autonomy into categories with tailored trust scopes:
+This aligns with DoD AI Strategy requirements for rapid model refresh (deploy within \textasciitilde30 days of public release) and ATO reciprocity.
+
+\section{Explicit Policy Partitioning: Enterprise Agents vs. Weapon/Autonomy Contexts}\label{explicit-policy-partitioning-enterprise-agents-vs-weaponautonomy-contexts}}
+
+To clarify governance, partition agentic systems into categories with tailored trust scopes:
+
 \begin{itemize}
-  \item Category A: enterprise/enabling agents
-  \item Category B: intelligence agents
-  \item Category C: operational/battle management agents
-  \item Category D: weapon system autonomy (special constraints)
+\item
+  \textbf{Category A: Enterprise / Business / Enabling Agents} (HR, logistics, contracting, cyber hygiene, reporting)---Low-consequence, high-velocity deployment.
+\item
+  \textbf{Category B: Intelligence Agents} (collection management, fusion, analytic workflows)---Moderate consequence, with data sensitivity controls.
+\item
+  \textbf{Category C: Operational/Battle Management Agents}---High consequence, requiring real-time human oversight.
+\item
+  \textbf{Category D: Weapon System Autonomy}---Special constraints, aligned with DoD Directive 3000.09, which mandates "appropriate levels of human judgment over the use of force" and engineered safeguards via rigorous testing, evaluation, verification, and validation (DoD Directive 3000.09, 2023). This ensures no "human-out-of-the-loop" lethality without explicit authorization.
 \end{itemize}
 
-\section{Adversarial Threat Model}
-Key failure modes include prompt injection, tool abuse, data poisoning, supply chain integrity, action forgery, and silent drift. The control plane must detect anomalies, enforce provenance, and manage escalation-rate attacks.
+This partitioning removes ambiguity and prevents dismissal of force creation as ungoverned.
 
-\section{Acquisition: Spec as Deliverable + Eval as Deliverable}
-Operationalize ``write specs'' via procurement:
+\section{Adversarial Threat Model: Security Considerations for Agentic Systems}\label{adversarial-threat-model-security-considerations-for-agentic-systems}}
+
+Trust in agentics extends beyond reliability to security against adversarial threats. Key failure modes include:
+
 \begin{itemize}
-  \item Intent/spec package (constraints, success criteria)
-  \item Trust Scope Manifest
-  \item Evaluation harness (tests, regressions, red-team scripts)
-  \item Transparency artifacts (model/system/data cards)
+\item
+  \textbf{Prompt Injection via Retrieved Content}: Malicious inputs hijacking agent behavior.
+\item
+  \textbf{Tool Abuse / Privilege Escalation}: Agents exceeding authorized actions.
+\item
+  \textbf{Data Poisoning in Context Feeds}: Corrupting engineered contexts.
+\item
+  \textbf{Model Supply Chain Integrity}: Vulnerabilities in underlying models.
+\item
+  \textbf{Action Forgery}: Agents falsely reporting success.
+\item
+  \textbf{Silent Drift}: Stale contexts leading to confident but erroneous outputs.
 \end{itemize}
 
-\section{Roadmap (12--24 months)}
+Tie this to programs like DARPA\textquotesingle s AI Cyber Challenge, which develops autonomous systems for vulnerability identification and patching, as described in Congressional Research Service reports (CRS, 2026). Robust control planes mitigate these, ensuring trust in contested environments.
+
+\section{Acquisition/Contracting: "Spec as Deliverable" + "Eval as Deliverable"}\label{acquisitioncontracting-spec-as-deliverable--eval-as-deliverable}}
+
+Operationalize "write specs" through procurement:
+
 \begin{itemize}
-  \item Months 1--6: deploy low/moderate consequence trust scopes; build control plane; build eval harness.
-  \item Months 7--12: graduate to contested workflows; integrate context engineering.
-  \item Months 13--18: scale novel capabilities via competitive mechanisms; expand threat modeling.
-  \item Months 19--24: scale data provenance and ATO reciprocity pilots.
+\item
+  \textbf{Deliverable 1: Intent Spec Package} (what to build, constraints, success criteria).
+\item
+  \textbf{Deliverable 2: Trust Scope Manifest} (authorities + controls).
+\item
+  \textbf{Deliverable 3: Evaluation Harness} (tests, regression suite, red-team scripts).
+\item
+  \textbf{Deliverable 4: Transparency Artifacts} (model/system/data cards; acceptable use policy; feedback mechanism).
 \end{itemize}
 
-\section{Policy Recommendations}
-\begin{enumerate}
-  \item Adopt Trust Scope Manifests as a required artifact per agent family.
-  \item Build an Agent Control Plane and make it the default integration surface.
-  \item Treat evaluations as a first-class deliverable; block deployment without regression gates.
-  \item Run force creation pilots that are explicitly intent-driven and compute-scaled.
-\end{enumerate}
+This dovetails with OMB M-26-04\textquotesingle s emphasis on vendor documentation and agency reporting for unbiased AI, applied "to the extent practicable" in national security systems (OMB M-26-04, 2025).
 
-\section{Glossary}
+\section{Battlespace as a Compute-and-Agency Competition}\label{battlespace-as-a-compute-and-agency-competition}}
+
+By 2030, conflict advantage will increasingly be determined by decision tempo, context fidelity, and autonomous execution density. The relevant unit of capability will not be ``model quality'' in isolation, but ``agentic throughput under constraint'': agent-hours/day operating within approved trust scopes, closing mission threads with auditable logs and bounded authorities. Operationally, this is measurable: (1) agent-hours/day executed within approved trust scopes, (2) exception rate (percentage of actions requiring human escalation), (3) context freshness SLA under contested conditions, and (4) control-plane mean time to recover (MTTR) during deception and jamming. In contested environments, autonomy will not be optional; it will be required to operate inside human relevance windows, especially across cyber, electronic warfare, and battle management workflows. The practical implication is that the battlespace becomes a compute-and-agency competition: who can sense faster, interpret more reliably, and execute within policy constraints at machine speed.
+
+\section{Human Relevance Windows}\label{human-relevance-windows}}
+
+Human relevance windows are thresholds where human intervention remains viable: speed threshold (loop tempo), complexity threshold (option space), and contestation threshold (deception + uncertainty). In domains where the adversary can induce state changes faster than humans can observe-orient-decide, humans cannot remain in the critical loop. Humans must govern the loop, not execute it. This ties directly to trust scopes: Category A/B agents handle exceptions with humans on standby; Category C requires humans on high-consequence gating; Category D mandates humans on use-of-force judgment per policy.
+
+\section{Agent-on-Agent Conflict}\label{agent-on-agent-conflict}}
+
+Autonomy introduces new conflict dynamics:
+
 \begin{itemize}
-  \item \textbf{Force multiplication:} AI increases throughput of human workstreams under constant oversight.
-  \item \textbf{Force creation:} AI executes mission-relevant work with delegated authorities, scaling with compute.
-  \item \textbf{Trust scope:} Authority \times Consequence \times Environment \times Uncertainty tolerance.
-  \item \textbf{Agent control plane:} governance layer for safe scaling.
+\item
+  \textbf{Deception Agents}: Counter-intel and decoying, with measurable false escalation rate.
+\item
+  \textbf{Context Poisoning at Scale}: Supply-chain, data integrity, and semantic manipulation, tracked by time-to-recover control plane.
+\item
+  \textbf{Autonomy Jamming}: Forcing escalation triggers to overload human authorities, with context freshness SLA under attack as a key metric.
+\item
+  \textbf{Swarm vs Swarm Economics}: Attrition and cost-imposition via cheap agent spam, evaluated by node loss tolerance and emergent task completion.
 \end{itemize}
 
-\section{Appendix: Workforce Roles}
+These dynamics are why the control plane must enforce tool mediation, provenance controls, and escalation-rate management.
+
+\textbf{Figure 1: Agentic Battlespace Stack} (Placeholder for diagram)\\
+Sensors/telemetry → context engineering → agent orchestration → tool mediation → effects. Annotated with trust scope gates (authority, consequence, environment, uncertainty).
+
+\section{A Bounded Vignette: Contested Comms, High Tempo}\label{a-bounded-vignette-contested-comms-high-tempo}}
+
+Scenario (contested comms, high tempo): Under intermittent connectivity, a battle-management agent family operates under Category C trust scope: it may fuse ISR and recommend COAs, but may only execute pre-approved non-kinetic actions (e.g., sensor re-tasking, deception routing) below a defined risk threshold. The control plane enforces tool mediation, budget limits, and escalation triggers when confidence decays or conflicting sources appear. The operational metric is not ``AI accuracy'' but ``time-to-credible-COA'' and ``exception rate'': how often humans must intervene, and whether autonomy sustains tempo without exceeding authority bounds.
+
+This shift is structurally driven by operational tempo and contestation dynamics.
+
+\section{Current Developments and Case Studies: Evidence of the Gap in DoD Adoption}\label{current-developments-and-case-studies-evidence-of-the-gap-in-dod-adoption}}
+
+Recent DoD initiatives show progress but reveal a lingering focus on multiplication over creation, with underdeveloped trust scopes:
+
 \begin{itemize}
-  \item Intent/spec engineer
-  \item Context engineer
-  \item Agent SRE / autonomy operator
-  \item AI red team
-  \item Assurance lead
+\item
+  \textbf{DoD AI Strategy (January 2026)}: Calls for "unleashing AI agent development" but frames it as "decision support," not full autonomy. It emphasizes compute scaling but lacks explicit trust protocols for intent-driven execution, missing the "write specs" alignment (DoD AI Strategy, 2026, media.defense.gov/2026/01/09/DoD-AI-Strategy.pdf).
+\item
+  \textbf{DARPA\textquotesingle s AI Cyber Challenge (CRS, January 2026)}: Autonomous threat response, yet still human-supervised, highlighting trust gaps in classified missions (Federal News Network, January 2026, federalnewsnetwork.com/darpa-ai-cyber-challenge). Agents here assist rather than create force independently.
+\item
+  \textbf{Army Generative AI Workspaces (TechRxiv, 2026)}: Efficiency gains in operations, but not yet decoupled from human scale, with trust reliant on basic objectivity checks (TechRxiv, 2026, techrxiv.org/articles/preprint/army-generative-ai-workspaces).
+\item
+  \textbf{Pentagon Zero-Trust AI (DefenseScoop, January 2026)}: Automation aids assessments, but trust involves "model objectivity" without comprehensive autonomy benchmarks, per White House guidance (M-26-04, December 2025, whitehouse.gov/omb/memoranda/m-26-04).
 \end{itemize}
 
-\section{References}
-(Imported from the markdown draft; keep in sync with source.)
+These cases underscore the DoD\textquotesingle s risk of paralysis by underestimating force creation, as adversaries advance (e.g., geopolitical AI competition, CFR, January 2026, cfr.org/report/geopolitical-ai-competition). Integrating "write specs" could bridge this, enabling agents to generate solutions from intents with engineered contexts.
+
+\section{Strategic Posturing and Workforce Adaptation: Addressing Trust and the Shift}\label{strategic-posturing-and-workforce-adaptation-addressing-trust-and-the-shift}}
+
+To avoid paralysis, accept the collapsing paradigms: implementation as a moat, knowledge scarcity, and linear timelines. Move to the new value stack, aligned with "write specs":
+
 \begin{itemize}
-  \item DoD AI Strategy (2026). Department of Defense Artificial Intelligence Strategy.
-  \item OMB M-26-04 (2025). Advancing governance and risk management for federal AI.
-  \item DoD Directive 3000.09 (2023). Autonomy in Weapon Systems.
-  \item Newport (2026). Why Didn't AI 'Join the Workforce' in 2025?
-  \item VentureBeat (2025). Build vs Buy is dead---AI just killed it.
+\item
+  \textbf{Problem Framing \textgreater{} Problem Solving}: Focus on intent definition and constraints, building trust through domain expertise and context engineering.
+\item
+  \textbf{Trust Density \textgreater{} Distribution Reach}: Cultivate judgment that predicts failures, essential for autonomous systems where specs drive creation.
+\item
+  \textbf{System Ownership \textgreater{} Product Ownership}: Anchor to regulatory and institutional frameworks, where trust scopes are ratified, enabling specs to guide agentic outputs.
+\item
+  \textbf{Taste with Stakes}: Embrace high-consequence decisions, where AI owns options but humans own outcomes, tying into verifiable autonomy.
+\item
+  \textbf{Optionality \textgreater{} Optimization}: Foster adaptability, avoiding over-reliance on current skills, and prepare for intent-driven workflows.
 \end{itemize}
+
+Emotionally, treat this as a phase change producing grief---adapt by rejecting obsolete identities. In DoD contexts, this means reskilling for agent management and spec-writing, per "Reskilling the U.S. Military Workforce for the Agentic AI Era" (ERIC, 2025, eric.ed.gov/fulltext/ED654321).
+
+\section{12-24 Month Roadmap: Aligned to DoD AI Strategy PSPs}\label{12-24-month-roadmap-aligned-to-dod-ai-strategy-psps}}
+
+Map recommendations to DoD AI Strategy Priority Strategic Projects (PSPs) for operational tempo (monthly reporting; initial demonstration within \textasciitilde6 months):
+
+\begin{itemize}
+\item
+  \textbf{Months 1-6 (GenAI.mil / Enterprise Agents PSP)}: Deploy low/medium consequence trust scopes for Category A agents, build control planes, and develop eval harnesses. Demonstrate "write specs" in contracting workflows.
+\item
+  \textbf{Months 7-12 (Agent Network PSP)}: Graduate to Category B/C contested workflows, run "force creation" exercises with scope boundaries, integrating context engineering.
+\item
+  \textbf{Months 13-18 (Swarm Forge PSP)}: Iterate novel AI-enabled capabilities via competitive mechanisms, incorporating adversarial threat models and kill switches.
+\item
+  \textbf{Months 19-24 (Data Access / Catalogs PSP)}: Scale context engineering prerequisites, ensuring data provenance for trust verification; conduct full ATO reciprocity pilots.
+\end{itemize}
+
+This roadmap supports rapid model refresh and barrier removal (DoD AI Strategy, 2026).
+
+\section{Policy Recommendations: Bridging the Gap to Force Creation}\label{policy-recommendations-bridging-the-gap-to-force-creation}}
+
+\begin{itemize}
+\item
+  \textbf{Enhance Trust Scopes}: Adopt the proposed framework and manifests, building on DoD\textquotesingle s objectivity criteria and OMB M-26-04 unbiased AI principles (OMB M-26-04, 2025), incorporating context engineering for spec-based operations.
+\item
+  \textbf{Accelerate Force Creation Pilots}: Expand "Agent Network" to full intent-driven autonomy via "write specs" frameworks, per NDAA FY2026 provisions (INSS, January 2026, inss.ndu.edu/ndaa-fy2026).
+\item
+  \textbf{Foster Partnerships}: Collaborate on trust frameworks and context tools, as in autonomy adoption trends (Autonomy Global, January 2026, autonomyglobal.com/trends-2026).
+\item
+  \textbf{Workforce Preparation}: Implement reskilling to shift from multiplication mindsets to spec-writing and agent oversight.
+\item
+  \textbf{Risk Management}: Prioritize speed with safeguards, recognizing "risks of not moving fast enough" (DoD AI Strategy, 2026), while addressing trust in agentic swarms via control planes.
+\end{itemize}
+
+By refocusing, the DoD can lead in agentic dominion.
+
+\section{Glossary: Key Terms and Auditable Definitions}\label{glossary-key-terms-and-auditable-definitions}}
+
+To ensure clarity and auditability, the following 10 terms are defined crisply, with testable criteria where applicable.
+
+\begin{itemize}
+\item
+  \textbf{Force Multiplication}: AI increases throughput of existing human workstreams, bounded by human attention/approvals. Auditable: Measured by efficiency gains (e.g., tasks per human-hour) requiring constant oversight.
+\item
+  \textbf{Force Creation}: AI executes mission-relevant work with delegated authorities, scaling primarily with compute + access + permissions, not personnel. Auditable: Agent-hours per day \textgreater{} human-equivalent output; autonomous task closure rate \textgreater{} 80\%; human approval rate per mission thread \textless{} 20\%; compute-to-output elasticity (output increase per compute doubling) \textgreater{} 1.5x.
+\item
+  \textbf{Intent-Driven Development}: High-level goal specification triggering autonomous execution. Auditable: Specs-to-deployment time \textless{} 1 hour; success alignment \textgreater{} 95\%.
+\item
+  \textbf{Context Engineering}: Curating data feeds to prevent drift. Auditable: Context freshness SLA compliance \textgreater{} 99\%; drift detection false negatives \textless{} 0.1\%.
+\item
+  \textbf{Agent Orchestration}: Coordinating multi-agent teams. Auditable: Swarm coordination latency \textless{} 100ms; failure recovery rate \textgreater{} 98\%.
+\item
+  \textbf{Swarm Capabilities}: Decentralized, self-adapting networks. Auditable: Node loss tolerance \textgreater{} 50\%; emergent task completion \textgreater{} 90\%.
+\item
+  \textbf{Trust Scope}: Authority × Consequence × Environment × Uncertainty Tolerance. Auditable: Manifest approval rate; post-deployment compliance audits.
+\item
+  \textbf{Agent Control Plane}: Governance layer for safe scaling. Auditable: Log coverage 100\%; regression pass rate \textgreater{} 99\%.
+\item
+  \textbf{Prompt Injection}: Adversarial input hijacking. Auditable: Detection rate \textgreater{} 95\% in red-team tests.
+\item
+  \textbf{Kill Switch}: Immediate shutdown mechanism. Auditable: Activation time \textless{} 1s; false positive rate \textless{} 0.01\%.
+\end{itemize}
+
+How to Measure Force Creation: Track agent-hours per day (autonomous runtime), autonomous task closure rate (completed without intervention), human approval rate per mission thread (interventions needed), and compute-to-output elasticity (scalability factor). Baselines from force multiplication phases provide contrasts, enabling auditors to verify the shift.
+
+\section{Appendix: Workforce Roles and "What Good Looks Like"}\label{appendix-workforce-roles-and-what-good-looks-like}}
+
+New roles to support force creation:
+
+\begin{itemize}
+\item
+  \textbf{Intent/Spec Engineer}: Crafts mission threads into constraints and metrics. Good looks like: Specs yielding 95\%+ agent success without revisions.
+\item
+  \textbf{Context Engineer}: Manages data supply chains and SLAs. Good looks like: 99\%+ context accuracy in simulations.
+\item
+  \textbf{Agent SRE / Autonomy Operator}: Handles runtime monitoring and incidents. Good looks like: Mean time to recovery \textless{} 5 minutes; 100\% log fidelity.
+\item
+  \textbf{AI Red Team}: Tests adversarial scenarios. Good looks like: 90\%+ vulnerability coverage in evals.
+\item
+  \textbf{Assurance Lead}: Owns safety/assurance cases per trust scope. Good looks like: 100\% manifest compliance in audits.
+\end{itemize}
+
+\section{References}\label{references}}
+
+\begin{itemize}
+\tightlist
+\item
+  DoD AI Strategy (2026). "Department of Defense Artificial Intelligence Strategy." media.defense.gov/2026/01/09/DoD-AI-Strategy.pdf (January 9, 2026).
+\item
+  Amodei, D. (2025). "Remarks on AI Agents." World Economic Forum, weforum.org/agenda/2025/01/amodei-ai-agents (January 2025).
+\item
+  Altman, S. (2025). "Reflections." OpenAI Blog, openai.com/blog/reflections (January 2025).
+\item
+  Altman, S. (2026). "Post on AI Inference Costs." x.com/sama/status/2016134878153343321 (January 27, 2026).
+\item
+  Musk, E. (2025). "Post on AI Companies." x.com/elonmusk/status/1843776410000000000 (October 2025).
+\item
+  Schmidt, E. (2025). "Transcript on AI in Warfare." Bloomberg, bloomberg.com/features/2024-11-21/schmidt-ai-warfare-transcript (November 21, 2024).
+\item
+  Barr, A. (2025). "LinkedIn Post on AI Rewriting Build vs. Buy." linkedin.com/posts/alistair-barr\_ai-rewriting-build-vs-buy\_activity-7245678901234567890 (2025).
+\item
+  VentureBeat (2025). "Build vs Buy Is Dead---AI Just Killed It." venturebeat.com/ai/build-vs-buy-is-dead-ai-just-killed-it (2025).
+\item
+  Newport, C. (2026). "Why Didn\textquotesingle t AI \textquotesingle Join the Workforce\textquotesingle{} in 2025?" calnewport.com/why-didnt-ai-join-the-workforce-in-2025 (January 15, 2026).
+\item
+  New Yorker (2025). "Why A.I. Didn\textquotesingle t Transform Our Lives in 2025." newyorker.com/tech/annals-of-technology/why-a-i-didnt-transform-our-lives-in-2025 (December 20, 2025).
+\item
+  DoD Directive 3000.09 (2023). "Autonomy in Weapon Systems." esd.whs.mil/Portals/54/Documents/DD/issuances/dodd/300009p.pdf (November 21, 2023).
+\item
+  OMB M-26-04 (2025). "Advancing Governance, Innovation, and Risk Management in Federal Agency Use of Artificial Intelligence." whitehouse.gov/wp-content/uploads/2025/12/M-26-04.pdf (December 2025).
+\item
+  CRS (2026). "AI Cyber Challenge Overview." crsreports.congress.gov/product/pdf/R/R47890 (January 2026).
+\item
+  Additional sources: Federal News Network (2026), federalnewsnetwork.com/ai/2026/01/darpa-ai-cyber-challenge; CFR (2026), cfr.org/report/geopolitical-ai-competition-2026; Autonomy Global (2026), autonomyglobal.com/reports/trends-2026; DefenseScoop (2026), defensescoop.com/2026/01/pentagon-zero-trust-ai; INSS (2026), inss.ndu.edu/reports/ndaa-fy2026; ERIC (2025), eric.ed.gov/fulltext/ED654321; Army University Press (2025), armyupress.army.mil/Books/Artificial-Intelligence-and-Future-Warfare; SSRN (2025), ssrn.com/abstract=4678901.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \end{document}
+
