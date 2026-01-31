@@ -60,15 +60,30 @@ def now_ms() -> int:
 
 
 def log_event(repo_root: Path, msg: str) -> None:
-    """Append a short line to logs/moltbot-autonomy/runner.log.
+    """Best-effort audit logging for cron/autonomy.
 
+    Writes both a human-readable log and a JSONL event stream.
     Must never throw (logging cannot break autonomy).
     """
+
     try:
         log_dir = repo_root / "logs" / "moltbot-autonomy"
         log_dir.mkdir(parents=True, exist_ok=True)
-        fp = log_dir / "runner.log"
-        fp.open("a", encoding="utf-8").write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {msg}\n")
+
+        # Human readable
+        (log_dir / "runner.log").open("a", encoding="utf-8").write(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {msg}\n"
+        )
+
+        # Structured
+        (log_dir / "events.jsonl").open("a", encoding="utf-8").write(
+            json.dumps({"ts": now_ms(), "msg": msg}) + "\n"
+        )
+    except Exception:
+        pass
+
+    try:
+        print(msg, flush=True)
     except Exception:
         pass
 
