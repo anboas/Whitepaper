@@ -51,7 +51,7 @@
 This white paper addresses a critical oversight in the Department of Defense (DoD)\textquotesingle s approach to AI adoption: the failure to fully recognize and prepare for the transition from force multiplication---where AI serves as an efficiency-enhancing assistant---to force creation, where autonomous, intent-driven agents operate independently, scaling through compute rather than human resources. Drawing on recent DoD strategies, industry insights, and academic research, it examines the core elements of this shift, including intent-driven development, context engineering, and the evolving trust scopes for reliable autonomy in high-stakes military domains. A key alignment is explored in the paradigm change from "build vs. buy" decisions to "write specs," where humans specify intents and agents autonomously generate solutions. New sections define a Trust Scope Framework, Agent Control Plane, policy partitioning, acquisition guidance, adversarial threat models, and a 12-24 month roadmap aligned to DoD AI Strategy Priority Strategic Projects (PSPs). Current developments and case studies illustrate early progress but highlight gaps in embracing full autonomy. Strategic posturing guidance is provided to help personnel adapt, emphasizing upstream value creation. Policy recommendations urge accelerated governance, trust-building measures, and investments to avoid being outpaced by adversaries. A glossary and workforce appendix enhance auditability and implementation.
 \end{execsummary}
 
-\section{Introduction: The Overlooked Transition in DoD AI Adoption}\label{introduction-the-overlooked-transition-in-dod-ai-adoption}}
+\section{Introduction: The Overlooked Transition in DoD AI Adoption}\label{introduction-the-overlooked-transition-in-dod-ai-adoption}
 
 The Department of Defense stands at a pivotal juncture in AI integration, yet there persists a disconnect between current perceptions and the impending reality. As evidenced by statements from senior leaders, such as the Army CIO\textquotesingle s view of AI as merely a "good assistant," much of the DoD remains anchored in the force multiplication phase---where AI amplifies human efficiency in tasks like software development lifecycle (SDLC) processes, code generation, and analysis. This phase is valuable but limited, treating AI as a tool bound by human oversight and scale.
 
@@ -61,11 +61,11 @@ This shift is not speculative. Industry leaders like Anthropic CEO Dario Amodei 
 
 Central to this transition is the trust scope of agentics and autonomy: How much can we rely on these systems in classified, high-risk environments? Trust encompasses reliability, ethical alignment, verifiability, and risk tolerance. The DoD strategy prioritizes "model objectivity" and accepts "risks of not moving fast enough outweigh the risks of imperfect alignment," but lacks detailed frameworks for trust in fully autonomous operations[5]. This white paper explores these elements to urge a more proactive stance, with a focus on intent-driven development and context engineering as foundational to force creation.
 
-\section{Reality Check: Why Agents Didn't `Join the Workforce' in 2025}\label{reality-check-why-agents-didnt-join-the-workforce-in-2025}}
+\section{Reality Check: Why Agents Didn't `Join the Workforce' in 2025}\label{reality-check-why-agents-didnt-join-the-workforce-in-2025}
 
 Optimistic forecasts from leaders like Altman and Amodei suggested 2025 would see AI agents transforming workflows, yet this did not fully materialize. As Cal Newport reflected in his January 2026 essay, "Why Didn\textquotesingle t AI \textquotesingle Join the Workforce\textquotesingle{} in 2025?", agents struggled with reliability outside constrained environments, often failing in dynamic, real-world settings due to issues like context drift and unpredictable interactions[6]. Similarly, The New Yorker\textquotesingle s 2025-in-review piece noted that agents excelled in text-based terminals but faltered in broader applications, labeling 2025 as the start of a "decade of the agent" rather than an immediate revolution[7]. This reframes force creation as an engineering and governance challenge, not mere hype---underscoring the need for robust trust scopes and control planes to enable scalable autonomy in defense contexts.
 
-\section{The Paradigm Shift: From "Build vs. Buy" to "Write Specs" in Intent-Driven Development}\label{the-paradigm-shift-from-build-vs-buy-to-write-specs-in-intent-driven-development}}
+\section{The Paradigm Shift: From "Build vs. Buy" to "Write Specs" in Intent-Driven Development}\label{the-paradigm-shift-from-build-vs-buy-to-write-specs-in-intent-driven-development}
 
 A profound realignment in software and system creation underscores the move to force creation: the traditional "build vs. buy" dilemma is evolving into "write specs," where humans provide high-level specifications (intents), and autonomous agents generate, test, and deploy solutions. This aligns directly with intent-driven development---specifying goals like "Secure this network against peer threats"---and context engineering, the process of curating environmental data, constraints, and real-time feeds to ensure agents adapt without drift.
 
@@ -73,7 +73,7 @@ As detailed in recent analyses, AI tools like Bolt, Replit, and Cursor are empow
 
 However, this shift amplifies trust challenges: Specs must embed ethical and security constraints to prevent misalignment, as warned in "Agentic AI in Military Applications"[10]. Without robust context engineering, agents risk "context rot," leading to unreliable outputs in contested environments. The DoD must integrate this paradigm to fully realize force creation, ensuring trust scopes evolve from supervised assistance to verifiable autonomy.
 
-\section{Trust Scope Framework: Defining and Operationalizing Trust in Agentic Systems}\label{trust-scope-framework-defining-and-operationalizing-trust-in-agentic-systems}}
+\section{Trust Scope Framework: Defining and Operationalizing Trust in Agentic Systems}\label{trust-scope-framework-defining-and-operationalizing-trust-in-agentic-systems}
 
 Trust scope decomposes into four parameters. Each parameter is measurable and testable, allowing for iterative refinement based on real-world performance data.
 
@@ -138,7 +138,7 @@ trust_scope_manifest:
 
 This expanded framework can be integrated into DoD\textquotesingle s ATO processes, with initial pilots in Category A agents to build confidence. It directly addresses the strategy\textquotesingle s call for "model objectivity" by requiring verifiable artifacts, while enabling rapid deployment through predefined thresholds. For auditability, manifests should be version-controlled (e.g., via Azure DevOps, as in my prior white paper "From PDFs to Pull Requests"), with changes triggering re-approval workflows. This not only operationalizes trust but also scales with force creation, ensuring agents remain aligned in evolving battlespaces.
 
-\section{Agent Control Plane: Architectural Governance for Safe Autonomy}\label{agent-control-plane-architectural-governance-for-safe-autonomy}}
+\section{Agent Control Plane: Architectural Governance for Safe Autonomy}\label{agent-control-plane-architectural-governance-for-safe-autonomy}
 
 To operationalize compute-scaled autonomy, a dedicated Agent Control Plane is essential---a technical governance layer making force creation fieldable:
 
@@ -159,7 +159,7 @@ To operationalize compute-scaled autonomy, a dedicated Agent Control Plane is es
 
 This aligns with DoD AI Strategy requirements for rapid model refresh (deploy within \textasciitilde30 days of public release) and ATO reciprocity.
 
-\section{Explicit Policy Partitioning: Enterprise Agents vs. Weapon/Autonomy Contexts}\label{explicit-policy-partitioning-enterprise-agents-vs-weaponautonomy-contexts}}
+\section{Explicit Policy Partitioning: Enterprise Agents vs. Weapon/Autonomy Contexts}\label{explicit-policy-partitioning-enterprise-agents-vs-weaponautonomy-contexts}
 
 To clarify governance, partition agentic systems into categories with tailored trust scopes:
 
@@ -176,7 +176,7 @@ To clarify governance, partition agentic systems into categories with tailored t
 
 This partitioning removes ambiguity and prevents dismissal of force creation as ungoverned.
 
-\section{Adversarial Threat Model: Security Considerations for Agentic Systems}\label{adversarial-threat-model-security-considerations-for-agentic-systems}}
+\section{Adversarial Threat Model: Security Considerations for Agentic Systems}\label{adversarial-threat-model-security-considerations-for-agentic-systems}
 
 Trust in agentics extends beyond reliability to security against adversarial threats. Key failure modes include:
 
@@ -197,7 +197,7 @@ Trust in agentics extends beyond reliability to security against adversarial thr
 
 Tie this to programs like DARPA\textquotesingle s AI Cyber Challenge, which develops autonomous systems for vulnerability identification and patching, as described in Congressional Research Service reports (CRS, 2026). Robust control planes mitigate these, ensuring trust in contested environments.
 
-\section{Acquisition/Contracting: "Spec as Deliverable" + "Eval as Deliverable"}\label{acquisitioncontracting-spec-as-deliverable--eval-as-deliverable}}
+\section{Acquisition/Contracting: "Spec as Deliverable" + "Eval as Deliverable"}\label{acquisitioncontracting-spec-as-deliverable--eval-as-deliverable}
 
 Operationalize "write specs" through procurement:
 
@@ -214,15 +214,15 @@ Operationalize "write specs" through procurement:
 
 This dovetails with OMB M-26-04\textquotesingle s emphasis on vendor documentation and agency reporting for unbiased AI, applied "to the extent practicable" in national security systems (OMB M-26-04, 2025).
 
-\section{Battlespace as a Compute-and-Agency Competition}\label{battlespace-as-a-compute-and-agency-competition}}
+\section{Battlespace as a Compute-and-Agency Competition}\label{battlespace-as-a-compute-and-agency-competition}
 
 By 2030, conflict advantage will increasingly be determined by decision tempo, context fidelity, and autonomous execution density. The relevant unit of capability will not be ``model quality'' in isolation, but ``agentic throughput under constraint'': agent-hours/day operating within approved trust scopes, closing mission threads with auditable logs and bounded authorities. Operationally, this is measurable: (1) agent-hours/day executed within approved trust scopes, (2) exception rate (percentage of actions requiring human escalation), (3) context freshness SLA under contested conditions, and (4) control-plane mean time to recover (MTTR) during deception and jamming. In contested environments, autonomy will not be optional; it will be required to operate inside human relevance windows, especially across cyber, electronic warfare, and battle management workflows. The practical implication is that the battlespace becomes a compute-and-agency competition: who can sense faster, interpret more reliably, and execute within policy constraints at machine speed.
 
-\section{Human Relevance Windows}\label{human-relevance-windows}}
+\section{Human Relevance Windows}\label{human-relevance-windows}
 
 Human relevance windows are thresholds where human intervention remains viable: speed threshold (loop tempo), complexity threshold (option space), and contestation threshold (deception + uncertainty). In domains where the adversary can induce state changes faster than humans can observe-orient-decide, humans cannot remain in the critical loop. Humans must govern the loop, not execute it. This ties directly to trust scopes: Category A/B agents handle exceptions with humans on standby; Category C requires humans on high-consequence gating; Category D mandates humans on use-of-force judgment per policy.
 
-\section{Agent-on-Agent Conflict}\label{agent-on-agent-conflict}}
+\section{Agent-on-Agent Conflict}\label{agent-on-agent-conflict}
 
 Autonomy introduces new conflict dynamics:
 
@@ -242,13 +242,13 @@ These dynamics are why the control plane must enforce tool mediation, provenance
 \textbf{Figure 1: Agentic Battlespace Stack} (Placeholder for diagram)\\
 Sensors/telemetry → context engineering → agent orchestration → tool mediation → effects. Annotated with trust scope gates (authority, consequence, environment, uncertainty).
 
-\section{A Bounded Vignette: Contested Comms, High Tempo}\label{a-bounded-vignette-contested-comms-high-tempo}}
+\section{A Bounded Vignette: Contested Comms, High Tempo}\label{a-bounded-vignette-contested-comms-high-tempo}
 
 Scenario (contested comms, high tempo): Under intermittent connectivity, a battle-management agent family operates under Category C trust scope: it may fuse ISR and recommend COAs, but may only execute pre-approved non-kinetic actions (e.g., sensor re-tasking, deception routing) below a defined risk threshold. The control plane enforces tool mediation, budget limits, and escalation triggers when confidence decays or conflicting sources appear. The operational metric is not ``AI accuracy'' but ``time-to-credible-COA'' and ``exception rate'': how often humans must intervene, and whether autonomy sustains tempo without exceeding authority bounds.
 
 This shift is structurally driven by operational tempo and contestation dynamics.
 
-\section{Current Developments and Case Studies: Evidence of the Gap in DoD Adoption}\label{current-developments-and-case-studies-evidence-of-the-gap-in-dod-adoption}}
+\section{Current Developments and Case Studies: Evidence of the Gap in DoD Adoption}\label{current-developments-and-case-studies-evidence-of-the-gap-in-dod-adoption}
 
 Recent DoD initiatives show progress but reveal a lingering focus on multiplication over creation, with underdeveloped trust scopes:
 
@@ -265,7 +265,7 @@ Recent DoD initiatives show progress but reveal a lingering focus on multiplicat
 
 These cases underscore the DoD\textquotesingle s risk of paralysis by underestimating force creation, as adversaries advance (e.g., geopolitical AI competition, CFR, January 2026, cfr.org/report/geopolitical-ai-competition). Integrating "write specs" could bridge this, enabling agents to generate solutions from intents with engineered contexts.
 
-\section{Strategic Posturing and Workforce Adaptation: Addressing Trust and the Shift}\label{strategic-posturing-and-workforce-adaptation-addressing-trust-and-the-shift}}
+\section{Strategic Posturing and Workforce Adaptation: Addressing Trust and the Shift}\label{strategic-posturing-and-workforce-adaptation-addressing-trust-and-the-shift}
 
 To avoid paralysis, accept the collapsing paradigms: implementation as a moat, knowledge scarcity, and linear timelines. Move to the new value stack, aligned with "write specs":
 
@@ -284,7 +284,7 @@ To avoid paralysis, accept the collapsing paradigms: implementation as a moat, k
 
 Emotionally, treat this as a phase change producing grief---adapt by rejecting obsolete identities. In DoD contexts, this means reskilling for agent management and spec-writing, per "Reskilling the U.S. Military Workforce for the Agentic AI Era" (ERIC, 2025, eric.ed.gov/fulltext/ED654321).
 
-\section{12-24 Month Roadmap: Aligned to DoD AI Strategy PSPs}\label{12-24-month-roadmap-aligned-to-dod-ai-strategy-psps}}
+\section{12-24 Month Roadmap: Aligned to DoD AI Strategy PSPs}\label{12-24-month-roadmap-aligned-to-dod-ai-strategy-psps}
 
 Map recommendations to DoD AI Strategy Priority Strategic Projects (PSPs) for operational tempo (monthly reporting; initial demonstration within \textasciitilde6 months):
 
@@ -301,7 +301,7 @@ Map recommendations to DoD AI Strategy Priority Strategic Projects (PSPs) for op
 
 This roadmap supports rapid model refresh and barrier removal (DoD AI Strategy, 2026).
 
-\section{Policy Recommendations: Bridging the Gap to Force Creation}\label{policy-recommendations-bridging-the-gap-to-force-creation}}
+\section{Policy Recommendations: Bridging the Gap to Force Creation}\label{policy-recommendations-bridging-the-gap-to-force-creation}
 
 \begin{itemize}
 \item
@@ -318,7 +318,7 @@ This roadmap supports rapid model refresh and barrier removal (DoD AI Strategy, 
 
 By refocusing, the DoD can lead in agentic dominion.
 
-\section{Glossary: Key Terms and Auditable Definitions}\label{glossary-key-terms-and-auditable-definitions}}
+\section{Glossary: Key Terms and Auditable Definitions}\label{glossary-key-terms-and-auditable-definitions}
 
 To ensure clarity and auditability, the following 10 terms are defined crisply, with testable criteria where applicable.
 
@@ -347,7 +347,7 @@ To ensure clarity and auditability, the following 10 terms are defined crisply, 
 
 How to Measure Force Creation: Track agent-hours per day (autonomous runtime), autonomous task closure rate (completed without intervention), human approval rate per mission thread (interventions needed), and compute-to-output elasticity (scalability factor). Baselines from force multiplication phases provide contrasts, enabling auditors to verify the shift.
 
-\section{Appendix: Workforce Roles and "What Good Looks Like"}\label{appendix-workforce-roles-and-what-good-looks-like}}
+\section{Appendix: Workforce Roles and "What Good Looks Like"}\label{appendix-workforce-roles-and-what-good-looks-like}
 
 New roles to support force creation:
 
@@ -364,7 +364,7 @@ New roles to support force creation:
   \textbf{Assurance Lead}: Owns safety/assurance cases per trust scope. Good looks like: 100\% manifest compliance in audits.
 \end{itemize}
 
-\section{References}\label{references}}
+\section{References}\label{references}
 
 \begin{itemize}
 \tightlist
