@@ -62,11 +62,22 @@ You can drive the entire iteration loop from GitHub PRs without chatting here:
 
 The deterministic gates always run first; LLM work is layered on top.
 
-## Layout
-- `tex/whitepaper.tex` — current working paper + template
+## Multi-paper layout
+We support multiple papers in parallel under `papers/`.
+
+- `papers/<paper-id>/INTENT.md` — what the paper is + what “polished” means
+- `papers/<paper-id>/PAPER.yml` — variables/metadata
+- `papers/<paper-id>/tex/paper.tex` — LaTeX entrypoint
+- `papers/<paper-id>/rubric.yml` — optional overrides
+
+CI builds all papers via `.github/workflows/build-papers.yml`.
+
+## Layout (legacy single-paper)
+- `tex/whitepaper.tex` — legacy single working paper + template
+- `INTENT.md` — legacy intent
 - `rubric.yml` — publishability rubric
 - `scripts/rubric_check.py` — rubric evaluator
-- `.github/workflows/build-pdf.yml` — CI build
+- `.github/workflows/build-pdf.yml` — CI build (legacy)
 
 ## Change policy
 Commits should be small and intentional. Prefer:

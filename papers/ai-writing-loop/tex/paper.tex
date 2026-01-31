@@ -1,0 +1,137 @@
+% =========================================================
+% Whitepaper: Autonomous Whitepaper Production
+% =========================================================
+% (No placeholders; CI checks for common draft markers)
+\documentclass[11pt]{article}
+
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\setstretch{1.12}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{xcolor}
+\definecolor{BrandAccent}{HTML}{204060}
+\definecolor{BrandGray}{HTML}{6E6E6E}
+\definecolor{RuleGray}{HTML}{D9D9D9}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[C]{\small\textcolor{BrandGray}{\thepage}}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{colorlinks=true, linkcolor=BrandAccent, urlcolor=BrandAccent}
+\usepackage[most]{tcolorbox}
+\newtcolorbox{keytakeaway}{colback=white,colframe=BrandAccent,boxrule=0.8pt,arc=2pt,left=10pt,right=10pt,top=8pt,bottom=8pt}
+
+\newenvironment{execsummary}{\section*{Executive Summary}\vspace{-2pt}}{\vspace{6pt}}
+
+\newcommand{\PaperTitle}{Autonomous Whitepaper Production}
+\newcommand{\PaperSubtitle}{From intent to polished artifacts via deterministic gates + Codex iteration}
+\newcommand{\AuthorName}{Adam Boas}
+\newcommand{\AuthorRole}{Operator / Strategist}
+\newcommand{\PaperDate}{January 2026}
+
+\begin{document}
+
+\thispagestyle{empty}
+\vspace*{0.6in}
+{\Huge\bfseries\color{BrandAccent}\PaperTitle\par}
+\vspace{0.12in}
+{\large\color{BrandGray}\PaperSubtitle\par}
+\vspace{0.25in}
+\noindent\textcolor{RuleGray}{\rule{\textwidth}{0.8pt}}
+\vspace{0.2in}
+{\normalsize\textbf{\AuthorName}\par\textcolor{BrandGray}{\AuthorRole}\par\vspace{6pt}\textcolor{BrandGray}{\PaperDate}\par}
+\vfill
+\noindent\textcolor{BrandGray}{\small\textbf{Distribution:} Public (LinkedIn).\quad\textbf{Disclaimer:} Views are the author's and do not represent official policy.}
+\newpage
+
+\begin{execsummary}
+This paper proposes a fully automated writing workflow that turns a simple intent specification into publish-ready strategy artifacts. The core claim is operational: quality improves when writing is treated like software—versioned, testable, iterated, and gated.
+
+\begin{itemize}
+  \item \textbf{Problem:} Most whitepapers are slow, untestable, and depend on scarce human attention.
+  \item \textbf{Insight:} Writing becomes scalable when we define “done” up front and enforce it with gates.
+  \item \textbf{Approach:} Intent/spec → deterministic checks → cheap semantic feedback → full semantic review → iterative patch loop → publish.
+  \item \textbf{Outcome:} Faster cycles, higher consistency, auditable decision trails, and parallel production across many papers.
+\end{itemize}
+\end{execsummary}
+
+\section{Problem Statement}
+Organizations treat software with discipline and writing with vibes. The result is predictable: policy and strategy documents drift, recommendations lack owners, and revision cycles stall because the process is not instrumented.
+
+\section{The Pipeline (Architecture)}
+The pipeline begins with two inputs:
+\begin{itemize}
+  \item \textbf{INTENT.md:} the paper’s purpose, required sections, constraints, and definition of “polished.”
+  \item \textbf{PAPER.yml:} variables (title, author, date, audience, assets), enabling repeatable rendering.
+\end{itemize}
+
+The output is not “a document.” The output is a set of artifacts produced by a reproducible process: PDF for humans and HTML for systems.
+
+\begin{keytakeaway}
+\textbf{Key takeaway:} When the spec is explicit, the writing loop becomes automatable.
+\end{keytakeaway}
+
+\section{Quality Gates (Deterministic)}
+Deterministic gates catch structural failures before any semantic judgment is attempted:
+\begin{itemize}
+  \item Required files exist (INTENT, variables).
+  \item Required sections exist.
+  \item No placeholders (e.g., draft markers left in the text).
+  \item Builds succeed (PDF/HTML).
+\end{itemize}
+
+These checks are cheap, fast, and objective. They eliminate low-value review cycles.
+
+\section{Semantic Review (Cheap vs Full)}
+After deterministic gates pass, we layer semantic checks:
+\begin{itemize}
+  \item \textbf{Cheap semantic pass:} low-cost scoring across categories (clarity, specificity, actionability). This provides frequent feedback.
+  \item \textbf{Full semantic pass:} an expensive review triggered only when a PR is labeled for full review. This is where deep critique happens.
+\end{itemize}
+
+\section{Iteration Loop (Patch-based)}
+The iteration loop applies improvements as diffs. Each cycle:
+\begin{enumerate}
+  \item Run checks and generate prioritized fixes.
+  \item Apply fixes as a constrained patch (only the paper source).
+  \item Re-run gates.
+  \item Stop when no actionable recommendations remain or the “polished” threshold is met.
+\end{enumerate}
+
+\section{Scalability and Governance}
+This approach scales because it is parallel:
+\begin{itemize}
+  \item Many papers can evolve simultaneously in separate folders.
+  \item Each paper has a clear spec and a local definition of done.
+  \item Reviews are auditable: diffs, comments, labels, and artifacts.
+\end{itemize}
+
+\section{Risks and Mitigations}
+\begin{itemize}
+  \item \textbf{Model hallucination:} mitigate with deterministic gates and strict patch constraints.
+  \item \textbf{Cost:} mitigate with tiered analysis and label-triggered full review.
+  \item \textbf{Over-automation:} keep PR labels as an escape hatch for human intervention.
+\end{itemize}
+
+\section{Recommendations}
+\begin{enumerate}
+  \item Adopt a per-paper spec (INTENT + variables) as the entry requirement.
+  \item Enforce deterministic gates before semantic checks.
+  \item Run cheap semantic feedback continuously; reserve full reviews for labeled PRs.
+  \item Iterate via patch constraints until the rubric’s “polished” criteria are met.
+\end{enumerate}
+
+\section{Conclusion}
+If we can automate tests for code, we can automate tests for writing. The objective is not to eliminate thinking; it is to eliminate wasted cycles. The result is faster, more consistent, more governable strategy.
+
+\section{References}
+\begin{itemize}
+  \item Docs-as-code practices and CI workflows for documentation.
+  \item Version control review patterns (branches, PRs, gates, releases).
+\end{itemize}
+
+\end{document}

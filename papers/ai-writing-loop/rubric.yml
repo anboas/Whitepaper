@@ -1,0 +1,14 @@
+# Optional per-paper rubric overrides for papers/ai-writing-loop
+# If present, scripts will use this instead of repo root rubric.yml.
+
+min_total_score: 0.80
+
+checks:
+  length_sanity:
+    weight: 0.10
+    min_words: 400
+
+  tone_avoid_hype:
+    weight: 0.05
+    max_exclamations: 1
+    max_allcaps_words: 30

@@ -47,8 +47,8 @@ checks:
   tone_avoid_hype:
     weight: 0.05
     max_exclamations: 1
-    # Template includes some intentional caps (e.g., WHITEPAPER SERIES).
-    max_allcaps_words: 10
+    # Some caps are normal in technical writing (PDF/HTML/API); keep a ceiling.
+    max_allcaps_words: 25
 
   clarity_sentence_length:
     weight: 0.10

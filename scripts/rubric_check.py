@@ -11,12 +11,13 @@ Inputs:
 Output:
 - Human-readable report
 - Exit code 0 if score >= min_total_score else 2
+
+Note: In multi-paper mode, a paper may provide its own rubric.yml.
 """
 
 from __future__ import annotations
 
 import argparse
-import math
 import re
 import sys
 from dataclasses import dataclass
@@ -41,7 +42,6 @@ def strip_latex(text: str) -> str:
 
 
 def split_sentences(text: str) -> list[str]:
-    # Conservative: split on ., ?, ! followed by space/cap; keep reasonably stable.
     parts = re.split(r"(?<=[.!?])\s+", text)
     return [p.strip() for p in parts if p.strip()]
 
@@ -51,11 +51,9 @@ def words(text: str) -> list[str]:
 
 
 def count_syllables(word: str) -> int:
-    """Approx syllable counter (good enough for gating)."""
     w = re.sub(r"[^a-z]", "", word.lower())
     if not w:
         return 0
-    # Remove trailing silent e
     w = re.sub(r"e$", "", w)
     groups = re.findall(r"[aeiouy]+", w)
     return max(1, len(groups))
@@ -69,22 +67,15 @@ def flesch_reading_ease(text: str) -> float:
     syllables = sum(count_syllables(x) for x in w)
     wps = len(w) / max(1, len(sents))
     spw = syllables / max(1, len(w))
-    # Flesch Reading Ease
     return 206.835 - (1.015 * wps) - (84.6 * spw)
 
 
 def passive_voice_ratio(text: str) -> float:
-    """Heuristic passive voice ratio.
-
-    Counts occurrences of a be-verb + past participle-ish token.
-    This is not linguistically perfect; it's a useful proxy.
-    """
     sents = split_sentences(text)
     if not sents:
         return 0.0
 
     be = r"(?:am|is|are|was|were|be|been|being)"
-    # past participle heuristic: -ed, or common irregulars
     pp = r"(?:\w+ed|known|given|seen|done|built|made|shown|driven|taken|written|proven)"
     pat = re.compile(rf"\b{be}\b\s+(?:\w+\s+)?\b{pp}\b", re.IGNORECASE)
 
@@ -114,18 +105,20 @@ def count_pattern_hits(raw: str, patterns: list[str]) -> int:
     return hits
 
 
-def clamp01(x: float) -> float:
-    return max(0.0, min(1.0, x))
-
-
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--tex", default="tex/whitepaper.tex")
     ap.add_argument("--rubric", default="rubric.yml")
+    ap.add_argument("--paper-dir", default=".", help="paper directory (for multi-paper layout)")
     args = ap.parse_args()
 
-    tex_path = Path(args.tex)
-    rubric_path = Path(args.rubric)
+    base = Path(args.paper_dir)
+    tex_path = base / args.tex
+
+    # Prefer paper-local rubric.yml if present.
+    rubric_path = base / args.rubric
+    if not rubric_path.exists():
+        rubric_path = Path(args.rubric)
 
     if not tex_path.exists():
         print(f"ERROR: missing tex file: {tex_path}", file=sys.stderr)
@@ -271,7 +264,6 @@ def main() -> int:
         ok = hits >= min_hits
         results.append(CheckResult("elements_actionability", weight, 1.0 if ok else 0.0, f"action_verbs_hit={hits}, min={min_hits}"))
 
-    # --- scoring ---
     total = sum(r.weight * r.score for r in results)
     weight_sum = sum(r.weight for r in results) or 1.0
     total_norm = total / weight_sum

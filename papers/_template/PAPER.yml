@@ -1,0 +1,19 @@
+# PAPER.yml — variables/metadata used for rendering
+
+paper:
+  id: template
+  title: "<Working Title>"
+  subtitle: "<Optional>"
+  date: "<January 2026>"
+  series_tag: "Whitepaper Series"
+
+author:
+  name: "<Adam Boas>"
+  role: "<Role>"
+
+distribution:
+  channel: "LinkedIn"
+  disclaimer: "Views are the author's and do not represent official policy."
+
+assets:
+  logo_path: "" # optional: papers/<id>/assets/logo.png

@@ -45,6 +45,7 @@ def main() -> int:
     ap.add_argument("--rubric", default="rubric.yml")
     ap.add_argument("--tier", default="cheap", choices=["cheap", "full"], help="which LLM config tier to use")
     ap.add_argument("--json", action="store_true", help="emit machine-readable JSON")
+    ap.add_argument("--paper-dir", default=".", help="paper directory (for multi-paper layout)")
     args = ap.parse_args()
 
     api_key = os.environ.get("OPENAI_API_KEY", "").strip()
@@ -52,8 +53,11 @@ def main() -> int:
         print("LLM rubric: SKIP (OPENAI_API_KEY not set)")
         return 0
 
-    tex_path = Path(args.tex)
-    rubric_path = Path(args.rubric)
+    base = Path(args.paper_dir)
+    tex_path = base / args.tex
+    rubric_path = base / args.rubric
+    if not rubric_path.exists():
+        rubric_path = Path(args.rubric)
     if not tex_path.exists() or not rubric_path.exists():
         print("LLM rubric: ERROR missing tex or rubric.yml", file=sys.stderr)
         return 2
@@ -102,7 +106,7 @@ def main() -> int:
         "top_fixes": ["string"],
     }
 
-    intent_path = Path("INTENT.md")
+    intent_path = base / "INTENT.md"
     intent = ""
     if intent_path.exists():
         intent = read_text(intent_path)[:12000]

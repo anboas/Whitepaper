@@ -1,0 +1,14 @@
+paper:
+  id: ai-writing-loop
+  title: "Autonomous Whitepaper Production"
+  subtitle: "From intent to polished artifacts via deterministic gates + Codex iteration"
+  date: "January 2026"
+  series_tag: "Whitepaper Series"
+
+author:
+  name: "Adam Boas"
+  role: "Operator / Strategist"
+
+distribution:
+  channel: "LinkedIn"
+  disclaimer: "Views are the author's and do not represent official policy."
