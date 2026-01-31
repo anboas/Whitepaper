@@ -124,7 +124,17 @@ def openai_generate_latex(api_key: str, model: str, intent_md: str, requirements
     return tex
 
 
-def openai_patch_tex(api_key: str, model: str, target_path: str, intent_md: str, requirements_md: str, requested: list[str], tex: str, attempt: int = 1) -> str:
+def openai_patch_tex(
+    api_key: str,
+    model: str,
+    target_path: str,
+    intent_md: str,
+    requirements_md: str,
+    requested: list[str],
+    tex: str,
+    attempt: int = 1,
+    timeout_sec: int = 180,
+) -> str:
     instruction = {
         "task": "Apply the requested changes to the LaTeX paper.",
         "constraints": [
@@ -155,7 +165,7 @@ def openai_patch_tex(api_key: str, model: str, target_path: str, intent_md: str,
         "https://api.openai.com/v1/responses",
         headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
         json=payload,
-        timeout=300,
+        timeout=timeout_sec,
     )
     rr.raise_for_status()
     patch = openai_response_text(rr.json())
@@ -330,7 +340,17 @@ def apply_requested_changes(paper_dir: Path, api_key: str, requested: list[str])
     # Retry once if the model doesn't output a valid diff.
     last_err = None
     for attempt in (1, 2):
-        patch = openai_patch_tex(api_key, model, target_path, intent, reqs, requested, tex, attempt=attempt)
+        patch = openai_patch_tex(
+            api_key,
+            model,
+            target_path,
+            intent,
+            reqs,
+            requested,
+            tex,
+            attempt=attempt,
+            timeout_sec=120,
+        )
         try:
             safe_apply_patch(patch, target_path)
             return True
@@ -503,19 +523,23 @@ def main() -> int:
         pr_rec: dict[str, Any] = {"number": pr.number, "paper": paper, "actions": []}
 
         if api_key:
+            log_event(repo_root, f"PR #{pr.number}: start (paper={paper})")
             checkout_pr_branch(pr)
 
+            log_event(repo_root, f"PR #{pr.number}: ensure_generated_paper")
             changed = ensure_generated_paper(paper_dir, api_key)
             if changed:
                 pr_rec["actions"].append("generated tex/paper.tex")
 
             if requested:
                 try:
+                    log_event(repo_root, f"PR #{pr.number}: apply_requested_changes (len={len(requested)})")
                     if apply_requested_changes(paper_dir, api_key, requested):
                         pr_rec["actions"].append("applied_requests")
                 except Exception as e:
                     pr_rec["actions"].append("apply_requests_failed")
                     pr_rec["apply_error"] = str(e)[:2000]
+                    log_event(repo_root, f"PR #{pr.number}: apply_requested_changes FAILED: {e}")
                     comment_pr(args.repo, pr.number, "## Moltbot\nFailed applying requested changes (LLM patch).\n\nError: `" + str(e).replace("`", "'")[:400] + "`\n\nI will retry on next run.")
 
             pushed = False
