@@ -124,16 +124,18 @@ def openai_generate_latex(api_key: str, model: str, intent_md: str, requirements
     return tex
 
 
-def openai_patch_tex(api_key: str, model: str, target_path: str, intent_md: str, requirements_md: str, requested: list[str], tex: str) -> str:
+def openai_patch_tex(api_key: str, model: str, target_path: str, intent_md: str, requirements_md: str, requested: list[str], tex: str, attempt: int = 1) -> str:
     instruction = {
         "task": "Apply the requested changes to the LaTeX paper.",
         "constraints": [
             "Return ONLY a unified diff (git-style).",
+            "Your response MUST start with: diff --git a/... b/...",
             f"The diff MUST modify ONLY {target_path}.",
             "Do not add new files.",
             "Do not remove content unless explicitly requested.",
             "Keep LaTeX compiling (balanced braces, valid commands).",
         ],
+        "attempt": attempt,
         "intent_md": intent_md,
         "requirements_md": requirements_md,
         "requested_changes": requested,
@@ -160,9 +162,29 @@ def openai_patch_tex(api_key: str, model: str, target_path: str, intent_md: str,
     return patch
 
 
+def normalize_patch(text: str) -> str:
+    """Best-effort extraction of a git-style diff from model output."""
+    t = (text or "").strip()
+    if t.startswith("diff --git"):
+        return t
+
+    # Strip fenced blocks if present
+    m = re.search(r"```(?:diff)?\s*([\s\S]*?)\s*```", t)
+    if m:
+        inner = m.group(1).strip()
+        if inner.startswith("diff --git"):
+            return inner
+
+    # Find first occurrence of diff --git
+    idx = t.find("diff --git")
+    if idx >= 0:
+        return t[idx:].strip()
+
+    raise RuntimeError("Model did not return a git-style unified diff")
+
+
 def safe_apply_patch(patch: str, only_path: str) -> None:
-    if not patch.startswith("diff --git"):
-        raise RuntimeError("Model did not return a git-style unified diff")
+    patch = normalize_patch(patch)
 
     touched = re.findall(r"^diff --git a/(.+?) b/(.+?)$", patch, flags=re.MULTILINE)
     files = set()
@@ -305,9 +327,17 @@ def apply_requested_changes(paper_dir: Path, api_key: str, requested: list[str])
     target_path = str(tex_path.as_posix())
     tex = tex_path.read_text(encoding="utf-8", errors="ignore")
 
-    patch = openai_patch_tex(api_key, model, target_path, intent, reqs, requested, tex)
-    safe_apply_patch(patch, target_path)
-    return True
+    # Retry once if the model doesn't output a valid diff.
+    last_err = None
+    for attempt in (1, 2):
+        patch = openai_patch_tex(api_key, model, target_path, intent, reqs, requested, tex, attempt=attempt)
+        try:
+            safe_apply_patch(patch, target_path)
+            return True
+        except Exception as e:
+            last_err = e
+            continue
+    raise last_err or RuntimeError("Failed to apply patch")
 
 
 def commit_if_dirty(msg: str) -> bool:
@@ -480,8 +510,13 @@ def main() -> int:
                 pr_rec["actions"].append("generated tex/paper.tex")
 
             if requested:
-                if apply_requested_changes(paper_dir, api_key, requested):
-                    pr_rec["actions"].append("applied_requests")
+                try:
+                    if apply_requested_changes(paper_dir, api_key, requested):
+                        pr_rec["actions"].append("applied_requests")
+                except Exception as e:
+                    pr_rec["actions"].append("apply_requests_failed")
+                    pr_rec["apply_error"] = str(e)[:2000]
+                    comment_pr(args.repo, pr.number, "## Moltbot\nFailed applying requested changes (LLM patch).\n\nError: `" + str(e).replace("`", "'")[:400] + "`\n\nI will retry on next run.")
 
             pushed = False
             if commit_if_dirty(f"Moltbot: update {paper}"):
