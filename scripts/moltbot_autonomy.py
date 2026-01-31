@@ -235,6 +235,64 @@ def push_branch(branch: str) -> None:
     run(["git", "push", "origin", branch], check=False)
 
 
+def pr_checks_green(repo: str, number: int) -> tuple[bool, str]:
+    """Return (ok, reason)."""
+    raw = sh(
+        "gh",
+        "pr",
+        "view",
+        str(number),
+        "--repo",
+        repo,
+        "--json",
+        "isDraft,mergeable,statusCheckRollup",
+    )
+    data = json.loads(raw)
+    if data.get("isDraft"):
+        return False, "draft"
+    if (data.get("mergeable") or "").upper() != "MERGEABLE":
+        return False, f"mergeable={data.get('mergeable')}"
+
+    rollup = data.get("statusCheckRollup") or []
+    if not isinstance(rollup, list):
+        return False, "no-check-rollup"
+
+    bad = []
+    pending = []
+    ok_states = {"SUCCESS", "SKIPPED", "NEUTRAL"}
+    for c in rollup:
+        st = (c.get("state") or "").upper()
+        name = c.get("name") or c.get("context") or "(unnamed)"
+        if st in ok_states:
+            continue
+        if st in {"PENDING", "EXPECTED"}:
+            pending.append(name)
+        else:
+            bad.append(f"{name}:{st}")
+
+    if bad:
+        return False, "failing=" + ",".join(bad)
+    if pending:
+        return False, "pending=" + ",".join(pending)
+    return True, "ok"
+
+
+def merge_pr(repo: str, number: int) -> tuple[int, str]:
+    return run(
+        [
+            "gh",
+            "pr",
+            "merge",
+            str(number),
+            "--repo",
+            repo,
+            "--squash",
+            "--delete-branch",
+        ],
+        check=False,
+    )
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--repo", required=True, help="owner/repo")
@@ -280,6 +338,17 @@ def main() -> int:
             if commit_if_dirty(f"Moltbot: generate/update {paper}"):
                 push_branch(pr.head_ref)
                 pr_rec["actions"].append("pushed commits")
+
+            # Auto-merge by default if checks are green.
+            ok, reason = pr_checks_green(args.repo, pr.number)
+            pr_rec["checks"] = {"ok": ok, "reason": reason}
+            if ok:
+                code, out = merge_pr(args.repo, pr.number)
+                if code == 0:
+                    pr_rec["actions"].append("merged")
+                else:
+                    pr_rec["actions"].append("merge_failed")
+                    pr_rec["merge_error"] = out[-2000:]
 
         run_summary["prs"].append(pr_rec)
 
