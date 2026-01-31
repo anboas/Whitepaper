@@ -90,6 +90,7 @@ def main() -> int:
 
     schema = {
         "type": "object",
+        "additionalProperties": False,
         "properties": {
             "overall": {"type": "number"},
             "categories": {
