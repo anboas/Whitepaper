@@ -23,3 +23,8 @@
 # OS/editor
 .DS_Store
 .vscode/
+
+# Local automation logs/cache
+logs/
+__pycache__/
+*/__pycache__/
