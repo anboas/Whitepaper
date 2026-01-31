@@ -159,6 +159,13 @@ def main() -> int:
         except Exception as e:
             comment_issue(args.repo, num, "## Moltbot\nFailed to open PR for this issue. Error:\n\n```\n" + str(e)[:1500] + "\n```")
 
+    # Important: helper scripts may leave the repo on a PR branch. The cron runner expects
+    # to run moltbot_autonomy.py from main, so always restore main before exit.
+    try:
+        run(["git", "checkout", "main"], check=False)
+    except Exception:
+        pass
+
     return 0
 
 
