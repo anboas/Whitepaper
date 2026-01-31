@@ -59,7 +59,7 @@ def now_ms() -> int:
     return int(time.time() * 1000)
 
 
-def log_event(repo_root: Path, msg: str) -> None:
+def log_event(repo_root: Path, msg: str, **extra: Any) -> None:
     """Best-effort audit logging for cron/autonomy.
 
     Writes both a human-readable log and a JSONL event stream.
@@ -70,15 +70,16 @@ def log_event(repo_root: Path, msg: str) -> None:
         log_dir = repo_root / "logs" / "moltbot-autonomy"
         log_dir.mkdir(parents=True, exist_ok=True)
 
-        # Human readable
-        (log_dir / "runner.log").open("a", encoding="utf-8").write(
-            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {msg}\n"
-        )
+        # Human-readable log
+        with (log_dir / "runner.log").open("a", encoding="utf-8") as f:
+            f.write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {msg}\n")
 
-        # Structured
-        (log_dir / "events.jsonl").open("a", encoding="utf-8").write(
-            json.dumps({"ts": now_ms(), "msg": msg}) + "\n"
-        )
+        # Structured event stream
+        rec: dict[str, Any] = {"ts": now_ms(), "msg": msg}
+        if extra:
+            rec.update(extra)
+        with (log_dir / "events.jsonl").open("a", encoding="utf-8") as f:
+            f.write(json.dumps(rec, ensure_ascii=False) + "\n")
     except Exception:
         pass
 
