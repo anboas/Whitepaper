@@ -28,11 +28,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyyaml requests
 
-      - name: Apply FIX: comments (LLM)
+      - name: Apply FIX: comments (LLM) iteratively
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # TODO: once apply_fixes_from_pr.py is made iterative, we can enable max_iters here.
           python scripts/apply_fixes_from_pr.py --repo ${{ github.repository }} --pr ${{ github.event.pull_request.number }}
 
       - name: Comment on PR

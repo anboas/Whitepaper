@@ -21,6 +21,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyyaml requests
 
+      - name: Validate INTENT
+        run: |
+          python scripts/intent_validate.py --path INTENT.md
+
       - name: Rubric gate (deterministic)
         run: |
           python scripts/rubric_check.py --tex tex/whitepaper.tex --rubric rubric.yml

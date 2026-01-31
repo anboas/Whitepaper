@@ -44,6 +44,7 @@ def main() -> int:
     ap.add_argument("--tex", default="tex/whitepaper.tex")
     ap.add_argument("--rubric", default="rubric.yml")
     ap.add_argument("--tier", default="cheap", choices=["cheap", "full"], help="which LLM config tier to use")
+    ap.add_argument("--json", action="store_true", help="emit machine-readable JSON")
     args = ap.parse_args()
 
     api_key = os.environ.get("OPENAI_API_KEY", "").strip()
@@ -101,12 +102,19 @@ def main() -> int:
         "top_fixes": ["string"],
     }
 
+    intent_path = Path("INTENT.md")
+    intent = ""
+    if intent_path.exists():
+        intent = read_text(intent_path)[:12000]
+
     user = {
         "categories": categories,
         "scoring": "All scores are 0.0 to 1.0. Overall should be your holistic judgment.",
+        "intent_md": intent,
         "document": plain[:24000],
         "instructions": [
             "Be consistent: 0.8 means publish-ready with minor edits; 0.6 means needs meaningful revision; <0.5 means not ready.",
+            "Use INTENT.md as ground truth for what 'polished' means.",
             "Call out missing reader hooks, vague claims, weak evidence, and unclear recommendations.",
             "Prefer actionable, specific writing. Penalize filler and vague abstractions.",
         ],
@@ -213,6 +221,23 @@ def main() -> int:
     failing = [c for c in categories if float(cat_scores.get(c, 0.0)) < per_cat_min]
     ok = (overall >= min_overall) and not failing
 
+    out_obj = {
+        "model": model,
+        "tier": args.tier,
+        "ok": ok,
+        "min_overall": min_overall,
+        "min_per_category": per_cat_min,
+        "overall": overall,
+        "categories": {c: float(cat_scores[c]) for c in categories},
+        "failing_categories": failing,
+        "top_issues": (result.get("top_issues") or [])[:8],
+        "top_fixes": (result.get("top_fixes") or [])[:8],
+    }
+
+    if args.json:
+        print(json.dumps(out_obj, ensure_ascii=False))
+        return 0 if ok else 2
+
     print("LLM rubric results")
     print("=================")
     print(f"Model: {model}")
@@ -222,10 +247,10 @@ def main() -> int:
     if failing:
         print(f"Failing categories: {', '.join(failing)}")
     print("Top issues:")
-    for s in (result.get("top_issues") or [])[:8]:
+    for s in out_obj["top_issues"]:
         print(f"- {s}")
     print("Top fixes:")
-    for s in (result.get("top_fixes") or [])[:8]:
+    for s in out_obj["top_fixes"]:
         print(f"- {s}")
 
     return 0 if ok else 2

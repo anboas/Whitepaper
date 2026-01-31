@@ -1,4 +1,4 @@
-.PHONY: pdf html rubric clean
+.PHONY: pdf html rubric intent clean
 
 # Build outputs locally.
 # Requires: pdflatex (TeX Live) in PATH.
@@ -19,6 +19,9 @@ html:
 	mkdir -p $(OUT)
 	$(PANDOC) $(MAIN) -s -o $(OUT)/whitepaper.html
 	@echo "Built $(OUT)/whitepaper.html"
+
+intent:
+	python3 scripts/intent_validate.py --path INTENT.md
 
 rubric:
 	python3 scripts/rubric_check.py --tex $(MAIN) --rubric rubric.yml
