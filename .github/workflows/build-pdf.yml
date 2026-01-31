@@ -34,7 +34,7 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           root_file: tex/whitepaper.tex
-          args: -interaction=nonstopmode -halt-on-error -output-directory=build
+          args: -pdf -interaction=nonstopmode -halt-on-error -output-directory=build
 
       # latex-action may create build/ as root (depending on container execution);
       # ensure subsequent steps can write into it.

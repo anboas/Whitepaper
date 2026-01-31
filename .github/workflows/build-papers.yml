@@ -49,7 +49,8 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           root_file: papers/${{ matrix.paper }}/tex/paper.tex
-          args: -interaction=nonstopmode -halt-on-error -output-directory=build/${{ matrix.paper }}
+          # latexmk defaults to DVI unless -pdf is specified.
+          args: -pdf -interaction=nonstopmode -halt-on-error -output-directory=build/${{ matrix.paper }}
 
       - name: Fix build/ permissions
         run: |
