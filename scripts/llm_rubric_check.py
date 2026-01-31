@@ -158,8 +158,7 @@ def main() -> int:
             {"role": "system", "content": system},
             {"role": "user", "content": json.dumps(user)},
         ],
-        # Try to reduce creative drift.
-        "temperature": 0.2,
+        # Some Codex/reasoning models reject temperature; omit for compatibility.
     }
 
     r = requests.post(
