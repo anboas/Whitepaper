@@ -1,36 +1,75 @@
 # Rubric used by scripts/rubric_check.py
 # Goal: fail PRs that are obviously not publishable yet.
-# This is intentionally simple and deterministic; evolve it over time.
+# This is deterministic + heuristic (no LLM). Tune over time.
 
-min_total_score: 0.75
+min_total_score: 0.80
 
 checks:
+  # --- Hygiene / structural gates ---
   no_todos:
-    weight: 0.20
-    patterns:
-      - "TODO"
-      - "TBD"
-      - "FIXME"
+    weight: 0.10
+    patterns: ["TODO", "TBD", "FIXME"]
 
-  has_executive_summary:
-    weight: 0.20
+  required_sections:
+    weight: 0.15
+    # Simple phrase match against source.
     required_phrases:
       - "Executive Summary"
-
-  has_recommendations:
-    weight: 0.20
-    required_phrases:
+      - "Problem Statement"
       - "Recommendations"
+      - "Conclusion"
 
   has_sources_or_refs:
-    weight: 0.20
-    # Accept either a References section or at least 2 bracketed citations like [1]
-    required_phrases_any:
-      - "References"
-      - "Bibliography"
+    weight: 0.10
+    required_phrases_any: ["References", "Bibliography"]
     min_citation_markers: 2
 
   length_sanity:
-    weight: 0.20
-    # Rough minimum; tune per series.
+    weight: 0.10
     min_words: 600
+
+  # --- Tone / style heuristics ---
+  tone_avoid_hedging:
+    weight: 0.10
+    # Allow some, but avoid excessive uncertainty/hand-waving.
+    max_hits: 12
+    patterns:
+      - "maybe"
+      - "might"
+      - "could"
+      - "possibly"
+      - "somewhat"
+      - "sort of"
+      - "kind of"
+      - "in my opinion"
+      - "i think"
+
+  tone_avoid_hype:
+    weight: 0.05
+    max_exclamations: 1
+    # Template includes some intentional caps (e.g., WHITEPAPER SERIES).
+    max_allcaps_words: 10
+
+  clarity_sentence_length:
+    weight: 0.10
+    # In plain text after LaTeX stripping.
+    max_avg_words_per_sentence: 24
+    max_sentence_words: 45
+
+  clarity_readability:
+    weight: 0.10
+    # Flesch Reading Ease (approx). 0-100: higher is easier.
+    # Business/technical writing often lands ~30-60.
+    min_flesch_reading_ease: 25
+
+  voice_prefer_active:
+    weight: 0.10
+    # Heuristic passive voice detector; keep it low.
+    max_passive_ratio: 0.18
+
+  # --- Elements / audience fit ---
+  elements_actionability:
+    weight: 0.05
+    # Ensure recommendations are framed as actions.
+    required_phrases_any: ["Adopt", "Require", "Instrument", "Implement", "Establish", "Define"]
+    min_hits: 2

@@ -40,11 +40,16 @@ Outputs:
 
 ## Rubric gating
 Rubric is defined in `rubric.yml` and enforced by `scripts/rubric_check.py`.
-This is a **deterministic**, low-drama quality bar meant to catch:
+This is a **deterministic + heuristic** quality bar (no LLM) meant to catch:
 - TODO/TBD/FIXME left in
-- missing Executive Summary / Recommendations
+- missing required sections (Executive Summary / Problem / Recommendations / Conclusion)
 - missing sources/refs markers
 - too-short drafts
+- excessive hedging / hype
+- overly-long sentences
+- too-low readability (approx)
+- too much passive voice (heuristic)
+- recommendations that aren’t framed as actions
 
 ## Layout
 - `tex/whitepaper.tex` — current working paper + template
