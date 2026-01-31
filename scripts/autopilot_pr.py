@@ -85,9 +85,20 @@ def call_llm_rubric(paper_dir: Path, tier: str) -> dict:
         tier,
         "--json",
     ])
+    # llm_rubric_check returns 0 (pass/skip) or 2 (fail). Both are expected.
     if code not in (0, 2):
         raise RuntimeError(out)
-    return json.loads(out.strip().splitlines()[-1])
+
+    lines = [ln.strip() for ln in out.splitlines() if ln.strip()]
+    # Find the last JSON-looking line.
+    json_line = None
+    for ln in reversed(lines):
+        if ln.startswith("{") and ln.endswith("}"):
+            json_line = ln
+            break
+    if not json_line:
+        raise RuntimeError(f"LLM rubric did not return JSON. Output:\n{out}")
+    return json.loads(json_line)
 
 
 def get_pr_body(owner: str, repo: str, pr: int, gh_token: str) -> str:
