@@ -85,26 +85,18 @@ def main() -> int:
     system = (
         "You are an exacting writing QA reviewer for executive-grade whitepapers. "
         "Score the document against the requested categories. Be critical, not polite. "
-        "Return ONLY valid JSON matching the schema."
+        "Return ONLY valid JSON. No markdown, no commentary."
     )
 
+    # NOTE: We do not use Responses API json_schema enforcement here because
+    # the API requires fully-specified closed schemas (no free-form maps).
+    # We instead request strict JSON and validate it ourselves.
     schema = {
-        "type": "object",
-        "additionalProperties": False,
-        "properties": {
-            "overall": {"type": "number"},
-            "categories": {
-                "type": "object",
-                "additionalProperties": {"type": "number"},
-            },
-            "reasons": {
-                "type": "object",
-                "additionalProperties": {"type": "string"},
-            },
-            "top_issues": {"type": "array", "items": {"type": "string"}},
-            "top_fixes": {"type": "array", "items": {"type": "string"}},
-        },
-        "required": ["overall", "categories", "reasons", "top_issues", "top_fixes"],
+        "overall": "number 0..1",
+        "categories": {"<category>": "number 0..1"},
+        "reasons": {"<category>": "short string (optional)"},
+        "top_issues": ["string"],
+        "top_fixes": ["string"],
     }
 
     user = {
@@ -166,7 +158,6 @@ def main() -> int:
             {"role": "system", "content": system},
             {"role": "user", "content": json.dumps(user)},
         ],
-        "text": {"format": {"type": "json_schema", "name": "llm_rubric", "schema": schema}},
         # Try to reduce creative drift.
         "temperature": 0.2,
     }
