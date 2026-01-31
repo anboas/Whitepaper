@@ -1,0 +1,184 @@
+% =========================================================
+% Whitepaper: Force Creation via Agentic Autonomy (DoD)
+% Source: derived from /home/anboas/AI Agentics.md
+% =========================================================
+\documentclass[11pt]{article}
+
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\setstretch{1.12}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{xcolor}
+\definecolor{BrandAccent}{HTML}{204060}
+\definecolor{BrandGray}{HTML}{6E6E6E}
+\definecolor{RuleGray}{HTML}{D9D9D9}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[C]{\small\textcolor{BrandGray}{\thepage}}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{colorlinks=true, linkcolor=BrandAccent, urlcolor=BrandAccent}
+\usepackage[most]{tcolorbox}
+\newtcolorbox{keytakeaway}{colback=white,colframe=BrandAccent,boxrule=0.8pt,arc=2pt,left=10pt,right=10pt,top=8pt,bottom=8pt}
+\newenvironment{execsummary}{\section*{Executive Summary}\vspace{-2pt}}{\vspace{6pt}}
+
+\newcommand{\PaperTitle}{The Unrecognized Shift: From AI Force Multiplication to Force Creation in the Department of Defense}
+\newcommand{\PaperSubtitle}{A White Paper on Agentic Autonomy, Trust Scopes, and Strategic Imperatives for Defense}
+\newcommand{\AuthorName}{Adam Boas}
+\newcommand{\AuthorRole}{Cloud Solutions Architect (defense modernization; agentic governance)}
+\newcommand{\PaperDate}{January 2026}
+
+\begin{document}
+
+\thispagestyle{empty}
+\vspace*{0.6in}
+{\Huge\bfseries\color{BrandAccent}\PaperTitle\par}
+\vspace{0.12in}
+{\large\color{BrandGray}\PaperSubtitle\par}
+\vspace{0.25in}
+\noindent\textcolor{RuleGray}{\rule{\textwidth}{0.8pt}}
+\vspace{0.2in}
+{\normalsize\textbf{\AuthorName}\par\textcolor{BrandGray}{\AuthorRole}\par\vspace{6pt}\textcolor{BrandGray}{\PaperDate}\par}
+\vfill
+\noindent\textcolor{BrandGray}{\small\textbf{Distribution:} Public.\quad\textbf{Disclaimer:} Views are the author's and do not represent official policy.}
+\newpage
+
+\begin{execsummary}
+This white paper argues that the Department of Defense is framing AI primarily as \emph{force multiplication} (assistants and efficiency tools) while the strategic inflection point is \emph{force creation}: autonomous, intent-driven agents that execute mission threads within bounded authority and scale primarily with compute.
+
+It proposes a practical Trust Scope Framework (Authority, Consequence, Environment, Uncertainty Tolerance) and an Agent Control Plane that makes autonomy governable: identity/ABAC, tool mediation, policy-as-code guardrails, immutable logs, continuous evaluation, and kill switches.
+
+The policy implication is operational: if the DoD cannot field autonomy with verifiable trust scopes at tempo, adversaries will. The paper provides an adversarial threat model, acquisition guidance (spec-as-deliverable + eval-as-deliverable), and a 12--24 month roadmap aligned to DoD strategic projects.
+\end{execsummary}
+
+\section{Introduction}
+The DoD is adopting AI, but much of that adoption is anchored in a limited frame: AI as a supervised assistant. That frame captures near-term productivity gains, but it under-prepares the institution for the next regime, where autonomy is the only way to operate inside human relevance windows.
+
+Force creation is not ``bigger copilots.'' It is intent-driven systems that can plan, call tools, and execute actions toward goals with bounded authority.
+
+\section{Paradigm Shift: From ``Build vs Buy'' to ``Write Specs''}
+As agentic systems mature, the binding constraint in system creation moves from implementation capacity to specification quality. Humans increasingly provide \emph{intents} and \emph{constraints}; agents generate solutions, test them, and iterate.
+
+In defense contexts, this means shifting investment from manual delivery toward context engineering, evaluation harnesses, and governance layers that keep agent execution inside authorized trust scopes.
+
+\section{Trust Scope Framework}
+Trust scope decomposes into four parameters. Each parameter should be measurable and testable:
+\begin{itemize}
+  \item \textbf{Authority:} what the agent is allowed to do.
+  \item \textbf{Consequence:} the impact class of mistakes.
+  \item \textbf{Environment:} classification/connectivity/contestation conditions.
+  \item \textbf{Uncertainty tolerance:} confidence thresholds and escalation triggers.
+\end{itemize}
+
+\begin{keytakeaway}
+\textbf{Key takeaway:} Trust is not a vibe. It is a scope with measurable gates.
+\end{keytakeaway}
+
+\subsection{Trust Scope Manifest (example)}
+\begin{verbatim}
+trust_scope_manifest:
+  agent_name: "enterprise-agents.v1"
+  environment:
+    classification: "UNCLAS|CUI|SECRET|TS"
+    connectivity: "online|intermittent|offline"
+  authority:
+    allowed_actions: ["draft", "recommend", "execute_within_budget"]
+    prohibited_actions: ["modify_firewall_rules", "release_data_cross_domain"]
+  consequence_level: "low|moderate|high|life_safety"
+  human_authority:
+    approvals_required_for:
+      - action: "execute_within_budget"
+        threshold: "$10K"
+    escalation_triggers:
+      - "confidence_below:0.85"
+      - "prompt_injection_suspected:true"
+  verification:
+    acceptance_thresholds:
+      task_success_rate: 0.97
+      critical_error_rate: 0.001
+      audit_log_coverage: 1.0
+  controls:
+    kill_switch: true
+    immutable_audit_logging: true
+\end{verbatim}
+
+\section{Agent Control Plane}
+To scale autonomy safely, an Agent Control Plane provides:
+\begin{itemize}
+  \item agent identity + ABAC (least privilege)
+  \item tool mediation (allowlists, budgets, sandboxing)
+  \item policy-as-code guardrails
+  \item immutable audit logs + replay
+  \item continuous evaluation + regression gates
+  \item kill switch + fallback modes
+\end{itemize}
+
+\section{Policy Partitioning}
+Partition autonomy into categories with tailored trust scopes:
+\begin{itemize}
+  \item Category A: enterprise/enabling agents
+  \item Category B: intelligence agents
+  \item Category C: operational/battle management agents
+  \item Category D: weapon system autonomy (special constraints)
+\end{itemize}
+
+\section{Adversarial Threat Model}
+Key failure modes include prompt injection, tool abuse, data poisoning, supply chain integrity, action forgery, and silent drift. The control plane must detect anomalies, enforce provenance, and manage escalation-rate attacks.
+
+\section{Acquisition: Spec as Deliverable + Eval as Deliverable}
+Operationalize ``write specs'' via procurement:
+\begin{itemize}
+  \item Intent/spec package (constraints, success criteria)
+  \item Trust Scope Manifest
+  \item Evaluation harness (tests, regressions, red-team scripts)
+  \item Transparency artifacts (model/system/data cards)
+\end{itemize}
+
+\section{Roadmap (12--24 months)}
+\begin{itemize}
+  \item Months 1--6: deploy low/moderate consequence trust scopes; build control plane; build eval harness.
+  \item Months 7--12: graduate to contested workflows; integrate context engineering.
+  \item Months 13--18: scale novel capabilities via competitive mechanisms; expand threat modeling.
+  \item Months 19--24: scale data provenance and ATO reciprocity pilots.
+\end{itemize}
+
+\section{Policy Recommendations}
+\begin{enumerate}
+  \item Adopt Trust Scope Manifests as a required artifact per agent family.
+  \item Build an Agent Control Plane and make it the default integration surface.
+  \item Treat evaluations as a first-class deliverable; block deployment without regression gates.
+  \item Run force creation pilots that are explicitly intent-driven and compute-scaled.
+\end{enumerate}
+
+\section{Glossary}
+\begin{itemize}
+  \item \textbf{Force multiplication:} AI increases throughput of human workstreams under constant oversight.
+  \item \textbf{Force creation:} AI executes mission-relevant work with delegated authorities, scaling with compute.
+  \item \textbf{Trust scope:} Authority \times Consequence \times Environment \times Uncertainty tolerance.
+  \item \textbf{Agent control plane:} governance layer for safe scaling.
+\end{itemize}
+
+\section{Appendix: Workforce Roles}
+\begin{itemize}
+  \item Intent/spec engineer
+  \item Context engineer
+  \item Agent SRE / autonomy operator
+  \item AI red team
+  \item Assurance lead
+\end{itemize}
+
+\section{References}
+(Imported from the markdown draft; keep in sync with source.)
+\begin{itemize}
+  \item DoD AI Strategy (2026). Department of Defense Artificial Intelligence Strategy.
+  \item OMB M-26-04 (2025). Advancing governance and risk management for federal AI.
+  \item DoD Directive 3000.09 (2023). Autonomy in Weapon Systems.
+  \item Newport (2026). Why Didn't AI 'Join the Workforce' in 2025?
+  \item VentureBeat (2025). Build vs Buy is dead---AI just killed it.
+\end{itemize}
+
+\end{document}

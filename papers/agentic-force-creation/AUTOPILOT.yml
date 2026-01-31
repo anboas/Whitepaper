@@ -1,0 +1,22 @@
+# AUTOPILOT.yml — paper automation settings (human optional)
+
+mode:
+  # when true, the system may iterate without human input until it reaches the target.
+  autonomous: true
+
+iteration:
+  max_iters: 8
+  stop_when:
+    - deterministic_passes
+    - llm_full_passes
+    - no_actionable_fixes
+
+models:
+  cheap: auto
+  full: auto
+  patch: auto
+
+scope:
+  # safety: automation may only modify the paper source.
+  allowed_paths:
+    - tex/paper.tex

@@ -1,0 +1,14 @@
+# Per-paper rubric overrides for agentic-force-creation
+
+min_total_score: 0.80
+
+checks:
+  # This paper is currently a LaTeX conversion stub; tighten once fully ported.
+  length_sanity:
+    weight: 0.10
+    min_words: 650
+
+  has_sources_or_refs:
+    weight: 0.10
+    required_phrases_any: ["References"]
+    min_citation_markers: 0
