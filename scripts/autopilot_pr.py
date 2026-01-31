@@ -88,36 +88,36 @@ def call_llm_rubric(paper_dir: Path, tier: str) -> dict:
     if code not in (0, 2):
         raise RuntimeError(out)
     return json.loads(out.strip().splitlines()[-1])
-+
-+
-+def get_pr_body(owner: str, repo: str, pr: int, gh_token: str) -> str:
-+    url = f"https://api.github.com/repos/{owner}/{repo}/pulls/{pr}"
-+    r = gh_get(url, gh_token)
-+    if r.status_code >= 300:
-+        return ""
-+    return (r.json().get("body") or "").strip()
-+
-+
-+def extract_autopilot_requests(text: str) -> list[str]:
-+    """Extract user-requested changes from PR body.
-+
-+    Supported forms:
-+    - Any fenced code block (``` ... ```) is treated as a requested change.
-+    - Any line starting with "FIX:" is treated as a requested change.
-+    """
-+    reqs: list[str] = []
-+    if not text:
-+        return reqs
-+    # fenced blocks
-+    for m in re.finditer(r"```\s*([\s\S]*?)\s*```", text):
-+        block = m.group(1).strip()
-+        if block:
-+            reqs.append(block)
-+    # FIX lines
-+    for line in text.splitlines():
-+        if line.strip().startswith("FIX:"):
-+            reqs.append(line.strip()[len("FIX:"):].strip())
-+    return reqs
+
+
+def get_pr_body(owner: str, repo: str, pr: int, gh_token: str) -> str:
+    url = f"https://api.github.com/repos/{owner}/{repo}/pulls/{pr}"
+    r = gh_get(url, gh_token)
+    if r.status_code >= 300:
+        return ""
+    return (r.json().get("body") or "").strip()
+
+
+def extract_autopilot_requests(text: str) -> list[str]:
+    """Extract user-requested changes from PR body.
+
+    Supported forms:
+    - Any fenced code block (``` ... ```) is treated as a requested change.
+    - Any line starting with "FIX:" is treated as a requested change.
+    """
+    reqs: list[str] = []
+    if not text:
+        return reqs
+    # fenced blocks
+    for m in re.finditer(r"```\s*([\s\S]*?)\s*```", text):
+        block = m.group(1).strip()
+        if block:
+            reqs.append(block)
+    # FIX lines
+    for line in text.splitlines():
+        if line.strip().startswith("FIX:"):
+            reqs.append(line.strip()[len("FIX:"):].strip())
+    return reqs
 
 
 def request_patch(api_key: str, model: str, target_path: str, intent_md: str, fixes: list[str], file_contents: str) -> str:
