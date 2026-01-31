@@ -395,6 +395,49 @@ def comment_pr(repo: str, number: int, body: str) -> None:
     )
 
 
+def comment_issue(repo: str, number: int, body: str) -> None:
+    run(
+        [
+            "gh",
+            "api",
+            f"repos/{repo}/issues/{number}/comments",
+            "-f",
+            f"body={body}",
+        ],
+        check=False,
+    )
+
+
+def close_issue(repo: str, number: int) -> None:
+    # Close issue (PATCH state=closed)
+    run(
+        [
+            "gh",
+            "api",
+            f"repos/{repo}/issues/{number}",
+            "--method",
+            "PATCH",
+            "-f",
+            "state=closed",
+        ],
+        check=False,
+    )
+
+
+def extract_issue_numbers_from_requests(repo: str, requested: list[str]) -> list[int]:
+    # Look for: Source issue: https://github.com/<repo>/issues/<n>
+    nums: list[int] = []
+    pat = re.compile(r"https://github\.com/" + re.escape(repo) + r"/issues/(\d+)")
+    for r in requested:
+        for m in pat.finditer(r):
+            try:
+                nums.append(int(m.group(1)))
+            except Exception:
+                pass
+    # de-dupe
+    return sorted(set(nums))
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--repo", required=True, help="owner/repo")
@@ -472,6 +515,14 @@ def main() -> int:
                 if code == 0:
                     pr_rec["actions"].append("merged")
                     comment_pr(args.repo, pr.number, "## Moltbot\nMerged (squash) ✅")
+
+                    # Auto-close linked issues for auditability.
+                    issue_nums = extract_issue_numbers_from_requests(args.repo, requested)
+                    for inum in issue_nums:
+                        comment_issue(args.repo, inum, f"## Moltbot\nMerged via PR #{pr.number}. Closing issue. ✅")
+                        close_issue(args.repo, inum)
+                        pr_rec.setdefault("closed_issues", []).append(inum)
+
                 else:
                     pr_rec["actions"].append("merge_failed")
                     pr_rec["merge_error"] = out[-2000:]
