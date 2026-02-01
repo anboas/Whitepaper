@@ -56,7 +56,7 @@ run_and_capture_output_and_scan() {
 
   # tee combined output to file (stdout+stderr)
   set +e
-  "$@" > >(tee "$tmp_out") 2>&1
+  "$@" 2>&1 | tee "$tmp_out"
   local code=${PIPESTATUS[0]}
   set -e
 
