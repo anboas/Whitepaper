@@ -145,18 +145,11 @@ def openai_request_with_backoff(
             continue
 
         if rr.status_code == 429:
+            # In cron/autonomy mode, do not block for long retry loops.
+            # Let the caller establish a cooldown across cron ticks.
             ra = _parse_retry_after_sec(rr.headers)
             msg = f"429 Too Many Requests for {url}"
-            last_429 = OpenAIRateLimitError(msg, retry_after_sec=ra)
-
-            if attempt >= max_attempts:
-                raise last_429
-
-            # Prefer server hint if present.
-            sleep = float(ra) if ra is not None else min(max_sleep_sec, base_sleep_sec * (2 ** (attempt - 1)))
-            sleep *= random.uniform(0.7, 1.3)
-            time.sleep(sleep)
-            continue
+            raise OpenAIRateLimitError(msg, retry_after_sec=ra)
 
         if rr.status_code >= 500:
             if attempt >= max_attempts:
