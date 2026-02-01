@@ -654,139 +654,167 @@ def main() -> int:
     log_dir.mkdir(parents=True, exist_ok=True)
     log_path = log_dir / "runs.jsonl"
 
-    cd = _load_cooldown(repo_root)
-    next_ts_ms = int(cd.get("next_ts_ms") or 0)
-    if next_ts_ms and now_ms() < next_ts_ms:
-        # Respect cooldown window to avoid hammering the API across cron ticks.
-        wait_sec = max(0, (next_ts_ms - now_ms()) / 1000.0)
-        log_event(repo_root, f"Cooldown active ({wait_sec:.0f}s remaining). Skipping autonomy run.")
-        # Exit 0 so cron doesn't treat this as a hard failure loop.
-        return 0
+    def is_rate_limited_exc(e: Exception) -> bool:
+        s = str(e)
+        return isinstance(e, OpenAIRateLimitError) or ("429" in s) or ("Too Many Requests" in s)
 
-    run_summary: dict[str, Any] = {"ts": now_ms(), "repo": args.repo, "prs": []}
+    try:
+        cd = _load_cooldown(repo_root)
+        next_ts_ms = int(cd.get("next_ts_ms") or 0)
+        if next_ts_ms and now_ms() < next_ts_ms:
+            # Respect cooldown window to avoid hammering the API across cron ticks.
+            wait_sec = max(0, (next_ts_ms - now_ms()) / 1000.0)
+            log_event(repo_root, f"Cooldown active ({wait_sec:.0f}s remaining). Skipping autonomy run.")
+            # Exit 0 so cron doesn't treat this as a hard failure loop.
+            return 0
 
-    prs = list_open_prs(args.repo)
+        run_summary: dict[str, Any] = {"ts": now_ms(), "repo": args.repo, "prs": []}
 
-    max_prs = int(os.environ.get("MOLTBOT_MAX_PRS_PER_RUN", "2"))
-    processed = 0
-    saw_rate_limit = False
+        prs = list_open_prs(args.repo)
 
-    for pr in prs:
-        if processed >= max_prs:
-            break
-        files = pr_files(args.repo, pr.number)
-        paper = detect_single_paper(files)
-        if not paper:
-            continue
+        max_prs = int(os.environ.get("MOLTBOT_MAX_PRS_PER_RUN", "2"))
+        processed = 0
+        saw_rate_limit = False
 
-        paper_dir = repo_root / paper
-        cfg = load_autopilot_cfg(paper_dir)
-        autonomous = bool(((cfg.get("mode") or {}).get("autonomous")))
-        requested = extract_requests(pr.body)
+        for pr in prs:
+            if processed >= max_prs:
+                break
 
-        # Trigger condition: AUTOPILOT.yml says autonomous OR PR body includes explicit request blocks.
-        if not (autonomous or requested):
-            continue
+            pr_rec: dict[str, Any] = {"number": pr.number, "actions": []}
 
-        pr_rec: dict[str, Any] = {"number": pr.number, "paper": paper, "actions": []}
+            try:
+                files = pr_files(args.repo, pr.number)
+                paper = detect_single_paper(files)
+                if not paper:
+                    continue
 
-        if api_key:
-            log_event(repo_root, f"PR #{pr.number}: start (paper={paper})")
-            checkout_pr_branch(pr)
+                pr_rec["paper"] = paper
 
-            log_event(repo_root, f"PR #{pr.number}: ensure_generated_paper")
-            changed = ensure_generated_paper(paper_dir, api_key)
-            if changed:
-                pr_rec["actions"].append("generated tex/paper.tex")
+                paper_dir = repo_root / paper
+                cfg = load_autopilot_cfg(paper_dir)
+                autonomous = bool(((cfg.get("mode") or {}).get("autonomous")))
+                requested = extract_requests(pr.body)
 
-            if requested:
-                try:
-                    log_event(repo_root, f"PR #{pr.number}: apply_requested_changes (len={len(requested)})")
-                    if apply_requested_changes(paper_dir, api_key, requested):
-                        pr_rec["actions"].append("applied_requests")
-                except Exception as e:
-                    pr_rec["actions"].append("apply_requests_failed")
-                    pr_rec["apply_error"] = str(e)[:2000]
-                    log_event(repo_root, f"PR #{pr.number}: apply_requested_changes FAILED: {e}")
+                # Trigger condition: AUTOPILOT.yml says autonomous OR PR body includes explicit request blocks.
+                if not (autonomous or requested):
+                    continue
 
-                    # Detect rate limiting and stop the run early (prevents hammering API).
-                    is_rl = isinstance(e, OpenAIRateLimitError) or ("429" in str(e)) or ("Too Many Requests" in str(e))
-                    if is_rl:
-                        saw_rate_limit = True
+                if api_key:
+                    log_event(repo_root, f"PR #{pr.number}: start (paper={paper})")
+                    checkout_pr_branch(pr)
 
-                        # Back off across cron ticks. Default to 30 minutes, or use Retry-After if larger.
-                        ra = getattr(e, "retry_after_sec", None)
-                        cooldown_sec = max(30 * 60, int(ra) if isinstance(ra, int) else 0)
-                        _write_cooldown(repo_root, now_ms() + cooldown_sec * 1000, "openai_rate_limited", pr=pr.number)
+                    log_event(repo_root, f"PR #{pr.number}: ensure_generated_paper")
+                    changed = ensure_generated_paper(paper_dir, api_key)
+                    if changed:
+                        pr_rec["actions"].append("generated tex/paper.tex")
 
-                        comment_pr(
-                            args.repo,
-                            pr.number,
-                            "## Moltbot\nOpenAI rate limit (HTTP 429). Backing off and will retry later.",
-                        )
-                    else:
-                        comment_pr(args.repo, pr.number, "## Moltbot\nFailed applying requested changes (LLM patch).\n\nError: `" + str(e).replace("`", "'")[:400] + "`\n\nI will retry on next run.")
+                    if requested:
+                        try:
+                            log_event(repo_root, f"PR #{pr.number}: apply_requested_changes (len={len(requested)})")
+                            if apply_requested_changes(paper_dir, api_key, requested):
+                                pr_rec["actions"].append("applied_requests")
+                        except Exception as e:
+                            pr_rec["actions"].append("apply_requests_failed")
+                            pr_rec["apply_error"] = str(e)[:2000]
+                            log_event(repo_root, f"PR #{pr.number}: apply_requested_changes FAILED: {e}")
 
-            pushed = False
-            if commit_if_dirty(f"Moltbot: update {paper}"):
-                push_branch(pr.head_ref)
-                pushed = True
-                pr_rec["actions"].append("pushed_commits")
+                            # Detect rate limiting and stop the run early (prevents hammering API).
+                            if is_rate_limited_exc(e):
+                                saw_rate_limit = True
 
-            ok, reason = pr_checks_green(args.repo, pr.number)
-            pr_rec["checks"] = {"ok": ok, "reason": reason}
+                                # Back off across cron ticks. Default to 30 minutes, or use Retry-After if larger.
+                                ra = getattr(e, "retry_after_sec", None)
+                                cooldown_sec = max(30 * 60, int(ra) if isinstance(ra, int) else 0)
+                                _write_cooldown(repo_root, now_ms() + cooldown_sec * 1000, "openai_rate_limited", pr=pr.number)
 
-            # Comment for auditability whenever we took action.
-            if pr_rec["actions"]:
-                lines = [
-                    f"## Moltbot autonomy update",
-                    f"- Paper: `{paper}`",
-                    f"- Actions: {', '.join(pr_rec['actions'])}",
-                ]
-                if requested:
-                    lines.append("- Requests detected in PR body:")
-                    for r in requested[:6]:
-                        r1 = r.strip().replace("\r", "")
-                        if len(r1) > 300:
-                            r1 = r1[:300] + "…"
-                        lines.append(f"  - {r1}")
-                lines.append(f"- Checks: {'OK' if ok else 'NOT OK'} ({reason})")
-                comment_pr(args.repo, pr.number, "\n".join(lines))
+                                comment_pr(
+                                    args.repo,
+                                    pr.number,
+                                    "## Moltbot\nOpenAI rate limit (HTTP 429). Backing off and will retry later.",
+                                )
+                            else:
+                                comment_pr(
+                                    args.repo,
+                                    pr.number,
+                                    "## Moltbot\nFailed applying requested changes (LLM patch).\n\nError: `"
+                                    + str(e).replace("`", "'")[:400]
+                                    + "`\n\nI will retry on next run.",
+                                )
 
-            # Auto-merge by default when ready.
-            if ok:
-                code, out = merge_pr(args.repo, pr.number)
-                if code == 0:
-                    pr_rec["actions"].append("merged")
-                    comment_pr(args.repo, pr.number, "## Moltbot\nMerged (squash) ✅")
+                    if commit_if_dirty(f"Moltbot: update {paper}"):
+                        push_branch(pr.head_ref)
+                        pr_rec["actions"].append("pushed_commits")
 
-                    # Auto-close linked issues for auditability.
-                    issue_nums = extract_issue_numbers_from_requests(args.repo, requested)
-                    for inum in issue_nums:
-                        comment_issue(args.repo, inum, f"## Moltbot\nMerged via PR #{pr.number}. Closing issue. ✅")
-                        close_issue(args.repo, inum)
-                        pr_rec.setdefault("closed_issues", []).append(inum)
+                    ok, reason = pr_checks_green(args.repo, pr.number)
+                    pr_rec["checks"] = {"ok": ok, "reason": reason}
 
-                else:
-                    pr_rec["actions"].append("merge_failed")
-                    pr_rec["merge_error"] = out[-2000:]
-                    comment_pr(args.repo, pr.number, "## Moltbot\nMerge attempt failed. See logs / branch protection output.")
+                    # Comment for auditability whenever we took action.
+                    if pr_rec["actions"]:
+                        lines = [
+                            f"## Moltbot autonomy update",
+                            f"- Paper: `{paper}`",
+                            f"- Actions: {', '.join(pr_rec['actions'])}",
+                        ]
+                        if requested:
+                            lines.append("- Requests detected in PR body:")
+                            for r in requested[:6]:
+                                r1 = r.strip().replace("\r", "")
+                                if len(r1) > 300:
+                                    r1 = r1[:300] + "…"
+                                lines.append(f"  - {r1}")
+                        lines.append(f"- Checks: {'OK' if ok else 'NOT OK'} ({reason})")
+                        comment_pr(args.repo, pr.number, "\n".join(lines))
 
-        run_summary["prs"].append(pr_rec)
-        processed += 1
+                    # Auto-merge by default when ready.
+                    if ok:
+                        code, out = merge_pr(args.repo, pr.number)
+                        if code == 0:
+                            pr_rec["actions"].append("merged")
+                            comment_pr(args.repo, pr.number, "## Moltbot\nMerged (squash) ✅")
 
+                            # Auto-close linked issues for auditability.
+                            issue_nums = extract_issue_numbers_from_requests(args.repo, requested)
+                            for inum in issue_nums:
+                                comment_issue(args.repo, inum, f"## Moltbot\nMerged via PR #{pr.number}. Closing issue. ✅")
+                                close_issue(args.repo, inum)
+                                pr_rec.setdefault("closed_issues", []).append(inum)
+
+                        else:
+                            pr_rec["actions"].append("merge_failed")
+                            pr_rec["merge_error"] = out[-2000:]
+                            comment_pr(args.repo, pr.number, "## Moltbot\nMerge attempt failed. See logs / branch protection output.")
+
+            except Exception as e:
+                pr_rec["fatal_error"] = str(e)[:2000]
+                log_event(repo_root, f"PR #{pr.number}: FATAL ERROR: {e}")
+                if is_rate_limited_exc(e):
+                    saw_rate_limit = True
+                    _write_cooldown(repo_root, now_ms() + 30 * 60 * 1000, "openai_rate_limited", pr=pr.number)
+
+            finally:
+                run_summary["prs"].append(pr_rec)
+                processed += 1
+
+            if saw_rate_limit:
+                break
+
+        log_path.open("a", encoding="utf-8").write(json.dumps(run_summary) + "\n")
+
+        # If we hit rate limiting, we've already set a cooldown; exit 0 to avoid
+        # a cron hard-failure loop while still leaving breadcrumbs in logs.
         if saw_rate_limit:
-            # Stop processing more PRs this run.
-            break
+            return 0
 
-    log_path.open("a", encoding="utf-8").write(json.dumps(run_summary) + "\n")
-
-    # If we hit rate limiting, we've already set a cooldown; exit 0 to avoid
-    # a cron hard-failure loop while still leaving breadcrumbs in logs.
-    if saw_rate_limit:
         return 0
 
-    return 0
+    except Exception as e:
+        # Absolute last-resort: never hard-fail cron.
+        log_event(repo_root, f"Runner fatal error: {e}")
+        try:
+            log_path.open("a", encoding="utf-8").write(json.dumps({"ts": now_ms(), "repo": args.repo, "fatal_error": str(e)[:2000]}) + "\n")
+        except Exception:
+            pass
+        return 0
 
 
 if __name__ == "__main__":
