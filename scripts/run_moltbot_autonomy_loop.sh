@@ -57,7 +57,7 @@ run_and_capture_output_and_scan() {
   # tee combined output to file (stdout+stderr)
   set +e
   "$@" > >(tee "$tmp_out") 2>&1
-  local code=${PIPESTATUS[0]}
+  local code=$?
   set -e
 
   # If non-zero, treat as failure.
