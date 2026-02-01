@@ -46,6 +46,36 @@ run_and_capture_stderr() {
   fi
 }
 
+# Some scripts intentionally exit 0 even when they encounter recoverable errors
+# (e.g., OpenAI 429 rate limits) to avoid cron hard-failure loops. For those,
+# we capture combined output and log error markers ourselves.
+run_and_capture_output_and_scan() {
+  local stage="$1"; shift
+  local tmp_out
+  tmp_out="/tmp/moltbot_${stage}_out_$$.log"
+
+  # tee combined output to file (stdout+stderr)
+  set +e
+  "$@" > >(tee "$tmp_out") 2>&1
+  local code=${PIPESTATUS[0]}
+  set -e
+
+  # If non-zero, treat as failure.
+  if [[ $code -ne 0 ]]; then
+    local tb
+    tb="$(tail -n 400 "$tmp_out" | sed -e 's/\r$//')"
+    log_error_json "$stage" "$code" "command failed" "$tb"
+    exit "$code"
+  fi
+
+  # If output contains explicit failure markers, log them (but do not fail cron).
+  if grep -E "apply_requested_changes FAILED:|FATAL ERROR:|Runner fatal error:" -n "$tmp_out" >/dev/null 2>&1; then
+    local tb
+    tb="$(tail -n 400 "$tmp_out" | sed -e 's/\r$//')"
+    log_error_json "$stage" 0 "error marker detected in output" "$tb"
+  fi
+}
+
 # --- Pull latest main ---
 git fetch origin main
 # ensure we're on main
@@ -65,7 +95,7 @@ run_and_capture_stderr "issue_intake" python3 scripts/moltbot_issue_intake.py --
 
 # --- Execute PR autonomy (rate-limit safe) ---
 export MOLTBOT_MAX_PRS_PER_RUN=2
-run_and_capture_stderr "autonomy" python3 scripts/moltbot_autonomy.py --repo anboas/Whitepaper
+run_and_capture_output_and_scan "autonomy" python3 scripts/moltbot_autonomy.py --repo anboas/Whitepaper
 
 # --- Guardrail: only allow paper.tex modifications (autonomy) ---
 changed_files="$(git diff --name-only)"
