@@ -15,18 +15,19 @@ log_error_json() {
   local msg="$1"; shift || true
   local traceback="${1-}"
 
-  python3 - <<PY >> "$ERRORLOG"
-import json
-from datetime import datetime, timezone
+  STAGE="$stage" EXIT_CODE="$exit_code" MSG="$msg" TRACEBACK="$traceback" TS="$(ts)" \
+  python3 - <<'PY' >> "$ERRORLOG"
+import json, os
 
 data = {
-  "ts": "${ts()}",
-  "stage": ${stage!r},
-  "exit_code": int(${exit_code}),
-  "error": ${msg!r},
+  "ts": os.environ.get("TS"),
+  "stage": os.environ.get("STAGE"),
+  "exit_code": int(os.environ.get("EXIT_CODE") or 0),
+  "error": os.environ.get("MSG") or "",
 }
-if ${traceback!r}:
-  data["traceback"] = ${traceback!r}
+traceback = os.environ.get("TRACEBACK") or ""
+if traceback:
+  data["traceback"] = traceback
 print(json.dumps(data, ensure_ascii=False))
 PY
 }
