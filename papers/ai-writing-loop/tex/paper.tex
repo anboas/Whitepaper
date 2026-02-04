@@ -30,12 +30,12 @@
 \newpage
 
 \begin{execsummary}
-This paper proposes a fully automated writing workflow that turns a simple intent specification into publish-ready strategy artifacts. The core claim is operational: quality improves when writing is treated like software—versioned, testable, iterated, and gated.
+This paper proposes a fully automated writing workflow that turns a simple intent specification into publish-ready strategy artifacts. The core claim is operational: quality improves when writing is treated like software---versioned, testable, iterated, and gated.
 
 \begin{itemize}
   \item \textbf{Problem:} Most whitepapers are slow, untestable, and depend on scarce human attention.
-  \item \textbf{Insight:} Writing becomes scalable when we define “done” up front and enforce it with gates.
-  \item \textbf{Approach:} Intent/spec → deterministic checks → cheap semantic feedback → full semantic review → iterative patch loop → publish.
+  \item \textbf{Insight:} Writing becomes scalable when we define ``done'' up front and enforce it with gates.
+  \item \textbf{Approach:} Intent/spec $\rightarrow$ deterministic checks $\rightarrow$ cheap semantic feedback $\rightarrow$ full semantic review $\rightarrow$ iterative patch loop $\rightarrow$ publish.
   \item \textbf{Outcome:} Faster cycles, higher consistency, auditable decision trails, and parallel production across many papers.
 \end{itemize}
 \end{execsummary}
@@ -46,11 +46,11 @@ Organizations treat software with discipline and writing with vibes. The result 
 \section{The Pipeline (Architecture)}
 The pipeline begins with two inputs:
 \begin{itemize}
-  \item \textbf{INTENT.md:} the paper’s purpose, required sections, constraints, and definition of “polished.”
+  \item \textbf{INTENT.md:} the paper's purpose, required sections, constraints, and definition of ``polished.''
   \item \textbf{PAPER.yml:} variables (title, author, date, audience, assets), enabling repeatable rendering.
 \end{itemize}
 
-The output is not “a document.” The output is a set of artifacts produced by a reproducible process: PDF for humans and HTML for systems.
+The output is not ``a document.'' The output is a set of artifacts produced by a reproducible process: PDF for humans and HTML for systems.
 
 \begin{keytakeaway}
 \textbf{Key takeaway:} When the spec is explicit, the writing loop becomes automatable.
@@ -80,7 +80,7 @@ The iteration loop applies improvements as diffs. Each cycle:
   \item Run checks and generate prioritized fixes.
   \item Apply fixes as a constrained patch (only the paper source).
   \item Re-run gates.
-  \item Stop when no actionable recommendations remain or the “polished” threshold is met.
+  \item Stop when no actionable recommendations remain or the ``polished'' threshold is met.
 \end{enumerate}
 
 \section{Scalability and Governance}
@@ -103,7 +103,7 @@ This approach scales because it is parallel:
   \item Adopt a per-paper spec (INTENT + variables) as the entry requirement.
   \item Enforce deterministic gates before semantic checks.
   \item Run cheap semantic feedback continuously; reserve full reviews for labeled PRs.
-  \item Iterate via patch constraints until the rubric’s “polished” criteria are met.
+  \item Iterate via patch constraints until the rubric's ``polished'' criteria are met.
 \end{enumerate}
 
 \section{Conclusion}

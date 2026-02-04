@@ -31,7 +31,7 @@
 
 \begin{execsummary}
 \begin{calloutquote}
-“Force creation removes humans from the bottleneck.”
+``Force creation removes humans from the bottleneck.''
 \end{calloutquote}
 
 % autopilot: pull-quotes insertion requested in PR
@@ -48,7 +48,7 @@
   \item \textbf{Scale only after regression gates pass:} treat evals as blocking checks, not documentation.
 \end{enumerate}
 
-\textbf{This paper provides:} a Trust Scope Framework, an Agent Control Plane blueprint, a partitioning model (enterprise → weapon autonomy), an adversarial threat model, and a 12--24 month roadmap aligned to DoD AI Strategy PSPs.
+\textbf{This paper provides:} a Trust Scope Framework, an Agent Control Plane blueprint, a partitioning model (enterprise $\rightarrow$ weapon autonomy), an adversarial threat model, and a 12--24 month roadmap aligned to DoD AI Strategy PSPs.
 \end{execsummary}
 
 \section{Introduction: The Overlooked Transition in DoD AI Adoption}\label{introduction-the-overlooked-transition-in-dod-ai-adoption}
@@ -58,7 +58,7 @@ The Department of Defense stands at a pivotal juncture in AI integration, yet th
 In contrast, the horizon reveals force creation: autonomous agents driven by high-level intents, decoupling operational scale from human limitations and leveraging silicon and compute for exponential growth. In this paper, an `agent' is a software system that can plan, call tools, and execute actions toward a goal with bounded authority.
 
 \begin{calloutquote}
-“Human capital scales linearly; compute scales exponentially.”
+``Human capital scales linearly; compute scales exponentially.''
 \end{calloutquote}
 
 This shift is not speculative. Industry leaders like Anthropic CEO Dario Amodei have observed: "I have engineers within Anthropic who say I don\textquotesingle t write any code anymore. I just let the model write the code, I edit it," projecting AI handling most or all coding end-to-end within 6-12 months[1]. OpenAI CEO Sam Altman echoes: "We believe that, in 2025, we may see the first AI agents \textquotesingle join the workforce\textquotesingle{} and materially change the output of companies"[2]. In a recent update, Altman further emphasized the democratizing power of this technology: ``By the end of this year, for $100--$1000 of inference and a good idea, you\textquotesingle ll be able to create a company that could have been a unicorn 10 years ago''[3]. Elon Musk, CEO of xAI and Tesla, warns of the competitive edge: ``Companies that are entirely AI will demolish companies that are not''[4], underscoring that AI-native entities will operate at speeds and scales unattainable by legacy systems, making adaptation non-optional. The DoD\textquotesingle s own "Artificial Intelligence Strategy" (released January 9, 2026) acknowledges this momentum, calling for an "AI-first" warfighting force and initiatives like the "Agent Network" for AI-enabled battle management[5]. Yet, the strategy\textquotesingle s emphasis on experimentation and decision support risks underplaying the full autonomy required for force creation, potentially leaving the DoD vulnerable.
@@ -80,7 +80,7 @@ However, this shift amplifies trust challenges: Specs must embed ethical and sec
 
 \section{Baseline Contrast: Force Multiplication vs. Force Creation}\label{baseline-contrast}
 
-To neutralize the common objection (\emph{“we already do this with copilots”}), this section makes the ceiling explicit.
+To neutralize the common objection (\emph{``we already do this with copilots''}), this section makes the ceiling explicit.
 
 \begin{center}
 \begin{tabular}{p{0.28\textwidth}p{0.33\textwidth}p{0.33\textwidth}}
@@ -102,7 +102,7 @@ The implication is not that assistants are useless; it is that they do not remov
 Trust scope decomposes into four parameters. Each parameter is measurable and testable, allowing for iterative refinement based on real-world performance data.
 
 \begin{calloutquote}
-“Trust is bounded authority plus verification.”
+``Trust is bounded authority plus verification.''
 \end{calloutquote}
 
 \begin{itemize}
@@ -186,7 +186,7 @@ To operationalize compute-scaled autonomy, a dedicated Agent Control Plane is es
 \end{itemize}
 
 \begin{calloutquote}
-“Control planes matter more than models.”
+``Control planes matter more than models.''
 \end{calloutquote}
 
 This aligns with DoD AI Strategy requirements for rapid model refresh (deploy within \textasciitilde30 days of public release) and ATO reciprocity.
@@ -279,7 +279,7 @@ This dovetails with OMB M-26-04\textquotesingle s emphasis on vendor documentati
 \section{Battlespace as a Compute-and-Agency Competition}\label{battlespace-as-a-compute-and-agency-competition}
 
 \begin{calloutquote}
-“You can’t recruit your way out of a compute deficit.”
+``You can't recruit your way out of a compute deficit.''
 \end{calloutquote}
 
 By 2030, conflict advantage will increasingly be determined by decision tempo, context fidelity, and autonomous execution density. The relevant unit of capability will not be ``model quality'' in isolation, but ``agentic throughput under constraint'': agent-hours/day operating within approved trust scopes, closing mission threads with auditable logs and bounded authorities. Operationally, this is measurable: (1) agent-hours/day executed within approved trust scopes, (2) exception rate (percentage of actions requiring human escalation), (3) context freshness SLA under contested conditions, and (4) control-plane mean time to recover (MTTR) during deception and jamming. In contested environments, autonomy will not be optional; it will be required to operate inside human relevance windows, especially across cyber, electronic warfare, and battle management workflows. The practical implication is that the battlespace becomes a compute-and-agency competition: who can sense faster, interpret more reliably, and execute within policy constraints at machine speed.
@@ -289,7 +289,7 @@ By 2030, conflict advantage will increasingly be determined by decision tempo, c
 Human relevance windows are thresholds where human intervention remains viable: speed threshold (loop tempo), complexity threshold (option space), and contestation threshold (deception + uncertainty). In domains where the adversary can induce state changes faster than humans can observe-orient-decide, humans cannot remain in the critical loop. Humans must govern the loop, not execute it. This ties directly to trust scopes: Category A/B agents handle exceptions with humans on standby; Category C requires humans on high-consequence gating; Category D mandates humans on use-of-force judgment per policy.
 
 \begin{calloutquote}
-“Humans govern the loop; machines execute it.”
+``Humans govern the loop; machines execute it.''
 \end{calloutquote}
 
 
@@ -300,7 +300,7 @@ Force creation does not eliminate human error; it moves it upstream into specifi
 \begin{itemize}
 \item \textbf{Spec errors}: ambiguous intents, missing constraints, or success metrics that reward the wrong behavior.
 \item \textbf{Mis-set trust scopes}: authority too broad, consequence misclassified, or uncertainty tolerance miscalibrated.
-\item \textbf{Overconfidence in evals}: passing regression gates that do not reflect contested conditions (Goodhart’s Law).
+\item \textbf{Overconfidence in evals}: passing regression gates that do not reflect contested conditions (Goodhart's Law).
 \item \textbf{Cultural lag}: humans refuse to delegate even when policy allows it, then blame autonomy for tempo loss.
 \item \textbf{Governance drift}: emergency exceptions become the new normal without re-certification.
 \end{itemize}
@@ -326,14 +326,14 @@ Autonomy introduces new conflict dynamics:
 These dynamics are why the control plane must enforce tool mediation, provenance controls, and escalation-rate management.
 
 \textbf{Figure 1: Agentic Battlespace Stack} (Placeholder for diagram)\\
-Sensors/telemetry → context engineering → agent orchestration → tool mediation → effects. Annotated with trust scope gates (authority, consequence, environment, uncertainty).
+Sensors/telemetry $\rightarrow$ context engineering $\rightarrow$ agent orchestration $\rightarrow$ tool mediation $\rightarrow$ effects. Annotated with trust scope gates (authority, consequence, environment, uncertainty).
 
 \section{A Bounded Vignette: Contested Comms, High Tempo}\label{a-bounded-vignette-contested-comms-high-tempo}
 
 Scenario (contested comms, high tempo): Under intermittent connectivity, a battle-management agent family operates under Category C trust scope: it may fuse ISR and recommend COAs, but may only execute pre-approved non-kinetic actions (e.g., sensor re-tasking, deception routing) below a defined risk threshold. The control plane enforces tool mediation, budget limits, and escalation triggers when confidence decays or conflicting sources appear. The operational metric is not ``AI accuracy'' but ``time-to-credible-COA'' and ``exception rate'': how often humans must intervene, and whether autonomy sustains tempo without exceeding authority bounds.
 
 \begin{calloutquote}
-“If humans must approve every action, you have already lost the tempo advantage.”
+``If humans must approve every action, you have already lost the tempo advantage.''
 \end{calloutquote}
 
 This shift is structurally driven by operational tempo and contestation dynamics.
@@ -381,7 +381,7 @@ DoD planning and acquisition assumptions are historically labor-shaped: billets,
 
 \begin{itemize}
 \item \textbf{Output elasticity}: once trust scopes and control planes are in place, doubling compute can more than double agent-hours/day.
-\item \textbf{Acquisition mismatch}: buying “software” is insufficient; the durable deliverable becomes specs, eval harnesses, and governance artifacts.
+\item \textbf{Acquisition mismatch}: buying ``software'' is insufficient; the durable deliverable becomes specs, eval harnesses, and governance artifacts.
 \item \textbf{Workforce implications}: rank/billet models tied to headcount will misestimate capacity and risk unless they account for agent throughput and exception rates.
 \end{itemize}
 
@@ -440,7 +440,7 @@ To ensure clarity and auditability, the following 10 terms are defined crisply, 
 \item
   \textbf{Swarm Capabilities}: Decentralized, self-adapting networks. Auditable: Node loss tolerance \textgreater{} 50\%; emergent task completion \textgreater{} 90\%.
 \item
-  \textbf{Trust Scope}: Authority × Consequence × Environment × Uncertainty Tolerance. Auditable: Manifest approval rate; post-deployment compliance audits.
+  \textbf{Trust Scope}: Authority $\times$ Consequence $\times$ Environment $\times$ Uncertainty Tolerance. Auditable: Manifest approval rate; post-deployment compliance audits.
 \item
   \textbf{Agent Control Plane}: Governance layer for safe scaling. Auditable: Log coverage 100\%; regression pass rate \textgreater{} 99\%.
 \item
