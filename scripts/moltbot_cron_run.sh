@@ -1,136 +1,65 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_DIR="/home/anboas/clawd/Whitepaper"
-REPO_SLUG="anboas/Whitepaper"
-OPENAI_KEY_FILE="/home/anboas/.secrets/openai_api_key"
-ERR_LOG_REL="logs/moltbot-autonomy/errors.jsonl"
+cd "$(dirname "$0")/.."
 
-cd "$REPO_DIR"
+mkdir -p logs/moltbot-autonomy
+ERROR_LOG="logs/moltbot-autonomy/errors.jsonl"
 
-echo "[moltbot] $(date -Iseconds) starting"
+ts() { date -Is; }
 
-# Keep local changes safe
-STASHED=0
+json_escape() {
+  python3 - <<'PY'
+import json,sys
+print(json.dumps(sys.stdin.read()))
+PY
+}
+
+log_error() {
+  local step="$1"
+  local msg="$2"
+  local t
+  t="$(ts)"
+  local msg_json
+  msg_json=$(printf "%s" "$msg" | json_escape)
+  printf '{"timestamp":"%s","step":"%s","error":%s}\n' "$t" "$step" "$msg_json" >> "$ERROR_LOG"
+}
+
+run_step() {
+  local name="$1"; shift
+  echo "==> ${name}"
+  local out
+  if ! out=$("$@" 2>&1); then
+    echo "$out" >&2
+    log_error "$name" "$out"
+    return 1
+  fi
+  echo "$out"
+}
+
+# Pull latest main
 if ! git diff --quiet || ! git diff --cached --quiet; then
-  echo "[moltbot] working tree dirty; stashing"
-  git stash push -u -m "moltbot-autonomy-$(date -Iseconds)" >/dev/null || true
-  STASHED=1
+  echo "Working tree not clean; stashing before pull" >&2
+  git stash push -u -m "moltbot-autonomy pre-pull $(ts)" >/dev/null
 fi
 
 git fetch origin main
-
 git checkout main
 
 git pull --ff-only origin main
 
-export OPENAI_API_KEY="$(cat "$OPENAI_KEY_FILE" 2>/dev/null || true)"
-if [[ -z "${OPENAI_API_KEY:-}" ]]; then
-  echo "[moltbot] OPENAI_API_KEY empty" >&2
-  exit 2
+# Load OPENAI_API_KEY from Vaultwarden via bw CLI helper script
+export BW_HOST="https://localhost:8222"
+export BW_INSECURE=1
+export BW_EMAIL="anboas@gmail.com"
+export VAULT_OPENAI_SEARCH="OPENAI_API_KEY"
+
+if ! key="$(scripts/vaultwarden_get_openai_key.sh 2>&1)"; then
+  echo "$key" >&2
+  log_error "vaultwarden_get_openai_key" "$key"
+  exit 1
 fi
+export OPENAI_API_KEY="$key"
 
-mkdir -p "$(dirname "$ERR_LOG_REL")"
-
-run_and_log() {
-  local cmd="$1"
-  echo "[moltbot] running: $cmd"
-
-  local tmp
-  tmp="$(mktemp)"
-
-  set +e
-  bash -lc "$cmd" >"$tmp" 2>&1
-  local rc=$?
-  set -e
-
-  cat "$tmp"
-
-  if [[ $rc -ne 0 ]]; then
-    python3 - <<PY
-import json, datetime
-path = ${ERR_LOG_REL!r}
-cmd = ${cmd!r}
-rc = int(${rc})
-with open(${""}"$tmp"${""}"!r, "r", encoding="utf-8", errors="replace") as f:
-    out = f.read()
-rec = {
-  "ts": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-  "cmd": cmd,
-  "rc": rc,
-  "output": out,
-}
-with open(path, "a", encoding="utf-8") as f:
-    f.write(json.dumps(rec, ensure_ascii=False) + "\n")
-PY
-    rm -f "$tmp"
-    return $rc
-  fi
-
-  rm -f "$tmp"
-}
-
-run_and_log "python3 scripts/moltbot_issue_intake.py --repo $REPO_SLUG"
-
-export MOLTBOT_MAX_PRS_PER_RUN=2
-run_and_log "python3 scripts/moltbot_autonomy.py --repo $REPO_SLUG"
-
-# Auto-merge: only when mergeable + checks green. Do NOT use --auto (requires repo setting).
-if command -v gh >/dev/null 2>&1; then
-  echo "[moltbot] checking for mergeable PRs"
-  gh pr list --repo "$REPO_SLUG" --author @me --state open --json number,mergeable,statusCheckRollup \
-    --jq '.[] | @base64' \
-  | while IFS= read -r row; do
-      [[ -z "$row" ]] && continue
-      prjson="$(printf "%s" "$row" | base64 -d)"
-
-      num="$(python3 - <<PY
-import json
-j=json.loads(${prjson@Q})
-print(j["number"])
-PY
-)"
-
-      mergeable="$(python3 - <<PY
-import json
-j=json.loads(${prjson@Q})
-print(j.get("mergeable"))
-PY
-)"
-
-      [[ "$mergeable" == "MERGEABLE" ]] || continue
-
-      all_good="$(python3 - <<PY
-import json
-j=json.loads(${prjson@Q})
-roll=j.get("statusCheckRollup") or []
-if not roll:
-    print("0")
-    raise SystemExit
-ok=True
-for c in roll:
-  st=c.get("status")
-  conc=c.get("conclusion")
-  if st in ("IN_PROGRESS","PENDING","QUEUED"):
-    ok=False
-    break
-  if conc and conc not in ("SUCCESS","SKIPPED","NEUTRAL"):
-    ok=False
-    break
-print("1" if ok else "0")
-PY
-)"
-
-      [[ "$all_good" == "1" ]] || continue
-
-      echo "[moltbot] merging PR #$num"
-      run_and_log "gh pr merge $num --repo $REPO_SLUG --merge --delete-branch"
-    done
-fi
-
-if [[ "$STASHED" == "1" ]]; then
-  echo "[moltbot] restoring stashed changes"
-  git stash pop >/dev/null || true
-fi
-
-echo "[moltbot] $(date -Iseconds) done"
+run_step "Issue intake" python3 scripts/moltbot_issue_intake.py --repo anboas/Whitepaper
+run_step "Autonomy" python3 scripts/moltbot_autonomy.py --repo anboas/Whitepaper
