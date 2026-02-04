@@ -26,5 +26,6 @@
 
 # Local automation logs/cache
 logs/
+.learnings/
 __pycache__/
 */__pycache__/

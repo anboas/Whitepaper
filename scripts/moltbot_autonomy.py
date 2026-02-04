@@ -60,15 +60,30 @@ def now_ms() -> int:
 
 
 def log_event(repo_root: Path, msg: str) -> None:
-    """Append a short line to logs/moltbot-autonomy/runner.log.
+    """Best-effort audit logging for cron/autonomy.
 
+    Writes both a human-readable log and a JSONL event stream.
     Must never throw (logging cannot break autonomy).
     """
+
     try:
         log_dir = repo_root / "logs" / "moltbot-autonomy"
         log_dir.mkdir(parents=True, exist_ok=True)
-        fp = log_dir / "runner.log"
-        fp.open("a", encoding="utf-8").write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {msg}\n")
+
+        # Human readable
+        (log_dir / "runner.log").open("a", encoding="utf-8").write(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {msg}\n"
+        )
+
+        # Structured
+        (log_dir / "events.jsonl").open("a", encoding="utf-8").write(
+            json.dumps({"ts": now_ms(), "msg": msg}) + "\n"
+        )
+    except Exception:
+        pass
+
+    try:
+        print(msg, flush=True)
     except Exception:
         pass
 
@@ -521,7 +536,14 @@ def main() -> int:
     run_summary: dict[str, Any] = {"ts": now_ms(), "repo": args.repo, "prs": []}
 
     prs = list_open_prs(args.repo)
+
+    max_prs = int(os.environ.get("MOLTBOT_MAX_PRS_PER_RUN", "2"))
+    processed = 0
+    saw_rate_limit = False
+
     for pr in prs:
+        if processed >= max_prs:
+            break
         files = pr_files(args.repo, pr.number)
         paper = detect_single_paper(files)
         if not paper:
@@ -556,7 +578,13 @@ def main() -> int:
                     pr_rec["actions"].append("apply_requests_failed")
                     pr_rec["apply_error"] = str(e)[:2000]
                     log_event(repo_root, f"PR #{pr.number}: apply_requested_changes FAILED: {e}")
-                    comment_pr(args.repo, pr.number, "## Moltbot\nFailed applying requested changes (LLM patch).\n\nError: `" + str(e).replace("`", "'")[:400] + "`\n\nI will retry on next run.")
+
+                    # Detect rate limiting and stop the run early (prevents hammering API).
+                    if "429" in str(e) or "Too Many Requests" in str(e):
+                        saw_rate_limit = True
+                        comment_pr(args.repo, pr.number, "## Moltbot\nOpenAI rate limit (HTTP 429). Backing off and will retry later.")
+                    else:
+                        comment_pr(args.repo, pr.number, "## Moltbot\nFailed applying requested changes (LLM patch).\n\nError: `" + str(e).replace("`", "'")[:400] + "`\n\nI will retry on next run.")
 
             pushed = False
             if commit_if_dirty(f"Moltbot: update {paper}"):
@@ -604,8 +632,18 @@ def main() -> int:
                     comment_pr(args.repo, pr.number, "## Moltbot\nMerge attempt failed. See logs / branch protection output.")
 
         run_summary["prs"].append(pr_rec)
+        processed += 1
+
+        if saw_rate_limit:
+            # Stop processing more PRs this run.
+            break
 
     log_path.open("a", encoding="utf-8").write(json.dumps(run_summary) + "\n")
+
+    # If we hit rate limiting, exit nonzero so the supervisor can record it.
+    if saw_rate_limit:
+        return 3
+
     return 0
 
 
