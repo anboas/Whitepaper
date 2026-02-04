@@ -129,7 +129,7 @@ trust_scope_manifest:
     - "helpdesk.triage"     # Moderate-consequence support workflow
   environment:
     classification: "UNCLAS|CUI|SECRET|TS"  # Restrict to CUI for initial pilots
-    connectivity: "online|intermittent|offline"  # Fallback to offline mode in denied environments
+    connectivity: "online|intermittent|offline"  # Fallback to offline mode in denied envs
   authority:
     allowed_actions:
       - "draft"             # Generate reports or code

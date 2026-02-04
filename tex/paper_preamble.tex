@@ -64,17 +64,22 @@
 \newtcblisting{yamlblock}{
   listing only,
   breakable,
+  enhanced,
   colback=black!2,
   colframe=BrandAccent!60!black,
   boxrule=0.6pt,
   arc=2pt,
   left=8pt,right=8pt,top=6pt,bottom=6pt,
+  before skip=10pt,
+  after skip=10pt,
   listing options={
     basicstyle=\ttfamily\footnotesize,
     columns=fullflexible,
     keepspaces=true,
     breaklines=true,
-    showstringspaces=false
+    breakatwhitespace=true,
+    showstringspaces=false,
+    upquote=true
   }
 }
 
