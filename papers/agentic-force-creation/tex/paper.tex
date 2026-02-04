@@ -30,7 +30,9 @@
 \newpage
 
 \begin{execsummary}
-\begin{quote}\emph{“Force creation removes humans from the bottleneck.”}\end{quote}
+\begin{calloutquote}
+“Force creation removes humans from the bottleneck.”
+\end{calloutquote}
 
 % autopilot: pull-quotes insertion requested in PR
 \textbf{The shift:} The DoD is adopting AI as a \emph{force multiplier} (assistants) while the strategic inflection is \emph{force creation}: autonomous, intent-driven agents that execute mission threads within bounded authority and scale with compute.
@@ -55,7 +57,9 @@ The Department of Defense stands at a pivotal juncture in AI integration, yet th
 
 In contrast, the horizon reveals force creation: autonomous agents driven by high-level intents, decoupling operational scale from human limitations and leveraging silicon and compute for exponential growth. In this paper, an `agent' is a software system that can plan, call tools, and execute actions toward a goal with bounded authority.
 
-\begin{quote}\emph{“Human capital scales linearly; compute scales exponentially.”}\end{quote}
+\begin{calloutquote}
+“Human capital scales linearly; compute scales exponentially.”
+\end{calloutquote}
 
 This shift is not speculative. Industry leaders like Anthropic CEO Dario Amodei have observed: "I have engineers within Anthropic who say I don\textquotesingle t write any code anymore. I just let the model write the code, I edit it," projecting AI handling most or all coding end-to-end within 6-12 months[1]. OpenAI CEO Sam Altman echoes: "We believe that, in 2025, we may see the first AI agents \textquotesingle join the workforce\textquotesingle{} and materially change the output of companies"[2]. In a recent update, Altman further emphasized the democratizing power of this technology: ``By the end of this year, for $100--$1000 of inference and a good idea, you\textquotesingle ll be able to create a company that could have been a unicorn 10 years ago''[3]. Elon Musk, CEO of xAI and Tesla, warns of the competitive edge: ``Companies that are entirely AI will demolish companies that are not''[4], underscoring that AI-native entities will operate at speeds and scales unattainable by legacy systems, making adaptation non-optional. The DoD\textquotesingle s own "Artificial Intelligence Strategy" (released January 9, 2026) acknowledges this momentum, calling for an "AI-first" warfighting force and initiatives like the "Agent Network" for AI-enabled battle management[5]. Yet, the strategy\textquotesingle s emphasis on experimentation and decision support risks underplaying the full autonomy required for force creation, potentially leaving the DoD vulnerable.
 
@@ -97,7 +101,9 @@ The implication is not that assistants are useless; it is that they do not remov
 
 Trust scope decomposes into four parameters. Each parameter is measurable and testable, allowing for iterative refinement based on real-world performance data.
 
-\begin{quote}\emph{“Trust is bounded authority plus verification.”}\end{quote}
+\begin{calloutquote}
+“Trust is bounded authority plus verification.”
+\end{calloutquote}
 
 \begin{itemize}
 \item
@@ -179,7 +185,9 @@ To operationalize compute-scaled autonomy, a dedicated Agent Control Plane is es
   \textbf{Kill Switch \& Fallback Modes}: For degraded or offline operations.
 \end{itemize}
 
-\begin{quote}\emph{“Control planes matter more than models.”}\end{quote}
+\begin{calloutquote}
+“Control planes matter more than models.”
+\end{calloutquote}
 
 This aligns with DoD AI Strategy requirements for rapid model refresh (deploy within \textasciitilde30 days of public release) and ATO reciprocity.
 
@@ -270,7 +278,9 @@ This dovetails with OMB M-26-04\textquotesingle s emphasis on vendor documentati
 
 \section{Battlespace as a Compute-and-Agency Competition}\label{battlespace-as-a-compute-and-agency-competition}
 
-\begin{quote}\emph{“You can’t recruit your way out of a compute deficit.”}\end{quote}
+\begin{calloutquote}
+“You can’t recruit your way out of a compute deficit.”
+\end{calloutquote}
 
 By 2030, conflict advantage will increasingly be determined by decision tempo, context fidelity, and autonomous execution density. The relevant unit of capability will not be ``model quality'' in isolation, but ``agentic throughput under constraint'': agent-hours/day operating within approved trust scopes, closing mission threads with auditable logs and bounded authorities. Operationally, this is measurable: (1) agent-hours/day executed within approved trust scopes, (2) exception rate (percentage of actions requiring human escalation), (3) context freshness SLA under contested conditions, and (4) control-plane mean time to recover (MTTR) during deception and jamming. In contested environments, autonomy will not be optional; it will be required to operate inside human relevance windows, especially across cyber, electronic warfare, and battle management workflows. The practical implication is that the battlespace becomes a compute-and-agency competition: who can sense faster, interpret more reliably, and execute within policy constraints at machine speed.
 
@@ -278,7 +288,9 @@ By 2030, conflict advantage will increasingly be determined by decision tempo, c
 
 Human relevance windows are thresholds where human intervention remains viable: speed threshold (loop tempo), complexity threshold (option space), and contestation threshold (deception + uncertainty). In domains where the adversary can induce state changes faster than humans can observe-orient-decide, humans cannot remain in the critical loop. Humans must govern the loop, not execute it. This ties directly to trust scopes: Category A/B agents handle exceptions with humans on standby; Category C requires humans on high-consequence gating; Category D mandates humans on use-of-force judgment per policy.
 
-\begin{quote}\emph{“Humans govern the loop; machines execute it.”}\end{quote}
+\begin{calloutquote}
+“Humans govern the loop; machines execute it.”
+\end{calloutquote}
 
 
 \section{Human Failure Modes (in a World of Specs and Trust Scopes)}\label{human-failure-modes}
@@ -320,7 +332,9 @@ Sensors/telemetry → context engineering → agent orchestration → tool media
 
 Scenario (contested comms, high tempo): Under intermittent connectivity, a battle-management agent family operates under Category C trust scope: it may fuse ISR and recommend COAs, but may only execute pre-approved non-kinetic actions (e.g., sensor re-tasking, deception routing) below a defined risk threshold. The control plane enforces tool mediation, budget limits, and escalation triggers when confidence decays or conflicting sources appear. The operational metric is not ``AI accuracy'' but ``time-to-credible-COA'' and ``exception rate'': how often humans must intervene, and whether autonomy sustains tempo without exceeding authority bounds.
 
-\begin{quote}\emph{“If humans must approve every action, you have already lost the tempo advantage.”}\end{quote}
+\begin{calloutquote}
+“If humans must approve every action, you have already lost the tempo advantage.”
+\end{calloutquote}
 
 This shift is structurally driven by operational tempo and contestation dynamics.
 

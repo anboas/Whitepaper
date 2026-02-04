@@ -34,6 +34,18 @@
 
 \newtcolorbox{keytakeaway}{colback=white,colframe=BrandAccent,boxrule=0.8pt,arc=2pt,left=10pt,right=10pt,top=8pt,bottom=8pt}
 
+% Quote callout box (distinct square, left accent bar)
+\newtcolorbox{calloutquotebox}{
+  breakable,
+  colback=black!2,
+  colframe=BrandAccent,
+  boxrule=0.6pt,
+  arc=0pt,
+  left=10pt,right=10pt,top=8pt,bottom=8pt,
+  borderline west={2.2pt}{0pt}{BrandAccent}
+}
+\newenvironment{calloutquote}{\begin{calloutquotebox}\itshape\noindent}{\end{calloutquotebox}}
+
 % Readable monospaced code block (pdfTeX-compatible)
 \newtcblisting{yamlblock}{
   listing only,
