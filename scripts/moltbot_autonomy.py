@@ -59,6 +59,35 @@ def now_ms() -> int:
     return int(time.time() * 1000)
 
 
+def log_event(repo_root: Path, msg: str) -> None:
+    """Best-effort audit logging for cron/autonomy.
+
+    Writes both a human-readable log and a JSONL event stream.
+    Must never throw (logging cannot break autonomy).
+    """
+
+    try:
+        log_dir = repo_root / "logs" / "moltbot-autonomy"
+        log_dir.mkdir(parents=True, exist_ok=True)
+
+        # Human readable
+        (log_dir / "runner.log").open("a", encoding="utf-8").write(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {msg}\n"
+        )
+
+        # Structured
+        (log_dir / "events.jsonl").open("a", encoding="utf-8").write(
+            json.dumps({"ts": now_ms(), "msg": msg}) + "\n"
+        )
+    except Exception:
+        pass
+
+    try:
+        print(msg, flush=True)
+    except Exception:
+        pass
+
+
 def openai_model(api_key: str) -> str:
     # Prefer a codex model if available; fall back.
     try:
@@ -334,7 +363,9 @@ def apply_requested_changes(paper_dir: Path, api_key: str, requested: list[str])
     reqs = read_requirements(paper_dir)
     model = openai_model(api_key)
 
-    target_path = str(tex_path.as_posix())
+    # IMPORTANT: diff paths must be repo-relative for safe_apply_patch.
+    repo_root = paper_dir.parents[1]
+    target_path = str(tex_path.relative_to(repo_root).as_posix())
     tex = tex_path.read_text(encoding="utf-8", errors="ignore")
 
     # Retry once if the model doesn't output a valid diff.
@@ -505,7 +536,14 @@ def main() -> int:
     run_summary: dict[str, Any] = {"ts": now_ms(), "repo": args.repo, "prs": []}
 
     prs = list_open_prs(args.repo)
+
+    max_prs = int(os.environ.get("MOLTBOT_MAX_PRS_PER_RUN", "2"))
+    processed = 0
+    saw_rate_limit = False
+
     for pr in prs:
+        if processed >= max_prs:
+            break
         files = pr_files(args.repo, pr.number)
         paper = detect_single_paper(files)
         if not paper:
@@ -540,7 +578,13 @@ def main() -> int:
                     pr_rec["actions"].append("apply_requests_failed")
                     pr_rec["apply_error"] = str(e)[:2000]
                     log_event(repo_root, f"PR #{pr.number}: apply_requested_changes FAILED: {e}")
-                    comment_pr(args.repo, pr.number, "## Moltbot\nFailed applying requested changes (LLM patch).\n\nError: `" + str(e).replace("`", "'")[:400] + "`\n\nI will retry on next run.")
+
+                    # Detect rate limiting and stop the run early (prevents hammering API).
+                    if "429" in str(e) or "Too Many Requests" in str(e):
+                        saw_rate_limit = True
+                        comment_pr(args.repo, pr.number, "## Moltbot\nOpenAI rate limit (HTTP 429). Backing off and will retry later.")
+                    else:
+                        comment_pr(args.repo, pr.number, "## Moltbot\nFailed applying requested changes (LLM patch).\n\nError: `" + str(e).replace("`", "'")[:400] + "`\n\nI will retry on next run.")
 
             pushed = False
             if commit_if_dirty(f"Moltbot: update {paper}"):
@@ -588,8 +632,18 @@ def main() -> int:
                     comment_pr(args.repo, pr.number, "## Moltbot\nMerge attempt failed. See logs / branch protection output.")
 
         run_summary["prs"].append(pr_rec)
+        processed += 1
+
+        if saw_rate_limit:
+            # Stop processing more PRs this run.
+            break
 
     log_path.open("a", encoding="utf-8").write(json.dumps(run_summary) + "\n")
+
+    # If we hit rate limiting, exit nonzero so the supervisor can record it.
+    if saw_rate_limit:
+        return 3
+
     return 0
 
 
