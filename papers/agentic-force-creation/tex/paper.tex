@@ -112,7 +112,7 @@ Trust scope decomposes into four parameters. Each parameter is measurable and te
 
 A required Trust Scope Manifest per agent family (e.g., enterprise, intel, cyber, battle management) includes approval gates and escalation triggers. Below is a drop-in YAML structure, expanded with DoD-specific examples for clarity:
 
-\begin{verbatim}
+\begin{yamlblock}
 trust_scope_manifest:
   agent_name: "enterprise-agents.v1"
   mission_threads:
@@ -156,7 +156,7 @@ trust_scope_manifest:
       - "policy_as_code_enforcement"  # Enforce ROE
     kill_switch: true               # Immediate halt capability
     immutable_audit_logging: true   # Tamper-proof records
-\end{verbatim}
+\end{yamlblock}
 
 This expanded framework can be integrated into DoD\textquotesingle s ATO processes, with initial pilots in Category A agents to build confidence. It directly addresses the strategy\textquotesingle s call for "model objectivity" by requiring verifiable artifacts, while enabling rapid deployment through predefined thresholds. For auditability, manifests should be version-controlled (e.g., via Azure DevOps, as in my prior white paper "From PDFs to Pull Requests"), with changes triggering re-approval workflows. This not only operationalizes trust but also scales with force creation, ensuring agents remain aligned in evolving battlespaces.
 

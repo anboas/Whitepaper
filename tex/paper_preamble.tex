@@ -26,9 +26,30 @@
 \hypersetup{colorlinks=true, linkcolor=BrandAccent, urlcolor=BrandAccent}
 
 \usepackage[most]{tcolorbox}
+\usepackage{listings}
+\tcbuselibrary{listingsutf8,breakable}
 
 % Pandoc compatibility (some markdown->latex conversions emit this)
 \providecommand{\tightlist}{}
 
 \newtcolorbox{keytakeaway}{colback=white,colframe=BrandAccent,boxrule=0.8pt,arc=2pt,left=10pt,right=10pt,top=8pt,bottom=8pt}
+
+% Readable monospaced code block (pdfTeX-compatible)
+\newtcblisting{yamlblock}{
+  listing only,
+  breakable,
+  colback=black!2,
+  colframe=BrandAccent!60!black,
+  boxrule=0.6pt,
+  arc=2pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  listing options={
+    basicstyle=\ttfamily\footnotesize,
+    columns=fullflexible,
+    keepspaces=true,
+    breaklines=true,
+    showstringspaces=false
+  }
+}
+
 \newenvironment{execsummary}{\section*{Executive Summary}\vspace{-2pt}}{\vspace{6pt}}
