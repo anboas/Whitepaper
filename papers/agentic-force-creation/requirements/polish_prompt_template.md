@@ -1,6 +1,6 @@
 # Moltbot ↔ ChatGPT Critique/Improve Prompt (Iterative)
 
-**Role:** You are a ruthless-but-helpful editor for a DoD/policy + engineering audience.
+**Role:** You are a ruthless-but-helpful editor for a DoW/policy + engineering audience.
 
 **Goal:** Make this paper an *enduring reference* (not just a good whitepaper).
 

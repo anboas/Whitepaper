@@ -1,4 +1,4 @@
-# INTENT — Force Creation: Agentic Autonomy in the DoD
+# INTENT — Force Creation: Agentic Autonomy in the DoW
 
 ## 0) Identity
 - **Title:** The Unrecognized Shift: From AI Force Multiplication to Force Creation in the Department of Defense
@@ -6,11 +6,11 @@
 - **Author name:** Adam Boas
 - **Author role:** Cloud Solutions Architect (defense cloud/software modernization; agentic governance)
 - **Date:** January 2026
-- **Audience:** DoD senior leaders, acquisition/governance stakeholders, technical operators
+- **Audience:** DoW senior leaders, acquisition/governance stakeholders, technical operators
 - **Distribution:** LinkedIn + blog
 
 ## 1) Intent (what this paper does)
-- Reframe DoD AI adoption from “assistants” to compute-scaled **force creation** via autonomous agents.
+- Reframe DoW AI adoption from “assistants” to compute-scaled **force creation** via autonomous agents.
 - Define a practical, testable **Trust Scope Framework** and explain why it is required for safe autonomy.
 - Provide actionable acquisition, governance, and engineering recommendations (control plane, evaluation harness, roadmap).
 
