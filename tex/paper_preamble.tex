@@ -52,9 +52,14 @@
 \usepackage{tabularx}
 \usepackage{enumitem}
 \usepackage{tocloft}
-% Tighten ToC spacing (keep it one page)
-\setlength{\cftbeforesecskip}{0pt}
-\setlength{\cftbeforesubsecskip}{0pt}
+% Tighten ToC spacing (keep it one page, but not overly cramped)
+\setlength{\cftbeforesecskip}{1.5pt}
+\setlength{\cftbeforesubsecskip}{1pt}
+% Keep ToC text black (override any inherited color)
+\renewcommand{\cftsecfont}{\color{black}}
+\renewcommand{\cftsecpagefont}{\color{black}}
+\renewcommand{\cftsubsecfont}{\color{black}}
+\renewcommand{\cftsubsecpagefont}{\color{black}}
 \tcbuselibrary{listingsutf8,breakable}
 
 % Pandoc compatibility (some markdown->latex conversions emit this)
