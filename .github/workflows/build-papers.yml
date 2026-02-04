@@ -37,6 +37,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyyaml requests
 
+      - name: UTF-8 sanitize check (LaTeX inputs)
+        run: |
+          python3 scripts/utf8_latex_sanitize.py --check
+
       - name: Validate INTENT
         run: |
           python scripts/intent_validate.py --paper-dir papers/${{ matrix.paper }}
