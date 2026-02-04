@@ -54,7 +54,7 @@
 
 \section{Introduction: The Overlooked Transition in DoD AI Adoption}\label{introduction-the-overlooked-transition-in-dod-ai-adoption}
 
-The Department of Defense stands at a pivotal juncture in AI integration, yet there persists a disconnect between current perceptions and the impending reality. As evidenced by statements from senior leaders, such as the Army CIO\textquotesingle s view of AI as merely a "good assistant," much of the DoD remains anchored in the force multiplication phase---where AI amplifies human efficiency in tasks like software development lifecycle (SDLC) processes, code generation, and analysis. This phase is valuable but limited, treating AI as a tool bound by human oversight and scale.
+The Department of Defense stands at a pivotal juncture in AI integration, yet there persists a disconnect between current perceptions and the impending reality. As evidenced by statements from senior leaders, such as the Army CIO\textquotesingle s view of AI as merely a ``good assistant,'' much of the DoD remains anchored in the force multiplication phase---where AI amplifies human efficiency in tasks like software development lifecycle (SDLC) processes, code generation, and analysis. This phase is valuable but limited, treating AI as a tool bound by human oversight and scale.
 
 In contrast, the horizon reveals force creation: autonomous agents driven by high-level intents, decoupling operational scale from human limitations and leveraging silicon and compute for exponential growth. In this paper, an `agent' is a software system that can plan, call tools, and execute actions toward a goal with bounded authority.
 
@@ -62,21 +62,21 @@ In contrast, the horizon reveals force creation: autonomous agents driven by hig
 ``Human capital scales linearly; compute scales exponentially.''
 \end{calloutquote}
 
-This shift is not speculative. Industry leaders like Anthropic CEO Dario Amodei have observed: "I have engineers within Anthropic who say I don\textquotesingle t write any code anymore. I just let the model write the code, I edit it," projecting AI handling most or all coding end-to-end within 6-12 months[1]. OpenAI CEO Sam Altman echoes: "We believe that, in 2025, we may see the first AI agents \textquotesingle join the workforce\textquotesingle{} and materially change the output of companies"[2]. In a recent update, Altman further emphasized the democratizing power of this technology: ``By the end of this year, for $100--$1000 of inference and a good idea, you\textquotesingle ll be able to create a company that could have been a unicorn 10 years ago''[3]. Elon Musk, CEO of xAI and Tesla, warns of the competitive edge: ``Companies that are entirely AI will demolish companies that are not''[4], underscoring that AI-native entities will operate at speeds and scales unattainable by legacy systems, making adaptation non-optional. The DoD\textquotesingle s own "Artificial Intelligence Strategy" (released January 9, 2026) acknowledges this momentum, calling for an "AI-first" warfighting force and initiatives like the "Agent Network" for AI-enabled battle management[5]. Yet, the strategy\textquotesingle s emphasis on experimentation and decision support risks underplaying the full autonomy required for force creation, potentially leaving the DoD vulnerable.
+This shift is not speculative. Industry leaders like Anthropic CEO Dario Amodei have observed: ``I have engineers within Anthropic who say I don\textquotesingle t write any code anymore. I just let the model write the code, I edit it,'' projecting AI handling most or all coding end-to-end within 6--12 months[1]. OpenAI CEO Sam Altman echoes: ``We believe that, in 2025, we may see the first AI agents \textquotesingle join the workforce\textquotesingle{} and materially change the output of companies''[2]. In a recent update, Altman further emphasized the democratizing power of this technology: ``By the end of this year, for $100--$1000 of inference and a good idea, you\textquotesingle ll be able to create a company that could have been a unicorn 10 years ago''[3]. Elon Musk, CEO of xAI and Tesla, warns of the competitive edge: ``Companies that are entirely AI will demolish companies that are not''[4], underscoring that AI-native entities will operate at speeds and scales unattainable by legacy systems, making adaptation non-optional. The DoD\textquotesingle s own ``Artificial Intelligence Strategy'' (released January 9, 2026) acknowledges this momentum, calling for an ``AI-first'' warfighting force and initiatives like the ``Agent Network'' for AI-enabled battle management[5]. Yet, the strategy\textquotesingle s emphasis on experimentation and decision support risks underplaying the full autonomy required for force creation, potentially leaving the DoD vulnerable.
 
-Central to this transition is the trust scope of agentics and autonomy: How much can we rely on these systems in classified, high-risk environments? Trust encompasses reliability, ethical alignment, verifiability, and risk tolerance. The DoD strategy prioritizes "model objectivity" and accepts "risks of not moving fast enough outweigh the risks of imperfect alignment," but lacks detailed frameworks for trust in fully autonomous operations[5]. This white paper explores these elements to urge a more proactive stance, with a focus on intent-driven development and context engineering as foundational to force creation.
+Central to this transition is the trust scope of agentics and autonomy: How much can we rely on these systems in classified, high-risk environments? Trust encompasses reliability, ethical alignment, verifiability, and risk tolerance. The DoD strategy prioritizes ``model objectivity'' and accepts ``risks of not moving fast enough outweigh the risks of imperfect alignment,'' but lacks detailed frameworks for trust in fully autonomous operations[5]. This white paper explores these elements to urge a more proactive stance, with a focus on intent-driven development and context engineering as foundational to force creation.
 
 \section{Reality Check: Why Agents Didn't `Join the Workforce' in 2025}\label{reality-check-why-agents-didnt-join-the-workforce-in-2025}
 
-Optimistic forecasts from leaders like Altman and Amodei suggested 2025 would see AI agents transforming workflows, yet this did not fully materialize. As Cal Newport reflected in his January 2026 essay, "Why Didn\textquotesingle t AI \textquotesingle Join the Workforce\textquotesingle{} in 2025?", agents struggled with reliability outside constrained environments, often failing in dynamic, real-world settings due to issues like context drift and unpredictable interactions[6]. Similarly, The New Yorker\textquotesingle s 2025-in-review piece noted that agents excelled in text-based terminals but faltered in broader applications, labeling 2025 as the start of a "decade of the agent" rather than an immediate revolution[7]. This reframes force creation as an engineering and governance challenge, not mere hype---underscoring the need for robust trust scopes and control planes to enable scalable autonomy in defense contexts.
+Optimistic forecasts from leaders like Altman and Amodei suggested 2025 would see AI agents transforming workflows, yet this did not fully materialize. As Cal Newport reflected in his January 2026 essay, ``Why Didn\textquotesingle t AI \textquotesingle Join the Workforce\textquotesingle{} in 2025?'', agents struggled with reliability outside constrained environments, often failing in dynamic, real-world settings due to issues like context drift and unpredictable interactions[6]. Similarly, The New Yorker\textquotesingle s 2025-in-review piece noted that agents excelled in text-based terminals but faltered in broader applications, labeling 2025 as the start of a ``decade of the agent'' rather than an immediate revolution[7]. This reframes force creation as an engineering and governance challenge, not mere hype---underscoring the need for robust trust scopes and control planes to enable scalable autonomy in defense contexts.
 
-\section{The Paradigm Shift: From "Build vs. Buy" to "Write Specs" in Intent-Driven Development}\label{the-paradigm-shift-from-build-vs-buy-to-write-specs-in-intent-driven-development}
+\section{The Paradigm Shift: From ``Build vs. Buy'' to ``Write Specs'' in Intent-Driven Development}\label{the-paradigm-shift-from-build-vs-buy-to-write-specs-in-intent-driven-development}
 
-A profound realignment in software and system creation underscores the move to force creation: the traditional "build vs. buy" dilemma is evolving into "write specs," where humans provide high-level specifications (intents), and autonomous agents generate, test, and deploy solutions. This aligns directly with intent-driven development---specifying goals like "Secure this network against peer threats"---and context engineering, the process of curating environmental data, constraints, and real-time feeds to ensure agents adapt without drift.
+A profound realignment in software and system creation underscores the move to force creation: the traditional ``build vs. buy'' dilemma is evolving into ``write specs,'' where humans provide high-level specifications (intents), and autonomous agents generate, test, and deploy solutions. This aligns directly with intent-driven development---specifying goals like ``Secure this network against peer threats''---and context engineering, the process of curating environmental data, constraints, and real-time feeds to ensure agents adapt without drift.
 
-As detailed in recent analyses, AI tools like Bolt, Replit, and Cursor are empowering "AI-native" development, upending the build-vs-buy debate by enabling rapid generation from specs[8]. VentureBeat reports that "build vs buy is dead---AI just killed it," shifting focus from core business construction to precise intent articulation[9]. In defense contexts, this means DoD teams move from manual coding or procuring off-the-shelf tools to engineering contexts that guide agents in creating bespoke, secure systems. For instance, agents could autonomously assemble cyber defenses from specs, scaling via compute while humans verify trust scopes.
+As detailed in recent analyses, AI tools like Bolt, Replit, and Cursor are empowering ``AI-native'' development, upending the build-vs-buy debate by enabling rapid generation from specs[8]. VentureBeat reports that ``build vs buy is dead---AI just killed it,'' shifting focus from core business construction to precise intent articulation[9]. In defense contexts, this means DoD teams move from manual coding or procuring off-the-shelf tools to engineering contexts that guide agents in creating bespoke, secure systems. For instance, agents could autonomously assemble cyber defenses from specs, scaling via compute while humans verify trust scopes.
 
-However, this shift amplifies trust challenges: Specs must embed ethical and security constraints to prevent misalignment, as warned in "Agentic AI in Military Applications"[10]. Without robust context engineering, agents risk "context rot," leading to unreliable outputs in contested environments. The DoD must integrate this paradigm to fully realize force creation, ensuring trust scopes evolve from supervised assistance to verifiable autonomy.
+However, this shift amplifies trust challenges: Specs must embed ethical and security constraints to prevent misalignment, as warned in ``Agentic AI in Military Applications''[10]. Without robust context engineering, agents risk ``context rot,'' leading to unreliable outputs in contested environments. The DoD must integrate this paradigm to fully realize force creation, ensuring trust scopes evolve from supervised assistance to verifiable autonomy.
 
 
 \section{Baseline Contrast: Force Multiplication vs. Force Creation}\label{baseline-contrast}
@@ -108,13 +108,13 @@ Trust scope decomposes into four parameters. Each parameter is measurable and te
 
 \begin{itemize}
 \item
-  \textbf{Authority}: Defines the delegated powers of the agent, including allowed and prohibited actions. In a DoD cyber defense scenario, authority might permit an agent to "draft and recommend patches" but prohibit "direct execution on live systems" without escalation. Auditable metric: Action compliance rate \textgreater{} 99\%, tracked via immutable logs.
+  \textbf{Authority}: Defines the delegated powers of the agent, including allowed and prohibited actions. In a DoD cyber defense scenario, authority might permit an agent to ``draft and recommend patches'' but prohibit ``direct execution on live systems'' without escalation. Auditable metric: Action compliance rate \textgreater{} 99\%, tracked via immutable logs.
 \item
-  \textbf{Consequence}: Assesses the potential impact of agent decisions, categorized as low (e.g., administrative tasks), moderate (e.g., intelligence fusion), high (e.g., operational planning), or life-safety (e.g., weapon systems). Higher levels require stricter human authority gates. Example: For Category D (weapon autonomy), consequence is always "life-safety," mandating DoD Directive 3000.09 compliance. Auditable metric: Consequence level alignment with mission risk assessments, reviewed quarterly.
+  \textbf{Consequence}: Assesses the potential impact of agent decisions, categorized as low (e.g., administrative tasks), moderate (e.g., intelligence fusion), high (e.g., operational planning), or life-safety (e.g., weapon systems). Higher levels require stricter human authority gates. Example: For Category D (weapon autonomy), consequence is always ``life-safety,'' mandating DoD Directive 3000.09 compliance. Auditable metric: Consequence level alignment with mission risk assessments, reviewed quarterly.
 \item
   \textbf{Environment}: Specifies operational conditions, such as classification levels (UNCLAS to TS) and connectivity (online, intermittent, offline). In contested battlespaces, offline modes demand fallback to pre-engineered contexts. Auditable metric: Environment adaptability test pass rate \textgreater{} 95\%, simulated in red-team exercises.
 \item
-  \textbf{Uncertainty Tolerance}: Sets thresholds for agent confidence and escalation, e.g., triggering human review if confidence drops below 0.85 or conflicting data is detected. This integrates with context engineering to handle "silent drift." Auditable metric: Escalation trigger activation rate \textless{} 5\% false positives, with post-incident reviews.
+  \textbf{Uncertainty Tolerance}: Sets thresholds for agent confidence and escalation, e.g., triggering human review if confidence drops below 0.85 or conflicting data is detected. This integrates with context engineering to handle ``silent drift.'' Auditable metric: Escalation trigger activation rate \textless{} 5\% false positives, with post-incident reviews.
 \end{itemize}
 
 A required Trust Scope Manifest per agent family (e.g., enterprise, intel, cyber, battle management) includes approval gates and escalation triggers. Below is a drop-in YAML structure, expanded with DoD-specific examples for clarity:
@@ -165,7 +165,7 @@ trust_scope_manifest:
     immutable_audit_logging: true   # Tamper-proof records
 \end{yamlblock}
 
-This expanded framework can be integrated into DoD\textquotesingle s ATO processes, with initial pilots in Category A agents to build confidence. It directly addresses the strategy\textquotesingle s call for "model objectivity" by requiring verifiable artifacts, while enabling rapid deployment through predefined thresholds. For auditability, manifests should be version-controlled (e.g., via Azure DevOps, as in my prior white paper "From PDFs to Pull Requests"), with changes triggering re-approval workflows. This not only operationalizes trust but also scales with force creation, ensuring agents remain aligned in evolving battlespaces.
+This expanded framework can be integrated into DoD\textquotesingle s ATO processes, with initial pilots in Category A agents to build confidence. It directly addresses the strategy\textquotesingle s call for ``model objectivity'' by requiring verifiable artifacts, while enabling rapid deployment through predefined thresholds. For auditability, manifests should be version-controlled (e.g., via Azure DevOps, as in my prior white paper ``From PDFs to Pull Requests''), with changes triggering re-approval workflows. This not only operationalizes trust but also scales with force creation, ensuring agents remain aligned in evolving battlespaces.
 
 \section{Agent Control Plane: Architectural Governance for Safe Autonomy}\label{agent-control-plane-architectural-governance-for-safe-autonomy}
 
@@ -204,7 +204,7 @@ To clarify governance, partition agentic systems into categories with tailored t
 \item
   \textbf{Category C: Operational/Battle Management Agents}---High consequence, requiring real-time human oversight.
 \item
-  \textbf{Category D: Weapon System Autonomy}---Special constraints, aligned with DoD Directive 3000.09, which mandates "appropriate levels of human judgment over the use of force" and engineered safeguards via rigorous testing, evaluation, verification, and validation (DoD Directive 3000.09, 2023). This ensures no "human-out-of-the-loop" lethality without explicit authorization.
+  \textbf{Category D: Weapon System Autonomy}---Special constraints, aligned with DoD Directive 3000.09, which mandates ``appropriate levels of human judgment over the use of force'' and engineered safeguards via rigorous testing, evaluation, verification, and validation (DoD Directive 3000.09, 2023). This ensures no ``human-out-of-the-loop'' lethality without explicit authorization.
 \end{itemize}
 
 This partitioning removes ambiguity and prevents dismissal of force creation as ungoverned.
@@ -260,9 +260,9 @@ A plausible catastrophic failure mode is not a single hallucination, but a syste
 The design implication is that \emph{escalation rate management} must be treated as a first-class control-plane objective, with explicit budgets, prioritization, and graceful degradation modes.
 
 
-\section{Acquisition/Contracting: "Spec as Deliverable" + "Eval as Deliverable"}\label{acquisitioncontracting-spec-as-deliverable--eval-as-deliverable}
+\section{Acquisition/Contracting: ``Spec as Deliverable'' + ``Eval as Deliverable''}\label{acquisitioncontracting-spec-as-deliverable--eval-as-deliverable}
 
-Operationalize "write specs" through procurement:
+Operationalize ``write specs'' through procurement:
 
 \begin{itemize}
 \item
@@ -275,7 +275,7 @@ Operationalize "write specs" through procurement:
   \textbf{Deliverable 4: Transparency Artifacts} (model/system/data cards; acceptable use policy; feedback mechanism).
 \end{itemize}
 
-This dovetails with OMB M-26-04\textquotesingle s emphasis on vendor documentation and agency reporting for unbiased AI, applied "to the extent practicable" in national security systems (OMB M-26-04, 2025).
+This dovetails with OMB M-26--04\textquotesingle s emphasis on vendor documentation and agency reporting for unbiased AI, applied ``to the extent practicable'' in national security systems (OMB M-26--04, 2025).
 
 \section{Battlespace as a Compute-and-Agency Competition}\label{battlespace-as-a-compute-and-agency-competition}
 
@@ -345,20 +345,20 @@ Recent DoD initiatives show progress but reveal a lingering focus on multiplicat
 
 \begin{itemize}
 \item
-  \textbf{DoD AI Strategy (January 2026)}: Calls for "unleashing AI agent development" but frames it as "decision support," not full autonomy. It emphasizes compute scaling but lacks explicit trust protocols for intent-driven execution, missing the "write specs" alignment (DoD AI Strategy, 2026, media.defense.gov/2026/01/09/DoD-AI-Strategy.pdf).
+  \textbf{DoD AI Strategy (January 2026)}: Calls for ``unleashing AI agent development'' but frames it as ``decision support,'' not full autonomy. It emphasizes compute scaling but lacks explicit trust protocols for intent-driven execution, missing the ``write specs'' alignment (DoD AI Strategy, 2026, media.defense.gov/2026/01/09/DoD-AI-Strategy.pdf).
 \item
   \textbf{DARPA\textquotesingle s AI Cyber Challenge (CRS, January 2026)}: Autonomous threat response, yet still human-supervised, highlighting trust gaps in classified missions (Federal News Network, January 2026, federalnewsnetwork.com/darpa-ai-cyber-challenge). Agents here assist rather than create force independently.
 \item
   \textbf{Army Generative AI Workspaces (TechRxiv, 2026)}: Efficiency gains in operations, but not yet decoupled from human scale, with trust reliant on basic objectivity checks (TechRxiv, 2026, techrxiv.org/articles/preprint/army-generative-ai-workspaces).
 \item
-  \textbf{Pentagon Zero-Trust AI (DefenseScoop, January 2026)}: Automation aids assessments, but trust involves "model objectivity" without comprehensive autonomy benchmarks, per White House guidance (M-26-04, December 2025, whitehouse.gov/omb/memoranda/m-26-04).
+  \textbf{Pentagon Zero-Trust AI (DefenseScoop, January 2026)}: Automation aids assessments, but trust involves ``model objectivity'' without comprehensive autonomy benchmarks, per White House guidance (M-26--04, December 2025, whitehouse.gov/omb/memoranda/m-26--04).
 \end{itemize}
 
-These cases underscore the DoD\textquotesingle s risk of paralysis by underestimating force creation, as adversaries advance (e.g., geopolitical AI competition, CFR, January 2026, cfr.org/report/geopolitical-ai-competition). Integrating "write specs" could bridge this, enabling agents to generate solutions from intents with engineered contexts.
+These cases underscore the DoD\textquotesingle s risk of paralysis by underestimating force creation, as adversaries advance (e.g., geopolitical AI competition, CFR, January 2026, cfr.org/report/geopolitical-ai-competition). Integrating ``write specs'' could bridge this, enabling agents to generate solutions from intents with engineered contexts.
 
 \section{Strategic Posturing and Workforce Adaptation: Addressing Trust and the Shift}\label{strategic-posturing-and-workforce-adaptation-addressing-trust-and-the-shift}
 
-To avoid paralysis, accept the collapsing paradigms: implementation as a moat, knowledge scarcity, and linear timelines. Move to the new value stack, aligned with "write specs":
+To avoid paralysis, accept the collapsing paradigms: implementation as a moat, knowledge scarcity, and linear timelines. Move to the new value stack, aligned with ``write specs'':
 
 \begin{itemize}
 \item
@@ -373,7 +373,7 @@ To avoid paralysis, accept the collapsing paradigms: implementation as a moat, k
   \textbf{Optionality \textgreater{} Optimization}: Foster adaptability, avoiding over-reliance on current skills, and prepare for intent-driven workflows.
 \end{itemize}
 
-Emotionally, treat this as a phase change producing grief---adapt by rejecting obsolete identities. In DoD contexts, this means reskilling for agent management and spec-writing, per "Reskilling the U.S. Military Workforce for the Agentic AI Era" (ERIC, 2025, eric.ed.gov/fulltext/ED654321).
+Emotionally, treat this as a phase change producing grief---adapt by rejecting obsolete identities. In DoD contexts, this means reskilling for agent management and spec-writing, per ``Reskilling the U.S. Military Workforce for the Agentic AI Era'' (ERIC, 2025, eric.ed.gov/fulltext/ED654321).
 
 
 \section{Economics: When Output Scales with Compute}\label{economics}
@@ -389,19 +389,19 @@ DoD planning and acquisition assumptions are historically labor-shaped: billets,
 This is not an argument to reduce humans; it is an argument to redesign what humans do: judgment, delegation, and assurance become the scarce inputs.
 
 
-\section{12-24 Month Roadmap: Aligned to DoD AI Strategy PSPs}\label{12-24-month-roadmap-aligned-to-dod-ai-strategy-psps}
+\section{12--24 Month Roadmap: Aligned to DoD AI Strategy PSPs}\label{12--24-month-roadmap-aligned-to-dod-ai-strategy-psps}
 
 Map recommendations to DoD AI Strategy Priority Strategic Projects (PSPs) for operational tempo (monthly reporting; initial demonstration within \textasciitilde6 months):
 
 \begin{itemize}
 \item
-  \textbf{Months 1-6 (GenAI.mil / Enterprise Agents PSP)}: Deploy low/medium consequence trust scopes for Category A agents, build control planes, and develop eval harnesses. Demonstrate "write specs" in contracting workflows.
+  \textbf{Months 1--6 (GenAI.mil / Enterprise Agents PSP)}: Deploy low/medium consequence trust scopes for Category A agents, build control planes, and develop eval harnesses. Demonstrate ``write specs'' in contracting workflows.
 \item
-  \textbf{Months 7-12 (Agent Network PSP)}: Graduate to Category B/C contested workflows, run "force creation" exercises with scope boundaries, integrating context engineering.
+  \textbf{Months 7--12 (Agent Network PSP)}: Graduate to Category B/C contested workflows, run ``force creation'' exercises with scope boundaries, integrating context engineering.
 \item
-  \textbf{Months 13-18 (Swarm Forge PSP)}: Iterate novel AI-enabled capabilities via competitive mechanisms, incorporating adversarial threat models and kill switches.
+  \textbf{Months 13--18 (Swarm Forge PSP)}: Iterate novel AI-enabled capabilities via competitive mechanisms, incorporating adversarial threat models and kill switches.
 \item
-  \textbf{Months 19-24 (Data Access / Catalogs PSP)}: Scale context engineering prerequisites, ensuring data provenance for trust verification; conduct full ATO reciprocity pilots.
+  \textbf{Months 19--24 (Data Access / Catalogs PSP)}: Scale context engineering prerequisites, ensuring data provenance for trust verification; conduct full ATO reciprocity pilots.
 \end{itemize}
 
 This roadmap supports rapid model refresh and barrier removal (DoD AI Strategy, 2026).
@@ -410,15 +410,15 @@ This roadmap supports rapid model refresh and barrier removal (DoD AI Strategy, 
 
 \begin{itemize}
 \item
-  \textbf{Enhance Trust Scopes}: Adopt the proposed framework and manifests, building on DoD\textquotesingle s objectivity criteria and OMB M-26-04 unbiased AI principles (OMB M-26-04, 2025), incorporating context engineering for spec-based operations.
+  \textbf{Enhance Trust Scopes}: Adopt the proposed framework and manifests, building on DoD\textquotesingle s objectivity criteria and OMB M-26--04 unbiased AI principles (OMB M-26--04, 2025), incorporating context engineering for spec-based operations.
 \item
-  \textbf{Accelerate Force Creation Pilots}: Expand "Agent Network" to full intent-driven autonomy via "write specs" frameworks, per NDAA FY2026 provisions (INSS, January 2026, inss.ndu.edu/ndaa-fy2026).
+  \textbf{Accelerate Force Creation Pilots}: Expand ``Agent Network'' to full intent-driven autonomy via ``write specs'' frameworks, per NDAA FY2026 provisions (INSS, January 2026, inss.ndu.edu/ndaa-fy2026).
 \item
   \textbf{Foster Partnerships}: Collaborate on trust frameworks and context tools, as in autonomy adoption trends (Autonomy Global, January 2026, autonomyglobal.com/trends-2026).
 \item
   \textbf{Workforce Preparation}: Implement reskilling to shift from multiplication mindsets to spec-writing and agent oversight.
 \item
-  \textbf{Risk Management}: Prioritize speed with safeguards, recognizing "risks of not moving fast enough" (DoD AI Strategy, 2026), while addressing trust in agentic swarms via control planes.
+  \textbf{Risk Management}: Prioritize speed with safeguards, recognizing ``risks of not moving fast enough'' (DoD AI Strategy, 2026), while addressing trust in agentic swarms via control planes.
 \end{itemize}
 
 By refocusing, the DoD can lead in agentic dominion.
@@ -452,7 +452,7 @@ To ensure clarity and auditability, the following 10 terms are defined crisply, 
 
 How to Measure Force Creation: Track agent-hours per day (autonomous runtime), autonomous task closure rate (completed without intervention), human approval rate per mission thread (interventions needed), and compute-to-output elasticity (scalability factor). Baselines from force multiplication phases provide contrasts, enabling auditors to verify the shift.
 
-\section{Appendix: Workforce Roles and "What Good Looks Like"}\label{appendix-workforce-roles-and-what-good-looks-like}
+\section{Appendix: Workforce Roles and ``What Good Looks Like''}\label{appendix-workforce-roles-and-what-good-looks-like}
 
 New roles to support force creation:
 
@@ -474,31 +474,31 @@ New roles to support force creation:
 \begin{itemize}
 \tightlist
 \item
-  DoD AI Strategy (2026). "Department of Defense Artificial Intelligence Strategy." media.defense.gov/2026/01/09/DoD-AI-Strategy.pdf (January 9, 2026).
+  DoD AI Strategy (2026). ``Department of Defense Artificial Intelligence Strategy.'' media.defense.gov/2026/01/09/DoD-AI-Strategy.pdf (January 9, 2026).
 \item
-  Amodei, D. (2025). "Remarks on AI Agents." World Economic Forum, weforum.org/agenda/2025/01/amodei-ai-agents (January 2025).
+  Amodei, D. (2025). ``Remarks on AI Agents.'' World Economic Forum, weforum.org/agenda/2025/01/amodei-ai-agents (January 2025).
 \item
-  Altman, S. (2025). "Reflections." OpenAI Blog, openai.com/blog/reflections (January 2025).
+  Altman, S. (2025). ``Reflections.'' OpenAI Blog, openai.com/blog/reflections (January 2025).
 \item
-  Altman, S. (2026). "Post on AI Inference Costs." x.com/sama/status/2016134878153343321 (January 27, 2026).
+  Altman, S. (2026). ``Post on AI Inference Costs.'' x.com/sama/status/2016134878153343321 (January 27, 2026).
 \item
-  Musk, E. (2025). "Post on AI Companies." x.com/elonmusk/status/1843776410000000000 (October 2025).
+  Musk, E. (2025). ``Post on AI Companies.'' x.com/elonmusk/status/1843776410000000000 (October 2025).
 \item
-  Schmidt, E. (2025). "Transcript on AI in Warfare." Bloomberg, bloomberg.com/features/2024-11-21/schmidt-ai-warfare-transcript (November 21, 2024).
+  Schmidt, E. (2025). ``Transcript on AI in Warfare.'' Bloomberg, bloomberg.com/features/2024--11-21/schmidt-ai-warfare-transcript (November 21, 2024).
 \item
-  Barr, A. (2025). "LinkedIn Post on AI Rewriting Build vs. Buy." linkedin.com/posts/alistair-barr\_ai-rewriting-build-vs-buy\_activity-7245678901234567890 (2025).
+  Barr, A. (2025). ``LinkedIn Post on AI Rewriting Build vs. Buy.'' linkedin.com/posts/alistair-barr\_ai-rewriting-build-vs-buy\_activity-7245678901234567890 (2025).
 \item
-  VentureBeat (2025). "Build vs Buy Is Dead---AI Just Killed It." venturebeat.com/ai/build-vs-buy-is-dead-ai-just-killed-it (2025).
+  VentureBeat (2025). ``Build vs Buy Is Dead---AI Just Killed It.'' venturebeat.com/ai/build-vs-buy-is-dead-ai-just-killed-it (2025).
 \item
   Newport, C. (2026). "Why Didn\textquotesingle t AI \textquotesingle Join the Workforce\textquotesingle{} in 2025?" calnewport.com/why-didnt-ai-join-the-workforce-in-2025 (January 15, 2026).
 \item
   New Yorker (2025). "Why A.I. Didn\textquotesingle t Transform Our Lives in 2025." newyorker.com/tech/annals-of-technology/why-a-i-didnt-transform-our-lives-in-2025 (December 20, 2025).
 \item
-  DoD Directive 3000.09 (2023). "Autonomy in Weapon Systems." esd.whs.mil/Portals/54/Documents/DD/issuances/dodd/300009p.pdf (November 21, 2023).
+  DoD Directive 3000.09 (2023). ``Autonomy in Weapon Systems.'' esd.whs.mil/Portals/54/Documents/DD/issuances/dodd/300009p.pdf (November 21, 2023).
 \item
-  OMB M-26-04 (2025). "Advancing Governance, Innovation, and Risk Management in Federal Agency Use of Artificial Intelligence." whitehouse.gov/wp-content/uploads/2025/12/M-26-04.pdf (December 2025).
+  OMB M-26--04 (2025). ``Advancing Governance, Innovation, and Risk Management in Federal Agency Use of Artificial Intelligence.'' whitehouse.gov/wp-content/uploads/2025/12/M-26--04.pdf (December 2025).
 \item
-  CRS (2026). "AI Cyber Challenge Overview." crsreports.congress.gov/product/pdf/R/R47890 (January 2026).
+  CRS (2026). ``AI Cyber Challenge Overview.'' crsreports.congress.gov/product/pdf/R/R47890 (January 2026).
 \item
   Additional sources: Federal News Network (2026), federalnewsnetwork.com/ai/2026/01/darpa-ai-cyber-challenge; CFR (2026), cfr.org/report/geopolitical-ai-competition-2026; Autonomy Global (2026), autonomyglobal.com/reports/trends-2026; DefenseScoop (2026), defensescoop.com/2026/01/pentagon-zero-trust-ai; INSS (2026), inss.ndu.edu/reports/ndaa-fy2026; ERIC (2025), eric.ed.gov/fulltext/ED654321; Army University Press (2025), armyupress.army.mil/Books/Artificial-Intelligence-and-Future-Warfare; SSRN (2025), ssrn.com/abstract=4678901.
 \end{itemize}
