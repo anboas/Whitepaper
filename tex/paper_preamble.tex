@@ -60,7 +60,9 @@
   left=10pt,right=10pt,top=8pt,bottom=8pt,
   borderline west={2.2pt}{0pt}{BrandAccent}
 }
-\newenvironment{calloutquote}{\begin{calloutquotebox}\itshape\centering}{\end{calloutquotebox}}
+\newenvironment{calloutquote}
+  {\begin{calloutquotebox}\centering\bfseries\large\itshape}
+  {\par\smallskip\hfill{\normalfont\small\textcolor{BrandGray}{--- \AuthorName}}\end{calloutquotebox}}
 
 % Readable monospaced code block (pdfTeX-compatible)
 \newtcblisting{yamlblock}{
@@ -81,7 +83,11 @@
     breaklines=true,
     breakatwhitespace=true,
     showstringspaces=false,
-    upquote=true
+    upquote=true,
+    numbers=left,
+    stepnumber=1,
+    numbersep=10pt,
+    numberstyle=\ttfamily\scriptsize\color{BrandGray}
   }
 }
 
