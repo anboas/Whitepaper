@@ -60,13 +60,13 @@ The Department of War stands at a pivotal juncture in AI integration, yet there 
 
 In contrast, the horizon reveals force creation: autonomous agents driven by high-level intents, decoupling operational scale from human limitations and leveraging silicon and compute for exponential growth. In this paper, an `agent' is a software system that can plan, invoke tools, and execute actions toward a goal within bounded authority.
 
-\begin{calloutquote}
-``Human capital scales linearly; compute scales exponentially.''
-\end{calloutquote}
-
 This shift is not speculative. Industry leaders like Anthropic CEO Dario Amodei have observed: ``I have engineers within Anthropic who say I don\textquotesingle t write any code anymore. I just let the model write the code, I edit it,'' projecting AI handling most or all coding end-to-end within 6--12 months[1]. OpenAI CEO Sam Altman echoes: ``We believe that, in 2025, we may see the first AI agents \textquotesingle join the workforce\textquotesingle{} and materially change the output of companies''[2]. In a recent update, Altman further emphasized the democratizing power of this technology: ``By the end of this year, for \$100--\$1000 of inference and a good idea, you\textquotesingle ll be able to create a company that could have been a unicorn 10 years ago''[3]. Elon Musk, CEO of xAI and Tesla, frames the competitive implication starkly: ``Companies that are entirely AI will demolish companies that are not''[4], underscoring that AI-native entities will operate at speeds and scales unattainable by legacy systems, making adaptation non-optional. The DoW\textquotesingle s own ``Artificial Intelligence Strategy'' (released January 9, 2026) acknowledges this momentum, calling for an ``AI-first'' warfighting force and initiatives like the ``Agent Network'' for AI-enabled battle management[5]. Yet, the strategy\textquotesingle s emphasis on experimentation and decision support risks underplaying the full autonomy required for force creation, potentially leaving the DoW vulnerable.
 
 Central to this transition is the trust scope of agentics and autonomy: How much can we rely on these systems in classified, high-risk environments? Trust encompasses reliability, ethical alignment, verifiability, and risk tolerance. The DoW strategy prioritizes ``model objectivity'' and accepts ``risks of not moving fast enough outweigh the risks of imperfect alignment,'' but lacks detailed frameworks for trust in fully autonomous operations[5]. This white paper explores these elements to urge a more proactive stance, with a focus on intent-driven development and context engineering as foundational to force creation.
+
+\begin{calloutquote}
+``Human capital scales linearly; compute scales exponentially.''
+\end{calloutquote}
 
 \section{Reality Check: Why Agents Didn't `Join the Workforce' in 2025}\label{reality-check-why-agents-didnt-join-the-workforce-in-2025}
 
@@ -103,10 +103,6 @@ The implication is not that assistants are useless; it is that they do not remov
 \section{Trust Scope Framework: Defining and Operationalizing Trust in Agentic Systems}\label{trust-scope-framework-defining-and-operationalizing-trust-in-agentic-systems}
 
 Trust scope decomposes into four explicit parameters. Each parameter is measurable and testable, allowing for iterative refinement based on real-world performance data.
-
-\begin{calloutquote}
-``Trust is bounded authority plus verification.''
-\end{calloutquote}
 
 \begin{itemize}
 \item
@@ -169,6 +165,10 @@ trust_scope_manifest:
 
 This expanded framework can be integrated into DoW\textquotesingle s ATO processes, with initial pilots in Category A agents to build confidence. It directly addresses the strategy\textquotesingle s call for ``model objectivity'' by requiring verifiable artifacts, while enabling rapid deployment through predefined thresholds. For auditability, manifests should be version-controlled (e.g., via Azure DevOps, as in my prior white paper ``From PDFs to Pull Requests''), with changes triggering re-approval workflows. This not only operationalizes trust but also scales with force creation, ensuring agents remain aligned in evolving battlespaces.
 
+\begin{calloutquote}
+``Trust is bounded authority plus verification.''
+\end{calloutquote}
+
 \section{Agent Control Plane: Architectural Governance for Safe Autonomy}\label{agent-control-plane-architectural-governance-for-safe-autonomy}
 
 To operationalize compute-scaled autonomy, a dedicated Agent Control Plane is essential: a technical governance layer that makes force creation fieldable.
@@ -188,11 +188,11 @@ To operationalize compute-scaled autonomy, a dedicated Agent Control Plane is es
   \textbf{Kill Switch \& Fallback Modes}: For degraded or offline operations.
 \end{itemize}
 
+This aligns with DoW AI Strategy requirements for rapid model refresh (deploy within \textasciitilde30 days of public release) and ATO reciprocity.
+
 \begin{calloutquote}
 ``Control planes matter more than models.''
 \end{calloutquote}
-
-This aligns with DoW AI Strategy requirements for rapid model refresh (deploy within \textasciitilde30 days of public release) and ATO reciprocity.
 
 \section{Explicit Policy Partitioning: Enterprise Agents vs. Weapon/Autonomy Contexts}\label{explicit-policy-partitioning-enterprise-agents-vs-weaponautonomy-contexts}
 
@@ -281,20 +281,15 @@ This dovetails with OMB M-26--04\textquotesingle s emphasis on vendor documentat
 
 \section{Battlespace as a Compute-and-Agency Competition}\label{battlespace-as-a-compute-and-agency-competition}
 
+By 2030, conflict advantage will increasingly be determined by decision tempo, context fidelity, and autonomous execution density. The relevant unit of capability is not model quality in isolation, but agentic throughput under constraint: agent-hours/day operating within approved trust scopes, closing mission threads with auditable logs and bounded authorities. Operationally, this is measurable: (1) agent-hours/day executed within approved trust scopes, (2) exception rate (percentage of actions requiring human escalation), (3) context freshness SLA under contested conditions, and (4) control-plane mean time to recover (MTTR) during deception and jamming. In contested environments, autonomy will not be optional; it will be required to operate inside human relevance windows, especially across cyber, electronic warfare, and battle management workflows. The practical implication is that the battlespace becomes a compute-and-agency competition: who can sense faster, interpret more reliably, and execute within policy constraints at machine speed.
+
 \begin{calloutquote}
 ``You can't recruit your way out of a compute deficit.''
 \end{calloutquote}
 
-By 2030, conflict advantage will increasingly be determined by decision tempo, context fidelity, and autonomous execution density. The relevant unit of capability is not model quality in isolation, but agentic throughput under constraint: agent-hours/day operating within approved trust scopes, closing mission threads with auditable logs and bounded authorities. Operationally, this is measurable: (1) agent-hours/day executed within approved trust scopes, (2) exception rate (percentage of actions requiring human escalation), (3) context freshness SLA under contested conditions, and (4) control-plane mean time to recover (MTTR) during deception and jamming. In contested environments, autonomy will not be optional; it will be required to operate inside human relevance windows, especially across cyber, electronic warfare, and battle management workflows. The practical implication is that the battlespace becomes a compute-and-agency competition: who can sense faster, interpret more reliably, and execute within policy constraints at machine speed.
-
 \section{Human Relevance Windows}\label{human-relevance-windows}
 
 Human relevance windows are thresholds where human intervention remains viable: speed threshold (loop tempo), complexity threshold (option space), and contestation threshold (deception + uncertainty). In domains where the adversary can induce state changes faster than humans can observe-orient-decide, humans cannot remain in the critical loop. Humans must govern the loop, not execute it at machine speed. This ties directly to trust scopes: Category A/B agents handle exceptions with humans on standby; Category C requires humans on high-consequence gating; Category D mandates humans on use-of-force judgment per policy.
-
-\begin{calloutquote}
-``Humans govern the loop; machines execute it.''
-\end{calloutquote}
-
 
 \section{Human Failure Modes (in a World of Specs and Trust Scopes)}\label{human-failure-modes}
 
@@ -310,6 +305,9 @@ Force creation does not eliminate human error; it moves it upstream into specifi
 
 A mature autonomy program must measure these failure modes explicitly and treat them as correctable operational risks.
 
+\begin{calloutquote}
+``Humans govern the loop; machines execute it.''
+\end{calloutquote}
 
 \section{Agent-on-Agent Conflict}\label{agent-on-agent-conflict}
 
@@ -335,11 +333,11 @@ Sensors/telemetry $\rightarrow$ context engineering $\rightarrow$ agent orchestr
 
 Scenario (contested comms, high tempo): Under intermittent connectivity, a battle-management agent family operates under Category C trust scope: it may fuse ISR and recommend COAs, but may only execute pre-approved non-kinetic actions (e.g., sensor re-tasking, deception routing) below a defined risk threshold. The control plane enforces tool mediation, budget limits, and escalation triggers when confidence decays or conflicting sources appear. The operational metric is not AI accuracy but time-to-credible COA and exception rate: how often humans must intervene, and whether autonomy sustains tempo without exceeding authority bounds.
 
+This shift is structurally driven by operational tempo, contestation, and scale asymmetry.
+
 \begin{calloutquote}
 ``If humans must approve every action, you have already lost the tempo advantage.''
 \end{calloutquote}
-
-This shift is structurally driven by operational tempo, contestation, and scale asymmetry.
 
 \section{Current Developments and Case Studies: Evidence of the Gap in DoW Adoption}\label{current-developments-and-case-studies-evidence-of-the-gap-in-dod-adoption}
 
