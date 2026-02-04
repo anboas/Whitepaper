@@ -86,7 +86,7 @@ However, this shift amplifies trust challenges: Specs must embed ethical and sec
 To neutralize the common objection (\emph{``we already do this with copilots''}), this section makes the ceiling explicit.
 
 \begin{center}
-\begin{tabular}{p{0.28\textwidth}p{0.33\textwidth}p{0.33\textwidth}}
+\begin{tabularx}{\textwidth}{p{0.26\textwidth}X X}
 \textbf{Dimension} & \textbf{Force Multiplication (Assistants)} & \textbf{Force Creation (Agents)}\\\hline
 Primary unit of output & Human-hours amplified & Agent-hours executed within trust scopes\\
 Bottleneck & Human attention / approvals & Compute + authority + context freshness\\
@@ -94,7 +94,7 @@ Control surface & Prompting / UI workflows & Control plane: policy-as-code, tool
 Failure shape & Wrong answer / bad suggestion & Wrong action at machine speed\\
 Governance need & Review + training & Trust scopes + regression gates + kill switch + immutable logs\\
 Tempo limit & Approval latency dominates & Execution density dominates (bounded by policy)\\
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 The implication is not that assistants are useless; it is that they do not remove the limiting factor when tempo and action density exceed human relevance windows.
