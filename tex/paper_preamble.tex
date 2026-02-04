@@ -36,8 +36,11 @@
 \fancyfoot[C]{\small\textcolor{BrandGray}{\thepage}}
 \fancyfoot[R]{\small\textcolor{BrandGray}{\DocVersion\ | \PaperDate}}
 
+\usepackage{xurl}
 \usepackage[hidelinks]{hyperref}
-\hypersetup{colorlinks=true, linkcolor=BrandAccent, urlcolor=BrandAccent}
+\hypersetup{colorlinks=true, linkcolor=BrandAccent, urlcolor=BrandAccent, breaklinks=true}
+% Encourage URL line-breaking to avoid right-margin overflow in References
+\Urlmuskip=0mu plus 1mu
 
 \usepackage[most]{tcolorbox}
 \usepackage{listings}
