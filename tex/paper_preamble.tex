@@ -16,11 +16,10 @@
 % Improve copy/paste fidelity (adds ToUnicode mappings)
 \usepackage{cmap}
 
-% Accessibility (best-effort): enable PDF tagging when available in TeX distribution
-\IfFileExists{tagpdf.sty}{%
-  \usepackage{tagpdf}%
-  \tagpdfsetup{activate-all}%
-}{}
+% Accessibility note:
+% Proper tagged PDFs with modern LaTeX require \DocumentMetadata{...} before \documentclass.
+% Our shared preamble is \input{} after \documentclass, so we intentionally do not
+% attempt to enable tagpdf here (it will hard-fail under TeX Live 2025).
 
 % Paragraph formatting
 \setlength{\parindent}{0pt}
