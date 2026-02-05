@@ -65,11 +65,25 @@
   \def\PDFMetaKeywords{whitepaper, agentic autonomy, trust scopes, AI, defense}%
   \ifdefined\PaperTitle\def\PDFMetaTitle{\PaperTitle}\fi
   \ifdefined\AuthorName\def\PDFMetaAuthor{\AuthorName}\fi
+
+  % 1) hyperref metadata (also feeds hyperxmp)
   \hypersetup{%
     pdftitle={\PDFMetaTitle},%
     pdfauthor={\PDFMetaAuthor},%
     pdfsubject={\PDFMetaSubject},%
     pdfkeywords={\PDFMetaKeywords}%
+  }%
+
+  % 2) pdfTeX info dictionary (what `pdfinfo` reads)
+  \pdfstringdef\PDFTitleString{\PDFMetaTitle}%
+  \pdfstringdef\PDFAuthorString{\PDFMetaAuthor}%
+  \pdfstringdef\PDFSubjectString{\PDFMetaSubject}%
+  \pdfstringdef\PDFKeywordsString{\PDFMetaKeywords}%
+  \pdfinfo{%
+    /Title (\PDFTitleString)
+    /Author (\PDFAuthorString)
+    /Subject (\PDFSubjectString)
+    /Keywords (\PDFKeywordsString)
   }%
 }
 % Encourage URL line-breaking to avoid right-margin overflow in References
