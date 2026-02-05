@@ -58,7 +58,6 @@
 
 % PDF metadata (papers can define these macros)
 \AtBeginDocument{%
-  \begingroup
   % NOTE: do not name temp macros starting with "\_" (that's the underscore command).
   \def\PDFMetaTitle{\ShortTitle}%
   \def\PDFMetaAuthor{}%
@@ -72,7 +71,6 @@
     pdfsubject={\PDFMetaSubject},%
     pdfkeywords={\PDFMetaKeywords}%
   }%
-  \endgroup
 }
 % Encourage URL line-breaking to avoid right-margin overflow in References
 \Urlmuskip=0mu plus 1mu
