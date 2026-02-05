@@ -61,20 +61,41 @@ jobs:
           sudo chown -R "$USER":"$USER" build || true
           chmod -R u+rwX build || true
 
-      - name: Optimize PDFs (linearize)
+      - name: Install build tools (qpdf + pandoc + poppler-utils)
         run: |
           sudo apt-get update
-          sudo apt-get install -y qpdf
+          sudo apt-get install -y qpdf pandoc poppler-utils
+
+      - name: Optimize PDFs (linearize)
+        run: |
           for pdf in build/${{ matrix.paper }}/*.pdf; do
             [ -f "$pdf" ] || continue
             qpdf --linearize "$pdf" "${pdf%.pdf}.linearized.pdf"
             mv "${pdf%.pdf}.linearized.pdf" "$pdf"
           done
 
+      - name: PDF QA gate
+        run: |
+          set -euo pipefail
+          PDF="build/${{ matrix.paper }}/paper.pdf"
+          test -f "$PDF"
+
+          # Metadata must be present (non-empty)
+          TITLE=$(pdfinfo "$PDF" | awk -F: '/^Title:/ {sub(/^ +/,"",$2); print $2}')
+          AUTHOR=$(pdfinfo "$PDF" | awk -F: '/^Author:/ {sub(/^ +/,"",$2); print $2}')
+          OPTIMIZED=$(pdfinfo "$PDF" | awk -F: '/^Optimized:/ {sub(/^ +/,"",$2); print $2}')
+          test -n "$TITLE"
+          test -n "$AUTHOR"
+          test "$OPTIMIZED" = "yes"
+
+          # Fonts should be embedded
+          pdffonts "$PDF" | awk 'NR>2 && $1 != "" {print $0}' | awk '{print $3}' | grep -vq "no"
+
+          # Text extraction should produce something
+          pdftotext -layout "$PDF" - | head -n 5 | grep -q "[A-Za-z]"
+
       - name: Build HTML (pandoc)
         run: |
-          sudo apt-get update
-          sudo apt-get install -y pandoc
           mkdir -p build/${{ matrix.paper }}
           pandoc papers/${{ matrix.paper }}/tex/paper.tex -s --metadata title="${{ matrix.paper }}" -o build/${{ matrix.paper }}/paper.html
 

@@ -59,17 +59,18 @@
 % PDF metadata (papers can define these macros)
 \AtBeginDocument{%
   \begingroup
-  \def\_pdftitle{\ShortTitle}%
-  \def\_pdfauthor{}%
-  \def\_pdfsubject{White Paper}%
-  \def\_pdfkeywords{whitepaper, agentic autonomy, trust scopes, AI, defense}%
-  \ifdefined\PaperTitle\def\_pdftitle{\PaperTitle}\fi
-  \ifdefined\AuthorName\def\_pdfauthor{\AuthorName}\fi
+  % NOTE: do not name temp macros starting with "\_" (that's the underscore command).
+  \def\PDFMetaTitle{\ShortTitle}%
+  \def\PDFMetaAuthor{}%
+  \def\PDFMetaSubject{White Paper}%
+  \def\PDFMetaKeywords{whitepaper, agentic autonomy, trust scopes, AI, defense}%
+  \ifdefined\PaperTitle\def\PDFMetaTitle{\PaperTitle}\fi
+  \ifdefined\AuthorName\def\PDFMetaAuthor{\AuthorName}\fi
   \hypersetup{%
-    pdftitle={\_pdftitle},%
-    pdfauthor={\_pdfauthor},%
-    pdfsubject={\_pdfsubject},%
-    pdfkeywords={\_pdfkeywords}%
+    pdftitle={\PDFMetaTitle},%
+    pdfauthor={\PDFMetaAuthor},%
+    pdfsubject={\PDFMetaSubject},%
+    pdfkeywords={\PDFMetaKeywords}%
   }%
   \endgroup
 }
