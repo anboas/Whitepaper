@@ -61,20 +61,51 @@ jobs:
           sudo chown -R "$USER":"$USER" build || true
           chmod -R u+rwX build || true
 
-      - name: Optimize PDFs (linearize)
+      - name: Install build tools (qpdf + pandoc + poppler-utils)
         run: |
           sudo apt-get update
-          sudo apt-get install -y qpdf
+          sudo apt-get install -y qpdf pandoc poppler-utils
+
+      - name: Optimize PDFs (linearize)
+        run: |
           for pdf in build/${{ matrix.paper }}/*.pdf; do
             [ -f "$pdf" ] || continue
             qpdf --linearize "$pdf" "${pdf%.pdf}.linearized.pdf"
             mv "${pdf%.pdf}.linearized.pdf" "$pdf"
           done
 
+      - name: PDF QA gate
+        run: |
+          set -euo pipefail
+          PDF="build/${{ matrix.paper }}/paper.pdf"
+          test -f "$PDF"
+
+          echo "== pdfinfo =="
+          pdfinfo "$PDF" | sed -n '1,40p'
+
+          # Metadata must be present (non-empty)
+          TITLE=$(pdfinfo "$PDF" | awk -F: '/^Title:/ {sub(/^ +/,"",$2); print $2}')
+          AUTHOR=$(pdfinfo "$PDF" | awk -F: '/^Author:/ {sub(/^ +/,"",$2); print $2}')
+          OPTIMIZED=$(pdfinfo "$PDF" | awk -F: '/^Optimized:/ {sub(/^ +/,"",$2); print $2}')
+          test -n "$TITLE" || (echo "Missing Title metadata" && exit 1)
+          test -n "$AUTHOR" || (echo "Missing Author metadata" && exit 1)
+          test "$OPTIMIZED" = "yes" || (echo "PDF not optimized/linearized" && exit 1)
+
+          echo "== pdffonts =="
+          pdffonts "$PDF" | head -n 50
+
+          # Fonts should be embedded (emb column)
+          # pdffonts columns: name type encoding emb sub uni object ID
+          pdffonts "$PDF" | awk 'NR>2 && $1 != "" {print $4}' | grep -qv "no" || (echo "Non-embedded font detected" && exit 1)
+
+          echo "== pdftotext head =="
+          pdftotext -layout "$PDF" - | head -n 10
+
+          # Text extraction should produce something
+          pdftotext -layout "$PDF" - | head -n 5 | grep -q "[A-Za-z]" || (echo "Text extraction looks empty" && exit 1)
+
       - name: Build HTML (pandoc)
         run: |
-          sudo apt-get update
-          sudo apt-get install -y pandoc
           mkdir -p build/${{ matrix.paper }}
           pandoc papers/${{ matrix.paper }}/tex/paper.tex -s --metadata title="${{ matrix.paper }}" -o build/${{ matrix.paper }}/paper.html
 

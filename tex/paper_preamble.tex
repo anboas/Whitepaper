@@ -58,20 +58,29 @@
 
 % PDF metadata (papers can define these macros)
 \AtBeginDocument{%
-  \begingroup
-  \def\_pdftitle{\ShortTitle}%
-  \def\_pdfauthor{}%
-  \def\_pdfsubject{White Paper}%
-  \def\_pdfkeywords{whitepaper, agentic autonomy, trust scopes, AI, defense}%
-  \ifdefined\PaperTitle\def\_pdftitle{\PaperTitle}\fi
-  \ifdefined\AuthorName\def\_pdfauthor{\AuthorName}\fi
+  % NOTE: do not name temp macros starting with "\_" (that's the underscore command).
+  \def\PDFMetaTitle{\ShortTitle}%
+  \def\PDFMetaAuthor{}%
+  \def\PDFMetaSubject{White Paper}%
+  \def\PDFMetaKeywords{whitepaper, agentic autonomy, trust scopes, AI, defense}%
+  \ifdefined\PaperTitle\def\PDFMetaTitle{\PaperTitle}\fi
+  \ifdefined\AuthorName\def\PDFMetaAuthor{\AuthorName}\fi
+
+  % 1) hyperref metadata (also feeds hyperxmp)
   \hypersetup{%
-    pdftitle={\_pdftitle},%
-    pdfauthor={\_pdfauthor},%
-    pdfsubject={\_pdfsubject},%
-    pdfkeywords={\_pdfkeywords}%
+    pdftitle={\PDFMetaTitle},%
+    pdfauthor={\PDFMetaAuthor},%
+    pdfsubject={\PDFMetaSubject},%
+    pdfkeywords={\PDFMetaKeywords}%
   }%
-  \endgroup
+
+  % 2) pdfTeX info dictionary compatibility
+  % We set ONLY /Author here.
+  % hyperref already writes /Title and /Subject; duplicating keys triggers qpdf warnings and CI failures.
+  \pdfstringdef\PDFAuthorString{\PDFMetaAuthor}%
+  \pdfinfo{%
+    /Author (\PDFAuthorString)
+  }%
 }
 % Encourage URL line-breaking to avoid right-margin overflow in References
 \Urlmuskip=0mu plus 1mu
