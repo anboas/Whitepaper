@@ -80,19 +80,29 @@ jobs:
           PDF="build/${{ matrix.paper }}/paper.pdf"
           test -f "$PDF"
 
+          echo "== pdfinfo =="
+          pdfinfo "$PDF" | sed -n '1,40p'
+
           # Metadata must be present (non-empty)
           TITLE=$(pdfinfo "$PDF" | awk -F: '/^Title:/ {sub(/^ +/,"",$2); print $2}')
           AUTHOR=$(pdfinfo "$PDF" | awk -F: '/^Author:/ {sub(/^ +/,"",$2); print $2}')
           OPTIMIZED=$(pdfinfo "$PDF" | awk -F: '/^Optimized:/ {sub(/^ +/,"",$2); print $2}')
-          test -n "$TITLE"
-          test -n "$AUTHOR"
-          test "$OPTIMIZED" = "yes"
+          test -n "$TITLE" || (echo "Missing Title metadata" && exit 1)
+          test -n "$AUTHOR" || (echo "Missing Author metadata" && exit 1)
+          test "$OPTIMIZED" = "yes" || (echo "PDF not optimized/linearized" && exit 1)
 
-          # Fonts should be embedded
-          pdffonts "$PDF" | awk 'NR>2 && $1 != "" {print $0}' | awk '{print $3}' | grep -vq "no"
+          echo "== pdffonts =="
+          pdffonts "$PDF" | head -n 50
+
+          # Fonts should be embedded (emb column)
+          # pdffonts columns: name type encoding emb sub uni object ID
+          pdffonts "$PDF" | awk 'NR>2 && $1 != "" {print $4}' | grep -qv "no" || (echo "Non-embedded font detected" && exit 1)
+
+          echo "== pdftotext head =="
+          pdftotext -layout "$PDF" - | head -n 10
 
           # Text extraction should produce something
-          pdftotext -layout "$PDF" - | head -n 5 | grep -q "[A-Za-z]"
+          pdftotext -layout "$PDF" - | head -n 5 | grep -q "[A-Za-z]" || (echo "Text extraction looks empty" && exit 1)
 
       - name: Build HTML (pandoc)
         run: |
