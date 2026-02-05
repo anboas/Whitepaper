@@ -13,6 +13,14 @@
 \usepackage{microtype}
 \usepackage{setspace}
 
+% Improve copy/paste fidelity (adds ToUnicode mappings)
+\usepackage{cmap}
+
+% Accessibility note:
+% Proper tagged PDFs with modern LaTeX require \DocumentMetadata{...} before \documentclass.
+% Our shared preamble is \input{} after \documentclass, so we intentionally do not
+% attempt to enable tagpdf here (it will hard-fail under TeX Live 2025).
+
 % Paragraph formatting
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.30em}
@@ -45,7 +53,26 @@
 
 \usepackage{xurl}
 \usepackage[hidelinks]{hyperref}
+\usepackage{hyperxmp}
 \hypersetup{colorlinks=true, linkcolor=BrandAccent, urlcolor=BrandAccent, breaklinks=true}
+
+% PDF metadata (papers can define these macros)
+\AtBeginDocument{%
+  \begingroup
+  \def\_pdftitle{\ShortTitle}%
+  \def\_pdfauthor{}%
+  \def\_pdfsubject{White Paper}%
+  \def\_pdfkeywords{whitepaper, agentic autonomy, trust scopes, AI, defense}%
+  \ifdefined\PaperTitle\def\_pdftitle{\PaperTitle}\fi
+  \ifdefined\AuthorName\def\_pdfauthor{\AuthorName}\fi
+  \hypersetup{%
+    pdftitle={\_pdftitle},%
+    pdfauthor={\_pdfauthor},%
+    pdfsubject={\_pdfsubject},%
+    pdfkeywords={\_pdfkeywords}%
+  }%
+  \endgroup
+}
 % Encourage URL line-breaking to avoid right-margin overflow in References
 \Urlmuskip=0mu plus 1mu
 
