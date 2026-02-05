@@ -74,16 +74,12 @@
     pdfkeywords={\PDFMetaKeywords}%
   }%
 
-  % 2) pdfTeX info dictionary (what `pdfinfo` reads)
-  \pdfstringdef\PDFTitleString{\PDFMetaTitle}%
+  % 2) pdfTeX info dictionary compatibility
+  % We set ONLY /Author here.
+  % hyperref already writes /Title and /Subject; duplicating keys triggers qpdf warnings and CI failures.
   \pdfstringdef\PDFAuthorString{\PDFMetaAuthor}%
-  \pdfstringdef\PDFSubjectString{\PDFMetaSubject}%
-  \pdfstringdef\PDFKeywordsString{\PDFMetaKeywords}%
   \pdfinfo{%
-    /Title (\PDFTitleString)
     /Author (\PDFAuthorString)
-    /Subject (\PDFSubjectString)
-    /Keywords (\PDFKeywordsString)
   }%
 }
 % Encourage URL line-breaking to avoid right-margin overflow in References
