@@ -36,5 +36,9 @@ Body...
 ## Conventions
 - **Filename becomes slug** on the site.
   - Example: `writing/notes/why-trust-scopes.md` → `/writing/why-trust-scopes/`
-- Use `status: draft` for anything you don’t want published yet.
+- Use `status: draft` for anything you don’t want published yet (this is the publish/draft toggle).
 - Keep titles punchy and specific.
+
+## Publish / draft toggle
+- `status: published` → shows up on the public site under `/writing/`
+- `status: draft` → does not get a public page generated on the site
