@@ -88,25 +88,19 @@ def main() -> int:
         flags=re.DOTALL,
     )
 
-    # Convert yamlblock -> fenced code block (pandoc renders this nicely to <pre><code>).
-    def yamlblock_to_fence(m: re.Match) -> str:
+    # Convert yamlblock -> verbatim (pandoc LaTeX reader reliably turns this into a code block).
+    def yamlblock_to_verbatim(m: re.Match) -> str:
         inner = m.group(1)
-        # Remove any stray backticks to avoid breaking fences.
-        inner = inner.replace('```', '')
-        return "\n\n```yaml\n" + inner.strip() + "\n```\n\n"
+        return "\n\\begin{verbatim}\n" + inner.strip() + "\n\\end{verbatim}\n"
 
     text2 = re.sub(
         r"\\begin\{yamlblock\}(.*?)\\end\{yamlblock\}",
-        yamlblock_to_fence,
+        yamlblock_to_verbatim,
         text2,
         flags=re.DOTALL,
     )
 
-    # Safety: ensure fenced blocks are closed.
-    if text2.count('```') % 2 == 1:
-        text2 += "\n```\n"
-
-    dst.write_text(text2, "utf-8")
+    dst.write_text(text2 + "\n", "utf-8")
     return 0
 
 
