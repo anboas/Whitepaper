@@ -110,7 +110,11 @@ jobs:
 
           # Produce an HTML fragment (no embedded pandoc CSS) so the exhibition site can style it.
           # The site sync step still sanitizes the output, but this keeps it clean at the source.
-          pandoc papers/${{ matrix.paper }}/tex/paper.tex \
+          python3 scripts/pandoc_preprocess_tex.py \
+            papers/${{ matrix.paper }}/tex/paper.tex \
+            /tmp/pandoc_${{ matrix.paper }}.tex
+
+          pandoc /tmp/pandoc_${{ matrix.paper }}.tex \
             -s \
             --template scripts/pandoc_fragment.html \
             -t html5 \
