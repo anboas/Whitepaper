@@ -5,7 +5,8 @@ Pandoc's LaTeX reader doesn't reliably convert tabularx tables.
 We rewrite simple tabularx environments into raw HTML tables so the
 exhibition site can render them nicely.
 
-Scope: best-effort for our house style tables (\begin{tabularx}{\textwidth}{...} ... \end{tabularx}).
+Scope: best-effort for our house style tables (\begin{tabularx}{\textwidth}{...} ... \end{tabularx})
+and yamlblock code environments.
 
 Usage:
   pandoc_preprocess_tex.py in.tex out.tex
@@ -84,6 +85,14 @@ def main() -> int:
         r"\\begin\{tabularx\}\{\\textwidth\}\{[^}]*\}(.*?)\\end\{tabularx\}",
         lambda m: tabularx_to_markdown_table(m.group(1)),
         text,
+        flags=re.DOTALL,
+    )
+
+    # Convert yamlblock -> fenced code block (pandoc renders this nicely to <pre><code>).
+    text2 = re.sub(
+        r"\\begin\{yamlblock\}(.*?)\\end\{yamlblock\}",
+        lambda m: "\n\n```yaml\n" + m.group(1).strip() + "\n```\n\n",
+        text2,
         flags=re.DOTALL,
     )
 
