@@ -89,12 +89,22 @@ def main() -> int:
     )
 
     # Convert yamlblock -> fenced code block (pandoc renders this nicely to <pre><code>).
+    def yamlblock_to_fence(m: re.Match) -> str:
+        inner = m.group(1)
+        # Remove any stray backticks to avoid breaking fences.
+        inner = inner.replace('```', '')
+        return "\n\n```yaml\n" + inner.strip() + "\n```\n\n"
+
     text2 = re.sub(
         r"\\begin\{yamlblock\}(.*?)\\end\{yamlblock\}",
-        lambda m: "\n\n```yaml\n" + m.group(1).strip() + "\n```\n\n",
+        yamlblock_to_fence,
         text2,
         flags=re.DOTALL,
     )
+
+    # Safety: ensure fenced blocks are closed.
+    if text2.count('```') % 2 == 1:
+        text2 += "\n```\n"
 
     dst.write_text(text2, "utf-8")
     return 0
