@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Preprocess LaTeX for pandoc HTML conversion.
+r"""Preprocess LaTeX for pandoc HTML conversion.
 
 Pandoc's LaTeX reader doesn't reliably convert tabularx tables.
 We rewrite simple tabularx environments into raw HTML tables so the
@@ -15,11 +15,11 @@ from __future__ import annotations
 
 import re
 import sys
-from html import escape
+# (no html escaping needed)
 from pathlib import Path
 
 
-def tabularx_to_html(tabular_block: str) -> str:
+def tabularx_to_markdown_table(tabular_block: str) -> str:
     # Extract rows like: cell & cell & cell\\
     rows = []
     for line in tabular_block.splitlines():
@@ -50,13 +50,18 @@ def tabularx_to_html(tabular_block: str) -> str:
     header_clean = [clean(c) for c in header]
     body_rows = [[clean(c) for c in r] for r in rows[1:]]
 
-    html = ["\\n\\n<!-- begin:generated-table -->", "\\n<div class=\"table-wrap\">", "\\n<table>"]
-    html.append("\\n<thead><tr>" + "".join(f"<th>{escape(c)}</th>" for c in header_clean) + "</tr></thead>")
-    html.append("\\n<tbody>")
-    for r in body_rows:
-        html.append("<tr>" + "".join(f"<td>{escape(c)}</td>" for c in r) + "</tr>")
-    html.append("</tbody>\\n</table>\\n</div>\\n<!-- end:generated-table -->\\n")
-    return "".join(html)
+        # Emit a pandoc-readable pipe table (markdown). Pandoc will turn this into a real <table>.
+    def esc(cell: str) -> str:
+        return cell.replace("|", "\\|").strip()
+
+    header_row = "| " + " | ".join(esc(c) for c in header_clean) + " |"
+    sep_row = "| " + " | ".join(["---"] * len(header_clean)) + " |"
+    body_md = ["| " + " | ".join(esc(c) for c in r) + " |" for r in body_rows]
+
+    out = ["\n\n<!-- begin:generated-table -->\n", header_row + "\n", sep_row + "\n"]
+    out.extend([row + "\n" for row in body_md])
+    out.append("<!-- end:generated-table -->\n\n")
+    return "".join(out)
 
 
 def main() -> int:
@@ -72,12 +77,12 @@ def main() -> int:
     def repl(m: re.Match) -> str:
         block = m.group(0)
         inner = m.group(1)
-        return tabularx_to_html(inner)
+        return tabularx_to_markdown_table(inner)
 
     # Capture the contents between begin/end tabularx, but keep the wrapper out.
     text2 = re.sub(
         r"\\begin\{tabularx\}\{\\textwidth\}\{[^}]*\}(.*?)\\end\{tabularx\}",
-        lambda m: tabularx_to_html(m.group(1)),
+        lambda m: tabularx_to_markdown_table(m.group(1)),
         text,
         flags=re.DOTALL,
     )
