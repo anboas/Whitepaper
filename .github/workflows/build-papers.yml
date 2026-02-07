@@ -108,22 +108,35 @@ jobs:
         run: |
           mkdir -p build/${{ matrix.paper }}
 
-          # Produce an HTML fragment (no embedded pandoc CSS) so the exhibition site can style it.
-          # The site sync step still sanitizes the output, but this keeps it clean at the source.
+          # Produce a standalone HTML file first, then extract a stable body-only fragment.
           python3 scripts/pandoc_preprocess_tex.py \
             papers/${{ matrix.paper }}/tex/paper.tex \
             /tmp/pandoc_${{ matrix.paper }}.tex
 
           pandoc /tmp/pandoc_${{ matrix.paper }}.tex \
             -s \
-            --template scripts/pandoc_fragment.html \
             -t html5 \
             --metadata title="${{ matrix.paper }}" \
-            -o build/${{ matrix.paper }}/paper.html
+            -o build/${{ matrix.paper }}/paper.full.html
+
+          python3 scripts/extract_pandoc_body.py \
+            build/${{ matrix.paper }}/paper.full.html \
+            build/${{ matrix.paper }}/paper.html
 
       - name: Site ingestion check (HTML safety)
         run: |
           python3 scripts/site_ingestion_check.py --paper-dir papers/${{ matrix.paper }}
+
+      - name: Create sync manifest (sha256)
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          python3 scripts/hash_manifest.py \
+            --paper "${{ matrix.paper }}" \
+            --pdf build/${{ matrix.paper }}/paper.pdf \
+            --html build/${{ matrix.paper }}/paper.html \
+            --source-sha "$SOURCE_SHA" \
+            --out build/${{ matrix.paper }}/manifest.json
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
@@ -132,3 +145,4 @@ jobs:
           path: |
             build/${{ matrix.paper }}/*.pdf
             build/${{ matrix.paper }}/*.html
+            build/${{ matrix.paper }}/manifest.json
