@@ -121,6 +121,10 @@ jobs:
             --metadata title="${{ matrix.paper }}" \
             -o build/${{ matrix.paper }}/paper.html
 
+      - name: Site ingestion check (HTML safety)
+        run: |
+          python3 scripts/site_ingestion_check.py --paper-dir papers/${{ matrix.paper }}
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
