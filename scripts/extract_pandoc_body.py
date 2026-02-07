@@ -35,11 +35,18 @@ def main() -> None:
     body = re.sub(r"<style\b[^>]*>.*?</style>", "", body, flags=re.IGNORECASE | re.DOTALL).strip()
 
     # Remove Pandoc-generated title pages / frontmatter blocks.
-    # Heuristic: drop everything before the first <h2>, which is where our real content starts.
-    # (Our papers use h2 for major sections like Executive Summary.)
-    m2 = re.search(r"<h2\b[^>]*>", body, flags=re.IGNORECASE)
-    if m2:
-        body = body[m2.start():].lstrip()
+    # Prefer an explicit anchor if present.
+    m_exec = re.search(r"<h[12]\b[^>]*id=\"executive-summary\"[^>]*>", body, flags=re.IGNORECASE)
+    if m_exec:
+        body = body[m_exec.start():].lstrip()
+    else:
+        # Fallback: drop everything before the first major heading.
+        m2 = re.search(r"<h[12]\b[^>]*>", body, flags=re.IGNORECASE)
+        if m2:
+            body = body[m2.start():].lstrip()
+
+    # Extra cleanup: if a title-block header remains, remove it.
+    body = re.sub(r"<header\b[^>]*id=\"title-block-header\"[^>]*>.*?</header>", "", body, flags=re.IGNORECASE | re.DOTALL).lstrip()
 
     dst.parent.mkdir(parents=True, exist_ok=True)
     dst.write_text(body + "\n", encoding="utf-8")
