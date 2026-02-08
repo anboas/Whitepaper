@@ -87,6 +87,16 @@
 
 \usepackage[most]{tcolorbox}
 \usepackage{listings}
+
+% Extra listings languages used by some papers
+\lstdefinelanguage{gitignore}{
+  sensitive=true,
+  comment=[l]{\#},
+  commentstyle=\color{BrandGray},
+  stringstyle=\color{black},
+  morekeywords={*,!,/},
+  keywordstyle=\color{BrandAccent}\bfseries
+}
 \usepackage{tabularx}
 \usepackage{enumitem}
 \usepackage{tocloft}
