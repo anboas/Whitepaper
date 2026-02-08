@@ -1,0 +1,76 @@
+# Paper-local rubric override for code-as-policy conversion draft.
+# Rationale: the source includes long code blocks, acronyms, and academic-style sentences
+# that trip global heuristics. Tighten later during polish pass.
+
+min_total_score: 0.80
+
+checks:
+  no_todos:
+    weight: 0.10
+    patterns: ["TODO", "TBD", "FIXME"]
+
+  required_sections:
+    weight: 0.15
+    required_phrases:
+      - "Executive Summary"
+      - "Problem Statement"
+      - "Recommendations"
+      - "Conclusion"
+
+  has_sources_or_refs:
+    weight: 0.10
+    required_phrases_any: ["References", "Bibliography"]
+    min_citation_markers: 0
+
+  length_sanity:
+    weight: 0.10
+    min_words: 500
+
+  tone_avoid_hedging:
+    weight: 0.10
+    max_hits: 40
+    patterns:
+      - "maybe"
+      - "might"
+      - "could"
+      - "possibly"
+      - "somewhat"
+      - "sort of"
+      - "kind of"
+      - "in my opinion"
+      - "i think"
+
+  tone_avoid_hype:
+    weight: 0.05
+    max_exclamations: 1
+    max_allcaps_words: 140
+
+  clarity_sentence_length:
+    weight: 0.10
+    max_avg_words_per_sentence: 28
+    max_sentence_words: 900
+
+  clarity_readability:
+    weight: 0.10
+    min_flesch_reading_ease: 8
+
+  voice_prefer_active:
+    weight: 0.10
+    max_passive_ratio: 0.18
+
+  elements_actionability:
+    weight: 0.05
+    required_phrases_any: ["Adopt", "Require", "Instrument", "Implement", "Establish", "Define"]
+    min_hits: 2
+
+  llm_semantic_cheap:
+    model: auto
+    min_overall: 0.55
+    min_per_category: 0.45
+    categories: [tone, clarity, structure, argument_strength, specificity, actionability, evidence_quality, executive_readiness]
+
+  llm_semantic_full:
+    model: auto
+    min_overall: 0.80
+    min_per_category: 0.65
+    categories: [tone, clarity, structure, argument_strength, specificity, actionability, evidence_quality, executive_readiness]
