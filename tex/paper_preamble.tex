@@ -37,6 +37,15 @@
 \definecolor{BrandGray}{HTML}{6E6E6E}
 \definecolor{RuleGray}{HTML}{D9D9D9}
 
+% Code block theme (PDF)
+\definecolor{CodeBg}{HTML}{0B1220}
+\definecolor{CodeBorder}{HTML}{1F2A44}
+\definecolor{CodeText}{HTML}{E6EDF3}
+\definecolor{CodeComment}{HTML}{93A4B8}
+\definecolor{CodeKeyword}{HTML}{7AA2F7}
+\definecolor{CodeString}{HTML}{9ECE6A}
+\definecolor{CodeNumber}{HTML}{8B7FDB}
+
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
@@ -87,6 +96,7 @@
 
 \usepackage[most]{tcolorbox}
 \usepackage{listings}
+\usepackage{upquote}
 
 % Extra listings languages used by some papers
 \lstdefinelanguage{gitignore}{
@@ -100,14 +110,38 @@
 
 \lstdefinelanguage{yaml}{
   keywords={stage,condition,jobs,job,task,inputs,targetType,continueOnError,steps,script,displayName,dependsOn,deployment,environment,strategy,runOnce,deploy},
-  keywordstyle=\color{BrandAccent}\bfseries,
+  keywordstyle=\color{CodeKeyword}\bfseries,
   sensitive=true,
   comment=[l]{\#},
   morecomment=[s]{/*}{*/},
-  commentstyle=\color{BrandGray}\ttfamily,
-  stringstyle=\color{black}\ttfamily,
+  commentstyle=\color{CodeComment}\ttfamily,
+  stringstyle=\color{CodeString}\ttfamily,
   morestring=[b]',
   morestring=[b]"
+}
+
+% Global listings style (applies to all \begin{lstlisting} blocks)
+\lstset{
+  basicstyle=\ttfamily\small\color{CodeText},
+  backgroundcolor=\color{CodeBg},
+  frame=single,
+  rulecolor=\color{CodeBorder},
+  framerule=0.6pt,
+  framesep=6pt,
+  xleftmargin=1.5em,
+  framexleftmargin=1.0em,
+  framexrightmargin=0.5em,
+  numbers=left,
+  numberstyle=\tiny\color{CodeComment},
+  numbersep=10pt,
+  stepnumber=1,
+  tabsize=2,
+  breaklines=true,
+  breakatwhitespace=false,
+  showstringspaces=false,
+  columns=fullflexible,
+  keepspaces=true,
+  upquote=true
 }
 \usepackage{tabularx}
 \usepackage{enumitem}
