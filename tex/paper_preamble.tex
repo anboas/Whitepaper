@@ -37,14 +37,14 @@
 \definecolor{BrandGray}{HTML}{6E6E6E}
 \definecolor{RuleGray}{HTML}{D9D9D9}
 
-% Code block theme (PDF)
-\definecolor{CodeBg}{HTML}{0B1220}
-\definecolor{CodeBorder}{HTML}{1F2A44}
-\definecolor{CodeText}{HTML}{E6EDF3}
-\definecolor{CodeComment}{HTML}{93A4B8}
-\definecolor{CodeKeyword}{HTML}{7AA2F7}
-\definecolor{CodeString}{HTML}{9ECE6A}
-\definecolor{CodeNumber}{HTML}{8B7FDB}
+% Code block theme (PDF) — print-friendly (light background, dark text)
+\definecolor{CodeBg}{HTML}{F8FAFC}
+\definecolor{CodeBorder}{HTML}{CBD5E1}
+\definecolor{CodeText}{HTML}{0F172A}
+\definecolor{CodeComment}{HTML}{475569}
+\definecolor{CodeKeyword}{HTML}{1D4ED8}
+\definecolor{CodeString}{HTML}{166534}
+\definecolor{CodeNumber}{HTML}{6D28D9}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -141,7 +141,10 @@
   showstringspaces=false,
   columns=fullflexible,
   keepspaces=true,
-  upquote=true
+  upquote=true,
+  keywordstyle=\color{CodeKeyword}\bfseries,
+  commentstyle=\color{CodeComment}\ttfamily,
+  stringstyle=\color{CodeString}\ttfamily
 }
 \usepackage{tabularx}
 \usepackage{enumitem}
