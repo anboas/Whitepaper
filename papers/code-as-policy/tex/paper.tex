@@ -584,7 +584,7 @@ Leveraging modern tools and automations is critical to operationalizing the CaP 
 		\item \textbf{Section Validations}:
 		\begin{itemize}
 			\item \textbf{Table of Contents}:
-			\begin{lstlisting}[language=YAML]
+			\begin{lstlisting}[language=yaml]
 - script: |
 	if grep -q '\\tableofcontents' $(System.DefaultWorkingDirectory)/$(TEX_FILE); then
 		echo "Table of Contents found."
@@ -596,7 +596,7 @@ Leveraging modern tools and automations is critical to operationalizing the CaP 
 			\end{lstlisting}
 
 			\item \textbf{Abstract Section}:
-			\begin{lstlisting}[language=YAML]
+			\begin{lstlisting}[language=yaml]
 - script: |
 	if grep -q '\\section\*\s*{Abstract}' $(System.DefaultWorkingDirectory)/$(TEX_FILE); then
 		echo "Abstract section found."
@@ -608,7 +608,7 @@ Leveraging modern tools and automations is critical to operationalizing the CaP 
 			\end{lstlisting}
 
 			\item \textbf{Title Section}:
-			\begin{lstlisting}[language=YAML]
+			\begin{lstlisting}[language=yaml]
 - script: |
 	if grep -q '\\title{' $(System.DefaultWorkingDirectory)/$(TEX_FILE); then
 		echo "Title section found."
@@ -620,7 +620,7 @@ Leveraging modern tools and automations is critical to operationalizing the CaP 
 			\end{lstlisting}
 
 			\item \textbf{References/Bibliography Section}:
-			\begin{lstlisting}[language=YAML]
+			\begin{lstlisting}[language=yaml]
 - script: |
 	if grep -q '\\bibliography{' $(System.DefaultWorkingDirectory)/$(TEX_FILE); then
 		echo "References/Bibliography section found."
@@ -632,7 +632,7 @@ Leveraging modern tools and automations is critical to operationalizing the CaP 
 			\end{lstlisting}
 
 			\item \textbf{Conclusion Section}:
-			\begin{lstlisting}[language=YAML]
+			\begin{lstlisting}[language=yaml]
 - script: |
 	if grep -q '\\section{Recommendations}\label{recommendations}
 
@@ -659,7 +659,7 @@ Leveraging modern tools and automations is critical to operationalizing the CaP 
 			\item Integrates the OpenAI API to analyze the PDF for correctness, coherence, and adherence to predefined standards.
 			\item This step uses a custom Python script to interact with OpenAI's services, which assigns a pass or fail rating based on the analysis results. An Azure Function or other serverless architecture could also be employed to host this functionality if needed.
 			\item The below task calls the AI-based analysis script as part of the pipeline:
-			\begin{lstlisting}[language=YAML]
+			\begin{lstlisting}[language=yaml]
 - task: Bash@3
 	displayName: "AI-Based PDF Analysis with OpenAI"
 	inputs:
@@ -675,7 +675,7 @@ Leveraging modern tools and automations is critical to operationalizing the CaP 
 
 	This deployment job is associated with the `Production` environment in Azure DevOps, configured with manual approval gates. Upon passing all automated checks, the pipeline pauses here, awaiting human approval before proceeding to deployment.
 
-	\begin{lstlisting}[language=YAML]
+	\begin{lstlisting}[language=yaml]
 - deployment: ManualApproval
 	displayName: "Manual Approval Deployment"
 	dependsOn: AutomatedChecks
@@ -707,7 +707,7 @@ Leveraging modern tools and automations is critical to operationalizing the CaP 
 		\end{itemize}
 	\end{enumerate}
 
-	\begin{lstlisting}[language=YAML]
+	\begin{lstlisting}[language=yaml]
 - stage: Deploy
 	displayName: "Deploy PDF"
 	dependsOn: Validation
@@ -1060,7 +1060,7 @@ if __name__ == "__main__":
 	\subsubsection{azure-pipelines.yml}
 	\label{app:azure-build}
 
-	\begin{lstlisting}[language=YAML]
+	\begin{lstlisting}[language=yaml]
 # Azure DevOps Pipeline for building a PDF from LaTeX
 trigger:
   branches:
@@ -1118,7 +1118,7 @@ steps:
 
 	\subsubsection{azure-pipelines-1.yml}
 
-	\begin{lstlisting}[language=YAML]
+	\begin{lstlisting}[language=yaml]
 # Azure DevOps Pipeline for consuming the built PDF
 trigger: none
 

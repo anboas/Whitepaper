@@ -97,6 +97,18 @@
   morekeywords={*,!,/},
   keywordstyle=\color{BrandAccent}\bfseries
 }
+
+\lstdefinelanguage{yaml}{
+  keywords={stage,condition,jobs,job,task,inputs,targetType,continueOnError,steps,script,displayName,dependsOn,deployment,environment,strategy,runOnce,deploy},
+  keywordstyle=\color{BrandAccent}\bfseries,
+  sensitive=true,
+  comment=[l]{\#},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{BrandGray}\ttfamily,
+  stringstyle=\color{black}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
 \usepackage{tabularx}
 \usepackage{enumitem}
 \usepackage{tocloft}
