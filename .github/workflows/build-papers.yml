@@ -49,6 +49,10 @@ jobs:
         run: |
           python scripts/rubric_check.py --paper-dir papers/${{ matrix.paper }} --tex tex/paper.tex --rubric rubric.yml
 
+      - name: Paper format gate (deterministic)
+        run: |
+          python3 scripts/paper_format_check.py --paper-dir papers/${{ matrix.paper }}
+
       - name: Install diagram renderer (graphviz)
         run: |
           sudo apt-get update
