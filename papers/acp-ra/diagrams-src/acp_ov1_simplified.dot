@@ -1,62 +1,87 @@
 digraph ACP_OV1_Clean {
-	graph [fontname=Helvetica fontsize=10 label="Agent Control Plane (ACP) — OV-1 (Simplified)" labelloc=t rankdir=LR]
-	node [fontname=Helvetica fontsize=10 shape=box style=rounded]
-	edge [fontname=Helvetica fontsize=9]
+	graph [
+		fontname=Helvetica fontsize=10
+		label="Agent Control Plane (ACP) — OV-1 (Simplified)" labelloc=t
+		rankdir=LR
+		bgcolor="white"
+		splines=ortho
+		nodesep=0.45
+		ranksep=0.60
+	]
+	node [
+		fontname=Helvetica fontsize=10
+		shape=box
+		style="rounded,filled"
+		fillcolor="#F8FAFC"
+		color="#204060"
+		penwidth=1.4
+		margin="0.18,0.10"
+	]
+	edge [
+		fontname=Helvetica fontsize=9
+		color="#1F2937"
+		penwidth=1.2
+		arrowsize=0.9
+	]
+
 	subgraph cluster_enterprise {
-		label="DoD Enterprise Baseline" style=rounded
-		ICAM [label="Enterprise ICAM
-(PE + NPE)"]
-		ZT [label="Zero Trust / CNAP
-(ingress + egress)"]
-		DSO [label="DevSecOps Platform
-(CI/CD + supply chain)"]
-		SOC [label="SOC/CSSP
-(SIEM/SOAR)"]
+		label="DoD Enterprise Baseline"
+		style="rounded"
+		color="#94A3B8"
+		penwidth=1.2
+		ICAM [label="Enterprise ICAM\n(PE + NPE)" fillcolor="#FFFFFF"]
+		ZT [label="Zero Trust / CNAP\n(ingress + egress)" fillcolor="#FFFFFF"]
+		DSO [label="DevSecOps Platform\n(CI/CD + supply chain)" fillcolor="#FFFFFF"]
+		SOC [label="SOC/CSSP\n(SIEM/SOAR)" fillcolor="#FFFFFF"]
 	}
+
 	subgraph cluster_control {
-		label="Agent Control Plane (govern + enforce + prove)" style=rounded
-		AR [label="Agent Registry
-+ Persona Issuance"]
-		TS [label="Trust Scope Service
-(manifests)"]
-		POL [label="Policy Engine
-(PDP + policy-as-code)"]
+		label="Agent Control Plane (govern + enforce + prove)"
+		style="rounded"
+		color="#204060"
+		penwidth=1.4
+		AR [label="Agent Registry\n+ Persona Issuance"]
+		TS [label="Trust Scope Service\n(manifests)"]
+		POL [label="Policy Engine\n(PDP + policy-as-code)"]
 		MG [label="Model Gateway"]
 		DG [label="Data/Context Gateway"]
 		TG [label="Tool/Action Gateway"]
-		EH [label="Eval Harness
-+ Safety Gates"]
+		EH [label="Eval Harness\n+ Safety Gates"]
 		EL [label="Evidence Ledger"]
 		OB [label="Observability Plane"]
 	}
+
 	subgraph cluster_runtime {
-		label="Runtime Plane (execute)" style=rounded
-		RT [label="Agent Runtime(s)
-(K8s / container / edge)"]
-		KB [label="Knowledge Stores"]
-		TOOLS [label="Tool Runtimes"]
+		label="Runtime Plane (execute)"
+		style="rounded"
+		color="#94A3B8"
+		penwidth=1.2
+		RT [label="Agent Runtime(s)\n(K8s / container / edge)" fillcolor="#FFFFFF"]
+		KB [label="Knowledge Stores" fillcolor="#FFFFFF"]
+		TOOLS [label="Tool Runtimes" fillcolor="#FFFFFF"]
 	}
-	ICAM -> AR [label="identities
-+ attributes"]
+
+	ICAM -> AR [label="identities\n+ attributes"]
 	DSO -> EH [label="CI gates"]
-	EH -> RT [label="deploy
-(agents/policies/tools)"]
-	ZT -> RT [label="ZT controls" style=dashed]
+	EH -> RT [label="deploy\n(agents/policies/tools)"]
+	ZT -> RT [label="ZT controls" style=dashed color="#6B7280"]
+
 	RT -> MG [label=model]
 	RT -> DG [label=context]
 	DG -> KB
 	RT -> TG [label=actions]
 	TG -> TOOLS
-	TS -> POL [label="scope
-constraints"]
-	POL -> MG [style=dotted]
-	POL -> DG [style=dotted]
-	POL -> TG [style=dotted]
+
+	TS -> POL [label="scope\nconstraints"]
+	POL -> MG [style=dotted color="#6B7280"]
+	POL -> DG [style=dotted color="#6B7280"]
+	POL -> TG [style=dotted color="#6B7280"]
+
 	MG -> EL
 	DG -> EL
 	TG -> EL
-	RT -> EL [label="execution
-trace"]
-	OB -> SOC [label=alerts]
+	RT -> EL [label="execution\ntrace"]
+
 	RT -> OB [label=telemetry]
+	OB -> SOC [label=alerts]
 }

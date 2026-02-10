@@ -1,45 +1,51 @@
 digraph ACP_ActionFlow {
-	graph [fontname=Helvetica fontsize=10 label="ACP — Policy-Enforced Tool Invocation (Action Envelope)" labelloc=t rankdir=LR]
-	node [fontname=Helvetica fontsize=10 shape=box style=rounded]
-	edge [fontname=Helvetica fontsize=9]
-	A [label="Agent Runtime"]
-	PEP [label="Tool/Action Gateway
-(PEP)"]
-	PDP [label="Policy Engine
-(PDP)
-+ Trust Scope
-+ ABAC"]
-	APP [label="Approval Step
-(if required)
-(human or quorum)"]
-	SBX [label="Sandboxed Tool Runtime
-(API/RPA/robot)"]
-	RES [label="Result
-(signed)"]
-	EL [label="Evidence Ledger
-(decision + envelope + result)"]
-	OB [label="Observability
-(alerts/metrics)"]
-	SOC [label="SOC/CSSP
-(SIEM/SOAR)"]
-	A -> PEP [label="request action
-+ intent
-+ parameters"]
+	graph [
+		fontname=Helvetica fontsize=10
+		label="ACP — Policy-Enforced Tool Invocation (Action Envelope)" labelloc=t
+		rankdir=LR
+		bgcolor="white"
+		splines=ortho
+		nodesep=0.40
+		ranksep=0.55
+	]
+	node [
+		fontname=Helvetica fontsize=10
+		shape=box
+		style="rounded,filled"
+		fillcolor="#F8FAFC"
+		color="#204060"
+		penwidth=1.4
+		margin="0.18,0.10"
+	]
+	edge [
+		fontname=Helvetica fontsize=9
+		color="#1F2937"
+		penwidth=1.2
+		arrowsize=0.9
+	]
+
+	A [label="Agent Runtime" fillcolor="#FFFFFF"]
+	PEP [label="Tool/Action Gateway\n(PEP)"]
+	PDP [label="Policy Engine\n(PDP)\n+ Trust Scope\n+ ABAC"]
+	APP [label="Approval Step\n(if required)\n(human or quorum)"]
+	SBX [label="Sandboxed Tool Runtime\n(API/RPA/robot)"]
+	RES [label="Result\n(signed)"]
+	EL [label="Evidence Ledger\n(decision + envelope + result)"]
+	OB [label="Observability\n(alerts/metrics)"]
+	SOC [label="SOC/CSSP\n(SIEM/SOAR)"]
+
+	A -> PEP [label="request action\n+ intent\n+ parameters"]
 	PEP -> PDP [label="policy check"]
-	PDP -> APP [label="approval required?" style=dashed]
-	APP -> PEP [label="approve/deny" style=dashed]
-	PDP -> PEP [label="allow/deny
-+ reason
-+ policy hash"]
-	PEP -> SBX [label="execute
-(Action Envelope)"]
+	PDP -> APP [label="approval required?" style=dashed color="#6B7280"]
+	APP -> PEP [label="approve/deny" style=dashed color="#6B7280"]
+	PDP -> PEP [label="allow/deny\n+ reason\n+ policy hash"]
+	PEP -> SBX [label="execute\n(Action Envelope)"]
 	SBX -> RES [label=outcome]
 	RES -> PEP [label=return]
-	PEP -> EL [label="envelope + decision
-+ outcome"]
-	A -> EL [label="execution trace" style=dotted]
+	PEP -> EL [label="envelope + decision\n+ outcome"]
+	A -> EL [label="execution trace" style=dotted color="#6B7280"]
 	A -> OB [label=telemetry]
-	PEP -> OB [label="tool metrics" style=dotted]
-	PDP -> OB [label="policy metrics" style=dotted]
+	PEP -> OB [label="tool metrics" style=dotted color="#6B7280"]
+	PDP -> OB [label="policy metrics" style=dotted color="#6B7280"]
 	OB -> SOC [label=alerts]
 }

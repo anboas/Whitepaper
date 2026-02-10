@@ -1,26 +1,39 @@
 digraph ACP_Lifecycle_TB {
-	graph [fontname=Helvetica fontsize=10 label="ACP — Governance-as-Code Lifecycle (Compact)" labelloc=t rankdir=TB]
-	node [fontname=Helvetica fontsize=10 shape=box style=rounded]
-	edge [fontname=Helvetica fontsize=9]
-	REPO [label="Git Repo
-(manifests + policy + eval packs)"]
-	CI [label="CI Pipeline
-(lint + scan + build)"]
-	EVAL [label="Eval Harness
-(regression + red-team)"]
-	APP [label="Approval Gate
-(PR review / AO)"]
-	PROM [label="Promote
-(signed policy bundles)
-→ ACP"]
-	RUN [label="Runtime Enforcement
-(agent/tool/data/model gateways)"]
-	LED [label="Evidence Ledger
-(immutable logs + replay)"]
-	CATO [label="cATO / Continuous Risk
-(evidence-based)"]
-	RB [label="Rollback / Kill Switch
-(fast revert)"]
+	graph [
+		fontname=Helvetica fontsize=10
+		label="ACP — Governance-as-Code Lifecycle (Compact)" labelloc=t
+		rankdir=TB
+		bgcolor="white"
+		splines=ortho
+		nodesep=0.40
+		ranksep=0.55
+	]
+	node [
+		fontname=Helvetica fontsize=10
+		shape=box
+		style="rounded,filled"
+		fillcolor="#F8FAFC"
+		color="#204060"
+		penwidth=1.4
+		margin="0.18,0.10"
+	]
+	edge [
+		fontname=Helvetica fontsize=9
+		color="#1F2937"
+		penwidth=1.2
+		arrowsize=0.9
+	]
+
+	REPO [label="Git Repo\n(manifests + policy + eval packs)" fillcolor="#FFFFFF"]
+	CI [label="CI Pipeline\n(lint + scan + build)"]
+	EVAL [label="Eval Harness\n(regression + red-team)"]
+	APP [label="Approval Gate\n(PR review / AO)"]
+	PROM [label="Promote\n(signed policy bundles)\n→ ACP"]
+	RUN [label="Runtime Enforcement\n(agent/tool/data/model gateways)"]
+	LED [label="Evidence Ledger\n(immutable logs + replay)"]
+	CATO [label="cATO / Continuous Risk\n(evidence-based)" fillcolor="#FFFFFF"]
+	RB [label="Rollback / Kill Switch\n(fast revert)" fillcolor="#FFFFFF"]
+
 	REPO -> CI
 	CI -> EVAL
 	EVAL -> APP
@@ -28,7 +41,7 @@ digraph ACP_Lifecycle_TB {
 	PROM -> RUN [label="publish + distribute"]
 	RUN -> LED [label="emit evidence"]
 	LED -> CATO [label="consume evidence"]
-	RUN -> RB [label=incident style=dashed]
-	RB -> RUN [label="halt/disable" style=dashed]
-	RB -> PROM [label=revert style=dashed]
+	RUN -> RB [label=incident style=dashed color="#6B7280"]
+	RB -> RUN [label="halt/disable" style=dashed color="#6B7280"]
+	RB -> PROM [label=revert style=dashed color="#6B7280"]
 }
