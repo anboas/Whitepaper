@@ -21,13 +21,13 @@ These notes capture the research thread that informed **ACP-RA** before publicat
 
 | # | Paper | Link | Core problem | ACP-RA takeaway |
 |---:|---|---|---|---|
-| 1 | Design Patterns for Securing LLM Agents against Prompt Injections | https://arxiv.org/abs/2506.08837 | Untrusted inputs hijack tool-using agents | Separate planes; mediate side effects; treat data plane as untrusted |
-| 2 | From Prompt Injections to Protocol Exploits | https://arxiv.org/abs/2506.23260 | Attacks escalate from strings to workflows | Design for adversarial workflows; stop confused-deputy chains |
-| 3 | Toolformer | https://arxiv.org/abs/2302.04761 | Tool use needs explicit training signals | Schemas + receipts + execution-based eval |
-| 4 | ToolLLM | https://arxiv.org/abs/2307.16789 | Tool catalogs get huge; correctness is brittle | Tool plane needs discovery/ranking, validation, retries, observability |
-| 5 | ReAct | https://arxiv.org/abs/2210.03629 | Agents drift without grounded action/observation loops | Mediate actions; treat observations as untrusted data |
-| 6 | MRKL Systems | https://arxiv.org/abs/2205.00445 | Monolithic models are the wrong abstraction for capability | Broker capability through registries/scopes and gateways |
-| 7 | SWE-bench | https://arxiv.org/abs/2310.06770 | “Looks right” ≠ works; eval must be end-to-end | Gate upgrades on execution-based regression suites |
+| 1 | Prompt injection design patterns | [arXiv](https://arxiv.org/abs/2506.08837) | Untrusted inputs hijack tool-using agents | Separate planes; mediate side effects; treat data plane as untrusted |
+| 2 | Prompt injections → protocol exploits | [arXiv](https://arxiv.org/abs/2506.23260) | Attacks escalate from strings to workflows | Design for adversarial workflows; stop confused-deputy chains |
+| 3 | Toolformer | [arXiv](https://arxiv.org/abs/2302.04761) | Tool use needs explicit training signals | Schemas + receipts + execution-based eval |
+| 4 | ToolLLM | [arXiv](https://arxiv.org/abs/2307.16789) | Tool catalogs get huge; correctness is brittle | Tool plane needs discovery/ranking, validation, retries, observability |
+| 5 | ReAct | [arXiv](https://arxiv.org/abs/2210.03629) | Agents drift without grounded action/observation loops | Mediate actions; treat observations as untrusted data |
+| 6 | MRKL Systems | [arXiv](https://arxiv.org/abs/2205.00445) | Monolithic models are the wrong abstraction for capability | Broker capability through registries/scopes and gateways |
+| 7 | SWE-bench | [arXiv](https://arxiv.org/abs/2310.06770) | “Looks right” ≠ works; eval must be end-to-end | Gate upgrades on execution-based regression suites |
 
 Expanded notes per paper below.
 
