@@ -1017,34 +1017,34 @@ spec:
 > URLs are listed for traceability; downstream repositories should pin to specific versions/hashes where possible.
 
 ## DoW / DoW CIO
-- DoW CIO, *Reference Architecture Description* (June 2010): https://dodcio.defense.gov/Portals/0/Documents/Ref_Archi_Description_Final_v1_18Jun10.pdf  
-- DoW CIO, *DoW Zero Trust Reference Architecture v2.0* (2022): https://dodcio.defense.gov/Portals/0/Documents/Library/%28U%29ZT_RA_v2.0%28U%29_Sep22.pdf  
-- DoW CIO, *ICAM Federation Framework* (2024): https://dodcio.defense.gov/Portals/0/Documents/Cyber/ICAM-FederationFramework.pdf  
-- DoW CIO, *Cloud Native Access Point (CNAP) Reference Design v1.0* (2021): https://dodcio.defense.gov/Portals/0/Documents/Library/CNAP_RefDesign_v1.0.pdf  
-- DoW CIO, *DevSecOps Continuous Authorization Implementation Guide* (2024): https://dodcio.defense.gov/Portals/0/Documents/Library/DoWCIO-ContinuousAuthorizationImplementationGuide.pdf  
-- DoW CIO, *cATO Evaluation Criteria* (2024): https://dodcio.defense.gov/Portals/0/Documents/Library/cATO-EvaluationCriteria.pdf  
-- DoW CIO, *Continuous Authorization to Operate (cATO) memo* (2022): https://media.defense.gov/2022/Feb/03/2002932852/-1/-1/0/CONTINUOUS-AUTHORIZATION-TO-OPERATE.PDF  
-- DoW CIO, *AI Cybersecurity Risk Management Tailoring Guide* (2025): https://dodcio.defense.gov/Portals/0/Documents/Library/AI-CybersecurityRMTailoringGuide.pdf  
-- DoW, *Implementing Responsible AI in the DoW* (May 2021): https://media.defense.gov/2021/May/27/2002730593/-1/-1/0/IMPLEMENTING-RESPONSIBLE-ARTIFICIAL-INTELLIGENCE-IN-THE-DEPARTMENT-OF-DEFENSE.PDF  
-- DoW, *Responsible AI Strategy and Implementation Pathway* (June 2022): https://media.defense.gov/2022/Jun/22/2003022604/-1/-1/0/Department-of-Defense-Responsible-Artificial-Intelligence-Strategy-and-Implementation-Pathway.PDF  
-- DoDD 3000.09, *Autonomy in Weapon Systems* (Jan 2023): https://www.esd.whs.mil/portals/54/documents/dd/issuances/dodd/300009p.pdf  
+- DoW CIO, *Reference Architecture Description* (June 2010): <https://dodcio.defense.gov/Portals/0/Documents/Ref_Archi_Description_Final_v1_18Jun10.pdf>  
+- DoW CIO, *DoW Zero Trust Reference Architecture v2.0* (2022): <https://dodcio.defense.gov/Portals/0/Documents/Library/%28U%29ZT_RA_v2.0%28U%29_Sep22.pdf>  
+- DoW CIO, *ICAM Federation Framework* (2024): <https://dodcio.defense.gov/Portals/0/Documents/Cyber/ICAM-FederationFramework.pdf>  
+- DoW CIO, *Cloud Native Access Point (CNAP) Reference Design v1.0* (2021): <https://dodcio.defense.gov/Portals/0/Documents/Library/CNAP_RefDesign_v1.0.pdf>  
+- DoW CIO, *DevSecOps Continuous Authorization Implementation Guide* (2024): <https://dodcio.defense.gov/Portals/0/Documents/Library/DoDCIO-ContinuousAuthorizationImplementationGuide.pdf>  
+- DoW CIO, *cATO Evaluation Criteria* (2024): <https://dodcio.defense.gov/Portals/0/Documents/Library/cATO-EvaluationCriteria.pdf>  
+- DoW CIO, *Continuous Authorization to Operate (cATO) memo* (2022): <https://media.defense.gov/2022/Feb/03/2002932852/-1/-1/0/CONTINUOUS-AUTHORIZATION-TO-OPERATE.PDF>  
+- DoW CIO, *AI Cybersecurity Risk Management Tailoring Guide* (2025): <https://dodcio.defense.gov/Portals/0/Documents/Library/AI-CybersecurityRMTailoringGuide.pdf>  
+- DoW, *Implementing Responsible AI in the DoW* (May 2021): <https://media.defense.gov/2021/May/27/2002730593/-1/-1/0/IMPLEMENTING-RESPONSIBLE-ARTIFICIAL-INTELLIGENCE-IN-THE-DEPARTMENT-OF-DEFENSE.PDF>  
+- DoW, *Responsible AI Strategy and Implementation Pathway* (June 2022): <https://media.defense.gov/2022/Jun/22/2003022604/-1/-1/0/Department-of-Defense-Responsible-Artificial-Intelligence-Strategy-and-Implementation-Pathway.PDF>  
+- DoDD 3000.09, *Autonomy in Weapon Systems* (Jan 2023): <https://www.esd.whs.mil/portals/54/documents/dd/issuances/dodd/300009p.pdf>  
 
 ## Industry protocols and agent platform patterns
-- OpenAI, *Introducing Codex* (2025): https://openai.com/index/introducing-codex/  
-- OpenAI, *Introducing the Codex app* (2026): https://openai.com/index/introducing-the-codex-app/  
-- Anthropic, *Writing effective tools for agents — with agents* (2025): https://www.anthropic.com/engineering/writing-tools-for-agents  
-- Anthropic Claude Docs, *Computer use tool* (2025/2026): https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool  
-- Google Developers Blog, *A2A: a new era of agent interoperability* (2025): https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/  
-- Google Developers Blog, *Google Cloud donates A2A to Linux Foundation* (2025): https://developers.googleblog.com/en/google-cloud-donates-a2a-to-linux-foundation/  
-- Linux Foundation, *Agent2Agent Protocol Project launch* (2025): https://www.linuxfoundation.org/press/linux-foundation-launches-the-agent2agent-protocol-project-to-enable-secure-intelligent-communication-between-ai-agents  
-- Model Context Protocol, *Specification (2025-06-18)*: https://modelcontextprotocol.io/specification/2025-06-18  
-- Model Context Protocol, *Sampling* (2025-06-18): https://modelcontextprotocol.io/specification/2025-06-18/client/sampling  
+- OpenAI, *Introducing Codex* (2025): <https://openai.com/index/introducing-codex/>  
+- OpenAI, *Introducing the Codex app* (2026): <https://openai.com/index/introducing-the-codex-app/>  
+- Anthropic, *Writing effective tools for agents — with agents* (2025): <https://www.anthropic.com/engineering/writing-tools-for-agents>  
+- Anthropic Claude Docs, *Computer use tool* (2025/2026): <https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool>  
+- Google Developers Blog, *A2A: a new era of agent interoperability* (2025): <https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/>  
+- Google Developers Blog, *Google Cloud donates A2A to Linux Foundation* (2025): <https://developers.googleblog.com/en/google-cloud-donates-a2a-to-linux-foundation/>  
+- Linux Foundation, *Agent2Agent Protocol Project launch* (2025): <https://www.linuxfoundation.org/press/linux-foundation-launches-the-agent2agent-protocol-project-to-enable-secure-intelligent-communication-between-ai-agents>  
+- Model Context Protocol, *Specification (2025-06-18)*: <https://modelcontextprotocol.io/specification/2025-06-18>  
+- Model Context Protocol, *Sampling* (2025-06-18): <https://modelcontextprotocol.io/specification/2025-06-18/client/sampling>  
 
 ## Tool/skill ecosystem risk signals (supply chain lessons)
-- The Verge, *OpenClaw's AI 'skill' extensions are a security nightmare* (2026): https://www.theverge.com/news/874011/openclaw-ai-skill-clawhub-extensions-security-nightmare  
-- Reuters, *China warns of security risks linked to OpenClaw open-source AI agent* (2026): https://www.reuters.com/world/china/china-warns-security-risks-linked-openclaw-open-source-ai-agent-2026-02-05/  
-- Cisco, *Personal AI Agents like OpenClaw Are a Security Nightmare* (2026): https://blogs.cisco.com/ai/personal-ai-agents-like-openclaw-are-a-security-nightmare  
+- The Verge, *OpenClaw's AI 'skill' extensions are a security nightmare* (2026): <https://www.theverge.com/news/874011/openclaw-ai-skill-clawhub-extensions-security-nightmare>  
+- Reuters, *China warns of security risks linked to OpenClaw open-source AI agent* (2026): <https://www.reuters.com/world/china/china-warns-security-risks-linked-openclaw-open-source-ai-agent-2026-02-05/>  
+- Cisco, *Personal AI Agents like OpenClaw Are a Security Nightmare* (2026): <https://blogs.cisco.com/ai/personal-ai-agents-like-openclaw-are-a-security-nightmare>  
 
 ## Prior papers (conceptual anchors)
-- Adam Boas, *From AI Force Multiplication to Force Creation*: https://anboas.github.io/adamboas.info/writing/agentic-force-creation/  
-- Adam Boas, *From PDFs to Pull Requests (Code-as-Policy)*: https://anboas.github.io/adamboas.info/writing/code-as-policy/
+- Adam Boas, *From AI Force Multiplication to Force Creation*: <https://anboas.github.io/adamboas.info/writing/agentic-force-creation/>  
+- Adam Boas, *From PDFs to Pull Requests (Code-as-Policy)*: <https://anboas.github.io/adamboas.info/writing/code-as-policy/>
