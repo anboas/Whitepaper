@@ -1,0 +1,45 @@
+digraph ACP_ActionFlow {
+	graph [fontname=Helvetica fontsize=10 label="ACP — Policy-Enforced Tool Invocation (Action Envelope)" labelloc=t rankdir=LR]
+	node [fontname=Helvetica fontsize=10 shape=box style=rounded]
+	edge [fontname=Helvetica fontsize=9]
+	A [label="Agent Runtime"]
+	PEP [label="Tool/Action Gateway
+(PEP)"]
+	PDP [label="Policy Engine
+(PDP)
++ Trust Scope
++ ABAC"]
+	APP [label="Approval Step
+(if required)
+(human or quorum)"]
+	SBX [label="Sandboxed Tool Runtime
+(API/RPA/robot)"]
+	RES [label="Result
+(signed)"]
+	EL [label="Evidence Ledger
+(decision + envelope + result)"]
+	OB [label="Observability
+(alerts/metrics)"]
+	SOC [label="SOC/CSSP
+(SIEM/SOAR)"]
+	A -> PEP [label="request action
++ intent
++ parameters"]
+	PEP -> PDP [label="policy check"]
+	PDP -> APP [label="approval required?" style=dashed]
+	APP -> PEP [label="approve/deny" style=dashed]
+	PDP -> PEP [label="allow/deny
++ reason
++ policy hash"]
+	PEP -> SBX [label="execute
+(Action Envelope)"]
+	SBX -> RES [label=outcome]
+	RES -> PEP [label=return]
+	PEP -> EL [label="envelope + decision
++ outcome"]
+	A -> EL [label="execution trace" style=dotted]
+	A -> OB [label=telemetry]
+	PEP -> OB [label="tool metrics" style=dotted]
+	PDP -> OB [label="policy metrics" style=dotted]
+	OB -> SOC [label=alerts]
+}

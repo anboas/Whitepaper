@@ -1,0 +1,62 @@
+digraph ACP_OV1_Clean {
+	graph [fontname=Helvetica fontsize=10 label="Agent Control Plane (ACP) — OV-1 (Simplified)" labelloc=t rankdir=LR]
+	node [fontname=Helvetica fontsize=10 shape=box style=rounded]
+	edge [fontname=Helvetica fontsize=9]
+	subgraph cluster_enterprise {
+		label="DoD Enterprise Baseline" style=rounded
+		ICAM [label="Enterprise ICAM
+(PE + NPE)"]
+		ZT [label="Zero Trust / CNAP
+(ingress + egress)"]
+		DSO [label="DevSecOps Platform
+(CI/CD + supply chain)"]
+		SOC [label="SOC/CSSP
+(SIEM/SOAR)"]
+	}
+	subgraph cluster_control {
+		label="Agent Control Plane (govern + enforce + prove)" style=rounded
+		AR [label="Agent Registry
++ Persona Issuance"]
+		TS [label="Trust Scope Service
+(manifests)"]
+		POL [label="Policy Engine
+(PDP + policy-as-code)"]
+		MG [label="Model Gateway"]
+		DG [label="Data/Context Gateway"]
+		TG [label="Tool/Action Gateway"]
+		EH [label="Eval Harness
++ Safety Gates"]
+		EL [label="Evidence Ledger"]
+		OB [label="Observability Plane"]
+	}
+	subgraph cluster_runtime {
+		label="Runtime Plane (execute)" style=rounded
+		RT [label="Agent Runtime(s)
+(K8s / container / edge)"]
+		KB [label="Knowledge Stores"]
+		TOOLS [label="Tool Runtimes"]
+	}
+	ICAM -> AR [label="identities
++ attributes"]
+	DSO -> EH [label="CI gates"]
+	EH -> RT [label="deploy
+(agents/policies/tools)"]
+	ZT -> RT [label="ZT controls" style=dashed]
+	RT -> MG [label=model]
+	RT -> DG [label=context]
+	DG -> KB
+	RT -> TG [label=actions]
+	TG -> TOOLS
+	TS -> POL [label="scope
+constraints"]
+	POL -> MG [style=dotted]
+	POL -> DG [style=dotted]
+	POL -> TG [style=dotted]
+	MG -> EL
+	DG -> EL
+	TG -> EL
+	RT -> EL [label="execution
+trace"]
+	OB -> SOC [label=alerts]
+	RT -> OB [label=telemetry]
+}

@@ -49,6 +49,15 @@ jobs:
         run: |
           python scripts/rubric_check.py --paper-dir papers/${{ matrix.paper }} --tex tex/paper.tex --rubric rubric.yml
 
+      - name: Install diagram renderer (graphviz)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y graphviz
+
+      - name: Render diagrams (Graphviz)
+        run: |
+          python3 scripts/render_graphviz_diagrams.py --paper-dir papers/${{ matrix.paper }} || true
+
       - name: Compile PDF
         uses: xu-cheng/latex-action@v3
         with:
