@@ -26,9 +26,11 @@
 \maketitle
 
 \section*{Executive Summary}
-Agentic autonomy is shifting the unit of output from \emph{human-hours} to \emph{agent-hours}. That transition increases decision tempo and execution density beyond human relevance windows, especially in contested environments where connectivity is intermittent and deception is routine. The \textbf{Agent Control Plane (ACP)} makes this transition \textbf{fieldable} by standardizing identity for agents as non-person entities (NPEs), delegated authority as explicit trust scopes, long-running execution as supervised work units, mediated action through gateways, governance as code with promotion gates, and evidence sufficient for continuous authorization and after-action reconstruction.
+Agentic autonomy is shifting the unit of output from \emph{human-hours} to \emph{agent-hours}. That shift can increase decision tempo and execution density beyond human relevance windows, especially in contested environments where connectivity is intermittent and deception is routine.
 
-This paper presents ACP-RA as a DoD CIO style reference architecture: purpose, principles, technical positions, patterns, and vocabulary. It is intended to guide and constrain downstream solution architectures rather than prescribe a single implementation.
+The \textbf{Agent Control Plane (ACP)} makes this shift \textbf{fieldable}. It standardizes agent identity, delegated authority, long-running execution, and mediated action through gateways. It also produces evidence and replay artifacts for continuous authorization and after-action reconstruction.
+
+This paper presents ACP-RA as a DoD CIO style reference architecture: purpose, principles, technical positions, patterns, and vocabulary. It guides and constrains downstream solution architectures rather than prescribing a single implementation.
 
 \section{Scope and Non-Goals}
 \subsection*{In scope}
@@ -47,10 +49,15 @@ This paper presents ACP-RA as a DoD CIO style reference architecture: purpose, p
 \item Any design that bypasses applicable weapon system autonomy policy (see DoDD 3000.09).
 \end{itemize}
 
+\section{Problem Statement}
+The Department is moving toward intent-driven systems that plan and act through tools. These systems can run many tasks in parallel and for long periods. Without a control plane, speed becomes unmanaged risk: unclear authority, uncontrolled data movement, fragile tool integration, weak evidence, and poor containment.
+
+ACP-RA defines the required control surfaces to make autonomy governable at scale.
+
 \section{Strategic Drivers}
 \begin{itemize}
 \item \textbf{A posture of acceleration:} platforms must support rapid onboarding and change while staying governable and reversible.
-\item \textbf{Supervision at scale:} the core problem shifts from whether agents can do tasks to whether humans can supervise many long-running parallel tasks at machine tempo.
+\item \textbf{Supervision at scale:} the core problem shifts from whether agents can do tasks to whether humans can supervise many long-running parallel tasks.
 \item \textbf{Contested and degraded environments:} deception, poisoning, cascade failures, and intermittent connectivity are baseline constraints.
 \item \textbf{Federation:} cross-Service, cross-agency, and cross-enclave interoperability is unavoidable; the ACP must be protocol-neutral.
 \end{itemize}
@@ -73,7 +80,7 @@ This paper presents ACP-RA as a DoD CIO style reference architecture: purpose, p
 \begin{figure}[h]
   \centering
   \includegraphics[width=\linewidth]{../diagrams/acp_ov1_simplified.png}
-  \caption{Agent Control Plane (ACP) OV-1 (Simplified). The ACP governs and enforces identity, trust scopes, policy, gateways, evaluation, and evidence across the runtime plane, aligned to enterprise ICAM, DevSecOps, Zero Trust/CNAP, and SOC/CSSP patterns.}
+  \caption{Agent Control Plane OV-1 (Simplified). The control plane governs identity, trust scopes, policy, gateways, evaluation, and evidence across the runtime plane. It aligns to enterprise identity and access management, DevSecOps, Zero Trust/CNAP, and security operations patterns.}
   \label{fig:acp-ov1}
 \end{figure}
 
@@ -87,7 +94,7 @@ This paper presents ACP-RA as a DoD CIO style reference architecture: purpose, p
 
 \textbf{Persona:} controlled mission role for an agent; used by policy.
 
-\textbf{Trust Scope Manifest (TSM):} signed, versioned contract defining delegated authority and constraints (tools/actions, consequence tier, environment, thresholds, budgets, evidence requirements, degraded modes).
+\textbf{Trust scope manifest:} signed, versioned contract defining delegated authority and constraints (tools/actions, consequence tier, environment, thresholds, budgets, evidence requirements, degraded modes).
 
 \textbf{Work unit:} durable, supervised task thread for long-running and parallel execution that binds scope context, budgets, dependencies, checkpoint policy, sandbox provenance, and an evidence root.
 
@@ -105,10 +112,10 @@ This paper presents ACP-RA as a DoD CIO style reference architecture: purpose, p
 \begin{longtable}{p{0.12\linewidth} p{0.46\linewidth} p{0.36\linewidth}}
 \textbf{Tier} & \textbf{Representative activities} & \textbf{Minimum controls} \\
 \hline
-T0 & Drafting, summarization, read-only analysis & NPE identity, data tag controls, basic evidence, deny-by-default tool use \\
-T1 & PR creation, ticket automation, recommendations (no direct apply) & Tool mediation, budgets, baseline evals, drift monitoring \\
-T2 & Production changes, account/permission changes, external comms, GUI ops & Human-on-the-loop approvals, dual control, enhanced evidence, rollback rehearsal \\
-T3 & Life/safety or mission-critical actions & Strict deny-by-default, quorum approvals, constrained degraded modes, full-fidelity evidence triggers \\
+T0 & Drafting, summarization, read-only analysis. & Agent identity, data tag controls, basic evidence, deny-by-default tool use. \\
+T1 & PR creation, ticket automation, recommendations (no direct apply). & Tool mediation, budgets, baseline evaluation, drift monitoring. \\
+T2 & Production changes, account/permission changes, external comms, GUI ops. & Human-on-the-loop approvals, dual control, enhanced evidence, rollback rehearsal. \\
+T3 & Life/safety or mission-critical actions. & Strict deny-by-default, quorum approvals, constrained degraded modes, full-fidelity evidence triggers. \\
 \end{longtable}
 
 \textbf{Composition rule:} when scopes combine, authority composes by intersection, never union.
@@ -129,7 +136,24 @@ T3 & Life/safety or mission-critical actions & Strict deny-by-default, quorum ap
 \end{itemize}
 
 \section{Architecture Components}
-This section defines bulkheads and gates: agent registry, trust scope service, work unit service, supervision console, policy engine (PDP) with distributed enforcement (PEPs), model gateway, context/data gateway, tool/action gateway, inter-agent gateway, evaluation harness, evidence ledger/replay service, observability, containment, budgets, and federation services.
+This section defines bulkheads and gates:
+\begin{itemize}
+\item Agent registry and persona issuance.
+\item Trust scope service.
+\item Work unit service.
+\item Supervision console.
+\item Policy engine (policy decision point) with distributed enforcement points.
+\item Model gateway.
+\item Context and data gateway.
+\item Tool and action gateway.
+\item Inter-agent gateway.
+\item Evaluation harness.
+\item Evidence ledger and replay service.
+\item Observability.
+\item Containment and revocation.
+\item Budgets and resource governance.
+\item Federation services.
+\end{itemize}
 
 \section{Control Loops}
 
@@ -137,7 +161,7 @@ This section defines bulkheads and gates: agent registry, trust scope service, w
 \begin{figure}[h]
   \centering
   \includegraphics[width=\linewidth]{../diagrams/acp_action_flow.png}
-  \caption{Policy-Enforced Tool Invocation (Action Envelope). The tool/action gateway acts as a policy enforcement point (PEP), consulting a policy decision point (PDP) with trust scope and ABAC, optionally invoking approval steps, emitting tamper-evident evidence, and integrating with observability and SOC/CSSP workflows.}
+  \caption{Policy-Enforced Tool Invocation (Action Envelope). The tool and action gateway acts as an enforcement point. It consults a policy decision point with the trust scope and attribute-based access control, optionally invokes approvals, emits tamper-evident evidence, and integrates with observability and security operations workflows.}
   \label{fig:acp-action-loop}
 \end{figure}
 
@@ -145,7 +169,7 @@ This section defines bulkheads and gates: agent registry, trust scope service, w
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.62\linewidth]{../diagrams/acp_governance_lifecycle_compact.png}
-  \caption{Governance-as-Code Lifecycle (Compact). Policy, manifests, and eval packs are versioned artifacts. CI and evaluation harnesses gate promotion of signed bundles to enforcement points, while evidence and cATO/continuous risk consume emitted telemetry and replayable logs.}
+  \caption{Governance-as-Code Lifecycle (Compact). Policy, manifests, and evaluation packs are versioned artifacts. The build pipeline and evaluation harnesses gate promotion of signed bundles to enforcement points, while evidence and cATO/continuous risk consume emitted telemetry and replayable logs.}
   \label{fig:acp-governance-lifecycle}
 \end{figure}
 
@@ -165,7 +189,10 @@ ACP assumes poisoning, deception, and partial connectivity. Degraded modes are p
 Work units as unit of supervision; policy-centered mesh; bulkhead gateways; budgeted autonomy; tool supply chain governance; evidence-first releases; ensemble contract.
 
 \section{Metrics and Roadmap}
-Define tempo, governance, swarm reliability, tool supply chain, adversarial robustness, and resource metrics. Maturity levels from copilot sprawl to federated and contested.
+Define tempo, governance, swarm reliability, tool supply chain, adversarial robustness, and resource metrics. Maturity levels range from copilot sprawl to federated and contested operation.
+
+\section{Conclusion}
+ACP-RA treats autonomy as an engineered control system. It separates planning from doing, centralizes policy decisions while distributing enforcement, and makes evidence and containment first-class. This enables faster iteration without turning speed into unmanaged risk, including for multi-agent ensembles operating in contested and degraded environments.
 
 \section{References}
 References are maintained in the draft and will be normalized into a consistent bibliography pass.
