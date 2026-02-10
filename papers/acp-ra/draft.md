@@ -21,31 +21,6 @@ tags:
 
 # Agent Control Plane Reference Architecture (ACP‑RA)
 
-(Imported from Telegram draft. This file is the source draft; the LaTeX paper lives in `tex/paper.tex`.)
-
----
-title: "Agent Control Plane Reference Architecture (ACP-RA)"
-date: 2026-02-10
-description: "A reference architecture for governed, scalable agentic autonomy—single agents and swarms—aligned to DoD CIO patterns (Zero Trust, ICAM, CNAP, DevSecOps, cATO) and designed for contested/degraded operations."
-tags:
-  - autonomy
-  - agents
-  - control-plane
-  - multi-agent
-  - swarm-governance
-  - zero-trust
-  - icam
-  - devsecops
-  - cato
-  - evidence
-  - contested-ops
-  - tool-supply-chain
-  - a2a
-  - mcp
----
-
-# Agent Control Plane Reference Architecture (ACP‑RA)
-
 ## Executive summary
 
 Agentic autonomy is shifting the unit of output from *human-hours* to *agent-hours*. That is the transition from “force multiplication” to “force creation”: intent-driven systems executing within delegated authority, scaling through silicon rather than staffing. In practical terms, decision tempo and execution density can exceed human relevance windows—especially in contested environments where connectivity is intermittent and deception is routine.
@@ -56,7 +31,7 @@ It is the mechanism that lets the Department move faster **without** turning spe
 
 - **Identity** for agents as non-person entities (NPEs)
 - **Delegated authority** as explicit trust scopes
-- **Work units** as the supervised unit of long-running, parallel agent execution
+- **Work units** as the supervised unit of long-running and parallel agent execution
 - **Mediated action** through tool and inter-agent gateways
 - **Governance as code** with continuous evaluation and promotion gates
 - **Evidence and replay** sufficient for continuous authorization and after-action reconstruction
@@ -137,7 +112,6 @@ Agent capability expansion via tools, connectors, and “skills” is unavoidabl
 ---
 
 ## Reference architecture structure
-
 DoD CIO reference architectures guide and constrain downstream architectures by providing: **strategic purpose, principles, technical positions, patterns, and vocabulary**. ACP‑RA uses that same structure.
 
 - **Strategic purpose:** why ACP exists
@@ -174,6 +148,7 @@ A controlled mission role for an agent (e.g., enterprise drafting, logistics pla
 
 ## Trust Scope Manifest (TSM)
 A signed, versioned contract defining an agent’s delegated authority and constraints:
+
 - allowed/prohibited actions and tools
 - consequence tier
 - operating environment (enclave/classification/connectivity)
@@ -186,6 +161,7 @@ A signed, versioned contract defining an agent’s delegated authority and const
 A durable, supervised task thread for long-running and parallel agent execution.
 
 A work unit binds:
+
 - a **scope context** (trust scope hash + policy bundle hash)
 - **budgets** (initial allocation + delegated allowances)
 - **dependencies** (work-unit DAG and blocking conditions)
@@ -197,6 +173,7 @@ Work units are how the Department supervises autonomy at scale: humans do not �
 
 ## Policy bundle
 A signed, versioned set of policy rules consumed by enforcement points:
+
 - ABAC rules
 - escalation rules
 - budget policies
@@ -206,6 +183,7 @@ A signed, versioned set of policy rules consumed by enforcement points:
 
 ## Context bundle
 A replayable artifact representing retrieved/used context:
+
 - source pointers, timestamps, labels/tags
 - provenance and integrity metadata
 - minimization decisions
@@ -214,6 +192,7 @@ A replayable artifact representing retrieved/used context:
 
 ## Action envelope
 A signed record of an attempted tool/action:
+
 - work_unit_id
 - request intent + parameters
 - policy decision + policy hash
@@ -224,6 +203,7 @@ A signed record of an attempted tool/action:
 
 ## Inter-agent message envelope
 A signed record of a message between agents (or ensembles):
+
 - work_unit_id (and optionally ensemble_id)
 - sender/receiver identities and personas
 - message type (typed schema)
@@ -233,6 +213,7 @@ A signed record of a message between agents (or ensembles):
 
 ## Ensemble (swarm)
 A first-class multi-agent object with explicit governance:
+
 - membership and roles
 - coordination pattern and arbitration rules
 - shared-state rules and boundaries
@@ -269,6 +250,7 @@ Trust scopes are artifacts. Enforcement points validate and cache them. Scope ch
 
 ## TP3 — Work units are first-class governance objects
 Every long-running agent effort is a work unit with:
+
 - bounded scope and budgets
 - explicit dependencies and cancellation semantics
 - checkpoint and resume behavior
@@ -279,6 +261,7 @@ No direct access from model runtime to privileged tools. Tool calls are policy c
 
 ## TP5 — Tools/skills are onboarded through supply-chain controls
 Tools, connectors, and skills are:
+
 - registered
 - signed
 - scanned (static + dependency + behavior checks)
@@ -311,6 +294,7 @@ The ACP is best understood as a set of “bulkheads” and “gates.” Bulkhead
 
 ## 1) Agent registry and persona issuance
 This component issues and manages agent identities and personas:
+
 - NPE identifiers and credentials
 - ownership/sponsorship binding
 - attribute issuance for ABAC (mission, enclave, tier, approved tools)
@@ -318,12 +302,14 @@ This component issues and manages agent identities and personas:
 
 ## 2) Trust scope service
 The trust scope service stores and signs manifests, enforces schema, and supports delegation:
+
 - scope templates by tier and mission thread
 - scope inheritance and delegation (budgets, tool subsets)
 - scope translation and intersection rules for federation
 
 ## 3) Work Unit Service (WUS)
 This service creates and tracks work units as supervised objects:
+
 - issues work_unit_id and binds it to trust scope + policy bundle hashes
 - tracks work-unit state (queued/running/paused/blocked/canceled/completed)
 - tracks dependencies (work-unit DAG) and deadlock timeouts
@@ -335,6 +321,7 @@ This service creates and tracks work units as supervised objects:
 This is not “a UI.” It is an operational control surface that enables humans to supervise autonomy at scale without becoming the throughput bottleneck.
 
 Minimum capabilities:
+
 - work-unit dashboard (status, dependencies, budget burn-down, anomaly flags)
 - review surfaces for outputs (diff review for code/config; artifact review for plans)
 - approval queue (human-on-the-loop and quorum workflows)
@@ -344,6 +331,7 @@ Minimum capabilities:
 
 ## 5) Policy engine (PDP) and distributed enforcement (PEPs)
 The policy engine evaluates requests using:
+
 - agent identity attributes + persona
 - trust scope claims
 - work-unit state and constraints
@@ -352,6 +340,7 @@ The policy engine evaluates requests using:
 - current budgets and risk posture
 
 PEPs exist at:
+
 - runtime admission control
 - tool/action gateway
 - context/data gateway
@@ -362,17 +351,20 @@ PEPs exist at:
 
 ## 6) Model gateway
 The model gateway enforces:
+
 - model allowlists by enclave and trust scope
 - routing by consequence tier and degraded mode
 - budget limits (tokens/compute/time)
 - metadata capture for replay and auditing
 
 The model gateway is also the upgrade discipline:
+
 - shadow → canary → promote → rollback
 - policy-hash and eval-pack gating
 
 ## 7) Context/Data gateway
 This gateway turns “context engineering” into a governed plane:
+
 - tag-aware access controls
 - provenance capture (source/time/label/custody pointer)
 - minimization and redaction
@@ -381,6 +373,7 @@ This gateway turns “context engineering” into a governed plane:
 
 ## 8) Tool/Action gateway
 This is the most important boundary: it mediates side effects.
+
 - allowlists/denylists by scope and tier
 - approvals and quorum requirements for high consequence
 - secrets brokerage (tools get secrets; models do not)
@@ -398,7 +391,6 @@ The ACP therefore treats tools and skills as a governed supply chain:
   - *Tier A:* first-party tools (Department-owned) with full pipeline attestation
   - *Tier B:* vetted third-party tools (signed + scanned + evaluated + constrained)
   - *Tier C:* untrusted/community tools (denied by default; allowed only in isolated sandboxes and low-tier scopes, if allowed at all)
-
 - **Onboarding pipeline (minimum)**
   - manifest + schema validation
   - dependency analysis + SBOM generation
@@ -406,7 +398,6 @@ The ACP therefore treats tools and skills as a governed supply chain:
   - sandbox behavior tests and tool eval packs
   - signing and publishing to a controlled registry
   - runtime attestation (hash/signature match) enforced by the gateway
-
 - **Operational controls**
   - quarantine workflows for tools with anomalous behavior
   - revocation and emergency denylist distribution
@@ -418,6 +409,7 @@ The goal is simple: adding tools expands capability **without** expanding unboun
 A special class of tools exists where the “tool” is a computer: mouse/keyboard control, screenshots, UI navigation, and OS-level actions. This class is powerful and fragile, and it is high-risk by default.
 
 Policy requirements for computer-use tools:
+
 - run inside isolated desktop environments (VDI/sandbox) with governed network egress
 - restrict accessible applications and UI surfaces by scope
 - capture structured evidence: screenshots and/or session capture at policy-defined sampling rates
@@ -430,9 +422,12 @@ These constraints turn “computer use” from a hidden capability into a govern
 ## 9) Inter-Agent Gateway (IAG)
 Multi-agent systems only scale safely if agent-to-agent communication is treated like a governed mesh.
 
-The IAG is intentionally **protocol-neutral**. It can front interoperable protocols such as the Agent2Agent (A2A) protocol or the Model Context Protocol (MCP)—or successor protocols that provide similar semantics. The ACP does not bet on a single wire protocol; it standardizes the policy surface required no matter what carries the message.
+The IAG is intentionally **protocol-neutral**. It can front interoperable protocols such as the Agent2Agent (A2A) protocol or the Model Context Protocol (MCP)—or successor protocols that provide similar semantics.
+
+The ACP does not bet on a single wire protocol; it standardizes the policy surface required no matter what carries the message.
 
 **Required policy surface (independent of protocol):**
+
 - mutual authentication of sender/receiver identities and runtime provenance
 - authorization of message types and peer relationships by trust scope + persona + environment
 - schema validation (typed envelopes; no arbitrary prompt blobs as transport)
@@ -455,6 +450,7 @@ The design goal is not to predict which protocol dominates. The goal is to ensur
 
 ## 10) Evaluation harness (functional + adversarial) and tool eval packs
 The evaluation harness provides:
+
 - baseline functional tests (“golden tasks”)
 - policy conformance tests (permission boundaries, tool misuse attempts)
 - adversarial tests (retrieval injection, poisoning simulations, inter-agent influence scenarios)
@@ -473,6 +469,7 @@ Agents call tools differently than deterministic software. Tool APIs must be des
 
 ### Tool eval packs (gating tool onboarding and tool changes)
 New tools and tool changes require tool-specific eval packs, including:
+
 - misuse probes (attempted actions out of scope)
 - output-injection probes (tool outputs crafted to steer agents)
 - retry amplification tests (error storms and idempotency validation)
@@ -481,6 +478,7 @@ New tools and tool changes require tool-specific eval packs, including:
 
 ## 11) Evidence ledger and replay service
 Evidence is a structured event stream supporting:
+
 - attribution: who/what/under which scope/policy
 - replay: reconstructing intent → context → decision → action → outcome
 - continuous authorization: evidence inside the system boundary
@@ -489,6 +487,7 @@ Evidence is a structured event stream supporting:
 Swarm replay can be prohibitively expensive if every message and trace is retained at full fidelity. ACP uses hierarchical evidence aggregation:
 
 **Per-agent evidence (always-on):**
+
 - action envelopes
 - inter-agent message envelopes (metadata always; payload by tier/trigger)
 - context bundle hashes + provenance pointers (payload capture by tier/trigger)
@@ -496,24 +495,28 @@ Swarm replay can be prohibitively expensive if every message and trace is retain
 - drift/anomaly signals (summaries)
 
 **Ensemble evidence (always-on, lightweight):**
+
 - coordination graph metadata (A2A edges by type and time)
 - arbitration outcomes (conflicts, quorums, deadlocks/timeouts)
 - budget burn-down time series (aggregate and per-role)
 - work-unit DAG summaries (dependencies, blocks, cancellations)
 
 **Selective enrichment (triggered):**
+
 - full message bodies, full context payloads, and detailed planning traces captured on:
   - anomaly thresholds,
   - high-consequence actions,
   - investigation holds.
 
 This yields three replay tiers:
-1) macro replay (graph + budgets + key decisions) for fast SOC/CSSP triage  
-2) meso replay (selected agents/intervals) for root-cause on a suspected subgraph  
+
+1) macro replay (graph + budgets + key decisions) for fast SOC/CSSP triage
+2) meso replay (selected agents/intervals) for root-cause on a suspected subgraph
 3) micro replay (full payloads) for high-consequence or legal/incident requirements
 
 ## 12) Observability and SOC/CSSP integration
 ACP emits telemetry so operations teams can see:
+
 - allow/deny rates by scope/tool/data tag
 - tool-call distributions and anomaly signals
 - model routing changes and regression alerts
@@ -524,6 +527,7 @@ ACP emits telemetry so operations teams can see:
 For ensembles, the primary failure mode is a coordination cascade. ACP provides swarm-specific views:
 
 **Dashboards**
+
 - coordination graph (A2A edges by type over time; fan-out heatmap)
 - arbitration events (conflicts, quorums, leader changes, deadlocks/timeouts)
 - budget burn-down (aggregate + per-role + anomaly overlays)
@@ -532,6 +536,7 @@ For ensembles, the primary failure mode is a coordination cascade. ACP provides 
 - containment posture (quarantined members, degraded mode active, policy lockdown status)
 
 **Alertable signals**
+
 - fan-out spikes and retry storms
 - message-type violations (out-of-scope coordination attempts)
 - budget exhaustion anomalies (loops, adversarial stimulus)
@@ -540,6 +545,7 @@ For ensembles, the primary failure mode is a coordination cascade. ACP provides 
 
 ## 13) Containment and revocation
 Containment operates at multiple levels:
+
 - **agent kill:** stop runtime, revoke credentials, invalidate scopes
 - **agent quarantine:** keep runtime alive but tool-isolated for triage
 - **ensemble freeze:** pause coordination, preserve state for replay
@@ -551,6 +557,7 @@ Containment must be fast (seconds), attributable, logged, and—when safe—reve
 
 ## 14) Resource governance (budget engine)
 Budgets are policy-enforced constraints:
+
 - compute (GPU seconds, CPU time)
 - tokens and inference cost
 - tool calls by category
@@ -563,6 +570,7 @@ Budget allocation can be static by tier or dynamic by mission priority (see “P
 
 ## 15) Federation and cross-domain transfer
 ACP supports federation by treating identity, scopes, context, and evidence as portable artifacts:
+
 - identity federation aligned to ICAM patterns
 - scope translation gates across enclaves (intersection + local caveats)
 - cross-domain context transfer as sanitized context bundles (hashes/pointers when payload transfer is forbidden)
@@ -578,6 +586,7 @@ ACP supports federation by treating identity, scopes, context, and evidence as p
 ![Action Loop](./diagrams/acp_action_flow.png)
 
 Narrative flow:
+
 1. A work unit is created and bound to a trust scope and budget allocation.
 2. An agent forms an intent (“open PR,” “update config,” “provision account”).
 3. The agent requests action via the Tool/Action Gateway (not direct tool access).
@@ -592,6 +601,7 @@ Narrative flow:
 ![Governance Lifecycle](./diagrams/acp_governance_lifecycle_compact.png)
 
 ACP governance is GitOps-oriented:
+
 - trust scopes, tool catalogs, interop policies, model routes, and eval packs are versioned artifacts
 - CI validates schemas, runs evals, runs adversarial tests
 - signed bundles are promoted to enforcement points
@@ -614,12 +624,14 @@ Common patterns are supported as declared coordination policies:
 - **Leader election/rotating coordinator:** avoids single points of failure; requires signed leases and fast failover.
 
 ## Trust scope composition and delegation
+
 - Worker scopes are strict subsets of orchestrator scope (intersection).
 - Orchestrators delegate budgets as allowances; allowances are reclaimable and time-bounded.
 - Ensembles inherit the maximum consequence tier they are capable of initiating unless explicitly forbidden by contract.
 
 ## Shared state governance
 Shared state is governed by:
+
 - tag-based access controls and minimization rules
 - concurrency semantics (leases, idempotency, OCC)
 - replayability (state changes reference evidence)
@@ -627,6 +639,7 @@ Shared state is governed by:
 
 ## Arbitration and deadlock prevention
 Ensembles declare:
+
 - conflict policies (who wins, quorum rules, tie-breakers)
 - TTLs for tasks/messages
 - backoff and retry semantics
@@ -636,17 +649,20 @@ Deadlocks and retry storms are both reliability incidents and security risks.
 
 ## Swarm budgets and dynamic allocation
 Budgets exist at ensemble and member levels:
+
 - ensemble aggregate budgets bound overall effect
 - per-member budgets prevent a single agent from exhausting resources
 - dynamic reallocation supports mission priorities under constraint
 
 Allocation mechanisms can include:
+
 - priority queues (mission tiered)
 - budget auctions for scarce resources
 - throttling policies during degraded modes
 
 ## Swarm containment without collapse
 Containment must be able to isolate one misbehaving member without collapsing collective behavior:
+
 - quarantine one agent (tool isolation) while the ensemble continues
 - freeze coordination while preserving state for replay
 - degrade ensemble mode (local models only; read-only tools) when attack indicators rise
@@ -658,6 +674,7 @@ Containment must be able to isolate one misbehaving member without collapsing co
 ACP assumes sophisticated adversaries and treats “benign” inputs as untrusted until proven otherwise.
 
 ## Threat classes
+
 - context and data poisoning (including retrieval hijacking and shared-memory poisoning)
 - tool output deception and supply chain compromise
 - model extraction/inversion via repeated calls
@@ -666,6 +683,7 @@ ACP assumes sophisticated adversaries and treats “benign” inputs as untruste
 - inter-agent adversarial influence (compromised peers or malicious interop payloads)
 
 ## Defenses engineered into ACP
+
 - provenance everywhere (context bundles, message hashes, action envelopes)
 - sandboxed execution and secrets brokerage
 - strict egress control and budget enforcement
@@ -679,6 +697,7 @@ ACP assumes sophisticated adversaries and treats “benign” inputs as untruste
 Degraded operation is a declared policy mode, not a surprise outage.
 
 Examples:
+
 - **Disconnected:** no external model gateway; local inference only; strict tool denylist; increased escalation.
 - **Intermittent:** queue actions; delayed approvals; increase evidence capture for later sync.
 - **Denied-model:** forced fallback to smaller/local models; reduced autonomy; tightened budgets.
@@ -705,6 +724,7 @@ Trust scopes declare which triggers are binding and what approvals/quorums apply
 
 ## Override surfaces are governed
 Human override is a privileged act:
+
 - role-limited, time-bounded, and scoped to specific actions
 - dual-control for high-consequence overrides
 - recorded as evidence with justification
@@ -712,6 +732,7 @@ Human override is a privileged act:
 
 ## Hybrid teaming patterns
 ACP supports multiple teaming modes by tier:
+
 - agent proposes, human decides
 - agent executes with human veto window
 - agent executes under policy with post-hoc review (low-tier only)
@@ -734,6 +755,7 @@ After-action review loops feed back into trust scope refinement, eval pack expan
 ACP is designed to operate in federated DoD reality.
 
 ## Federation patterns
+
 - identity federation aligned to ICAM patterns for mission partners and NPEs
 - portable trust scopes as signed artifacts with issuer claims and validity windows
 - translation gates when importing scopes into a new enclave:
@@ -744,12 +766,14 @@ ACP is designed to operate in federated DoD reality.
 
 ## Cross-domain context transfer
 Cross-domain handoffs use context bundles:
+
 - sanitize payloads per policy
 - export hashes/pointers when payload transfer is forbidden
 - maintain evidence linkage across domains without leaking content
 
 ## Portability across clouds, on-prem, and edge
 ACP achieves portability by standardizing:
+
 - artifact schemas (scope/policy/interop/eval/evidence/work-units)
 - gateway behaviors (tool, model, context, inter-agent)
 - evidence event formats
@@ -763,6 +787,7 @@ This allows consistent enforcement whether workloads run behind CNAP patterns, o
 The ACP will evolve at the same tempo it enables. Control plane upgrades must not break enforcement.
 
 ## Safe upgrades and migrations
+
 - policy bundles are versioned and signed; PEPs support dual policy versions during transitions
 - trust scope schema versioning with migration tooling and CI validation
 - tool/skill registry schema migrations preserve provenance and scanner evidence
@@ -771,6 +796,7 @@ The ACP will evolve at the same tempo it enables. Control plane upgrades must no
 
 ## Load, chaos, and attack simulation
 ACP is tested like a mission system:
+
 - load tests with large ensembles, high A2A chatter, and many concurrent work units
 - chaos experiments (PDP outage, model gateway denial, degraded network)
 - red-team simulations targeting policy, ledger, registry, and revocation channels
@@ -782,6 +808,7 @@ ACP is tested like a mission system:
 
 ## Pattern: “Work units as the unit of supervision”
 Humans supervise work units, not tool calls:
+
 - each work unit is bounded by scope and budgets
 - outputs are reviewed at artifact/diff level
 - escalation triggers bring humans into the loop at the right time
@@ -811,33 +838,39 @@ Multi-agent deployments ship with an ensemble contract defining orchestration, a
 ## Success metrics
 
 **Tempo and delivery**
+
 - time from scope/policy PR to deployable signed bundle
 - work-unit completion time distributions by tier and mission thread
 - model/tool update cycle time (shadow → canary → promote → rollback)
 - mean time to quarantine/revoke (MTTQ / MTTR-Q)
 
 **Safety and governance**
+
 - policy violation attempts per tool/data category
 - approval compliance rate for high-tier actions
 - evidence completeness rate (required fields present per action)
 - replay success rate (can reconstruct runs to acceptable fidelity)
 
 **Swarm reliability**
+
 - deadlock/livelock frequency
 - cascade containment time (detect → throttle → isolate)
 - ensemble success rate on golden scenarios
 
 **Tool supply chain**
+
 - % of tool executions with verified signatures/attestation
 - time-to-revoke malicious or unstable tools
 - incidence rates by provenance tier (Tier A/B/C)
 
 **Adversarial robustness**
+
 - red-team pass rate by attack class
 - drift detection sensitivity/precision
 - anomaly response time (detect → contain)
 
 **Resources**
+
 - compute and power per unit effect (task completion per watt-hour)
 - egress per mission outcome
 - budget overrun frequency and root causes
@@ -929,15 +962,15 @@ spec:
       - artifact.share
     rateLimits:
       maxMessagesPerMinutePerMember: 120
-    fanOutCaps:
-      maxRecipientsPerMessage: 8
+      fanOutCaps:
+        maxRecipientsPerMessage: 8
   safety:
     quarantineOn:
       - signal: drift.high
       - signal: iag.cascade
-    degradedModesAllowed:
-      - intermittent
-      - denied-model
+  degradedModesAllowed:
+    - intermittent
+    - denied-model
 ```
 
 ---
@@ -1008,4 +1041,4 @@ spec:
 
 ## Prior papers (conceptual anchors)
 - Adam Boas, *From AI Force Multiplication to Force Creation*: https://anboas.github.io/adamboas.info/writing/agentic-force-creation/  
-- Adam Boas, *From PDFs to Pull Requests (Code-as-Policy)*: https://anboas.github.io/adamboas.info/writing/code-as-policy/  
+- Adam Boas, *From PDFs to Pull Requests (Code-as-Policy)*: https://anboas.github.io/adamboas.info/writing/code-as-policy/
