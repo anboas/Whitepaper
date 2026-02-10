@@ -127,9 +127,20 @@ T3 & Life/safety or mission-critical actions & Strict deny-by-default, quorum ap
 This section defines bulkheads and gates: agent registry, trust scope service, work unit service, supervision console, policy engine (PDP) with distributed enforcement (PEPs), model gateway, context/data gateway, tool/action gateway, inter-agent gateway, evaluation harness, evidence ledger/replay service, observability, containment, budgets, and federation services.
 
 \section{Control Loops}
+
+\subsection{Action loop: intent $\rightarrow$ policy $\rightarrow$ mediated action $\rightarrow$ evidence}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{../diagrams/acp_action_flow.png}
+  \caption{Policy-Enforced Tool Invocation (Action Envelope). The tool/action gateway acts as a policy enforcement point (PEP), consulting a policy decision point (PDP) with trust scope and ABAC, optionally invoking approval steps, emitting tamper-evident evidence, and integrating with observability and SOC/CSSP workflows.}
+  \label{fig:acp-action-loop}
+\end{figure}
+
+\subsection{Governance loop: artifacts $\rightarrow$ tests/evals $\rightarrow$ promotion $\rightarrow$ enforcement}
 \begin{itemize}
-\item Action loop: intent $\rightarrow$ policy $\rightarrow$ mediated action $\rightarrow$ evidence.
-\item Governance loop: artifacts $\rightarrow$ tests/evals $\rightarrow$ promotion $\rightarrow$ enforcement.
+\item Policy, scope, tool catalog, and routing artifacts are versioned and signed.
+\item Evals and adversarial tests gate promotion.
+\item Promotion updates distributed enforcement points with rollback capability.
 \end{itemize}
 
 \section{Multi-Agent Governance}
