@@ -298,7 +298,7 @@ When connectivity, model access, or centralized policy is denied, the system tra
 
 The ACP is best understood as a set of “bulkheads” and “gates.” Bulkheads contain failures. Gates enforce policy.
 
-## 1) Agent registry and persona issuance
+## Agent registry and persona issuance
 This component issues and manages agent identities and personas:
 
 - NPE identifiers and credentials
@@ -306,14 +306,14 @@ This component issues and manages agent identities and personas:
 - attribute issuance for ABAC (mission, enclave, tier, approved tools)
 - lifecycle: onboarding, rotation, revocation
 
-## 2) Trust scope service
+## Trust scope service
 The trust scope service stores and signs manifests, enforces schema, and supports delegation:
 
 - scope templates by tier and mission thread
 - scope inheritance and delegation (budgets, tool subsets)
 - scope translation and intersection rules for federation
 
-## 3) Work Unit Service (WUS)
+## Work Unit Service (WUS)
 This service creates and tracks work units as supervised objects:
 
 - issues work_unit_id and binds it to trust scope + policy bundle hashes
@@ -323,7 +323,7 @@ This service creates and tracks work units as supervised objects:
 - allocates and reclaims budgets (and delegated allowances) for sub-agents
 - provides a stable evidence anchor for querying actions/messages/artifacts at scale
 
-## 4) Supervision console (Human Direction and Oversight Surface)
+## Supervision console (Human Direction and Oversight Surface)
 This is not “a UI.” It is an operational control surface that enables humans to supervise autonomy at scale without becoming the throughput bottleneck.
 
 Minimum capabilities:
@@ -335,7 +335,7 @@ Minimum capabilities:
 - evidence drill-down by work_unit_id (macro→meso→micro replay tiers)
 - after-action review workflow that generates new eval cases and policy refinements
 
-## 5) Policy engine (PDP) and distributed enforcement (PEPs)
+## Policy engine (PDP) and distributed enforcement (PEPs)
 The policy engine evaluates requests using:
 
 - agent identity attributes + persona
@@ -355,7 +355,7 @@ PEPs exist at:
 - work-unit transitions (pause/resume/cancel)
 - CI/CD promotion gates
 
-## 6) Model gateway
+## Model gateway
 The model gateway enforces:
 
 - model allowlists by enclave and trust scope
@@ -368,7 +368,7 @@ The model gateway is also the upgrade discipline:
 - shadow → canary → promote → rollback
 - policy-hash and eval-pack gating
 
-## 7) Context/Data gateway
+## Context/Data gateway
 This gateway turns “context engineering” into a governed plane:
 
 - tag-aware access controls
@@ -377,7 +377,7 @@ This gateway turns “context engineering” into a governed plane:
 - freshness SLAs and “context rot” warnings
 - production of stable context bundles referenced by action envelopes
 
-## 8) Tool/Action gateway
+## Tool/Action gateway
 This is the most important boundary: it mediates side effects.
 
 - allowlists/denylists by scope and tier
@@ -425,7 +425,7 @@ Policy requirements for computer-use tools:
 
 These constraints turn “computer use” from a hidden capability into a governed actuation surface.
 
-## 9) Inter-Agent Gateway (IAG)
+## Inter-Agent Gateway (IAG)
 Multi-agent systems only scale safely if agent-to-agent communication is treated like a governed mesh.
 
 The IAG is intentionally **protocol-neutral**. It can front interoperable protocols such as the Agent2Agent (A2A) protocol or the Model Context Protocol (MCP)—or successor protocols that provide similar semantics.
@@ -454,7 +454,7 @@ A2A and MCP address different interoperability surfaces. The ACP governs both by
 
 The design goal is not to predict which protocol dominates. The goal is to ensure that whichever protocols are used, they terminate at governed boundaries with consistent controls.
 
-## 10) Evaluation harness (functional + adversarial) and tool eval packs
+## Evaluation harness (functional + adversarial) and tool eval packs
 The evaluation harness provides:
 
 - baseline functional tests (“golden tasks”)
@@ -482,7 +482,7 @@ New tools and tool changes require tool-specific eval packs, including:
 - performance/latency tests (avoid tool DoS cascades)
 - “computer use” class tests (UI ambiguity, evidence capture, step budgets)
 
-## 11) Evidence ledger and replay service
+## Evidence ledger and replay service
 Evidence is a structured event stream supporting:
 
 - attribution: who/what/under which scope/policy
@@ -520,7 +520,7 @@ This yields three replay tiers:
 2) meso replay (selected agents/intervals) for root-cause on a suspected subgraph
 3) micro replay (full payloads) for high-consequence or legal/incident requirements
 
-## 12) Observability and SOC/CSSP integration
+## Observability and SOC/CSSP integration
 ACP emits telemetry so operations teams can see:
 
 - allow/deny rates by scope/tool/data tag
@@ -549,7 +549,7 @@ For ensembles, the primary failure mode is a coordination cascade. ACP provides 
 - tool-call distribution shifts at ensemble level
 - quarantine and kill-switch activations with evidence references
 
-## 13) Containment and revocation
+## Containment and revocation
 Containment operates at multiple levels:
 
 - **agent kill:** stop runtime, revoke credentials, invalidate scopes
@@ -561,7 +561,7 @@ Containment operates at multiple levels:
 
 Containment must be fast (seconds), attributable, logged, and—when safe—reversible.
 
-## 14) Resource governance (budget engine)
+## Resource governance (budget engine)
 Budgets are policy-enforced constraints:
 
 - compute (GPU seconds, CPU time)
@@ -574,7 +574,7 @@ Budgets are policy-enforced constraints:
 
 Budget allocation can be static by tier or dynamic by mission priority (see “Patterns”).
 
-## 15) Federation and cross-domain transfer
+## Federation and cross-domain transfer
 ACP supports federation by treating identity, scopes, context, and evidence as portable artifacts:
 
 - identity federation aligned to ICAM patterns
