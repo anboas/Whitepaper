@@ -902,6 +902,20 @@ Multi-agent deployments ship with an ensemble contract defining orchestration, a
 
 ---
 
+# Recommendations
+
+- Treat every agent as a non-person entity with enterprise identity attributes and lifecycle controls.
+- Require a signed trust scope manifest for every agent and ensemble, and compose authority by intersection.
+- Make work units the unit of supervision: budgets, dependencies, checkpoints, and evidence roots.
+- Mediate all side effects through gateways (tool, context, model, inter-agent) with policy enforcement and audit.
+- Gate promotions with eval packs and adversarial tests; require rollback and containment rehearsal.
+
+# Conclusion
+
+ACP-RA treats autonomy as an engineered control system. It separates planning from doing, centralizes policy decisions while distributing enforcement, and makes evidence and containment first-class. This enables faster iteration without turning speed into unmanaged risk, including for multi-agent ensembles operating in contested and degraded environments.
+
+---
+
 # Appendix: Minimal artifact set (GitOps-ready)
 
 At minimum, version-control the following:

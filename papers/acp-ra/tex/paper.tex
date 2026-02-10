@@ -1531,6 +1531,30 @@ Multi-agent deployments ship with an ensemble contract defining orchestration, a
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{recommendations}{%
+\section{Recommendations}\label{recommendations}}
+
+\begin{itemize}
+\tightlist
+\item
+  Treat every agent as a non-person entity with enterprise identity attributes and lifecycle controls.
+\item
+  Require a signed trust scope manifest for every agent and ensemble, and compose authority by intersection.
+\item
+  Make work units the unit of supervision: budgets, dependencies, checkpoints, and evidence roots.
+\item
+  Mediate all side effects through gateways (tool, context, model, inter-agent) with policy enforcement and audit.
+\item
+  Gate promotions with eval packs and adversarial tests; require rollback and containment rehearsal.
+\end{itemize}
+
+\hypertarget{conclusion}{%
+\section{Conclusion}\label{conclusion}}
+
+ACP-RA treats autonomy as an engineered control system. It separates planning from doing, centralizes policy decisions while distributing enforcement, and makes evidence and containment first-class. This enables faster iteration without turning speed into unmanaged risk, including for multi-agent ensembles operating in contested and degraded environments.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
 \hypertarget{appendix-minimal-artifact-set-gitops-ready}{%
 \section{Appendix: Minimal artifact set (GitOps-ready)}\label{appendix-minimal-artifact-set-gitops-ready}}
 
@@ -1756,28 +1780,5 @@ URLs are listed for traceability; downstream repositories should pin to specific
 \item
   Adam Boas, \emph{From PDFs to Pull Requests (Code-as-Policy)}: \url{https://anboas.github.io/adamboas.info/writing/code-as-policy/}.
 \end{itemize}
-
-\hypertarget{recommendations}{%
-\subsection{Recommendations}\label{recommendations}}
-
-\begin{itemize}
-\tightlist
-\item
-  Treat every agent as a non-person entity with enterprise identity attributes and lifecycle controls.
-\item
-  Require a signed trust scope manifest for every agent and ensemble, and compose authority by intersection.
-\item
-  Make work units the unit of supervision: budgets, dependencies, checkpoints, and evidence roots.
-\item
-  Mediate all side effects through gateways (tool, context, model, inter-agent) with policy enforcement and audit.
-\item
-  Gate promotions with eval packs and adversarial tests; require rollback and containment rehearsal.
-\end{itemize}
-
-\hypertarget{conclusion}{%
-\subsection{Conclusion}\label{conclusion}}
-
-ACP-RA treats autonomy as an engineered control system. It separates planning from doing, centralizes policy decisions while distributing enforcement, and makes evidence and containment first-class. This enables faster iteration without turning speed into unmanaged risk, including for multi-agent ensembles operating in contested and degraded environments.
-
 
 \end{document}
