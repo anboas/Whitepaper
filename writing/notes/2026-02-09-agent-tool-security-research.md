@@ -13,15 +13,29 @@ tags:
   - evaluation
 ---
 
-These notes capture the research thread that informed **ACP-RA** before publication (paper date: 2026-02-10). The theme across everything I read is simple: once an agent can call tools, the system’s real risks and real failures are almost never “bad text”\; they’re **authority leakage**, **untrusted data becoming control**, and **execution mistakes** at the tool boundary.
+These notes capture the research thread that informed **ACP-RA** before publication (paper date: 2026-02-10). The theme across everything I read is simple: once an agent can call tools, the system’s real risks and real failures are almost never “bad text”; they’re **authority leakage**, **untrusted data becoming control**, and **execution mistakes** at the tool boundary.
 
 ## Papers I read closely (and why they mattered)
+
+### Quick index
+
+| # | Paper | Link | Core problem | ACP-RA takeaway |
+|---:|---|---|---|---|
+| 1 | Design Patterns for Securing LLM Agents against Prompt Injections | https://arxiv.org/abs/2506.08837 | Untrusted inputs hijack tool-using agents | Separate planes; mediate side effects; treat data plane as untrusted |
+| 2 | From Prompt Injections to Protocol Exploits | https://arxiv.org/abs/2506.23260 | Attacks escalate from strings to workflows | Design for adversarial workflows; stop confused-deputy chains |
+| 3 | Toolformer | https://arxiv.org/abs/2302.04761 | Tool use needs explicit training signals | Schemas + receipts + execution-based eval |
+| 4 | ToolLLM | https://arxiv.org/abs/2307.16789 | Tool catalogs get huge; correctness is brittle | Tool plane needs discovery/ranking, validation, retries, observability |
+| 5 | ReAct | https://arxiv.org/abs/2210.03629 | Agents drift without grounded action/observation loops | Mediate actions; treat observations as untrusted data |
+| 6 | MRKL Systems | https://arxiv.org/abs/2205.00445 | Monolithic models are the wrong abstraction for capability | Broker capability through registries/scopes and gateways |
+| 7 | SWE-bench | https://arxiv.org/abs/2310.06770 | “Looks right” ≠ works; eval must be end-to-end | Gate upgrades on execution-based regression suites |
+
+Expanded notes per paper below.
 
 ### 1) Design Patterns for Securing LLM Agents against Prompt Injections
 Link: https://arxiv.org/abs/2506.08837
 
 - **Core problem:** Tool-using agents ingest untrusted text (web pages, emails, tickets) that can smuggle instructions and hijack behavior.
-- **Big idea:** Treat prompt injection as a *systems security problem*\: enforce trust boundaries, constrain capabilities, and build defense-in-depth rather than “better prompting.”
+- **Big idea:** Treat prompt injection as a *systems security problem*: enforce trust boundaries, constrain capabilities, and build defense-in-depth rather than “better prompting.”
 - **ACP-RA lesson:** The only stable fix is architectural: separate planes, mediate side effects, and treat the data plane as explicitly untrusted.
 
 ### 2) From Prompt Injections to Protocol Exploits: Threats in LLM-Powered AI Agents Workflows
@@ -62,7 +76,7 @@ Link: https://arxiv.org/abs/2205.00445
 ### 7) SWE-bench: Can Language Models Resolve Real-World GitHub Issues?
 Link: https://arxiv.org/abs/2310.06770
 
-- **Core problem:** “Looks right” is not “works”\; evaluation must reflect real-world tasks with real constraints.
+- **Core problem:** “Looks right” is not “works”; evaluation must reflect real-world tasks with real constraints.
 - **Big idea:** Test agents on end-to-end issue resolution where correctness is measurable.
 - **ACP-RA lesson:** Governance needs an evaluation harness. Model/tool upgrades should be gated on **execution-based regression suites**, not vibes.
 
@@ -70,7 +84,7 @@ Link: https://arxiv.org/abs/2310.06770
 
 These papers are why ACP-RA treats tool use as governed infrastructure, not “an agent trick.” Concretely, they pushed me toward:
 
-- **Distinct gateways by plane**: tool/action, context/data, model, and inter-agent\; each with its own policy surface and audit story.
+- **Distinct gateways by plane**: tool/action, context/data, model, and inter-agent; each with its own policy surface and audit story.
 - **Typed envelopes** instead of “prompt blobs” as transport for anything that causes side effects or crosses trust boundaries.
 - **Evidence-by-default**: every attempted side effect should emit a structured record (request + result), sufficient for replay and continuous authorization.
 - **Anti-replay and integrity** for agent-to-agent comms: once swarms exist, messaging is an adversarial channel unless proven otherwise.
