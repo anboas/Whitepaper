@@ -86,7 +86,7 @@ However, this shift amplifies trust challenges: Specs must embed ethical and sec
 
 \section{Baseline Contrast: Force Multiplication vs. Force Creation}\label{baseline-contrast}
 
-To neutralize the common objection (\emph{``we already do this with copilots''}), this section makes the ceiling explicit.
+To neutralize a common objection (\emph{``this is already done with copilots''}), this section makes the ceiling explicit.
 
 \begin{center}
 \begin{tabularx}{\textwidth}{p{0.26\textwidth}X X}
@@ -124,51 +124,68 @@ A required Trust Scope Manifest per agent family (e.g., enterprise, intel, cyber
 
 \begin{yamlblock}
 trust_scope_manifest:
-  agent_name: "enterprise-agents.v1"
+  agent_name: enterprise-agents.v1
+
+  # Representative mission threads for this agent family
   mission_threads:
-    - "contracting.intake"  # Low-consequence administrative task
-    - "helpdesk.triage"     # Moderate-consequence support workflow
+    - contracting.intake      # Low-consequence administrative task
+    - helpdesk.triage         # Moderate-consequence support workflow
+
   environment:
-    classification: "UNCLAS|CUI|SECRET|TS"  # Restrict to CUI for initial pilots
-    connectivity: "online|intermittent|offline"  # Fallback to offline mode in denied envs
+    # This manifest pins an initial pilot deployment to CUI.
+    # Other deployments in this family may raise this, but should do so via a new manifest revision.
+    classification: CUI
+
+    # Expected operating condition; gateways must enforce degraded-mode behavior.
+    connectivity: intermittent
+    offline_fallback: true
+
+  consequence_level: moderate
+
   authority:
     allowed_actions:
-      - "draft"             # Generate reports or code
-      - "recommend"         # Suggest optimizations
-      - "execute_within_budget"  # Auto-approve low-value transactions
+      - draft
+      - recommend
+      - execute_within_budget
     prohibited_actions:
-      - "modify_firewall_rules"  # No direct network changes
-      - "release_data_cross_domain"  # Prevent data exfiltration
-  consequence_level: "low|moderate|high|life_safety"  # Default: moderate for enterprise
+      - modify_firewall_rules
+      - release_data_cross_domain
+
   human_authority:
     approvals_required_for:
-      - action: "execute_within_budget"
-        threshold: "$10K"   # Escalate if over budget
-      - action: "policy_change"
-        threshold: "always" # Always require review for doctrine shifts
+      - action: execute_within_budget
+        if_amount_gt_usd: 10000
+      - action: policy_change
+        always: true
+
     escalation_triggers:
-      - "confidence_below:0.85"  # Low confidence in output
-      - "conflicting_sources_detected:true"  # Data inconsistencies
-      - "prompt_injection_suspected:true"  # Security threats
+      - type: confidence_below
+        threshold: 0.85
+      - type: conflicting_sources_detected
+        value: true
+      - type: prompt_injection_suspected
+        value: true
+
   verification:
     acceptance_thresholds:
-      task_success_rate: 0.97     # Minimum for deployment
-      critical_error_rate: 0.001  # Tolerable failure in simulations
-      audit_log_coverage: 1.0     # Full traceability
+      task_success_rate: 0.97
+      critical_error_rate: 0.001
+      audit_log_coverage: 1.0
     required_artifacts:
-      - "model_card"              # Model details
-      - "system_card"             # System integration
-      - "data_card"               # Data provenance
-      - "eval_report"             # Performance evals
+      - model_card
+      - system_card
+      - data_card
+      - eval_report
+
   controls:
     runtime_monitors:
-      - "tool_use_anomaly_detection"  # Flag unusual actions
-      - "policy_as_code_enforcement"  # Enforce ROE
-    kill_switch: true               # Immediate halt capability
-    immutable_audit_logging: true   # Tamper-proof records
+      - tool_use_anomaly_detection
+      - policy_as_code_enforcement
+    kill_switch: true
+    immutable_audit_logging: true
 \end{yamlblock}
 
-This expanded framework can be integrated into DoW\textquotesingle s ATO processes, with initial pilots in Category A agents to build confidence. It directly addresses the strategy\textquotesingle s call for ``model objectivity'' by requiring verifiable artifacts, while enabling rapid deployment through predefined thresholds. For auditability, manifests should be version-controlled (e.g., via Azure DevOps, as in my prior white paper ``From PDFs to Pull Requests''), with changes triggering re-approval workflows. This not only operationalizes trust but also scales with force creation, ensuring agents remain aligned in evolving battlespaces.
+This expanded framework can be integrated into DoW\textquotesingle s ATO processes, with initial pilots in Category A agents to build confidence. It directly addresses the strategy\textquotesingle s call for ``model objectivity'' by requiring verifiable artifacts, while enabling rapid deployment through predefined thresholds. For auditability, manifests should be version-controlled (e.g., via Azure DevOps, as in the prior white paper ``From PDFs to Pull Requests''), with changes triggering re-approval workflows. This not only operationalizes trust but also scales with force creation, ensuring agents remain aligned in evolving battlespaces.
 
 \begin{calloutquote}
 Trust is bounded authority plus verification.
