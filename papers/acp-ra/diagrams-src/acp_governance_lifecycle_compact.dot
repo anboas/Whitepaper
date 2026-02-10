@@ -1,0 +1,34 @@
+digraph ACP_Lifecycle_TB {
+	graph [fontname=Helvetica fontsize=10 label="ACP — Governance-as-Code Lifecycle (Compact)" labelloc=t rankdir=TB]
+	node [fontname=Helvetica fontsize=10 shape=box style=rounded]
+	edge [fontname=Helvetica fontsize=9]
+	REPO [label="Git Repo
+(manifests + policy + eval packs)"]
+	CI [label="CI Pipeline
+(lint + scan + build)"]
+	EVAL [label="Eval Harness
+(regression + red-team)"]
+	APP [label="Approval Gate
+(PR review / AO)"]
+	PROM [label="Promote
+(signed policy bundles)
+→ ACP"]
+	RUN [label="Runtime Enforcement
+(agent/tool/data/model gateways)"]
+	LED [label="Evidence Ledger
+(immutable logs + replay)"]
+	CATO [label="cATO / Continuous Risk
+(evidence-based)"]
+	RB [label="Rollback / Kill Switch
+(fast revert)"]
+	REPO -> CI
+	CI -> EVAL
+	EVAL -> APP
+	APP -> PROM
+	PROM -> RUN [label="publish + distribute"]
+	RUN -> LED [label="emit evidence"]
+	LED -> CATO [label="consume evidence"]
+	RUN -> RB [label=incident style=dashed]
+	RB -> RUN [label="halt/disable" style=dashed]
+	RB -> PROM [label=revert style=dashed]
+}

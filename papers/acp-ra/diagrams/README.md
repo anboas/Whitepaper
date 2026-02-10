@@ -11,6 +11,6 @@ Drop diagram assets used by the paper here.
   - Caption: **Policy-Enforced Tool Invocation (Action Envelope)**
   - Usage: referenced in the paper as the action loop: intent → policy → mediated action → evidence.
 
-- `acp_governance_lifecycle_compact.png`
+- `acp_governance_lifecycle_compact.dot` (source) → `acp_governance_lifecycle_compact.png` + `acp_governance_lifecycle_compact.svg`
   - Caption: **Governance-as-Code Lifecycle (Compact)**
   - Usage: referenced in the paper as the governance loop: artifacts → CI → evals → approval → promote → enforce → evidence → cATO.
