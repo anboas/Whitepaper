@@ -29,56 +29,70 @@ These notes capture the research thread that informed **ACP-RA** before publicat
 | 6 | MRKL Systems | [arXiv](https://arxiv.org/abs/2205.00445) | Monolithic models are the wrong abstraction for capability | Broker capability through registries/scopes and gateways |
 | 7 | SWE-bench | [arXiv](https://arxiv.org/abs/2310.06770) | “Looks right” ≠ works; eval must be end-to-end | Gate upgrades on execution-based regression suites |
 
-Expanded notes per paper below.
+Expanded notes per paper below (each block is separated for skimmability).
+
+---
 
 ### 1) Design Patterns for Securing LLM Agents against Prompt Injections
-Link: https://arxiv.org/abs/2506.08837
+**Link:** [arXiv](https://arxiv.org/abs/2506.08837)
 
 - **Core problem:** Tool-using agents ingest untrusted text (web pages, emails, tickets) that can smuggle instructions and hijack behavior.
 - **Big idea:** Treat prompt injection as a *systems security problem*: enforce trust boundaries, constrain capabilities, and build defense-in-depth rather than “better prompting.”
 - **ACP-RA lesson:** The only stable fix is architectural: separate planes, mediate side effects, and treat the data plane as explicitly untrusted.
 
+---
+
 ### 2) From Prompt Injections to Protocol Exploits: Threats in LLM-Powered AI Agents Workflows
-Link: https://arxiv.org/abs/2506.23260
+**Link:** [arXiv](https://arxiv.org/abs/2506.23260)
 
 - **Core problem:** Once agents participate in workflows, attackers can escalate from text injection into **protocol-level exploits** (tool misuse, chain-of-calls, confused deputy).
 - **Big idea:** The attack surface expands from “prompt” to the full workflow graph: tool schemas, connectors, retries, permissions, and state.
 - **ACP-RA lesson:** Design around **adversarial workflows**, not just adversarial strings.
 
+---
+
 ### 3) Toolformer: Language Models Can Teach Themselves to Use Tools
-Link: https://arxiv.org/abs/2302.04761
+**Link:** [arXiv](https://arxiv.org/abs/2302.04761)
 
 - **Core problem:** Models don’t reliably learn correct tool invocation from next-token training alone.
 - **Big idea:** Generate tool-use supervision at scale by letting the model propose tool calls, execute them, and train on outcomes.
 - **ACP-RA lesson:** Tool use is a distinct competency: it wants **schemas**, **execution receipts**, and **evaluation** tied to real calls.
 
+---
+
 ### 4) ToolLLM: Facilitating Large Language Models to Master Thousands of Real-World APIs
-Link: https://arxiv.org/abs/2307.16789
+**Link:** [arXiv](https://arxiv.org/abs/2307.16789)
 
 - **Core problem:** Real tool ecosystems are huge; correctness depends on endpoint selection and argument fidelity, not eloquence.
 - **Big idea:** Scale training and evaluation around large API catalogs, emphasizing execution-valid tool use.
 - **ACP-RA lesson:** At scale, the tool plane becomes a product: **discovery/ranking**, **schema validation**, **retries**, and **observability** become first-class requirements.
 
+---
+
 ### 5) ReAct: Synergizing Reasoning and Acting in Language Models
-Link: https://arxiv.org/abs/2210.03629
+**Link:** [arXiv](https://arxiv.org/abs/2210.03629)
 
 - **Core problem:** Pure “reasoning-only” prompting drifts, and pure “act-now” tool use is brittle; agents need a disciplined loop.
 - **Big idea:** Interleave reasoning with actions and observations so the model stays grounded and can correct itself.
-- **ACP-RA lesson:** The *agent loop* is an interface: actions should be mediated (gateways), and observations should be treated as untrusted inputs unless proven otherwise.
+- **ACP-RA lesson:** The agent loop is an interface: actions should be mediated (gateways), and observations should be treated as untrusted inputs unless proven otherwise.
+
+---
 
 ### 6) MRKL Systems: A modular, neuro-symbolic architecture that combines large language models, external knowledge sources and discrete reasoning
-Link: https://arxiv.org/abs/2205.00445
+**Link:** [arXiv](https://arxiv.org/abs/2205.00445)
 
 - **Core problem:** One monolithic model is a poor place to concentrate every capability (math, search, databases, policy, etc.).
 - **Big idea:** Route to specialized tools/experts; keep the LLM as coordinator rather than the executor of everything.
-- **ACP-RA lesson:** This reinforces the control-plane thesis: capability should be **explicitly brokered** through registries/scopes and mediated gateways, not implicitly granted by “smartness.”
+- **ACP-RA lesson:** This reinforces the control-plane thesis: capability should be explicitly brokered through registries/scopes and mediated gateways, not implicitly granted by “smartness.”
+
+---
 
 ### 7) SWE-bench: Can Language Models Resolve Real-World GitHub Issues?
-Link: https://arxiv.org/abs/2310.06770
+**Link:** [arXiv](https://arxiv.org/abs/2310.06770)
 
 - **Core problem:** “Looks right” is not “works”; evaluation must reflect real-world tasks with real constraints.
 - **Big idea:** Test agents on end-to-end issue resolution where correctness is measurable.
-- **ACP-RA lesson:** Governance needs an evaluation harness. Model/tool upgrades should be gated on **execution-based regression suites**, not vibes.
+- **ACP-RA lesson:** Governance needs an evaluation harness. Model/tool upgrades should be gated on execution-based regression suites, not vibes.
 
 ## How this fed directly into ACP-RA
 
