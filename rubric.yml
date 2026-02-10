@@ -12,12 +12,11 @@ checks:
 
   required_sections:
     weight: 0.15
-    # Simple phrase match against source.
+    # Minimal structural tokens that should exist in every house-style paper.
+    # (More specific per-paper section expectations should come from INTENT.md-driven checks.)
     required_phrases:
-      - "Executive Summary"
-      - "Problem Statement"
-      - "Recommendations"
-      - "Conclusion"
+      - "\\begin{execsummary}"
+      - "\\tableofcontents"
 
   has_sources_or_refs:
     weight: 0.10
