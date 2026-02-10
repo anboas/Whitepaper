@@ -1,0 +1,150 @@
+% ACP-RA paper (LaTeX). Source draft also in ../draft.md
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\setstretch{1.12}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{xcolor}
+\definecolor{BrandGray}{HTML}{6E6E6E}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[C]{\small\textcolor{BrandGray}{\thepage}}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{longtable}
+
+\title{Agent Control Plane Reference Architecture (ACP-RA)}
+\author{Adam Boas}
+\date{February 2026}
+
+\begin{document}
+\maketitle
+
+\section*{Executive Summary}
+Agentic autonomy is shifting the unit of output from \emph{human-hours} to \emph{agent-hours}. That transition increases decision tempo and execution density beyond human relevance windows, especially in contested environments where connectivity is intermittent and deception is routine. The \textbf{Agent Control Plane (ACP)} makes this transition \textbf{fieldable} by standardizing identity for agents as non-person entities (NPEs), delegated authority as explicit trust scopes, long-running execution as supervised work units, mediated action through gateways, governance as code with promotion gates, and evidence sufficient for continuous authorization and after-action reconstruction.
+
+This paper presents ACP-RA as a DoD CIO style reference architecture: purpose, principles, technical positions, patterns, and vocabulary. It is intended to guide and constrain downstream solution architectures rather than prescribe a single implementation.
+
+\section{Scope and Non-Goals}
+\subsection*{In scope}
+\begin{itemize}
+\item Enterprise, intelligence, and operational-support agents that plan, coordinate, and invoke tools/actions within bounded authority.
+\item Multi-agent ensembles (swarms) and their coordination, messaging, shared state, budgets, observability, and containment.
+\item Work-unit management for long-running and parallel agent execution (checkpointing, dependencies, cancellation, supervision).
+\item Policy-as-code, evaluation-as-gate, and evidence generation for continuous authorization.
+\item Cross-enclave federation and cross-domain handoffs (identity, context, and evidence).
+\end{itemize}
+
+\subsection*{Out of scope}
+\begin{itemize}
+\item Tactical employment guidance for autonomous weapons.
+\item Authorization of use-of-force decisions.
+\item Any design that bypasses applicable weapon system autonomy policy (see DoDD 3000.09).
+\end{itemize}
+
+\section{Strategic Drivers}
+\begin{itemize}
+\item \textbf{A posture of acceleration:} platforms must support rapid onboarding and change while staying governable and reversible.
+\item \textbf{Supervision at scale:} the core problem shifts from whether agents can do tasks to whether humans can supervise many long-running parallel tasks at machine tempo.
+\item \textbf{Contested and degraded environments:} deception, poisoning, cascade failures, and intermittent connectivity are baseline constraints.
+\item \textbf{Federation:} cross-Service, cross-agency, and cross-enclave interoperability is unavoidable; the ACP must be protocol-neutral.
+\end{itemize}
+
+\section{Architectural Principles}
+\begin{enumerate}
+\item Agents are NPEs, not apps.
+\item Centralize policy decisions; distribute enforcement.
+\item Default deny; allow by explicit trust scope.
+\item The doing boundary is explicit and mediated.
+\item Evidence is first-class.
+\item Rollback and containment are capabilities.
+\item Context engineering is governed data movement.
+\item Evals and monitoring are gates.
+\item Budgets are policy.
+\item Tools and skills are a supply chain.
+\end{enumerate}
+
+\section{Conceptual View (OV-1)}
+\emph{Figure placeholders. Add diagrams under \texttt{papers/acp-ra/diagrams/}.}
+
+\begin{itemize}
+\item Runtime plane: agent runtimes executing plans and invoking tools.
+\item Control plane: identity, trust scopes, work units, policy, gateways, evaluation, evidence, observability, containment.
+\end{itemize}
+
+\section{Core Vocabulary}
+\textbf{Agent:} software actor that can plan, retrieve context, communicate, invoke tools, and execute actions within bounded authority.
+
+\textbf{Persona:} controlled mission role for an agent; used by policy.
+
+\textbf{Trust Scope Manifest (TSM):} signed, versioned contract defining delegated authority and constraints (tools/actions, consequence tier, environment, thresholds, budgets, evidence requirements, degraded modes).
+
+\textbf{Work unit:} durable, supervised task thread for long-running and parallel execution that binds scope context, budgets, dependencies, checkpoint policy, sandbox provenance, and an evidence root.
+
+\textbf{Policy bundle:} signed, versioned policy rules consumed by enforcement points.
+
+\textbf{Context bundle:} replayable artifact representing retrieved context with provenance and integrity metadata and stable hash identifiers.
+
+\textbf{Action envelope:} signed record of an attempted action/tool call including policy decision and evidence pointers.
+
+\textbf{Inter-agent message envelope:} signed record of agent-to-agent messaging including schema, TTL, rate class, and provenance.
+
+\textbf{Ensemble (swarm):} first-class multi-agent object with explicit governance, budgets, and containment semantics.
+
+\section{Consequence Tiers and Required Controls}
+\begin{longtable}{p{0.12\linewidth} p{0.46\linewidth} p{0.36\linewidth}}
+\textbf{Tier} & \textbf{Representative activities} & \textbf{Minimum controls} \\
+\hline
+T0 & Drafting, summarization, read-only analysis & NPE identity, data tag controls, basic evidence, deny-by-default tool use \\
+T1 & PR creation, ticket automation, recommendations (no direct apply) & Tool mediation, budgets, baseline evals, drift monitoring \\
+T2 & Production changes, account/permission changes, external comms, GUI ops & Human-on-the-loop approvals, dual control, enhanced evidence, rollback rehearsal \\
+T3 & Life/safety or mission-critical actions & Strict deny-by-default, quorum approvals, constrained degraded modes, full-fidelity evidence triggers \\
+\end{longtable}
+
+\textbf{Composition rule:} when scopes combine, authority composes by intersection, never union.
+
+\section{Technical Positions (Required Control Surfaces)}
+\begin{itemize}
+\item TP1: Agent identity as NPE (ICAM-aligned).
+\item TP2: Trust scopes are signed, versioned, and enforceable.
+\item TP3: Work units are first-class governance objects.
+\item TP4: Tool/action gateway mediates all doing.
+\item TP5: Tools and skills onboarded through supply-chain controls.
+\item TP6: Inter-agent gateway governs messaging and prevents cascades.
+\item TP7: Context/data gateway governs retrieval and context movement.
+\item TP8: Model gateway governs routing and upgrades.
+\item TP9: Evaluation harness gates promotion; monitoring gates runtime.
+\item TP10: Evidence ledger is tamper-evident and queryable.
+\item TP11: Degraded-mode behaviors are declared and enforced.
+\end{itemize}
+
+\section{Architecture Components}
+This section defines bulkheads and gates: agent registry, trust scope service, work unit service, supervision console, policy engine (PDP) with distributed enforcement (PEPs), model gateway, context/data gateway, tool/action gateway, inter-agent gateway, evaluation harness, evidence ledger/replay service, observability, containment, budgets, and federation services.
+
+\section{Control Loops}
+\begin{itemize}
+\item Action loop: intent $\rightarrow$ policy $\rightarrow$ mediated action $\rightarrow$ evidence.
+\item Governance loop: artifacts $\rightarrow$ tests/evals $\rightarrow$ promotion $\rightarrow$ enforcement.
+\end{itemize}
+
+\section{Multi-Agent Governance}
+Ensembles require explicit contracts: coordination pattern, arbitration rules, shared state governance, budgets and allocation, and containment without collapse.
+
+\section{Contested and Degraded Operation}
+ACP assumes poisoning, deception, and partial connectivity. Degraded modes are policy-driven safe behaviors (disconnected, intermittent, denied-model, human-handover).
+
+\section{Patterns}
+Work units as unit of supervision; policy-centered mesh; bulkhead gateways; budgeted autonomy; tool supply chain governance; evidence-first releases; ensemble contract.
+
+\section{Metrics and Roadmap}
+Define tempo, governance, swarm reliability, tool supply chain, adversarial robustness, and resource metrics. Maturity levels from copilot sprawl to federated and contested.
+
+\section{References}
+References are maintained in the draft and will be normalized into a consistent bibliography pass.
+
+\end{document}

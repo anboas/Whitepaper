@@ -1,0 +1,19 @@
+# PAPER.yml — variables/metadata used for rendering
+
+paper:
+  id: acp-ra
+  title: "Agent Control Plane Reference Architecture (ACP-RA)"
+  subtitle: "Governed, scalable agentic autonomy for contested and degraded operations"
+  date: "February 2026"
+  series_tag: "Whitepaper Series"
+
+author:
+  name: "Adam Boas"
+  role: ""
+
+distribution:
+  channel: "adamboas.info"
+  disclaimer: "Views are the author's and do not represent official policy."
+
+assets:
+  logo_path: "" # optional: papers/acp-ra/assets/logo.png
