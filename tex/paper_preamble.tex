@@ -175,11 +175,47 @@
 % Pandoc compatibility (some markdown->latex conversions emit this)
 \providecommand{\tightlist}{}
 
-% Pandoc code-block compatibility: provide a Shaded environment.
-% Pandoc emits \begin{Shaded} ... \end{Shaded} for fenced code blocks.
+% Pandoc code-block compatibility: provide Shaded/Highlighting environments and token macros.
+% Pandoc emits \begin{Shaded} ... \end{Shaded} and \begin{Highlighting} ... \end{Highlighting}
+% plus token macros like \KeywordTok{...} depending on the highlighting style.
 \usepackage{framed}
+\usepackage{fancyvrb}
 \definecolor{shadecolor}{HTML}{F8FAFC}
 \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+
+% If we don't want colors, define token macros as identity (backwards compatible).
+\providecommand{\AlertTok}[1]{#1}
+\providecommand{\AnnotationTok}[1]{#1}
+\providecommand{\AttributeTok}[1]{#1}
+\providecommand{\BaseNTok}[1]{#1}
+\providecommand{\BuiltinTok}[1]{#1}
+\providecommand{\CharTok}[1]{#1}
+\providecommand{\CommentTok}[1]{#1}
+\providecommand{\CommentVarTok}[1]{#1}
+\providecommand{\ConstantTok}[1]{#1}
+\providecommand{\ControlFlowTok}[1]{#1}
+\providecommand{\DataTypeTok}[1]{#1}
+\providecommand{\DecValTok}[1]{#1}
+\providecommand{\DocumentationTok}[1]{#1}
+\providecommand{\ErrorTok}[1]{#1}
+\providecommand{\ExtensionTok}[1]{#1}
+\providecommand{\FloatTok}[1]{#1}
+\providecommand{\FunctionTok}[1]{#1}
+\providecommand{\ImportTok}[1]{#1}
+\providecommand{\InformationTok}[1]{#1}
+\providecommand{\KeywordTok}[1]{#1}
+\providecommand{\NormalTok}[1]{#1}
+\providecommand{\OperatorTok}[1]{#1}
+\providecommand{\OtherTok}[1]{#1}
+\providecommand{\PreprocessorTok}[1]{#1}
+\providecommand{\RegionMarkerTok}[1]{#1}
+\providecommand{\SpecialCharTok}[1]{#1}
+\providecommand{\SpecialStringTok}[1]{#1}
+\providecommand{\StringTok}[1]{#1}
+\providecommand{\VariableTok}[1]{#1}
+\providecommand{\VerbatimStringTok}[1]{#1}
+\providecommand{\WarningTok}[1]{#1}
 
 \newtcolorbox{keytakeaway}{colback=white,colframe=BrandAccent,boxrule=0.8pt,arc=2pt,left=10pt,right=10pt,top=8pt,bottom=8pt}
 
