@@ -79,7 +79,7 @@ ACP-RA defines the required control surfaces to make autonomy governable at scal
 \section{Conceptual View (OV-1)}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\linewidth]{../diagrams/acp_ov1_simplified.png}
+  \includegraphics[width=\linewidth]{papers/acp-ra/diagrams/acp_ov1_simplified.png}
   \caption{Agent Control Plane OV-1 (Simplified). The control plane governs identity, trust scopes, policy, gateways, evaluation, and evidence across the runtime plane. It aligns to enterprise identity and access management, DevSecOps, Zero Trust/CNAP, and security operations patterns.}
   \label{fig:acp-ov1}
 \end{figure}
@@ -160,7 +160,7 @@ This section defines bulkheads and gates:
 \subsection{Action loop: intent $\rightarrow$ policy $\rightarrow$ mediated action $\rightarrow$ evidence}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\linewidth]{../diagrams/acp_action_flow.png}
+  \includegraphics[width=\linewidth]{papers/acp-ra/diagrams/acp_action_flow.png}
   \caption{Policy-Enforced Tool Invocation (Action Envelope). The tool and action gateway acts as an enforcement point. It consults a policy decision point with the trust scope and attribute-based access control, optionally invokes approvals, emits tamper-evident evidence, and integrates with observability and security operations workflows.}
   \label{fig:acp-action-loop}
 \end{figure}
@@ -168,7 +168,7 @@ This section defines bulkheads and gates:
 \subsection{Governance loop: artifacts $\rightarrow$ tests/evals $\rightarrow$ promotion $\rightarrow$ enforcement}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.62\linewidth]{../diagrams/acp_governance_lifecycle_compact.png}
+  \includegraphics[width=0.62\linewidth]{papers/acp-ra/diagrams/acp_governance_lifecycle_compact.png}
   \caption{Governance-as-Code Lifecycle (Compact). Policy, manifests, and evaluation packs are versioned artifacts. The build pipeline and evaluation harnesses gate promotion of signed bundles to enforcement points, while evidence and cATO/continuous risk consume emitted telemetry and replayable logs.}
   \label{fig:acp-governance-lifecycle}
 \end{figure}
