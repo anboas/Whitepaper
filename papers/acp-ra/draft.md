@@ -21,6 +21,8 @@ tags:
 
 # Agent Control Plane Reference Architecture (ACP‑RA)
 
+This section defines ACP‑RA at a glance: what it covers, why it exists, and the baseline principles it enforces. The goal is to establish a shared frame before diving into specific control surfaces and patterns.
+
 ## Executive summary
 
 Agentic autonomy is shifting the unit of output from *human-hours* to *agent-hours*. That is the transition from “force multiplication” to “force creation”: intent-driven systems executing within delegated authority, scaling through silicon rather than staffing. In practical terms, decision tempo and execution density can exceed human relevance windows—especially in contested environments where connectivity is intermittent and deception is routine.
@@ -44,6 +46,8 @@ This document is written as a DoW CIO–style reference architecture: strategic 
 
 ## Scope and non-goals
 
+Before debating design details, we bound the problem. ACP‑RA focuses on the control-plane mechanisms that make agent execution governable at scale. It does not attempt to prescribe mission tactics, weapon employment, or policy beyond the control plane.
+
 ### In scope
 - Enterprise, intelligence, and operational-support agents that plan, coordinate, and invoke tools/actions within bounded authority
 - Multi-agent ensembles (swarms) and their coordination, messaging, shared state, budgets, observability, and containment
@@ -54,14 +58,16 @@ This document is written as a DoW CIO–style reference architecture: strategic 
 ### Out of scope
 - Tactical employment guidance for autonomous weapons
 - Authorization of use-of-force decisions
-- Any design that bypasses applicable weapon system autonomy policy (see DoWD 3000.09)
+- Any design that bypasses applicable weapon system autonomy policy (see DoDD 3000.09)
 
-Where agents integrate into systems adjacent to use-of-force or mission-critical safety, additional governance, testing, and policy applies. DoWD 3000.09 remains the governing policy for autonomy in weapon systems.  
-(References: DoWD 3000.09; see Appendix “References.”)
+Where agents integrate into systems adjacent to use-of-force or mission-critical safety, additional governance, testing, and policy applies. DoDD 3000.09 remains the governing policy for autonomy in weapon systems.  
+(References: DoDD 3000.09; see Appendix “References.”)
 
 ---
 
 ## Strategic drivers
+
+The drivers below describe why the Department needs an ACP now. They are constraints that shape requirements: speed without loss of governance, supervision at scale, resilience under denial, and interoperability across federated enclaves.
 
 ### A posture of acceleration
 Recent Department strategy and senior-leadership messaging emphasize acceleration in AI adoption, experimentation, compute access, and rapid iteration. This architecture treats that posture as a constraint: platforms must support rapid onboarding and change while staying governable and reversible.
@@ -1021,7 +1027,7 @@ spec:
 - DoW CIO, *AI Cybersecurity Risk Management Tailoring Guide* (2025): https://dodcio.defense.gov/Portals/0/Documents/Library/AI-CybersecurityRMTailoringGuide.pdf  
 - DoW, *Implementing Responsible AI in the DoW* (May 2021): https://media.defense.gov/2021/May/27/2002730593/-1/-1/0/IMPLEMENTING-RESPONSIBLE-ARTIFICIAL-INTELLIGENCE-IN-THE-DEPARTMENT-OF-DEFENSE.PDF  
 - DoW, *Responsible AI Strategy and Implementation Pathway* (June 2022): https://media.defense.gov/2022/Jun/22/2003022604/-1/-1/0/Department-of-Defense-Responsible-Artificial-Intelligence-Strategy-and-Implementation-Pathway.PDF  
-- DoWD 3000.09, *Autonomy in Weapon Systems* (Jan 2023): https://www.esd.whs.mil/portals/54/documents/dd/issuances/dodd/300009p.pdf  
+- DoDD 3000.09, *Autonomy in Weapon Systems* (Jan 2023): https://www.esd.whs.mil/portals/54/documents/dd/issuances/dodd/300009p.pdf  
 
 ## Industry protocols and agent platform patterns
 - OpenAI, *Introducing Codex* (2025): https://openai.com/index/introducing-codex/  

@@ -61,10 +61,14 @@ This document is written as a DoW C\,IO--style reference architecture: strategic
 \hypertarget{agent-control-plane-reference-architecture-acpra}{%
 \section{Agent Control Plane Reference Architecture (A\,C\,P‑RA)}\label{agent-control-plane-reference-architecture-acpra}}
 
+This section defines A\,C\,P‑RA at a glance: what it covers, why it exists, and the baseline principles it enforces. The goal is to establish a shared frame before diving into specific control surfaces and patterns.
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{scope-and-non-goals}{%
 \subsection{Scope and non-goals}\label{scope-and-non-goals}}
+
+Before debating design details, we bound the problem. A\,C\,P‑RA focuses on the control-plane mechanisms that make agent execution governable at scale. It does not attempt to prescribe mission tactics, weapon employment, or policy beyond the control plane.
 
 \hypertarget{in-scope}{%
 \subsubsection{In scope}\label{in-scope}}
@@ -93,16 +97,18 @@ This document is written as a DoW C\,IO--style reference architecture: strategic
 \item
   Authorization of use-of-force decisions.
 \item
-  Any design that bypasses applicable weapon system autonomy policy (see DoWD 3000.09).
+  Any design that bypasses applicable weapon system autonomy policy (see DoDD 3000.09).
 \end{itemize}
 
-Where agents integrate into systems adjacent to use-of-force or mission-critical safety, additional governance, testing, and policy applies. DoWD 3000.09 remains the governing policy for autonomy in weapon systems.\\
-(References: DoWD 3000.09; see Appendix ``References.'')
+Where agents integrate into systems adjacent to use-of-force or mission-critical safety, additional governance, testing, and policy applies. DoDD 3000.09 remains the governing policy for autonomy in weapon systems.\\
+(References: DoDD 3000.09; see Appendix ``References.'')
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{strategic-drivers}{%
 \subsection{Strategic drivers}\label{strategic-drivers}}
+
+The drivers below describe why the Department needs an A\,C\,P now. They are constraints that shape requirements: speed without loss of governance, supervision at scale, resilience under denial, and interoperability across federated enclaves.
 
 \hypertarget{a-posture-of-acceleration}{%
 \subsubsection{A posture of acceleration}\label{a-posture-of-acceleration}}
