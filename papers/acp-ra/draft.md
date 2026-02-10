@@ -1,7 +1,7 @@
 ---
 title: "Agent Control Plane Reference Architecture (ACP-RA)"
 date: 2026-02-10
-description: "A reference architecture for governed, scalable agentic autonomy—single agents and swarms—aligned to DoD CIO patterns (Zero Trust, ICAM, CNAP, DevSecOps, cATO) and designed for contested/degraded operations."
+description: "A reference architecture for governed, scalable agentic autonomy—single agents and swarms—aligned to DoW CIO patterns (Zero Trust, ICAM, CNAP, DevSecOps, cATO) and designed for contested/degraded operations."
 tags:
   - autonomy
   - agents
@@ -38,7 +38,7 @@ It is the mechanism that lets the Department move faster **without** turning spe
 - **Swarm/ensemble governance** so multi-agent coordination remains bounded, attributable, and containable
 - **Degraded-mode survivability** so autonomy degrades safely when networks, models, or services are denied
 
-This document is written as a DoD CIO–style reference architecture: strategic purpose, principles, technical positions, patterns, and vocabulary. It is intended to guide and constrain downstream solution architectures rather than prescribe a single implementation.
+This document is written as a DoW CIO–style reference architecture: strategic purpose, principles, technical positions, patterns, and vocabulary. It is intended to guide and constrain downstream solution architectures rather than prescribe a single implementation.
 
 ---
 
@@ -54,10 +54,10 @@ This document is written as a DoD CIO–style reference architecture: strategic 
 ### Out of scope
 - Tactical employment guidance for autonomous weapons
 - Authorization of use-of-force decisions
-- Any design that bypasses applicable weapon system autonomy policy (see DoDD 3000.09)
+- Any design that bypasses applicable weapon system autonomy policy (see DoWD 3000.09)
 
-Where agents integrate into systems adjacent to use-of-force or mission-critical safety, additional governance, testing, and policy applies. DoDD 3000.09 remains the governing policy for autonomy in weapon systems.  
-(References: DoDD 3000.09; see Appendix “References.”)
+Where agents integrate into systems adjacent to use-of-force or mission-critical safety, additional governance, testing, and policy applies. DoWD 3000.09 remains the governing policy for autonomy in weapon systems.  
+(References: DoWD 3000.09; see Appendix “References.”)
 
 ---
 
@@ -73,7 +73,7 @@ Commercial agent systems are converging on a command-center model: many tasks in
 Agentic systems fail differently than traditional software. They are vulnerable to deception, poisoning, and cascade failures—especially when they coordinate as ensembles. The control plane must survive partial connectivity, intermittent access to centralized services, and adversary attempts to subvert policy and evidence mechanisms themselves.
 
 ### Interoperability and federation are unavoidable
-DoD reality is federated: Services, agencies, mission partners, and multiple classification enclaves. Interoperability is also plural: agent-to-agent messaging and agent-to-tool/data connectors are both being standardized in industry. The ACP must be **protocol-neutral** while enforcing a consistent policy surface across whichever interop protocols are in use.
+DoW reality is federated: Services, agencies, mission partners, and multiple classification enclaves. Interoperability is also plural: agent-to-agent messaging and agent-to-tool/data connectors are both being standardized in industry. The ACP must be **protocol-neutral** while enforcing a consistent policy surface across whichever interop protocols are in use.
 
 ---
 
@@ -112,7 +112,7 @@ Agent capability expansion via tools, connectors, and “skills” is unavoidabl
 ---
 
 ## Reference architecture structure
-DoD CIO reference architectures guide and constrain downstream architectures by providing: **strategic purpose, principles, technical positions, patterns, and vocabulary**. ACP‑RA uses that same structure.
+DoW CIO reference architectures guide and constrain downstream architectures by providing: **strategic purpose, principles, technical positions, patterns, and vocabulary**. ACP‑RA uses that same structure.
 
 - **Strategic purpose:** why ACP exists
 - **Principles:** non-negotiable engineering behavior
@@ -738,7 +738,7 @@ ACP supports multiple teaming modes by tier:
 - agent executes under policy with post-hoc review (low-tier only)
 
 ## Responsible AI alignment (operationalized as controls)
-DoD AI ethical principles are implemented as control-plane behaviors:
+DoW AI ethical principles are implemented as control-plane behaviors:
 
 - **Responsible:** attributable ownership; governed overrides; audit trails.
 - **Equitable:** eval packs include bias/disparate-impact checks where relevant; drift monitoring watches for performance skews.
@@ -752,7 +752,7 @@ After-action review loops feed back into trust scope refinement, eval pack expan
 
 # Composability, federation, and cross-enclave interoperability
 
-ACP is designed to operate in federated DoD reality.
+ACP is designed to operate in federated DoW reality.
 
 ## Federation patterns
 
@@ -1010,18 +1010,18 @@ spec:
 
 > URLs are listed for traceability; downstream repositories should pin to specific versions/hashes where possible.
 
-## DoD / DoD CIO
-- DoD CIO, *Reference Architecture Description* (June 2010): https://dodcio.defense.gov/Portals/0/Documents/Ref_Archi_Description_Final_v1_18Jun10.pdf  
-- DoD CIO, *DoD Zero Trust Reference Architecture v2.0* (2022): https://dodcio.defense.gov/Portals/0/Documents/Library/%28U%29ZT_RA_v2.0%28U%29_Sep22.pdf  
-- DoD CIO, *ICAM Federation Framework* (2024): https://dodcio.defense.gov/Portals/0/Documents/Cyber/ICAM-FederationFramework.pdf  
-- DoD CIO, *Cloud Native Access Point (CNAP) Reference Design v1.0* (2021): https://dodcio.defense.gov/Portals/0/Documents/Library/CNAP_RefDesign_v1.0.pdf  
-- DoD CIO, *DevSecOps Continuous Authorization Implementation Guide* (2024): https://dodcio.defense.gov/Portals/0/Documents/Library/DoDCIO-ContinuousAuthorizationImplementationGuide.pdf  
-- DoD CIO, *cATO Evaluation Criteria* (2024): https://dodcio.defense.gov/Portals/0/Documents/Library/cATO-EvaluationCriteria.pdf  
-- DoD CIO, *Continuous Authorization to Operate (cATO) memo* (2022): https://media.defense.gov/2022/Feb/03/2002932852/-1/-1/0/CONTINUOUS-AUTHORIZATION-TO-OPERATE.PDF  
-- DoD CIO, *AI Cybersecurity Risk Management Tailoring Guide* (2025): https://dodcio.defense.gov/Portals/0/Documents/Library/AI-CybersecurityRMTailoringGuide.pdf  
-- DoD, *Implementing Responsible AI in the DoD* (May 2021): https://media.defense.gov/2021/May/27/2002730593/-1/-1/0/IMPLEMENTING-RESPONSIBLE-ARTIFICIAL-INTELLIGENCE-IN-THE-DEPARTMENT-OF-DEFENSE.PDF  
-- DoD, *Responsible AI Strategy and Implementation Pathway* (June 2022): https://media.defense.gov/2022/Jun/22/2003022604/-1/-1/0/Department-of-Defense-Responsible-Artificial-Intelligence-Strategy-and-Implementation-Pathway.PDF  
-- DoDD 3000.09, *Autonomy in Weapon Systems* (Jan 2023): https://www.esd.whs.mil/portals/54/documents/dd/issuances/dodd/300009p.pdf  
+## DoW / DoW CIO
+- DoW CIO, *Reference Architecture Description* (June 2010): https://dodcio.defense.gov/Portals/0/Documents/Ref_Archi_Description_Final_v1_18Jun10.pdf  
+- DoW CIO, *DoW Zero Trust Reference Architecture v2.0* (2022): https://dodcio.defense.gov/Portals/0/Documents/Library/%28U%29ZT_RA_v2.0%28U%29_Sep22.pdf  
+- DoW CIO, *ICAM Federation Framework* (2024): https://dodcio.defense.gov/Portals/0/Documents/Cyber/ICAM-FederationFramework.pdf  
+- DoW CIO, *Cloud Native Access Point (CNAP) Reference Design v1.0* (2021): https://dodcio.defense.gov/Portals/0/Documents/Library/CNAP_RefDesign_v1.0.pdf  
+- DoW CIO, *DevSecOps Continuous Authorization Implementation Guide* (2024): https://dodcio.defense.gov/Portals/0/Documents/Library/DoWCIO-ContinuousAuthorizationImplementationGuide.pdf  
+- DoW CIO, *cATO Evaluation Criteria* (2024): https://dodcio.defense.gov/Portals/0/Documents/Library/cATO-EvaluationCriteria.pdf  
+- DoW CIO, *Continuous Authorization to Operate (cATO) memo* (2022): https://media.defense.gov/2022/Feb/03/2002932852/-1/-1/0/CONTINUOUS-AUTHORIZATION-TO-OPERATE.PDF  
+- DoW CIO, *AI Cybersecurity Risk Management Tailoring Guide* (2025): https://dodcio.defense.gov/Portals/0/Documents/Library/AI-CybersecurityRMTailoringGuide.pdf  
+- DoW, *Implementing Responsible AI in the DoW* (May 2021): https://media.defense.gov/2021/May/27/2002730593/-1/-1/0/IMPLEMENTING-RESPONSIBLE-ARTIFICIAL-INTELLIGENCE-IN-THE-DEPARTMENT-OF-DEFENSE.PDF  
+- DoW, *Responsible AI Strategy and Implementation Pathway* (June 2022): https://media.defense.gov/2022/Jun/22/2003022604/-1/-1/0/Department-of-Defense-Responsible-Artificial-Intelligence-Strategy-and-Implementation-Pathway.PDF  
+- DoWD 3000.09, *Autonomy in Weapon Systems* (Jan 2023): https://www.esd.whs.mil/portals/54/documents/dd/issuances/dodd/300009p.pdf  
 
 ## Industry protocols and agent platform patterns
 - OpenAI, *Introducing Codex* (2025): https://openai.com/index/introducing-codex/  

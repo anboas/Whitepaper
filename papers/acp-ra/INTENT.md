@@ -8,11 +8,11 @@
 - **Author name:** Adam Boas
 - **Author role:** (fill)
 - **Date:** 2026-02-10
-- **Audience:** DoD CIO / enterprise architects / platform teams / operators
+- **Audience:** DoW CIO / enterprise architects / platform teams / operators
 - **Distribution:** adamboas.info (paper) + derivative memo threads
 
 ## 1) Intent (what this paper does)
-- Provide a DoD CIO–style reference architecture for governed autonomy.
+- Provide a DoW CIO–style reference architecture for governed autonomy.
 - Define stable primitives (NPE identity, trust scopes, work units, gateways, evidence) that constrain downstream implementations.
 - Translate “agent capability” into enforceable controls aligned to Zero Trust, ICAM, CNAP, DevSecOps, and cATO.
 
@@ -20,7 +20,7 @@
 - Builds PDF/HTML in CI.
 - Executive summary < 250 words.
 - Technical positions are testable and map to concrete control surfaces.
-- Includes citations/links for DoD CIO references + industry interop protocols.
+- Includes citations/links for DoW CIO references + industry interop protocols.
 - No TODO/TBD/FIXME.
 
 ## 3) Required sections
@@ -40,9 +40,9 @@
 - References
 
 ## 4) Non-negotiables / constraints
-- Tone: crisp, DoD CIO reference architecture style.
+- Tone: crisp, DoW CIO reference architecture style.
 - Avoid vendor lock-in; protocol-neutral.
-- Explicitly exclude use-of-force guidance; cite DoDD 3000.09.
+- Explicitly exclude use-of-force guidance; cite DoWD 3000.09.
 
 ## 5) Notes / source material
 - Source draft (markdown): `draft.md` in this folder.
