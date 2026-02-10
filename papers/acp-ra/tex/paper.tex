@@ -70,7 +70,12 @@ This paper presents ACP-RA as a DoD CIO style reference architecture: purpose, p
 \end{enumerate}
 
 \section{Conceptual View (OV-1)}
-\emph{Figure placeholders. Add diagrams under \texttt{papers/acp-ra/diagrams/}.}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{../diagrams/acp_ov1_simplified.png}
+  \caption{Agent Control Plane (ACP) OV-1 (Simplified). The ACP governs and enforces identity, trust scopes, policy, gateways, evaluation, and evidence across the runtime plane, aligned to enterprise ICAM, DevSecOps, Zero Trust/CNAP, and SOC/CSSP patterns.}
+  \label{fig:acp-ov1}
+\end{figure}
 
 \begin{itemize}
 \item Runtime plane: agent runtimes executing plans and invoking tools.
@@ -137,6 +142,13 @@ This section defines bulkheads and gates: agent registry, trust scope service, w
 \end{figure}
 
 \subsection{Governance loop: artifacts $\rightarrow$ tests/evals $\rightarrow$ promotion $\rightarrow$ enforcement}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.62\linewidth]{../diagrams/acp_governance_lifecycle_compact.png}
+  \caption{Governance-as-Code Lifecycle (Compact). Policy, manifests, and eval packs are versioned artifacts. CI and evaluation harnesses gate promotion of signed bundles to enforcement points, while evidence and cATO/continuous risk consume emitted telemetry and replayable logs.}
+  \label{fig:acp-governance-lifecycle}
+\end{figure}
+
 \begin{itemize}
 \item Policy, scope, tool catalog, and routing artifacts are versioned and signed.
 \item Evals and adversarial tests gate promotion.
