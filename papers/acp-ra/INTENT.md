@@ -45,7 +45,7 @@
 - Explicitly exclude use-of-force guidance; cite DoWD 3000.09.
 
 ## 5) Notes / source material
-- Source draft (markdown): `draft.md` in this folder.
+- Source of truth: `tex/paper.tex` in this folder. (`draft.md` is optional/legacy; do not treat it as authoritative.)
 
 ## 6) Assets (optional)
 - `diagrams/` for OV-1 and loop diagrams (PNG).
