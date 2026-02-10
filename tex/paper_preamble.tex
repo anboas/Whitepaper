@@ -175,6 +175,12 @@
 % Pandoc compatibility (some markdown->latex conversions emit this)
 \providecommand{\tightlist}{}
 
+% Pandoc code-block compatibility: provide a Shaded environment.
+% Pandoc emits \begin{Shaded} ... \end{Shaded} for fenced code blocks.
+\usepackage{framed}
+\definecolor{shadecolor}{HTML}{F8FAFC}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+
 \newtcolorbox{keytakeaway}{colback=white,colframe=BrandAccent,boxrule=0.8pt,arc=2pt,left=10pt,right=10pt,top=8pt,bottom=8pt}
 
 % Quote callout box (distinct square, left accent bar)
