@@ -1180,25 +1180,48 @@ Evidence is a structured event stream supporting:
 
 Swarm replay can be prohibitively expensive if every message and trace is retained at full fidelity. ACP uses hierarchical evidence aggregation:
 
-\textbf{Per-agent evidence (always-on):} - action envelopes. - inter-agent message envelopes (metadata always; payload by tier/trigger). - context bundle hashes + provenance pointers (payload capture by tier/trigger). - policy decisions (inputs/outputs + policy hash). - drift/anomaly signals (summaries).
+\begin{description}
+\item[\textbf{Per-agent evidence (always-on)}]
+  \begin{itemize}
+  \tightlist
+  \item
+    action envelopes.
+  \item
+    inter-agent message envelopes (metadata always; payload by tier/trigger).
+  \item
+    context bundle hashes and provenance pointers (payload capture by tier/trigger).
+  \item
+    policy decisions (inputs/outputs + policy hash).
+  \item
+    drift/anomaly signals (summaries).
+  \end{itemize}
 
-\textbf{Ensemble evidence (always-on, lightweight):} - coordination graph metadata (A2A edges by type and time). - arbitration outcomes (conflicts, quorums, deadlocks/timeouts). - budget burn-down time series (aggregate and per-role). - work-unit DAG summaries (dependencies, blocks, cancellations).
+\item[\textbf{Ensemble evidence (always-on, lightweight)}]
+  \begin{itemize}
+  \tightlist
+  \item
+    coordination graph metadata (A2A edges by type and time).
+  \item
+    arbitration outcomes (conflicts, quorums, deadlocks/timeouts).
+  \item
+    budget burn-down time series (aggregate and per-role).
+  \item
+    work-unit DAG summaries (dependencies, blocks, cancellations).
+  \end{itemize}
 
-\textbf{Selective enrichment (triggered):} - full message bodies, full context payloads, and detailed planning traces captured on:
-
-\begin{itemize}
-\tightlist
-\item
-  anomaly thresholds,.
+\item[\textbf{Selective enrichment (triggered)}]
+  Full message bodies, full context payloads, and detailed planning traces captured on:
 
   \begin{itemize}
   \tightlist
   \item
-    high-consequence actions,
+    anomaly thresholds.
+  \item
+    high-consequence actions.
   \item
     investigation holds.
   \end{itemize}
-\end{itemize}
+\end{description}
 
 This yields three replay tiers:
 
@@ -1236,9 +1259,39 @@ ACP emits telemetry so operations teams can see:
 
 For ensembles, the primary failure mode is a coordination cascade. ACP provides swarm-specific views:
 
-\textbf{Dashboards} - coordination graph (A2A edges by type over time; fan-out heatmap). - arbitration events (conflicts, quorums, leader changes, deadlocks/timeouts). - budget burn-down (aggregate + per-role + anomaly overlays). - ensemble drift (distribution shifts across actions/plans). - work-unit DAG health (dependency blocks, repeated stalls). - containment posture (quarantined members, degraded mode active, policy lockdown status).
+\begin{description}
+\item[\textbf{Dashboards}]
+  \begin{itemize}
+  \tightlist
+  \item
+    coordination graph (A2A edges by type over time; fan-out heatmap).
+  \item
+    arbitration events (conflicts, quorums, leader changes, deadlocks/timeouts).
+  \item
+    budget burn-down (aggregate + per-role + anomaly overlays).
+  \item
+    ensemble drift (distribution shifts across actions/plans).
+  \item
+    work-unit DAG health (dependency blocks, repeated stalls).
+  \item
+    containment posture (quarantined members, degraded mode active, policy lockdown status).
+  \end{itemize}
 
-\textbf{Alertable signals} - fan-out spikes and retry storms. - message-type violations (out-of-scope coordination attempts). - budget exhaustion anomalies (loops, adversarial stimulus). - tool-call distribution shifts at ensemble level. - quarantine and kill-switch activations with evidence references.
+\item[\textbf{Alertable signals}]
+  \begin{itemize}
+  \tightlist
+  \item
+    fan-out spikes and retry storms.
+  \item
+    message-type violations (out-of-scope coordination attempts).
+  \item
+    budget exhaustion anomalies (loops, adversarial stimulus).
+  \item
+    tool-call distribution shifts at ensemble level.
+  \item
+    quarantine and kill-switch activations with evidence references.
+  \end{itemize}
+\end{description}
 
 \hypertarget{containment-and-revocation}{%
 \subsection{Containment and revocation}\label{containment-and-revocation}}
