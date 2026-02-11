@@ -1,0 +1,72 @@
+digraph AgenticBattlespaceStack {
+  graph [
+    rankdir=LR,
+    bgcolor="white",
+    pad=0.25,
+    nodesep=0.35,
+    ranksep=0.45,
+    fontname="Helvetica"
+  ];
+
+  node [
+    shape=box,
+    style="rounded,filled",
+    fillcolor="#ffffff",
+    color="#334155",
+    fontcolor="#0f172a",
+    fontname="Helvetica",
+    fontsize=12,
+    penwidth=1.2,
+    margin="0.18,0.10"
+  ];
+
+  edge [
+    color="#475569",
+    fontcolor="#334155",
+    fontname="Helvetica",
+    fontsize=10,
+    penwidth=1.1,
+    arrowsize=0.9
+  ];
+
+  sensors [label="Sensors / Telemetry\n(SIGINT, logs, ISR, reports)"];
+  context  [label="Context Engineering\n(retrieval, fusion, provenance)"];
+  orch     [label="Agent Orchestration\n(work units, budgets, supervision)"];
+  tools    [label="Tool Mediation\n(gateways, allowlists, sandboxes)"];
+  effects  [label="Effects\n(changes, messages, deployments)"];
+
+  sensors -> context [label="ingest"];
+  context  -> orch   [label="bounded context bundle"];
+  orch     -> tools  [label="action request"];
+  tools    -> effects [label="executed side effects"];
+
+  // Trust scope enforcement callout
+  gate [
+    shape=box,
+    style="rounded,filled",
+    fillcolor="#f8fafc",
+    color="#0ea5e9",
+    fontcolor="#0f172a",
+    penwidth=1.4,
+    label="Trust Scope Gates\n\n• Authority\n• Consequence\n• Environment\n• Uncertainty"
+  ];
+
+  gate -> orch [style=dashed, arrowhead=none, color="#0ea5e9"];
+  gate -> tools [style=dashed, arrowhead=none, color="#0ea5e9"];
+
+  // Evidence & replay callout
+  evidence [
+    shape=box,
+    style="rounded,filled",
+    fillcolor="#f8fafc",
+    color="#22c55e",
+    fontcolor="#0f172a",
+    penwidth=1.4,
+    label="Evidence / Replay Trail\n\n• envelopes\n• approvals\n• receipts\n• audit logs"
+  ];
+
+  evidence -> tools [style=dotted, arrowhead=none, color="#22c55e"];
+  evidence -> effects [style=dotted, arrowhead=none, color="#22c55e"];
+
+  { rank=same; gate; evidence }
+}
