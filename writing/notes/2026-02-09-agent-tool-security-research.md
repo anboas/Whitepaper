@@ -57,7 +57,7 @@ The research above is why ACP-RA emphasizes:
 
 ## Notes by topic (with ACP-RA takeaways)
 
-### A) Prompt injection, workflow attacks, and hybrid threats
+## A. Prompt injection, workflow attacks, and hybrid threats
 
 ---
 
@@ -95,7 +95,7 @@ The research above is why ACP-RA emphasizes:
 - **Key idea:** Evaluate attacks/defenses in dynamic environments using formal checks over environment state.
 - **ACP-RA takeaway:** “Security regression suites” should exist alongside functional eval; prompt injection is something to continuously test, not merely warn about.
 
-### B) Tool use at scale and modular tool routing
+## B. Tool use at scale and modular tool routing
 
 ---
 
@@ -124,7 +124,7 @@ The research above is why ACP-RA emphasizes:
 - **Key idea:** Route to specialized tools/experts; keep the LLM as coordinator.
 - **ACP-RA takeaway:** Capability should be explicitly brokered via registries/scopes and mediated gateways, not implicitly granted by “smartness.”
 
-### C) Evaluation in real environments (end-to-end)
+## C. Evaluation in real environments (end-to-end)
 
 ---
 
@@ -153,7 +153,7 @@ The research above is why ACP-RA emphasizes:
 - **Key idea:** Use realistic, self-hostable web environments to test autonomy under real constraints.
 - **ACP-RA takeaway:** Web connectors are high-risk tools; they demand strong mediation, audit, and “safe browsing” controls.
 
-### D) Reliability loops and self-critique
+## D. Reliability loops and self-critique
 
 ---
 
@@ -173,7 +173,7 @@ The research above is why ACP-RA emphasizes:
 - **Key idea:** Use self-reflection to improve task performance over trials.
 - **ACP-RA takeaway:** “Self-improvement” needs governance: evidence capture, rollback, and constraints on what can be updated automatically.
 
-### E) Long-lived agents, memory, and lifecycle
+## E. Long-lived agents, memory, and lifecycle
 
 ---
 
