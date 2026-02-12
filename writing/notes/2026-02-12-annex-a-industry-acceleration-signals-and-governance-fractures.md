@@ -62,7 +62,7 @@ To preserve coherence across a broad source base, the paper applies a claim-evid
 - **Evidence:** policy, operational, and academic signals that establish the change.
 - **Implication:** what ACP-RA and DAD must do differently in architecture and governance.
 
-The paper is organized by mission-relevant topic clusters rather than chronology so each section can be read as a standalone decision input. A companion extraction log is maintained in `writing/notes/2026-02-12-annex-a-evidence-ledger.md` to keep source-level evidence traceable as the draft iterates.
+The paper is organized by mission-relevant topic clusters rather than chronology so each section can be read as a standalone decision input.
 
 ## 3) Topic cluster A: Mission Control and C2 compression
 
@@ -249,116 +249,55 @@ No single functional lane can own delegated autonomy at force scale. DAD is requ
 - **Phase 2:** enforcement plumbing + controlled fieldings,
 - **Phase 3:** compulsory conformance and scored oversight.
 
-## 11) Topic-by-topic research synthesis (current extraction pass)
+## 11) Integrated findings by topic
 
 ### 11.1 Mission control and C2 compression
 
-**Thesis.** Future advantage depends on shortening decision-to-effect cycles without losing command integrity.
+Modern military competition is increasingly defined by how quickly a force can convert detection into coordinated action while preserving command responsibility. Across U.S. oversight, competitor adaptation, and independent analysis, the core pattern is consistent: information integration and decision architecture now determine operational tempo as much as platform performance.
 
-**Evidence extracted.**
-- GAO finds DOD still lacks a comprehensive CJADC2 framework with measurable goals and shared lessons-learned mechanisms, producing fragmented service-level efforts and slower integration. [35]
-- RAND’s 2026 framework finds AI does not erase the need for mission command; hybrid centralized/decentralized C2 remains preferable because information placement, not raw cognition, remains the limiting variable. [38]
-- CSIS reporting on Russia indicates wartime adaptation away from monolithic C2 modernization toward tactical software that compresses reconnaissance-to-strike timelines. [37]
-- CSIS executive findings describe unmanned systems conducting up to 80% of Russian fire missions in observed contexts and highlight software workflows that reduce detection-to-impact timelines from hours to minutes. [37]
+GAO’s CJADC2 assessment identifies persistent fragmentation, weak cross-enterprise measurement, and insufficient mechanisms for scaling lessons learned across organizations. RAND’s strategic framework similarly argues that AI does not eliminate the need for mission command and that the central problem remains information placement under time pressure. CSIS analysis of Russian wartime adaptation reinforces this logic by documenting a shift toward tactical software workflows that compress targeting timelines and prioritize practical kill-chain speed over comprehensive, centralized architecture. [35][38][37]
 
-**Research summary.** Across U.S. oversight, competitor adaptation, and independent strategic analysis, the pattern is consistent: C2 architecture and software integration are now decisive levers.
-
-**Deductions.**
-- ACP-RA should optimize for command-latency compression under policy constraint, not for model novelty.
-- DAD should treat C2 software integration debt as a strategic risk, not an IT backlog issue.
-
-**Limits and open questions.** Evidence remains stronger on architecture and process than on standardized cross-theater performance metrics.
+For ACP-RA, the implication is direct: command-latency compression must be engineered under explicit policy and accountability constraints. For DAD, C2 software integration debt should be governed as a strategic readiness risk.
 
 ### 11.2 Swarm operations and force survivability
 
-**Thesis.** Scale and attritability are changing force economics faster than legacy force-design and control processes.
+Swarm dynamics are reshaping force economics by rewarding scale, attritability, and adaptation speed. This is no longer limited to experimental programs. It is now visible in procurement priorities, threat-force research, and field-level sustainment doctrine.
 
-**Evidence extracted.**
-- DIU states Replicator 1 targets deployment of multiple thousands of all-domain attritable autonomous systems on an 18–24 month timeline, with Replicator 2 focused on counter-sUAS at critical installations and force concentrations. [47][56]
-- CNA’s assessment of PRC writings finds active research, testing, and scenario development for drone swarms in Taiwan-relevant operations, including assault/blockade contexts and explicit counter-swarm functions. [55]
-- U.S. Army sustainment analysis shows swarm concepts extending beyond maneuver to convoy protection and support-area security, driven by manpower constraints and early-warning demands. [53]
-- CNAS’s 2025 C-UAS study argues cheap-drone proliferation has democratized mass precision fires and recommends layered defenses, AI-enabled kill-chain acceleration, and expansion of counter-drone training beyond dedicated air-defense units. [54]
+Replicator milestones indicate movement toward high-volume autonomous fielding and counter-sUAS scaling in compressed timelines. CNA’s review of PRC military writings points to scenario-specific swarm planning, including Taiwan-relevant assault and blockade operations, alongside explicit counter-swarm frameworks. CNAS further concludes that cheap-drone proliferation has democratized precision mass and requires layered, resilient defenses with faster sensor-to-shooter integration. U.S. Army sustainment analysis extends the same logic to convoy security and rear-area defense under manpower constraints. [47][56][55][54][53]
 
-**Research summary.** Swarms are now a force-wide planning issue, not a niche autonomous platform issue.
-
-**Deductions.**
-- ACP-RA needs saturation governance, queue discipline, and consequence-tier action control as baseline functionality.
-- DAD should enforce doctrine/eval updates that cover sustainment and rear-area swarm employment, not only frontline strike use.
-
-**Limits and open questions.** Public evidence is rich on threat evolution but thinner on sustained cost-per-effect comparisons across force structures.
+For ACP-RA, saturation-aware control becomes baseline design, including prioritization, consequence-tier action gating, and graceful degradation. For DAD, evaluation and doctrine updates must cover whole-force application, not only frontline strike formations.
 
 ### 11.3 Interoperability, protocol governance, and orchestration ecosystems
 
-**Thesis.** As agent interoperability matures, protocol governance becomes the real control surface.
+Interoperability is rapidly moving from aspiration to engineering reality. As agents operate across vendors and mission systems, protocol governance becomes a primary control boundary.
 
-**Evidence extracted.**
-- Google’s A2A launch positions cross-vendor agent coordination as core enterprise requirement and explicitly ties protocol design to secure information exchange and multi-agent collaboration. [5]
-- Transfer of A2A into Linux Foundation governance with broad hyperscaler/enterprise participation indicates rapid ecosystem-level standardization pressure. [52]
-- OpenAI Frontier frames the primary enterprise bottleneck as deployment and governance conditions (context, permissions, boundaries), not base model capability. [1]
-- Google Cloud’s multi-agent platform roadmap emphasizes enterprise-grade orchestration controls and cross-system connectivity, while A2A v0.3 adds security-card signing and expanded integration pathways, indicating fast protocol hardening toward production use. [50][51]
+A2A launch and subsequent standardization momentum, including Linux Foundation stewardship and production-oriented updates, indicate accelerating convergence around cross-agent communication standards. In parallel, major platform roadmaps position orchestration controls, managed runtime behavior, and boundary enforcement as central to enterprise deployment. OpenAI Frontier’s framing aligns with this trend by identifying deployment governance, context quality, and permissions discipline as the practical bottlenecks to real-world value. [5][51][52][50][1]
 
-**Research summary.** Industry direction is converging on open, multi-agent, cross-system operation with security and governance embedded at protocol and orchestration layers.
-
-**Deductions.**
-- ACP-RA should enforce trust at agent-message and connector boundaries, including identity, capability attestation, and provenance.
-- DAD should own minimum interoperability-control standards before scale authorization.
-
-**Limits and open questions.** Vendor-led sources may overstate near-term maturity; independent interoperability failure data remains limited.
+For ACP-RA, trust should be enforced at message, identity, and connector boundaries through attestation, provenance, and constrained delegation. For DAD, interoperability should be conditioned on minimum control standards before broad federation is authorized.
 
 ### 11.4 Governance, legal accountability, and responsible use
 
-**Thesis.** Governance must be operational, testable, and attributable at execution time.
+The governance environment is shifting from abstract principle statements toward implementation frameworks with named responsibility, lifecycle controls, and verification expectations.
 
-**Evidence extracted.**
-- NATO’s revised AI strategy reinforces Responsible Use principles and emphasizes TEV&V, interoperability, and alliance-wide implementation mechanisms. [40]
-- The U.S. Political Declaration process provides a growing normative state-level framework for responsible military use, including implementation dialogues among endorsing states. [43]
-- SIPRI/ICRC accountability framing remains clear: legal and moral responsibility remains with human and institutional actors. [45][46]
-- UK MOD governance directives (JSP 936) and RAISO implementation reporting indicate organizational accountability mechanisms are now being formalized as named institutional responsibilities, not only abstract principles. [41][42]
-- UN General Assembly resolution 79/239 and related UNODA process confirm increasing multilateral focus on responsible military AI governance across lifecycle stages. [44]
+NATO’s revised strategy emphasizes responsible-use principles, interoperability, and verification capacity. The U.S. Political Declaration process demonstrates expanding state-level dialogue on operationalization. UK MOD policy and implementation reporting provide an institutional pattern in which accountable officers, escalation paths, and lifecycle governance are formalized in organizational practice. UN General Assembly resolution 79/239 and related UNODA processes reinforce that international law remains applicable throughout military AI lifecycles. SIPRI and ICRC analyses continue to anchor the core point that accountability remains human and institutional, never machine-borne. [40][43][41][42][44][45][46]
 
-**Research summary.** The policy environment is shifting from abstract principles to operationalized controls, validation regimes, and documented accountability.
-
-**Deductions.**
-- ACP-RA must produce auditable decision and action provenance for high-consequence functions.
-- DAD should mandate that no autonomy capability scales without attributable evidence trails and validated oversight controls.
-
-**Limits and open questions.** Normative convergence is increasing, but enforcement harmonization across allies and partners remains uneven.
+For ACP-RA, evidence-grade provenance and auditable decision trails are required design elements for high-consequence operations. For DAD, scaling authority should remain contingent on demonstrable conformance to governance and accountability controls.
 
 ### 11.5 Adversarial resilience and contested operations
 
-**Thesis.** The operationally critical attack surfaces are orchestration pathways, software dependencies, and context integrity.
+In contested environments, decisive vulnerabilities frequently emerge in orchestration pathways, software dependencies, and context integrity rather than in isolated model performance.
 
-**Evidence extracted.**
-- OpenClaw ecosystem incidents and analyses highlight skill/extension supply-chain risk in agentic systems and demonstrate practical compromise pathways. [25][26][27][28]
-- RAND highlights persistent offense-defense competition and argues durable advantage comes from adaptation under sophisticated adversary pressure, not assumptions of one-time superiority. [38][39]
-- CSIS battlefield observations indicate adversary adaptation cycles now prioritize software pathways that improve kill-chain speed and operational flexibility. [37]
-- Analysis of AI in nuclear command-and-control warns that even if launch authorization remains human, compounding AI-mediated information failures in upstream NC2/NC3 pathways can still create catastrophic strategic risk. [48]
+OpenClaw ecosystem incidents illustrate practical agent supply-chain risk and the speed at which compromised extensions can create systemic exposure. RAND and CSIS analyses reinforce that adversaries adapt through software-mediated cycles and that durable advantage depends on iterative adaptation rather than static superiority assumptions. Nuclear C2 risk analysis further underscores that preserving human launch authority alone is insufficient if upstream AI-mediated information flows are brittle or misleading in crisis conditions. [25][26][27][28][39][37][48]
 
-**Research summary.** Agentic warfare resilience is an architecture and governance problem as much as a model-performance problem.
-
-**Deductions.**
-- ACP-RA must include revocation, isolation, reconstitution, and adversarial-injection testing as core controls.
-- DAD should institutionalize recurring red-team cycles tied directly to deployment authority.
-
-**Limits and open questions.** Open-source incident reporting is directionally strong but still incomplete for full threat-frequency baselining.
+For ACP-RA, revocation, isolation, reconstitution, and adversarial stress testing should be treated as core operational controls. For DAD, recurrent red-team cycles and crisis-path assurance should be mandatory governance instruments.
 
 ### 11.6 Compute, power, and industrial constraints
 
-**Thesis.** Autonomy scale is bounded by compute and power infrastructure, not just algorithms.
+Autonomy scaling is constrained by infrastructure economics as much as by algorithmic progress. Compute access, power availability, grid integration, and financing structure increasingly shape deployment tempo and strategic resilience.
 
-**Evidence extracted.**
-- Reuters reporting on major AI buildout describes supersized data-center race dynamics and gigawatt-class facility planning as core enablers of frontier capability scaling. [31]
-- Reuters reporting on Anthropic power-cost commitments indicates grid-upgrade and utility-cost externalities are now strategic deployment constraints requiring explicit mitigation. [32]
-- Reuters’ capital-market coverage shows AI deployment trajectories are increasingly tied to financing structure and infrastructure access, not only technical readiness. [29]
-- NATO’s revised strategy also flags compute intensity, energy demand, and associated governance implications as alliance-level concerns. [40]
+Reuters reporting on gigawatt-scale facilities and multi-billion-dollar buildouts indicates that AI capability trajectories are tightly coupled to capital and infrastructure concentration. Additional reporting on grid upgrade and utility-cost externalities highlights that deployment decisions can transfer risk into local systems unless mitigated by explicit policy and investment commitments. NATO’s strategy-level treatment of compute and energy implications confirms that these are now alliance-level planning concerns. [31][32][29][40]
 
-**Research summary.** Power and infrastructure are now first-order constraints shaping deployment tempo, geography, and strategic resilience.
-
-**Deductions.**
-- ACP-RA should explicitly support tiered compute profiles, degraded operation, and edge/low-power fallback.
-- DAD should include infrastructure-readiness criteria in autonomy scaling decisions.
-
-**Limits and open questions.** Energy and compute trends are clear, but region-specific grid resilience and permitting constraints require deeper model-based analysis.
+For ACP-RA, architecture should explicitly support tiered compute envelopes, degraded-mode operation, and edge fallback profiles. For DAD, autonomy scale decisions should include infrastructure-readiness criteria and regional resilience considerations as formal gating factors.
 
 ## 12) Conclusions
 
