@@ -1,7 +1,7 @@
 ---
 title: "Research Paper (Draft): ACP Mission Control, Agent Orchestration, and Swarm Warfare"
 date: 2026-02-12
-summary: "Ontologically structured research paper connecting multi-agent orchestration, swarm operations, C2 modernization, and governance constraints to ACP-RA design and Delegated Autonomy Directorate (DAD) decisions."
+summary: "Structured research paper connecting multi-agent orchestration, swarm operations, C2 modernization, and governance constraints to ACP-RA design and Delegated Autonomy Directorate (DAD) decisions."
 status: draft
 type: note
 tags:
@@ -11,13 +11,8 @@ tags:
   - swarms
   - orchestration
   - governance
-  - ontology
   - research
 ---
-
-> Internal draft. **Non-published**.
->
-> This is a full rearchitecture of the annex into a whitepaper/research-paper structure with topic-grouped evidence and ontology-driven logic.
 
 ## Abstract
 
@@ -49,7 +44,7 @@ Build a coherent, evidence-grounded model of how agent orchestration and swarms 
 - **ACP-RA feed:** what must be engineered and enforced in the control plane.
 - **DAD memo feed:** what must be institutionally governed, mandated, and audited.
 
-## 2) Method and ontological logic
+## 2) Method and analytical framework
 
 ### 2.1 Evidence corpus
 
@@ -59,30 +54,15 @@ This paper integrates three evidence layers:
 2. **Academic evidence** (multi-agent systems, MARL, swarms, orchestration, safety/governance, adversarial resilience).
 3. **Programmatic implementation evidence** (CJADC2 constraints, Replicator timelines, C-UAS scaling, protocol governance shifts).
 
-### 2.2 Ontology (entity-relation model)
+### 2.2 Analytical structure
 
-To avoid narrative drift and ensure coherence, claims are organized as typed entities and relations:
+To preserve coherence across a broad source base, the paper applies a claim-evidence-implication structure in each section:
 
-- **Entity types:** `Claim`, `Evidence`, `Constraint`, `ControlPrimitive`, `OrgAuthority`, `Risk`, `Metric`.
-- **Core relations:**
-  - `Evidence -> supports -> Claim`
-  - `Constraint -> limits -> ControlPrimitive`
-  - `Risk -> mitigated_by -> ControlPrimitive`
-  - `Claim -> implies -> OrgAuthority`
-  - `Metric -> evaluates -> ControlPrimitive`
+- **Claim:** what strategic or operational condition is changing.
+- **Evidence:** policy, operational, and academic signals that establish the change.
+- **Implication:** what ACP-RA and DAD must do differently in architecture and governance.
 
-### 2.3 Neo4j-supported coherence step
-
-Used local ontology + Neo4j sync to maintain structure and traceability while rearchitecting:
-
-- project node: `proj_acp_warfighting_research`
-- paper node: `doc_annex_v6`
-- topic cluster nodes:
-  - `doc_topic_mission_control`
-  - `doc_topic_swarms`
-  - `doc_topic_governance`
-
-This paper is therefore organized as ontology topic clusters rather than chronology.
+The paper is organized by mission-relevant topic clusters rather than chronology so each section can be read as a standalone decision input.
 
 ## 3) Topic cluster A: Mission Control and C2 compression
 
@@ -94,11 +74,11 @@ Warfighting advantage increasingly depends on reducing delegation-to-effect late
 
 - GAO CJADC2 reporting: progress exists, but framework, measurement, and integration barriers remain substantial. [35]
 - Frontier-style enterprise agent platforms frame deployment/governance stack as the bottleneck, not model IQ alone. [1]
-- Multi-agent platform announcements now emphasize orchestration, role delegation, and runtime boundaries. [49][50][51]
+- Multi-agent platform announcements now emphasize orchestration, role delegation, and operational boundaries. [49][50][51]
 
 ### Implication for ACP-RA
 
-ACP must implement Mission Control functions as first-class runtime behaviors:
+ACP must implement Mission Control functions as core control-plane behaviors:
 
 - intent packets,
 - delegation scopes,
@@ -138,7 +118,7 @@ Interoperability standards increase both coordination power and attack surface. 
 
 - A2A and MCP trajectory indicates rapid protocolization of agent-to-agent and tool-context interactions. [5][6][51][52]
 - Linux Foundation governance move for A2A suggests ecosystem-wide standardization momentum. [52]
-- Multi-vendor enterprise platform competition is converging on orchestration + identity + runtime controls. [49][50][51]
+- Multi-vendor enterprise platform competition is converging on orchestration + identity + operational controls. [49][50][51]
 
 ### Implication for ACP-RA
 
@@ -207,7 +187,7 @@ Compute and power constraints shape autonomy feasibility and tempo as much as al
 
 ACP must support heterogeneous model tiers and edge fallback profiles, including low-connectivity and low-power execution envelopes.
 
-## 9) Synthesis: ACP-RA design primitives (ontology-consolidated)
+## 9) Synthesis: ACP-RA design primitives
 
 The following primitives emerge as non-optional from cross-topic synthesis.
 
@@ -217,7 +197,7 @@ The following primitives emerge as non-optional from cross-topic synthesis.
 - Delegation Authority Token (DAT)
 - Trust Scope Manifest (TSM)
 
-### 9.2 Runtime enforcement primitives
+### 9.2 Enforcement primitives
 
 - action-time policy checks
 - consequence-tiered authorization
@@ -274,17 +254,10 @@ No single functional lane can own delegated autonomy at force scale. DAD is requ
 1. Multi-agent orchestration and swarm operations are not hypothetical future capabilities; they are current operational realities.
 2. C2 and mission-control quality now bound autonomy effectiveness more than isolated model quality.
 3. Protocol and connector surfaces are becoming primary trust boundaries.
-4. Governance without runtime enforcement is inadequate under machine-speed delegation.
+4. Governance without operational enforcement is inadequate under machine-speed delegation.
 5. ACP-RA should be treated as warfighting infrastructure, and DAD as its institutional control authority.
 
-## 12) Open-source intake queue (auth-blocked extraction)
-
-- <https://x.com/vraserx/status/2021654971343610058?s=52>
-- <https://x.com/theinformation/status/2021707053727662407?s=46>
-
-Status: captured as evidence pointers; full text extraction blocked in this runtime by X authentication constraints.
-
-## 13) Policy/operational source references
+## 12) Policy/operational source references
 
 1. **OpenAI** — Introducing OpenAI Frontier (Feb 2026)  
    <https://openai.com/index/introducing-openai-frontier/>
@@ -398,10 +371,8 @@ Status: captured as evidence pointers; full text extraction blocked in this runt
     <https://www.cna.org/analyses/2025/10/prc-concepts-for-uav-swarms-in-future-warfare>
 56. **U.S. Secretary of Defense Memorandum** — Replicator 2 Direction and Execution (Sep 27, 2024)  
     <https://s3.us-gov-west-1.amazonaws.com/assets.diu.mil/3nanhbfkr0pc/1dkJGhMeAgPldz1nnIwabK/abf85531a4281cddab6b0d8c953440e2/REPLICATOR-2-MEMO-SD-SIGNED__1_.pdf>
-57. **X source pointer (The Information)** — post link queued for authenticated extraction  
-    <https://x.com/theinformation/status/2021707053727662407?s=46>
 
-## 14) Academic source library (topic-grouped)
+## 13) Academic source library (topic-grouped)
 
 ### MARL core
 1. Multi-Agent Reinforcement Learning: Independent vs. Cooperative Agents (1993), cited by 1789. <https://doi.org/10.1016/b978-1-55860-307-3.50049-6>
@@ -474,8 +445,3 @@ Status: captured as evidence pointers; full text extraction blocked in this runt
 9. Multi-Agent Adversarial Inverse Reinforcement Learning (2019), cited by 45. <http://arxiv.org/abs/1907.13220>
 10. On the Robustness of Cooperative Multi-Agent Reinforcement Learning (2020). <https://arxiv.org/abs/2006.07538>
 
-## Build target for review
-
-- Generated `.tex` source path (internal): `Whitepaper/writing/notes/tex/2026-02-12-annex-a-supporting-notes-v6.tex`
-- Generated PDF artifact path (internal): `out/memos/2026-02-12-annex-a-supporting-notes-v6.pdf`
-- Publication status: **draft / non-published**.
