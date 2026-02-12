@@ -19,6 +19,8 @@
 
 # PDFs (keep built output out of git by default)
 *.pdf
+# Allow published memo PDFs as source assets
+!writing/memos/*.pdf
 
 # OS/editor
 .DS_Store

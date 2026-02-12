@@ -4,6 +4,7 @@ date: 2026-02-12
 summary: "Decision memo recommending immediate standup of a Delegated Autonomy Directorate (DAD) as a joint authority to accelerate trusted delegated autonomy at mission tempo."
 status: published
 type: memo
+pdfPath: /memos/2026-02-12-stand-up-dad-joint-control-plane-authority.pdf
 tags:
   - autonomy
   - governance
