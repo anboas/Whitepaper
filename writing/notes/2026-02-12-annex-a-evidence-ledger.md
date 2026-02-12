@@ -66,7 +66,7 @@ For each source, we capture:
 
 ### E-005 — CSIS Russia C2 analysis [37]
 - **Topic cluster(s):** Mission control, adversarial adaptation
-- **Evidence extracted:** Reports shift from monolithic C2 ambition to tactical software and kill-chain compression; describes high operational role of unmanned systems in fire missions and software-mediated targeting workflows.
+- **Evidence extracted:** Reports shift from monolithic C2 ambition to tactical software and kill-chain compression; executive findings describe unmanned systems conducting up to 80% of Russian fire missions in observed contexts and software workflows that reduce detection-to-impact from hours to minutes.
 - **Analytical use:** Demonstrates wartime adaptation logic under pressure and software-first battlefield optimization.
 - **Deduction:** ACP-RA must assume adversary adaptation cycles are software-speed and continuous.
 - **Confidence + limits:** Medium-high confidence; relies on open-source assessment of adversary systems.
@@ -120,20 +120,85 @@ For each source, we capture:
 - **Confidence + limits:** High confidence on declared process; limited operational detail in page text.
 - **Follow-up actions:** Extract full declaration commitments and map to ACP provenance requirements.
 
-### E-012 — Reuters infrastructure reporting [31][32]
+### E-012 — Reuters infrastructure reporting [29][31][32]
 - **Topic cluster(s):** Infrastructure, power, industrial constraints
-- **Evidence extracted:** Reports gigawatt-class and multi-billion-dollar data center expansion race dynamics; also reports explicit mitigation steps for grid upgrade cost pass-through and local energy burden concerns.
+- **Evidence extracted:** Reports gigawatt-class and multi-billion-dollar data center expansion race dynamics; highlights financing/capital-structure pressure as a core scaling factor; also reports explicit mitigation steps for grid upgrade cost pass-through and local energy burden concerns.
 - **Analytical use:** Shows compute and power are immediate deployment constraints with social and regulatory implications.
 - **Deduction:** ACP-RA should include compute-tier and degraded-mode design assumptions; DAD should add infrastructure readiness criteria to scale approvals.
 - **Confidence + limits:** Medium-high confidence for reported facts; news reporting snapshots do not replace longitudinal infrastructure data.
 - **Follow-up actions:** Add power-demand and regional-grid risk models where available.
 
+
+### E-013 — CNAS Countering the Swarm full report [54]
+- **Topic cluster(s):** Swarms, C-UAS force design
+- **Evidence extracted:** States cheap-drone proliferation has democratized mass precision fires and warns future conflict will present unavoidable drone threat to U.S. forces; recommends layered active/passive defenses, expanded counter-drone training, and AI-enabled C-UAS kill-chain acceleration.
+- **Analytical use:** Provides force-design-level recommendations with practical readiness implications beyond high-level threat framing.
+- **Deduction:** ACP-RA must include saturation and layered-defense logic in command workflows, with specific controls for high-volume attack conditions.
+- **Confidence + limits:** High confidence in directional findings; implementation-cost and theater-specific constraints still require quantitative modeling.
+- **Follow-up actions:** Extract CNAS recommended capability phasing into ACP-RA control requirement matrix.
+
+### E-014 — RAND strategic competition study [39]
+- **Topic cluster(s):** Strategic uncertainty, adversarial adaptation
+- **Evidence extracted:** Identifies deep uncertainty in strategic AI effects and prioritizes iterative reassessment as evidence improves; emphasizes rapid adaptation against intensifying competition.
+- **Analytical use:** Supports dynamic governance and model revision cycles rather than static doctrine assumptions.
+- **Deduction:** DAD oversight should be cyclical and evidence-refresh driven.
+- **Confidence + limits:** High confidence on strategic framing; limited direct implementation detail.
+- **Follow-up actions:** Define review cadence and trigger criteria for DAD policy updates.
+
+### E-015 — UK MOD JSP 936 policy directive [41]
+- **Topic cluster(s):** Governance implementation
+- **Evidence extracted:** Positions JSP 936 as principal policy framework for safe/responsible AI adoption, spanning governance, lifecycle development, and assurance with human oversight requirements.
+- **Analytical use:** Demonstrates institutional codification of responsible AI requirements in defense organizations.
+- **Deduction:** DAD should issue directive-grade governance requirements with lifecycle assurance obligations.
+- **Confidence + limits:** High confidence on policy intent; practical compliance performance data still limited.
+- **Follow-up actions:** Compare JSP lifecycle controls against ACP-RA control primitives.
+
+### E-016 — UK MOD RAISO report [42]
+- **Topic cluster(s):** Organizational accountability
+- **Evidence extracted:** Describes Responsible AI Senior Officer appointments across MOD components to ensure local processes, escalation paths, and ethical-principle compliance.
+- **Analytical use:** Offers concrete governance pattern for institutional accountability distribution.
+- **Deduction:** DAD should establish named accountable officers for autonomy governance in each major component.
+- **Confidence + limits:** Medium-high confidence; self-reported implementation maturity.
+- **Follow-up actions:** Build RAISO-equivalent role architecture for DAD operating model.
+
+### E-017 — UNODA / UNGA 79/239 process [44]
+- **Topic cluster(s):** International governance
+- **Evidence extracted:** Notes first General Assembly resolution focused on AI in the military domain, affirming international law applicability across lifecycle stages and calling for bridging governance divides.
+- **Analytical use:** Establishes global governance trajectory and legal framing pressure.
+- **Deduction:** DAD governance model should remain compatible with emerging multilateral norms and reporting expectations.
+- **Confidence + limits:** High confidence on institutional process; limited operational specificity.
+- **Follow-up actions:** Track A/80/78 and state submissions for convergent implementation standards.
+
+### E-018 — SIPRI + ICRC accountability framing [45][46]
+- **Topic cluster(s):** Legal accountability
+- **Evidence extracted:** Emphasizes that machines cannot bear legal accountability; state and individual responsibility frameworks remain central and require clarified legal standards for practical enforcement.
+- **Analytical use:** Reinforces need for architecture-level traceability and human accountability retention.
+- **Deduction:** ACP-RA evidence trails are legal-operational requirements, not optional observability features.
+- **Confidence + limits:** High confidence on legal framing; translation into operational control language requires explicit mapping.
+- **Follow-up actions:** Map accountability doctrines to required audit/provenance artifacts.
+
+### E-019 — A2A production hardening signals [50][51]
+- **Topic cluster(s):** Interoperability maturity
+- **Evidence extracted:** Enterprise multi-agent roadmaps emphasize orchestration controls and managed runtimes; A2A v0.3 introduces gRPC support, security-card signing, and broader SDK/deployment pathways.
+- **Analytical use:** Shows interoperability is shifting from concept to production engineering.
+- **Deduction:** ACP-RA should standardize trust-boundary controls at protocol level before broad agent federation.
+- **Confidence + limits:** Medium-high confidence; vendor-source optimism risk.
+- **Follow-up actions:** Validate security-card and signing assumptions against adversarial threat models.
+
+### E-020 — AI and NC2/NC3 risk interaction [48]
+- **Topic cluster(s):** High-consequence governance
+- **Evidence extracted:** Argues human launch authority alone is insufficient risk control if AI-enabled upstream information systems produce compounding failures in nuclear decision support pathways.
+- **Analytical use:** Extends governance requirement from decision authority to full information pipeline integrity.
+- **Deduction:** DAD and ACP-RA must govern upstream data, model, and context channels for high-consequence domains.
+- **Confidence + limits:** Medium confidence; analytical article rather than official doctrine.
+- **Follow-up actions:** Add high-consequence information-integrity controls to ACP threat and assurance model.
+
 ---
 
 ## Gaps to close next
 
-1. Extract stronger quantitative evidence from GAO, RAND, and CSIS full PDFs.
-2. Add direct evidence from CNAS full report text (currently blocked by PDF extraction limits in this pass).
-3. Build explicit counterevidence ledger entries for each topic.
-4. Add per-topic confidence weighting and contradiction tracking.
-5. Reduce reference set into core/supporting/adjacent tiers for final publication draft.
+1. Build explicit counterevidence ledger entries for each topic (disconfirming evidence pass).
+2. Add per-topic confidence weighting and contradiction tracking.
+3. Reduce reference set into core/supporting/adjacent tiers for final publication draft.
+4. Add quantitative metric extraction table (tempo, cost, survivability, readiness).
+5. Produce publication-cut citation set with direct quote snippets for final narrative hardening.

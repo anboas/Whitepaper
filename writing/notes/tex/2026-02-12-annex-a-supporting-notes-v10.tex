@@ -1,0 +1,1268 @@
+% =========================================================
+% Research Paper Draft: ACP Mission Control, Agent Orchestration, and Swarm Warfare
+% Purpose: iterative evidence-extracted research synthesis for ACP-RA + DAD
+% =========================================================
+\documentclass[11pt]{article}
+\providecommand{\pdfinfo}[1]{}
+\input{../../../tex/paper_preamble.tex}
+\newcommand{\PaperTitle}{ACP Mission Control, Agent Orchestration, and Swarm Warfare}
+\newcommand{\PaperSubtitle}{Iterative Evidence-Extracted Research Synthesis for ACP-RA and the Delegated Autonomy Directorate}
+\newcommand{\AuthorName}{Adam Boas}
+\newcommand{\AuthorRole}{Agentic Warfare Architect, Department of War}
+\newcommand{\PaperDate}{February 12, 2026}
+\renewcommand{\ShortTitle}{ACP Mission Control Research Draft}
+\renewcommand{\DocVersion}{v10-draft}
+\begin{document}
+\thispagestyle{empty}
+\vspace*{0.6in}
+\noindent{\Huge\bfseries\color{BrandAccent}\PaperTitle\par}
+\vspace{0.12in}
+{\large\color{BrandGray}\PaperSubtitle\par}
+\vspace{0.25in}
+\noindent\textcolor{RuleGray}{\rule{\textwidth}{0.8pt}}
+\vspace{0.2in}
+{\normalsize\textbf{\AuthorName}\par\textcolor{BrandGray}{\AuthorRole}\par\vspace{6pt}\textcolor{BrandGray}{\PaperDate}\par}
+\vfill
+\noindent\textcolor{BrandGray}{\small\textbf{Distribution:} Internal Draft (Non-published).\quad\textbf{Disclaimer:} Working analysis to inform design and decision support; not official policy.}
+\newpage
+{\small\renewcommand{\baselinestretch}{0.96}\selectfont\tableofcontents}
+\newpage
+\begin{execsummary}
+\textbf{Purpose.} Build a research-grade synthesis where each topic includes thesis, extracted evidence, summary findings, deductions, and open limits.
+
+\textbf{This pass.} Added deeper source extraction from policy, strategy, and defense-analysis documents, including explicit C2, swarm, governance, and infrastructure findings.
+
+\textbf{Result.} The argument is now evidence-led by topic cluster and directly actionable for both ACP-RA architecture decisions and DAD authority design.
+
+\textbf{Next.} Continue iterative extraction with counterevidence and quantitative metric baselining for publication hardening.
+\end{execsummary}
+\hypertarget{abstract}{%
+\subsection{Abstract}\label{abstract}}
+
+This paper argues that Agent Control Plane (ACP) capability is a
+warfighting imperative because the decisive variable is no longer model
+quality alone, but governed delegation throughput under contested
+conditions. Across military and commercial ecosystems, agent operations
+are converging on the same structural need: Mission Control for
+autonomous execution.
+
+The evidence shows six compounding realities:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  multi-agent orchestration is becoming the default scaling pattern,
+\item
+  swarms and low-cost autonomy compress operational timelines,
+\item
+  C2 integration debt remains a binding constraint,
+\item
+  governance/accountability obligations are hardening,
+\item
+  adversarial pressure concentrates at protocol, context, and connector
+  boundaries,
+\item
+  acquisition pathways are already scaling autonomy faster than
+  traditional governance mechanisms.
+\end{enumerate}
+
+Conclusion: ACP is not a feature layer. It is command infrastructure for
+delegated autonomy.
+
+\hypertarget{research-objective-and-decision-linkage}{%
+\subsection{1) Research objective and decision
+linkage}\label{research-objective-and-decision-linkage}}
+
+\hypertarget{primary-research-objective}{%
+\subsubsection{Primary research
+objective}\label{primary-research-objective}}
+
+Build a coherent, evidence-grounded model of how agent orchestration and
+swarms change modern conflict, and translate that into:
+
+\begin{itemize}
+\tightlist
+\item
+  ACP-RA design primitives,
+\item
+  DAD organizational authorities,
+\item
+  near-term implementation priorities.
+\end{itemize}
+
+\hypertarget{decision-linkage}{%
+\subsubsection{Decision linkage}\label{decision-linkage}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{ACP-RA feed:} what must be engineered and enforced in the
+  control plane.
+\item
+  \textbf{DAD memo feed:} what must be institutionally governed,
+  mandated, and audited.
+\end{itemize}
+
+\hypertarget{method-and-analytical-framework}{%
+\subsection{2) Method and analytical
+framework}\label{method-and-analytical-framework}}
+
+\hypertarget{evidence-corpus}{%
+\subsubsection{2.1 Evidence corpus}\label{evidence-corpus}}
+
+This paper integrates three evidence layers:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Public operational/strategic evidence} (labs, policy, defense
+  reporting, think tanks, standards signals).
+\item
+  \textbf{Academic evidence} (multi-agent systems, MARL, swarms,
+  orchestration, safety/governance, adversarial resilience).
+\item
+  \textbf{Programmatic implementation evidence} (CJADC2 constraints,
+  Replicator timelines, C-UAS scaling, protocol governance shifts).
+\end{enumerate}
+
+\hypertarget{analytical-structure}{%
+\subsubsection{2.2 Analytical structure}\label{analytical-structure}}
+
+To preserve coherence across a broad source base, the paper applies a
+claim-evidence-implication structure in each section:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Claim:} what strategic or operational condition is changing.
+\item
+  \textbf{Evidence:} policy, operational, and academic signals that
+  establish the change.
+\item
+  \textbf{Implication:} what ACP-RA and DAD must do differently in
+  architecture and governance.
+\end{itemize}
+
+The paper is organized by mission-relevant topic clusters rather than
+chronology so each section can be read as a standalone decision input. A
+companion extraction log is maintained in
+\texttt{writing/notes/2026-02-12-annex-a-evidence-ledger.md} to keep
+source-level evidence traceable as the draft iterates.
+
+\hypertarget{topic-cluster-a-mission-control-and-c2-compression}{%
+\subsection{3) Topic cluster A: Mission Control and C2
+compression}\label{topic-cluster-a-mission-control-and-c2-compression}}
+
+\hypertarget{core-claim-a1}{%
+\subsubsection{Core claim A1}\label{core-claim-a1}}
+
+Warfighting advantage increasingly depends on reducing
+delegation-to-effect latency while preserving bounded control.
+
+\hypertarget{key-evidence-threads}{%
+\subsubsection{Key evidence threads}\label{key-evidence-threads}}
+
+\begin{itemize}
+\tightlist
+\item
+  GAO CJADC2 reporting: progress exists, but framework, measurement, and
+  integration barriers remain substantial. {[}35{]}
+\item
+  Frontier-style enterprise agent platforms frame deployment/governance
+  stack as the bottleneck, not model IQ alone. {[}1{]}
+\item
+  Multi-agent platform announcements now emphasize orchestration, role
+  delegation, and operational boundaries. {[}49{]}{[}50{]}{[}51{]}
+\end{itemize}
+
+\hypertarget{implication-for-acp-ra}{%
+\subsubsection{Implication for ACP-RA}\label{implication-for-acp-ra}}
+
+ACP must implement Mission Control functions as core control-plane
+behaviors:
+
+\begin{itemize}
+\tightlist
+\item
+  intent packets,
+\item
+  delegation scopes,
+\item
+  policy checkpoints,
+\item
+  effect verification,
+\item
+  exception and rollback pathways.
+\end{itemize}
+
+\hypertarget{topic-cluster-b-swarms-volume-autonomy-and-force-survivability}{%
+\subsection{4) Topic cluster B: Swarms, volume autonomy, and force
+survivability}\label{topic-cluster-b-swarms-volume-autonomy-and-force-survivability}}
+
+\hypertarget{core-claim-b1}{%
+\subsubsection{Core claim B1}\label{core-claim-b1}}
+
+Scale changes everything: command quality degrades unless orchestration
+and policy enforcement are built for saturation conditions.
+
+\hypertarget{key-evidence-threads-1}{%
+\subsubsection{Key evidence threads}\label{key-evidence-threads-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  CNAS: cheap drone mass creates persistent threat; layered C-UAS and
+  scaled defenses are necessary. {[}54{]}
+\item
+  CNA: PRC swarm research is explicitly connected to Taiwan-relevant
+  scenarios and lessons from ongoing conflicts. {[}55{]}
+\item
+  Army sustainment evidence shows swarm concepts moving into logistics
+  and support-area security, not only maneuver units. {[}53{]}
+\item
+  Replicator 1/2 confirms autonomy and counter-autonomy are moving
+  through accelerated fielding paths. {[}47{]}{[}56{]}
+\end{itemize}
+
+\hypertarget{implication-for-acp-ra-1}{%
+\subsubsection{Implication for ACP-RA}\label{implication-for-acp-ra-1}}
+
+ACP cannot assume sparse event flow. It must be saturation-resilient:
+
+\begin{itemize}
+\tightlist
+\item
+  queue-aware prioritization,
+\item
+  consequence-tier gating,
+\item
+  budget-aware action authorization,
+\item
+  deterministic degraded-mode operation.
+\end{itemize}
+
+\hypertarget{topic-cluster-c-interoperability-protocols-and-orchestration-ecosystems}{%
+\subsection{5) Topic cluster C: Interoperability, protocols, and
+orchestration
+ecosystems}\label{topic-cluster-c-interoperability-protocols-and-orchestration-ecosystems}}
+
+\hypertarget{core-claim-c1}{%
+\subsubsection{Core claim C1}\label{core-claim-c1}}
+
+Interoperability standards increase both coordination power and attack
+surface. Protocol governance becomes decisive.
+
+\hypertarget{key-evidence-threads-2}{%
+\subsubsection{Key evidence threads}\label{key-evidence-threads-2}}
+
+\begin{itemize}
+\tightlist
+\item
+  A2A and MCP trajectory indicates rapid protocolization of
+  agent-to-agent and tool-context interactions.
+  {[}5{]}{[}6{]}{[}51{]}{[}52{]}
+\item
+  Linux Foundation governance move for A2A suggests ecosystem-wide
+  standardization momentum. {[}52{]}
+\item
+  Multi-vendor enterprise platform competition is converging on
+  orchestration + identity + operational controls.
+  {[}49{]}{[}50{]}{[}51{]}
+\end{itemize}
+
+\hypertarget{implication-for-acp-ra-2}{%
+\subsubsection{Implication for ACP-RA}\label{implication-for-acp-ra-2}}
+
+ACP should enforce protocol-bound trust, not app-bound trust:
+
+\begin{itemize}
+\tightlist
+\item
+  signed capability cards,
+\item
+  attested agent identity,
+\item
+  constrained delegation chains,
+\item
+  anti-replay and provenance at message boundaries.
+\end{itemize}
+
+\hypertarget{topic-cluster-d-safety-legal-accountability-and-command-responsibility}{%
+\subsection{6) Topic cluster D: Safety, legal accountability, and
+command
+responsibility}\label{topic-cluster-d-safety-legal-accountability-and-command-responsibility}}
+
+\hypertarget{core-claim-d1}{%
+\subsubsection{Core claim D1}\label{core-claim-d1}}
+
+At machine speed, accountability is impossible without architectural
+provenance.
+
+\hypertarget{key-evidence-threads-3}{%
+\subsubsection{Key evidence threads}\label{key-evidence-threads-3}}
+
+\begin{itemize}
+\tightlist
+\item
+  Responsible-use policy frameworks are becoming lifecycle-oriented, not
+  principle-only. {[}40{]}{[}41{]}{[}42{]}{[}43{]}{[}44{]}
+\item
+  ICRC/SIPRI logic remains central: responsibility is retained by humans
+  and institutions; it cannot transfer to systems. {[}45{]}{[}46{]}
+\item
+  Frontier risk artifacts emphasize deceptive/failed tool-use conditions
+  as practical risk domains. {[}12{]}{[}13{]}{[}14{]}
+\end{itemize}
+
+\hypertarget{implication-for-acp-ra-3}{%
+\subsubsection{Implication for ACP-RA}\label{implication-for-acp-ra-3}}
+
+Every high-consequence action path requires attributable evidence:
+
+\begin{itemize}
+\tightlist
+\item
+  who delegated,
+\item
+  what scope was active,
+\item
+  what policy checks fired,
+\item
+  what tools executed,
+\item
+  what verified effect occurred.
+\end{itemize}
+
+\hypertarget{topic-cluster-e-adversarial-resilience-and-contested-operation}{%
+\subsection{7) Topic cluster E: Adversarial resilience and contested
+operation}\label{topic-cluster-e-adversarial-resilience-and-contested-operation}}
+
+\hypertarget{core-claim-e1}{%
+\subsubsection{Core claim E1}\label{core-claim-e1}}
+
+The highest-value attack surfaces are no longer only endpoints; they are
+orchestration pathways and context channels.
+
+\hypertarget{key-evidence-threads-4}{%
+\subsubsection{Key evidence threads}\label{key-evidence-threads-4}}
+
+\begin{itemize}
+\tightlist
+\item
+  OpenClaw/ClawHub incidents and follow-on warnings demonstrate agent
+  supply-chain attack behavior in the wild.
+  {[}25{]}{[}26{]}{[}27{]}{[}28{]}
+\item
+  RAND and CSIS analyses stress adaptive adversaries, contested
+  information advantage, and distributed mission command logic.
+  {[}38{]}{[}39{]}
+\item
+  Adversarial MARL and deception-attack literature supports
+  architecture-level robustness requirements.
+\end{itemize}
+
+\hypertarget{implication-for-acp-ra-4}{%
+\subsubsection{Implication for ACP-RA}\label{implication-for-acp-ra-4}}
+
+ACP should treat resilience as a control objective with explicit design
+controls:
+
+\begin{itemize}
+\tightlist
+\item
+  partition-safe execution,
+\item
+  context provenance and confidence fusion,
+\item
+  connector attestation,
+\item
+  rapid revocation/reconstitution.
+\end{itemize}
+
+\hypertarget{topic-cluster-f-infrastructure-energy-and-industrial-base-constraints}{%
+\subsection{8) Topic cluster F: Infrastructure, energy, and industrial
+base
+constraints}\label{topic-cluster-f-infrastructure-energy-and-industrial-base-constraints}}
+
+\hypertarget{core-claim-f1}{%
+\subsubsection{Core claim F1}\label{core-claim-f1}}
+
+Compute and power constraints shape autonomy feasibility and tempo as
+much as algorithmic capability.
+
+\hypertarget{key-evidence-threads-5}{%
+\subsubsection{Key evidence threads}\label{key-evidence-threads-5}}
+
+\begin{itemize}
+\tightlist
+\item
+  Capital and power are increasingly first-order autonomy
+  enablers/constraints. {[}29{]}{[}30{]}{[}31{]}{[}32{]}
+\item
+  Operational concentration risk rises when autonomy depends on fragile
+  infrastructure concentration.
+\end{itemize}
+
+\hypertarget{implication-for-acp-ra-5}{%
+\subsubsection{Implication for ACP-RA}\label{implication-for-acp-ra-5}}
+
+ACP must support heterogeneous model tiers and edge fallback profiles,
+including low-connectivity and low-power execution envelopes.
+
+\hypertarget{synthesis-acp-ra-design-primitives}{%
+\subsection{9) Synthesis: ACP-RA design
+primitives}\label{synthesis-acp-ra-design-primitives}}
+
+The following primitives emerge as non-optional from cross-topic
+synthesis.
+
+\hypertarget{authority-primitives}{%
+\subsubsection{9.1 Authority primitives}\label{authority-primitives}}
+
+\begin{itemize}
+\tightlist
+\item
+  Commander Intent Packet (CIP)
+\item
+  Delegation Authority Token (DAT)
+\item
+  Trust Scope Manifest (TSM)
+\end{itemize}
+
+\hypertarget{enforcement-primitives}{%
+\subsubsection{9.2 Enforcement
+primitives}\label{enforcement-primitives}}
+
+\begin{itemize}
+\tightlist
+\item
+  action-time policy checks
+\item
+  consequence-tiered authorization
+\item
+  cross-agent interaction control
+\end{itemize}
+
+\hypertarget{evidence-primitives}{%
+\subsubsection{9.3 Evidence primitives}\label{evidence-primitives}}
+
+\begin{itemize}
+\tightlist
+\item
+  action trajectory logging
+\item
+  evidence envelopes (context hash + tool receipts + effect
+  verification)
+\item
+  forensic replay support
+\end{itemize}
+
+\hypertarget{resilience-primitives}{%
+\subsubsection{9.4 Resilience primitives}\label{resilience-primitives}}
+
+\begin{itemize}
+\tightlist
+\item
+  degraded-mode profiles
+\item
+  partition-safe operation
+\item
+  rejoin and reconstitution controls
+\end{itemize}
+
+\hypertarget{supply-chain-primitives}{%
+\subsubsection{9.5 Supply-chain
+primitives}\label{supply-chain-primitives}}
+
+\begin{itemize}
+\tightlist
+\item
+  signed skills/connectors
+\item
+  provenance attestation
+\item
+  emergency revocation channels
+\end{itemize}
+
+\hypertarget{evaluation-primitives}{%
+\subsubsection{9.6 Evaluation primitives}\label{evaluation-primitives}}
+
+\begin{itemize}
+\tightlist
+\item
+  mission-context benchmark suites
+\item
+  adversarial injection suites
+\item
+  drift-triggered rollback rules
+\end{itemize}
+
+\hypertarget{direct-feed-into-dad-memo-organizational-design}{%
+\subsection{10) Direct feed into DAD memo (organizational
+design)}\label{direct-feed-into-dad-memo-organizational-design}}
+
+\hypertarget{why-dad-remains-structurally-necessary}{%
+\subsubsection{10.1 Why DAD remains structurally
+necessary}\label{why-dad-remains-structurally-necessary}}
+
+No single functional lane can own delegated autonomy at force scale. DAD
+is required as a cross-domain control authority integrating doctrine,
+policy, and technical enforcement.
+
+\hypertarget{minimum-dad-authorities-research-derived}{%
+\subsubsection{10.2 Minimum DAD authorities
+(research-derived)}\label{minimum-dad-authorities-research-derived}}
+
+\begin{itemize}
+\tightlist
+\item
+  approve/deny delegation scope baselines,
+\item
+  enforce no-conformance/no-scale rule,
+\item
+  mandate evidence and telemetry standards,
+\item
+  direct degraded-mode posture policy,
+\item
+  suspend tool registries or inter-agent channels,
+\item
+  run autonomy red-team and containment drills,
+\item
+  require pre-scale eval-pack conformance.
+\end{itemize}
+
+\hypertarget{initial-implementation-sequence}{%
+\subsubsection{10.3 Initial implementation
+sequence}\label{initial-implementation-sequence}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Phase 1:} authority and baseline publication,
+\item
+  \textbf{Phase 2:} enforcement plumbing + controlled fieldings,
+\item
+  \textbf{Phase 3:} compulsory conformance and scored oversight.
+\end{itemize}
+
+\hypertarget{topic-by-topic-research-synthesis-current-extraction-pass}{%
+\subsection{11) Topic-by-topic research synthesis (current extraction
+pass)}\label{topic-by-topic-research-synthesis-current-extraction-pass}}
+
+\hypertarget{mission-control-and-c2-compression}{%
+\subsubsection{11.1 Mission control and C2
+compression}\label{mission-control-and-c2-compression}}
+
+\textbf{Thesis.} Future advantage depends on shortening
+decision-to-effect cycles without losing command integrity.
+
+\textbf{Evidence extracted.} - GAO finds DOD still lacks a comprehensive
+CJADC2 framework with measurable goals and shared lessons-learned
+mechanisms, producing fragmented service-level efforts and slower
+integration. {[}35{]} - RAND's 2026 framework finds AI does not erase
+the need for mission command; hybrid centralized/decentralized C2
+remains preferable because information placement, not raw cognition,
+remains the limiting variable. {[}38{]} - CSIS reporting on Russia
+indicates wartime adaptation away from monolithic C2 modernization
+toward tactical software that compresses reconnaissance-to-strike
+timelines. {[}37{]} - CSIS executive findings describe unmanned systems
+conducting up to 80\% of Russian fire missions in observed contexts and
+highlight software workflows that reduce detection-to-impact timelines
+from hours to minutes. {[}37{]}
+
+\textbf{Research summary.} Across U.S. oversight, competitor adaptation,
+and independent strategic analysis, the pattern is consistent: C2
+architecture and software integration are now decisive levers.
+
+\textbf{Deductions.} - ACP-RA should optimize for command-latency
+compression under policy constraint, not for model novelty. - DAD should
+treat C2 software integration debt as a strategic risk, not an IT
+backlog issue.
+
+\textbf{Limits and open questions.} Evidence remains stronger on
+architecture and process than on standardized cross-theater performance
+metrics.
+
+\hypertarget{swarm-operations-and-force-survivability}{%
+\subsubsection{11.2 Swarm operations and force
+survivability}\label{swarm-operations-and-force-survivability}}
+
+\textbf{Thesis.} Scale and attritability are changing force economics
+faster than legacy force-design and control processes.
+
+\textbf{Evidence extracted.} - DIU states Replicator 1 targets
+deployment of multiple thousands of all-domain attritable autonomous
+systems on an 18--24 month timeline, with Replicator 2 focused on
+counter-sUAS at critical installations and force concentrations.
+{[}47{]}{[}56{]} - CNA's assessment of PRC writings finds active
+research, testing, and scenario development for drone swarms in
+Taiwan-relevant operations, including assault/blockade contexts and
+explicit counter-swarm functions. {[}55{]} - U.S. Army sustainment
+analysis shows swarm concepts extending beyond maneuver to convoy
+protection and support-area security, driven by manpower constraints and
+early-warning demands. {[}53{]} - CNAS's 2025 C-UAS study argues
+cheap-drone proliferation has democratized mass precision fires and
+recommends layered defenses, AI-enabled kill-chain acceleration, and
+expansion of counter-drone training beyond dedicated air-defense units.
+{[}54{]}
+
+\textbf{Research summary.} Swarms are now a force-wide planning issue,
+not a niche autonomous platform issue.
+
+\textbf{Deductions.} - ACP-RA needs saturation governance, queue
+discipline, and consequence-tier action control as baseline
+functionality. - DAD should enforce doctrine/eval updates that cover
+sustainment and rear-area swarm employment, not only frontline strike
+use.
+
+\textbf{Limits and open questions.} Public evidence is rich on threat
+evolution but thinner on sustained cost-per-effect comparisons across
+force structures.
+
+\hypertarget{interoperability-protocol-governance-and-orchestration-ecosystems}{%
+\subsubsection{11.3 Interoperability, protocol governance, and
+orchestration
+ecosystems}\label{interoperability-protocol-governance-and-orchestration-ecosystems}}
+
+\textbf{Thesis.} As agent interoperability matures, protocol governance
+becomes the real control surface.
+
+\textbf{Evidence extracted.} - Google's A2A launch positions
+cross-vendor agent coordination as core enterprise requirement and
+explicitly ties protocol design to secure information exchange and
+multi-agent collaboration. {[}5{]} - Transfer of A2A into Linux
+Foundation governance with broad hyperscaler/enterprise participation
+indicates rapid ecosystem-level standardization pressure. {[}52{]} -
+OpenAI Frontier frames the primary enterprise bottleneck as deployment
+and governance conditions (context, permissions, boundaries), not base
+model capability. {[}1{]} - Google Cloud's multi-agent platform roadmap
+emphasizes enterprise-grade orchestration controls and cross-system
+connectivity, while A2A v0.3 adds security-card signing and expanded
+integration pathways, indicating fast protocol hardening toward
+production use. {[}50{]}{[}51{]}
+
+\textbf{Research summary.} Industry direction is converging on open,
+multi-agent, cross-system operation with security and governance
+embedded at protocol and orchestration layers.
+
+\textbf{Deductions.} - ACP-RA should enforce trust at agent-message and
+connector boundaries, including identity, capability attestation, and
+provenance. - DAD should own minimum interoperability-control standards
+before scale authorization.
+
+\textbf{Limits and open questions.} Vendor-led sources may overstate
+near-term maturity; independent interoperability failure data remains
+limited.
+
+\hypertarget{governance-legal-accountability-and-responsible-use}{%
+\subsubsection{11.4 Governance, legal accountability, and responsible
+use}\label{governance-legal-accountability-and-responsible-use}}
+
+\textbf{Thesis.} Governance must be operational, testable, and
+attributable at execution time.
+
+\textbf{Evidence extracted.} - NATO's revised AI strategy reinforces
+Responsible Use principles and emphasizes TEV\&V, interoperability, and
+alliance-wide implementation mechanisms. {[}40{]} - The U.S. Political
+Declaration process provides a growing normative state-level framework
+for responsible military use, including implementation dialogues among
+endorsing states. {[}43{]} - SIPRI/ICRC accountability framing remains
+clear: legal and moral responsibility remains with human and
+institutional actors. {[}45{]}{[}46{]} - UK MOD governance directives
+(JSP 936) and RAISO implementation reporting indicate organizational
+accountability mechanisms are now being formalized as named
+institutional responsibilities, not only abstract principles.
+{[}41{]}{[}42{]} - UN General Assembly resolution 79/239 and related
+UNODA process confirm increasing multilateral focus on responsible
+military AI governance across lifecycle stages. {[}44{]}
+
+\textbf{Research summary.} The policy environment is shifting from
+abstract principles to operationalized controls, validation regimes, and
+documented accountability.
+
+\textbf{Deductions.} - ACP-RA must produce auditable decision and action
+provenance for high-consequence functions. - DAD should mandate that no
+autonomy capability scales without attributable evidence trails and
+validated oversight controls.
+
+\textbf{Limits and open questions.} Normative convergence is increasing,
+but enforcement harmonization across allies and partners remains uneven.
+
+\hypertarget{adversarial-resilience-and-contested-operations}{%
+\subsubsection{11.5 Adversarial resilience and contested
+operations}\label{adversarial-resilience-and-contested-operations}}
+
+\textbf{Thesis.} The operationally critical attack surfaces are
+orchestration pathways, software dependencies, and context integrity.
+
+\textbf{Evidence extracted.} - OpenClaw ecosystem incidents and analyses
+highlight skill/extension supply-chain risk in agentic systems and
+demonstrate practical compromise pathways.
+{[}25{]}{[}26{]}{[}27{]}{[}28{]} - RAND highlights persistent
+offense-defense competition and argues durable advantage comes from
+adaptation under sophisticated adversary pressure, not assumptions of
+one-time superiority. {[}38{]}{[}39{]} - CSIS battlefield observations
+indicate adversary adaptation cycles now prioritize software pathways
+that improve kill-chain speed and operational flexibility. {[}37{]} -
+Analysis of AI in nuclear command-and-control warns that even if launch
+authorization remains human, compounding AI-mediated information
+failures in upstream NC2/NC3 pathways can still create catastrophic
+strategic risk. {[}48{]}
+
+\textbf{Research summary.} Agentic warfare resilience is an architecture
+and governance problem as much as a model-performance problem.
+
+\textbf{Deductions.} - ACP-RA must include revocation, isolation,
+reconstitution, and adversarial-injection testing as core controls. -
+DAD should institutionalize recurring red-team cycles tied directly to
+deployment authority.
+
+\textbf{Limits and open questions.} Open-source incident reporting is
+directionally strong but still incomplete for full threat-frequency
+baselining.
+
+\hypertarget{compute-power-and-industrial-constraints}{%
+\subsubsection{11.6 Compute, power, and industrial
+constraints}\label{compute-power-and-industrial-constraints}}
+
+\textbf{Thesis.} Autonomy scale is bounded by compute and power
+infrastructure, not just algorithms.
+
+\textbf{Evidence extracted.} - Reuters reporting on major AI buildout
+describes supersized data-center race dynamics and gigawatt-class
+facility planning as core enablers of frontier capability scaling.
+{[}31{]} - Reuters reporting on Anthropic power-cost commitments
+indicates grid-upgrade and utility-cost externalities are now strategic
+deployment constraints requiring explicit mitigation. {[}32{]} -
+Reuters' capital-market coverage shows AI deployment trajectories are
+increasingly tied to financing structure and infrastructure access, not
+only technical readiness. {[}29{]} - NATO's revised strategy also flags
+compute intensity, energy demand, and associated governance implications
+as alliance-level concerns. {[}40{]}
+
+\textbf{Research summary.} Power and infrastructure are now first-order
+constraints shaping deployment tempo, geography, and strategic
+resilience.
+
+\textbf{Deductions.} - ACP-RA should explicitly support tiered compute
+profiles, degraded operation, and edge/low-power fallback. - DAD should
+include infrastructure-readiness criteria in autonomy scaling decisions.
+
+\textbf{Limits and open questions.} Energy and compute trends are clear,
+but region-specific grid resilience and permitting constraints require
+deeper model-based analysis.
+
+\hypertarget{conclusions}{%
+\subsection{12) Conclusions}\label{conclusions}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Multi-agent orchestration and swarm operations are not hypothetical
+  future capabilities; they are current operational realities.
+\item
+  C2 and mission-control quality now bound autonomy effectiveness more
+  than isolated model quality.
+\item
+  Protocol and connector surfaces are becoming primary trust boundaries.
+\item
+  Governance without operational enforcement is inadequate under
+  machine-speed delegation.
+\item
+  ACP-RA should be treated as warfighting infrastructure, and DAD as its
+  institutional control authority.
+\end{enumerate}
+
+\hypertarget{policyoperational-source-references}{%
+\subsection{13) Policy/operational source
+references}\label{policyoperational-source-references}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{OpenAI} --- Introducing OpenAI Frontier (Feb 2026)\\
+  \url{https://openai.com/index/introducing-openai-frontier/}
+\item
+  \textbf{TechCrunch} --- OpenAI launches a way for enterprises to build
+  and manage AI agents (Feb 2026)\\
+  \url{https://techcrunch.com/2026/02/05/openai-launches-a-way-for-enterprises-to-build-and-manage-ai-agents/}
+\item
+  \textbf{Reuters} --- OpenAI launches Codex app to gain ground in AI
+  coding race (Feb 2, 2026)\\
+  \url{https://www.reuters.com/business/media-telecom/openai-launches-codex-app-gain-ground-ai-coding-race-2026-02-02/}
+\item
+  \textbf{VentureBeat} --- OpenAI launches a Codex desktop app for macOS
+  to run multiple AI coding agents in parallel (Feb 2026)\\
+  \url{https://venturebeat.com/orchestration/openai-launches-a-codex-desktop-app-for-macos-to-run-multiple-ai-coding/}
+\item
+  \textbf{Google Developers Blog} --- A2A: A new era of agent
+  interoperability (Apr 9, 2025)\\
+  \url{https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/}
+\item
+  \textbf{Model Context Protocol Blog} --- First MCP anniversary / spec
+  cadence update (Nov 25, 2025)\\
+  \url{https://blog.modelcontextprotocol.io/posts/2025-11-25-first-mcp-anniversary/}
+\item
+  \textbf{Google Cloud Docs} --- Gemini CLI (tools, ReAct loop, MCP
+  servers)\\
+  \url{https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli}
+\item
+  \textbf{Google Developers Blog} --- Build with Google Antigravity (Nov
+  20, 2025)\\
+  \url{https://developers.googleblog.com/build-with-google-antigravity-our-new-agentic-development-platform/}
+\item
+  \textbf{Anthropic Research} --- Building Effective Agents (Dec 19,
+  2024)\\
+  \url{https://www.anthropic.com/research/building-effective-agents}
+\item
+  \textbf{Anthropic Engineering} --- Effective context engineering for
+  AI agents (Sep 29, 2025)\\
+  \url{https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents}
+\item
+  \textbf{Anthropic Engineering} --- Demystifying evals for AI agents
+  (Jan 9, 2026)\\
+  \url{https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents}
+\item
+  \textbf{Anthropic} --- Sabotage Risk Report: Claude Opus 4.6 (PDF, Feb
+  2026)\\
+  \url{https://www-cdn.anthropic.com/f21d93f21602ead5cdbecb8c8e1c765759d9e232.pdf}
+\item
+  \textbf{Anthropic} --- Claude Opus 4.6 System Card (PDF, Feb 2026)\\
+  \url{https://www-cdn.anthropic.com/0dd865075ad3132672ee0ab40b05a53f14cf5288.pdf}
+\item
+  \textbf{Anthropic} --- Responsible Scaling Policy updates (Feb 2026
+  update context)\\
+  \url{https://www.anthropic.com/rsp-updates}
+\item
+  \textbf{Dario Amodei} --- The Adolescence of Technology (Jan 2026)\\
+  \url{https://www.darioamodei.com/essay/the-adolescence-of-technology}
+\item
+  \textbf{Financial Times} --- Humanity needs to wake up to dangers of
+  AI (Jan 26, 2026)\\
+  \url{https://www.ft.com/content/c3098552-7204-4a93-844c-1b8569c9dcb2}
+\item
+  \textbf{Associated Press} --- Former OpenAI leader says safety took a
+  backseat (May 17, 2024)\\
+  \url{https://apnews.com/article/openai-jan-leike-safety-ilya-8a7ba341e06a66e9a7935bb06214edcb}
+\item
+  \textbf{Reuters} --- OpenAI sets up safety and security committee (May
+  28, 2024)\\
+  \url{https://www.reuters.com/technology/openai-sets-up-safety-security-committee-2024-05-28/}
+\item
+  \textbf{Reuters} --- OpenAI technology chief Mira Murati to leave (Sep
+  25, 2024)\\
+  \url{https://www.reuters.com/technology/artificial-intelligence/openais-technology-chief-mira-murati-leave-2024-09-25/}
+\item
+  \textbf{Reuters} --- Sutskever safety startup SSI raises \$1B (Sep 4,
+  2024)\\
+  \url{https://www.reuters.com/technology/artificial-intelligence/openai-co-founder-sutskevers-new-safety-focused-ai-startup-ssi-raises-1-billion-2024-09-04/}
+\item
+  \textbf{Platformer} --- OpenAI mission alignment team report (Feb 11,
+  2026)\\
+  \url{https://www.platformer.news/openai-mission-alignment-team-joshua-achiam/}
+\item
+  \textbf{The Verge} --- OpenAI reportedly disbanded mission alignment
+  team (Feb 11, 2026)\\
+  \url{https://www.theverge.com/ai-artificial-intelligence/877208/openai-reportedly-disbanded-its-mission-alignment-team}
+\item
+  \textbf{TechCrunch} --- Microsoft CEO says up to 30\% of code written
+  by AI (Apr 29, 2025)\\
+  \url{https://techcrunch.com/2025/04/29/microsoft-ceo-says-up-to-30-of-the-companys-code-was-written-by-ai/}
+\item
+  \textbf{Business Insider} --- Microsoft CTO: 95\% of code AI-generated
+  in five years (Apr 2025)\\
+  \url{https://www.businessinsider.com/microsoft-cto-ai-generated-code-software-developer-job-change-2025-4}
+\item
+  \textbf{The Verge} --- OpenClaw skill extensions security nightmare
+  (Feb 2026)\\
+  \url{https://www.theverge.com/news/874011/openclaw-ai-skill-clawhub-extensions-security-nightmare}
+\item
+  \textbf{Reuters} --- China warns of security risks linked to OpenClaw
+  (Feb 5, 2026)\\
+  \url{https://www.reuters.com/world/china/china-warns-security-risks-linked-openclaw-open-source-ai-agent-2026-02-05/}
+\item
+  \textbf{1Password} --- From magic to malware: OpenClaw skills as
+  attack surface (Feb 2, 2026)\\
+  \url{https://1password.com/blog/from-magic-to-malware-how-openclaws-agent-skills-become-an-attack-surface}
+\item
+  \textbf{Trend Micro} --- What OpenClaw reveals about agentic
+  assistants (Feb 6, 2026)\\
+  \url{https://www.trendmicro.com/en_us/research/26/b/what-openclaw-reveals-about-agentic-assistants.html}
+\item
+  \textbf{Reuters} --- Deals showing AI runs on capital (Feb 6, 2026)\\
+  \url{https://www.reuters.com/technology/spacex-nvidia-deals-showing-ai-runs-capital-2026-02-06/}
+\item
+  \textbf{International Energy Agency} --- Energy demand from AI\\
+  \url{https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai}
+\item
+  \textbf{Reuters} --- Meta begins construction of \$10B Indiana data
+  center (Feb 11, 2026)\\
+  \url{https://www.reuters.com/business/meta-begins-construction-10-billion-indiana-data-center-boost-ai-capabilities-2026-02-11/}
+\item
+  \textbf{Reuters} --- Anthropic to shoulder some data-center expansion
+  costs (Feb 11, 2026)\\
+  \url{https://www.reuters.com/technology/anthropic-shoulder-some-costs-data-center-expansions-threaten-raise-power-bills-2026-02-11/}
+\item
+  \textbf{Reuters} --- Artificial Intelligencer: AI and politics at
+  Davos (Jan 22, 2026)\\
+  \url{https://www.reuters.com/technology/artificial-intelligence/artificial-intelligencer-how-ai-politics-dominated-davos-2026-01-22/}
+\item
+  \textbf{The Verge} --- Anthropic turns to skills for workplace utility
+  (Oct 16, 2025)\\
+  \url{https://www.theverge.com/ai-artificial-intelligence/800868/anthropic-claude-skills-ai-agents}
+\item
+  \textbf{GAO} --- Defense Command and Control: Further Progress Hinges
+  on Establishing a Comprehensive Framework (Apr 2025)\\
+  \url{https://files.gao.gov/reports/GAO-25-106454/index.html}
+\item
+  \textbf{CSIS} --- Ukraine's Future Vision and Current Capabilities for
+  Waging AI-Enabled Autonomous Warfare (Mar 2025)\\
+  \url{https://www.csis.org/analysis/ukraines-future-vision-and-current-capabilities-waging-ai-enabled-autonomous-warfare}
+\item
+  \textbf{CSIS} --- How Russia Is Reshaping Command and Control for
+  AI-Enabled Warfare (Feb 2026)\\
+  \url{https://www.csis.org/analysis/how-russia-reshaping-command-and-control-ai-enabled-warfare}
+\item
+  \textbf{RAND} --- How Could Artificial Intelligence Shape the Future
+  of War? (2026)\\
+  \url{https://www.rand.org/pubs/research_reports/RRA4316-1.html}
+\item
+  \textbf{RAND} --- Strategic competition in the age of AI: Emerging
+  risks and opportunities from military use of AI (2024)\\
+  \url{https://www.rand.org/pubs/research_reports/RRA3295-1.html}
+\item
+  \textbf{NATO} --- Summary of NATO's revised AI strategy (Jul 2024)\\
+  \url{https://www.nato.int/en/about-us/official-texts-and-resources/official-texts/2024/07/10/summary-of-natos-revised-artificial-intelligence-ai-strategy}
+\item
+  \textbf{UK MOD (GOV.UK)} --- JSP 936: Dependable Artificial
+  Intelligence in defence (Part 1 directive) (Nov 2024)\\
+  \url{https://www.gov.uk/government/publications/jsp-936-dependable-artificial-intelligence-ai-in-defence-part-1-directive}
+\item
+  \textbf{UK MOD (GOV.UK)} --- Laying the Groundwork: Responsible AI
+  Senior Officers' Report 2025 (Oct 2025)\\
+  \url{https://www.gov.uk/government/publications/laying-the-groundwork-responsible-ai-senior-officers-report-2025}
+\item
+  \textbf{U.S. Department of State} --- Political Declaration on
+  Responsible Military Use of Artificial Intelligence and Autonomy\\
+  \url{https://www.state.gov/bureau-of-arms-control-deterrence-and-stability/political-declaration-on-responsible-military-use-of-artificial-intelligence-and-autonomy}
+\item
+  \textbf{UNODA} --- Artificial intelligence in the military domain
+  (incl.~UNGA 79/239 context)\\
+  \url{https://disarmament.unoda.org/en/our-work/emerging-challenges/artificial-intelligence-military-domain}
+\item
+  \textbf{SIPRI} --- Retaining Human Responsibility in the Development
+  and Use of Autonomous Weapon Systems (Oct 2022)\\
+  \url{https://www.sipri.org/publications/2022/policy-reports/retaining-human-responsibility-development-and-use-autonomous-weapon-systems-accountability}
+\item
+  \textbf{ICRC Law \& Policy Blog} --- Three lessons on AWS regulation
+  to ensure accountability for IHL violations (Mar 2023)\\
+  \url{https://blogs.icrc.org/law-and-policy/2023/03/02/three-lessons-autonomous-weapons-systems-ihl/}
+\item
+  \textbf{DIU} --- The Replicator Initiative (updated 2025)\\
+  \url{https://www.diu.mil/replicator}
+\item
+  \textbf{Arms Control Association} --- AI and Nuclear Command and
+  Control: It's Even More Complicated Than You Think (Sep 2025)\\
+  \url{https://www.armscontrol.org/act/2025-09/features/artificial-intelligence-and-nuclear-command-and-control-its-even-more}
+\item
+  \textbf{Microsoft Copilot Blog} --- Multi-agent orchestration
+  announcements at Build 2025\\
+  \url{https://www.microsoft.com/en-us/microsoft-copilot/blog/copilot-studio/multi-agent-orchestration-maker-controls-and-more-microsoft-copilot-studio-announcements-at-microsoft-build-2025/}
+\item
+  \textbf{Google Cloud Blog} --- Build and manage multi-system agents
+  with Vertex AI (Apr 2025)\\
+  \url{https://cloud.google.com/blog/products/ai-machine-learning/build-and-manage-multi-system-agents-with-vertex-ai}
+\item
+  \textbf{Google Cloud Blog} --- Agent2Agent protocol (A2A) is getting
+  an upgrade (Jul 2025)\\
+  \url{https://cloud.google.com/blog/products/ai-machine-learning/agent2agent-protocol-is-getting-an-upgrade}
+\item
+  \textbf{Google Developers Blog} --- Google Cloud donates A2A to Linux
+  Foundation (Jun 2025)\\
+  \url{https://developers.googleblog.com/en/google-cloud-donates-a2a-to-linux-foundation/}
+\item
+  \textbf{U.S. Army} --- Swarm Technology in Sustainment Operations (Jan
+  2025)\\
+  \url{https://www.army.mil/article/282467/swarm_technology_in_sustainment_operations}
+\item
+  \textbf{CNAS} --- Countering the Swarm: Protecting the Joint Force in
+  the Drone Age (Sep 2025)\\
+  \url{https://s3.us-east-1.amazonaws.com/files.cnas.org/documents/Report_CUAS_Defense_Sep-2025_final.pdf}
+\item
+  \textbf{CNA} --- PRC Concepts for UAV Swarms in Future Warfare (Oct
+  2025)\\
+  \url{https://www.cna.org/analyses/2025/10/prc-concepts-for-uav-swarms-in-future-warfare}
+\item
+  \textbf{U.S. Secretary of Defense Memorandum} --- Replicator 2
+  Direction and Execution (Sep 27, 2024)\\
+  \url{https://s3.us-gov-west-1.amazonaws.com/assets.diu.mil/3nanhbfkr0pc/1dkJGhMeAgPldz1nnIwabK/abf85531a4281cddab6b0d8c953440e2/REPLICATOR-2-MEMO-SD-SIGNED__1_.pdf}
+\end{enumerate}
+
+\hypertarget{academic-source-library-topic-grouped}{%
+\subsection{14) Academic source library
+(topic-grouped)}\label{academic-source-library-topic-grouped}}
+
+\hypertarget{marl-core}{%
+\subsubsection{MARL core}\label{marl-core}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Multi-Agent Reinforcement Learning: Independent vs.~Cooperative Agents
+  (1993), cited by 1789.
+  \url{https://doi.org/10.1016/b978-1-55860-307-3.50049-6}
+\item
+  Counterfactual Multi-Agent Policy Gradients (2018), cited by 1543.
+  \url{https://doi.org/10.1609/aaai.v32i1.11794}
+\item
+  Multi-Agent Actor-Critic for Mixed Cooperative-Competitive
+  Environments (2017), cited by 1014.
+  \url{http://arxiv.org/abs/1706.02275}
+\item
+  Cooperative Multi-agent Control Using Deep Reinforcement Learning
+  (2017), cited by 846.
+  \url{https://doi.org/10.1007/978-3-319-71682-4_5}
+\item
+  Multi-agent deep reinforcement learning: a survey (2021), cited by
+  726. \url{https://doi.org/10.1007/s10462-021-09996-w}
+\item
+  QMIX: Monotonic Value Function Factorisation for Deep Multi-Agent
+  Reinforcement Learning (2018), cited by 475.
+  \url{http://arxiv.org/abs/1803.11485}
+\item
+  Monotonic Value Function Factorisation for Deep Multi-Agent
+  Reinforcement Learning (2020), cited by 429.
+  \url{http://arxiv.org/abs/2003.08839}
+\item
+  A review of cooperative multi-agent deep reinforcement learning
+  (2022), cited by 404. \url{https://doi.org/10.1007/s10489-022-04105-y}
+\item
+  Multi-Agent Reinforcement Learning: A Review of Challenges and
+  Applications (2021), cited by 315.
+  \url{https://doi.org/10.3390/app11114948}
+\item
+  Robust Multi-Agent Reinforcement Learning via Minimax Deep
+  Deterministic Policy Gradient (2019), cited by 279.
+  \url{https://doi.org/10.1609/aaai.v33i01.33014213}
+\item
+  QTRAN: Learning to Factorize with Transformation for Cooperative
+  Multi-Agent Reinforcement Learning (2019), cited by 222.
+  \url{https://doi.org/10.48550/arxiv.1905.05408}
+\item
+  Multi-Agent Deep Reinforcement Learning for Multi-Robot Applications:
+  A Survey (2023), cited by 140. \url{https://doi.org/10.3390/s23073625}
+\item
+  Dealing with Non-Stationarity in Multi-Agent Deep Reinforcement
+  Learning (2019), cited by 124. \url{http://arxiv.org/abs/1906.04737}
+\item
+  Value-Decomposition Networks For Cooperative Multi-Agent Learning
+  (2017). \url{https://arxiv.org/abs/1706.05296}
+\item
+  Learning to Communicate with Deep Multi-Agent Reinforcement Learning
+  (2016). \url{https://arxiv.org/abs/1605.06676}
+\end{enumerate}
+
+\hypertarget{swarm-robotics-human-swarm-interaction}{%
+\subsubsection{Swarm robotics + human-swarm
+interaction}\label{swarm-robotics-human-swarm-interaction}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Swarm robotics: a review from the swarm engineering perspective
+  (2013), cited by 1638. \url{https://doi.org/10.1007/s11721-012-0075-2}
+\item
+  A Survey on Aerial Swarm Robotics (2018), cited by 604.
+  \url{https://doi.org/10.1109/tro.2018.2857475}
+\item
+  Swarm of micro flying robots in the wild (2022), cited by 490.
+  \url{https://doi.org/10.1126/scirobotics.abm5954}
+\item
+  A review of swarm robotics tasks (2015), cited by 428.
+  \url{https://doi.org/10.1016/j.neucom.2015.05.116}
+\item
+  Swarm Robotic Behaviors and Current Applications (2020), cited by 413.
+  \url{https://doi.org/10.3389/frobt.2020.00036}
+\item
+  Human Interaction With Robot Swarms: A Survey (2015), cited by 387.
+  \url{https://doi.org/10.1109/thms.2015.2480801}
+\item
+  Swarm Robotics: Past, Present, and Future {[}Point of View{]} (2021),
+  cited by 327. \url{https://doi.org/10.1109/jproc.2021.3072740}
+\item
+  Search and tracking algorithms for swarms of robots: A survey (2015),
+  cited by 180. \url{https://doi.org/10.1016/j.robot.2015.08.010}
+\item
+  Predictive control of aerial swarms in cluttered environments (2021),
+  cited by 151. \url{https://doi.org/10.1038/s42256-021-00341-y}
+\item
+  Human swarm interaction for radiation source search and localization
+  (2008), cited by 112. \url{https://doi.org/10.1109/sis.2008.4668287}
+\item
+  Human Swarm Interaction: An Experimental Study of Two Types of
+  Interaction with Foraging Swarms (2013), cited by 104.
+  \url{https://doi.org/10.5898/jhri.2.2.kolling}
+\item
+  Mean-field models in swarm robotics: a survey (2019), cited by 94.
+  \url{https://doi.org/10.1088/1748-3190/ab49a4}
+\end{enumerate}
+
+\hypertarget{llm-agents-orchestration}{%
+\subsubsection{LLM agents +
+orchestration}\label{llm-agents-orchestration}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A survey on large language model based autonomous agents (2024), cited
+  by 797. \url{https://doi.org/10.1007/s11704-024-40231-1}
+\item
+  A survey on LLM-based multi-agent systems: workflow, infrastructure,
+  and challenges (2024), cited by 153.
+  \url{https://doi.org/10.1007/s44336-024-00009-2}
+\item
+  AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent
+  Conversation (2023), cited by 138.
+  \url{http://arxiv.org/abs/2308.08155}
+\item
+  ChatEval: Towards Better LLM-based Evaluators through Multi-Agent
+  Debate (2023), cited by 51. \url{http://arxiv.org/abs/2308.07201}
+\item
+  Large Language Model based Multi-Agents: A Survey of Progress and
+  Challenges (2024), cited by 50. \url{http://arxiv.org/abs/2402.01680}
+\item
+  Exploring Large Language Model based Intelligent Agents: Definitions,
+  Methods, and Prospects (2024), cited by 35.
+  \url{http://arxiv.org/abs/2401.03428}
+\item
+  Personal LLM Agents: Insights and Survey about the Capability,
+  Efficiency and Security (2024), cited by 30.
+  \url{http://arxiv.org/abs/2401.05459}
+\item
+  Understanding the planning of LLM agents: A survey (2024), cited by
+  26. \url{http://arxiv.org/abs/2402.02716}
+\item
+  Encouraging Divergent Thinking in Large Language Models through
+  Multi-Agent Debate (2023), cited by 26.
+  \url{http://arxiv.org/abs/2305.19118}
+\item
+  LLM-Based Multi-Agent Systems for Software Engineering: Literature
+  Review, Vision and the Road Ahead (2024), cited by 8.
+  \url{http://arxiv.org/abs/2404.04834}
+\item
+  CAMEL: Communicative Agents for Mind Exploration of Large Language
+  Model Society (2023). \url{https://arxiv.org/abs/2303.17760}
+\item
+  AgentVerse: Facilitating Multi-Agent Collaboration and Exploring
+  Emergent Behaviors (2023). \url{https://arxiv.org/abs/2308.10848}
+\item
+  MetaGPT: Meta Programming for Multi-Agent Collaborative Framework
+  (2023). \url{https://arxiv.org/abs/2308.00352}
+\item
+  SWE-agent: Agent-Computer Interfaces Enable Automated Software
+  Engineering (2024). \url{https://arxiv.org/abs/2405.15793}
+\end{enumerate}
+
+\hypertarget{safety-governance-and-legal-accountability}{%
+\subsubsection{Safety, governance, and legal
+accountability}\label{safety-governance-and-legal-accountability}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A comprehensive survey on safe reinforcement learning (2015), cited by
+  1191.
+  \url{https://jmlr.csail.mit.edu/papers/volume16/garcia15a/garcia15a.pdf}
+\item
+  Safe Learning in Robotics: From Learning-Based Control to Safe
+  Reinforcement Learning (2022), cited by 594.
+  \url{https://doi.org/10.1146/annurev-control-042920-020211}
+\item
+  Trustworthy artificial intelligence (2020), cited by 507.
+  \url{https://doi.org/10.1007/s12525-020-00441-4}
+\item
+  Meaningful Human Control over Autonomous Systems: A Philosophical
+  Account (2018), cited by 405.
+  \url{https://doi.org/10.3389/frobt.2018.00015}
+\item
+  On banning autonomous weapon systems: human rights, automation, and
+  the dehumanization of lethal decision-making (2012), cited by 339.
+  \url{https://doi.org/10.1017/s1816383112000768}
+\item
+  A Review of Trustworthy and Explainable Artificial Intelligence (XAI)
+  (2023), cited by 225.
+  \url{https://doi.org/10.1109/access.2023.3294569}
+\item
+  Autonomous weapons systems, killer robots and human dignity (2018),
+  cited by 176. \url{https://doi.org/10.1007/s10676-018-9494-0}
+\item
+  Autonomous Weapons and International Humanitarian Law: Advantages,
+  Open Technical Questions and Legal Issues to be Clarified (2014),
+  cited by 113. \url{https://archive-ouverte.unige.ch/unige:37976}
+\item
+  Autonomous Weapon Systems and International Humanitarian Law: A Reply
+  to the Critics (2012), cited by 101.
+  \url{https://doi.org/10.2139/ssrn.2184826}
+\item
+  Open Problems and Fundamental Limitations of Reinforcement Learning
+  from Human Feedback (2023), cited by 88.
+  \url{http://arxiv.org/abs/2307.15217}
+\end{enumerate}
+
+\hypertarget{adversarial-robustness-and-resilience}{%
+\subsubsection{Adversarial robustness and
+resilience}\label{adversarial-robustness-and-resilience}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Secure impulsive synchronization control of multi-agent systems under
+  deception attacks (2018), cited by 324.
+  \url{https://doi.org/10.1016/j.ins.2018.04.020}
+\item
+  Secure impulsive synchronization in Lipschitz-type multi-agent systems
+  subject to deception attacks (2020), cited by 165.
+  \url{https://doi.org/10.1109/jas.2020.1003297}
+\item
+  A study on cyber-security of autonomous and unmanned vehicles (2015),
+  cited by 136. \url{https://doi.org/10.1177/1548512915575803}
+\item
+  Cooperative adaptive fault-tolerant control for multi-agent systems
+  with deception attacks (2020), cited by 111.
+  \url{https://doi.org/10.1016/j.jfranklin.2019.12.032}
+\item
+  Detection of Cyber-attacks to indoor real time localization systems
+  for autonomous robots (2017), cited by 87.
+  \url{https://doi.org/10.1016/j.robot.2017.10.006}
+\item
+  Fault-Tolerant secure consensus tracking of delayed nonlinear
+  multi-agent systems with deception attacks and uncertain parameters
+  via impulsive control (2019), cited by 85.
+  \url{https://doi.org/10.1016/j.cnsns.2019.105043}
+\item
+  Enhancing Autonomous System Security and Resilience With Generative
+  AI: A Comprehensive Survey (2024), cited by 60.
+  \url{https://doi.org/10.1109/access.2024.3439363}
+\item
+  Failure-Scenario Maker for Rule-Based Agent using Multi-agent
+  Adversarial Reinforcement Learning and its Application to Autonomous
+  Driving (2019), cited by 57.
+  \url{https://doi.org/10.24963/ijcai.2019/832}
+\item
+  Multi-Agent Adversarial Inverse Reinforcement Learning (2019), cited
+  by 45. \url{http://arxiv.org/abs/1907.13220}
+\item
+  On the Robustness of Cooperative Multi-Agent Reinforcement Learning
+  (2020). \url{https://arxiv.org/abs/2006.07538}
+\end{enumerate}
+
+\end{document}

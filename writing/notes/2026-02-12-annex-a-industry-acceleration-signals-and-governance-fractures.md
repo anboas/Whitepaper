@@ -259,12 +259,15 @@ No single functional lane can own delegated autonomy at force scale. DAD is requ
 - GAO finds DOD still lacks a comprehensive CJADC2 framework with measurable goals and shared lessons-learned mechanisms, producing fragmented service-level efforts and slower integration. [35]
 - RAND’s 2026 framework finds AI does not erase the need for mission command; hybrid centralized/decentralized C2 remains preferable because information placement, not raw cognition, remains the limiting variable. [38]
 - CSIS reporting on Russia indicates wartime adaptation away from monolithic C2 modernization toward tactical software that compresses reconnaissance-to-strike timelines. [37]
+- CSIS executive findings describe unmanned systems conducting up to 80% of Russian fire missions in observed contexts and highlight software workflows that reduce detection-to-impact timelines from hours to minutes. [37]
 
 **Research summary.** Across U.S. oversight, competitor adaptation, and independent strategic analysis, the pattern is consistent: C2 architecture and software integration are now decisive levers.
 
 **Deductions.**
 - ACP-RA should optimize for command-latency compression under policy constraint, not for model novelty.
 - DAD should treat C2 software integration debt as a strategic risk, not an IT backlog issue.
+
+**Limits and open questions.** Evidence remains stronger on architecture and process than on standardized cross-theater performance metrics.
 
 ### 11.2 Swarm operations and force survivability
 
@@ -274,12 +277,15 @@ No single functional lane can own delegated autonomy at force scale. DAD is requ
 - DIU states Replicator 1 targets deployment of multiple thousands of all-domain attritable autonomous systems on an 18–24 month timeline, with Replicator 2 focused on counter-sUAS at critical installations and force concentrations. [47][56]
 - CNA’s assessment of PRC writings finds active research, testing, and scenario development for drone swarms in Taiwan-relevant operations, including assault/blockade contexts and explicit counter-swarm functions. [55]
 - U.S. Army sustainment analysis shows swarm concepts extending beyond maneuver to convoy protection and support-area security, driven by manpower constraints and early-warning demands. [53]
+- CNAS’s 2025 C-UAS study argues cheap-drone proliferation has democratized mass precision fires and recommends layered defenses, AI-enabled kill-chain acceleration, and expansion of counter-drone training beyond dedicated air-defense units. [54]
 
 **Research summary.** Swarms are now a force-wide planning issue, not a niche autonomous platform issue.
 
 **Deductions.**
 - ACP-RA needs saturation governance, queue discipline, and consequence-tier action control as baseline functionality.
 - DAD should enforce doctrine/eval updates that cover sustainment and rear-area swarm employment, not only frontline strike use.
+
+**Limits and open questions.** Public evidence is rich on threat evolution but thinner on sustained cost-per-effect comparisons across force structures.
 
 ### 11.3 Interoperability, protocol governance, and orchestration ecosystems
 
@@ -289,12 +295,15 @@ No single functional lane can own delegated autonomy at force scale. DAD is requ
 - Google’s A2A launch positions cross-vendor agent coordination as core enterprise requirement and explicitly ties protocol design to secure information exchange and multi-agent collaboration. [5]
 - Transfer of A2A into Linux Foundation governance with broad hyperscaler/enterprise participation indicates rapid ecosystem-level standardization pressure. [52]
 - OpenAI Frontier frames the primary enterprise bottleneck as deployment and governance conditions (context, permissions, boundaries), not base model capability. [1]
+- Google Cloud’s multi-agent platform roadmap emphasizes enterprise-grade orchestration controls and cross-system connectivity, while A2A v0.3 adds security-card signing and expanded integration pathways, indicating fast protocol hardening toward production use. [50][51]
 
 **Research summary.** Industry direction is converging on open, multi-agent, cross-system operation with security and governance embedded at protocol and orchestration layers.
 
 **Deductions.**
 - ACP-RA should enforce trust at agent-message and connector boundaries, including identity, capability attestation, and provenance.
 - DAD should own minimum interoperability-control standards before scale authorization.
+
+**Limits and open questions.** Vendor-led sources may overstate near-term maturity; independent interoperability failure data remains limited.
 
 ### 11.4 Governance, legal accountability, and responsible use
 
@@ -304,12 +313,16 @@ No single functional lane can own delegated autonomy at force scale. DAD is requ
 - NATO’s revised AI strategy reinforces Responsible Use principles and emphasizes TEV&V, interoperability, and alliance-wide implementation mechanisms. [40]
 - The U.S. Political Declaration process provides a growing normative state-level framework for responsible military use, including implementation dialogues among endorsing states. [43]
 - SIPRI/ICRC accountability framing remains clear: legal and moral responsibility remains with human and institutional actors. [45][46]
+- UK MOD governance directives (JSP 936) and RAISO implementation reporting indicate organizational accountability mechanisms are now being formalized as named institutional responsibilities, not only abstract principles. [41][42]
+- UN General Assembly resolution 79/239 and related UNODA process confirm increasing multilateral focus on responsible military AI governance across lifecycle stages. [44]
 
 **Research summary.** The policy environment is shifting from abstract principles to operationalized controls, validation regimes, and documented accountability.
 
 **Deductions.**
 - ACP-RA must produce auditable decision and action provenance for high-consequence functions.
 - DAD should mandate that no autonomy capability scales without attributable evidence trails and validated oversight controls.
+
+**Limits and open questions.** Normative convergence is increasing, but enforcement harmonization across allies and partners remains uneven.
 
 ### 11.5 Adversarial resilience and contested operations
 
@@ -319,12 +332,15 @@ No single functional lane can own delegated autonomy at force scale. DAD is requ
 - OpenClaw ecosystem incidents and analyses highlight skill/extension supply-chain risk in agentic systems and demonstrate practical compromise pathways. [25][26][27][28]
 - RAND highlights persistent offense-defense competition and argues durable advantage comes from adaptation under sophisticated adversary pressure, not assumptions of one-time superiority. [38][39]
 - CSIS battlefield observations indicate adversary adaptation cycles now prioritize software pathways that improve kill-chain speed and operational flexibility. [37]
+- Analysis of AI in nuclear command-and-control warns that even if launch authorization remains human, compounding AI-mediated information failures in upstream NC2/NC3 pathways can still create catastrophic strategic risk. [48]
 
 **Research summary.** Agentic warfare resilience is an architecture and governance problem as much as a model-performance problem.
 
 **Deductions.**
 - ACP-RA must include revocation, isolation, reconstitution, and adversarial-injection testing as core controls.
 - DAD should institutionalize recurring red-team cycles tied directly to deployment authority.
+
+**Limits and open questions.** Open-source incident reporting is directionally strong but still incomplete for full threat-frequency baselining.
 
 ### 11.6 Compute, power, and industrial constraints
 
@@ -333,6 +349,7 @@ No single functional lane can own delegated autonomy at force scale. DAD is requ
 **Evidence extracted.**
 - Reuters reporting on major AI buildout describes supersized data-center race dynamics and gigawatt-class facility planning as core enablers of frontier capability scaling. [31]
 - Reuters reporting on Anthropic power-cost commitments indicates grid-upgrade and utility-cost externalities are now strategic deployment constraints requiring explicit mitigation. [32]
+- Reuters’ capital-market coverage shows AI deployment trajectories are increasingly tied to financing structure and infrastructure access, not only technical readiness. [29]
 - NATO’s revised strategy also flags compute intensity, energy demand, and associated governance implications as alliance-level concerns. [40]
 
 **Research summary.** Power and infrastructure are now first-order constraints shaping deployment tempo, geography, and strategic resilience.
@@ -340,6 +357,8 @@ No single functional lane can own delegated autonomy at force scale. DAD is requ
 **Deductions.**
 - ACP-RA should explicitly support tiered compute profiles, degraded operation, and edge/low-power fallback.
 - DAD should include infrastructure-readiness criteria in autonomy scaling decisions.
+
+**Limits and open questions.** Energy and compute trends are clear, but region-specific grid resilience and permitting constraints require deeper model-based analysis.
 
 ## 12) Conclusions
 
