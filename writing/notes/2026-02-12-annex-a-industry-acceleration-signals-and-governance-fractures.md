@@ -5,12 +5,12 @@ summary: "Internal supporting annex notes for the DAD memo, converted from the p
 status: draft
 type: note
 tags:
-  - dad
-  - annex-a
-  - agentic-autonomy
-  - governance
-  - sources
-  - internal
+- dad
+- annex-a
+- agentic-autonomy
+- governance
+- sources
+- internal
 ---
 
 > Internal draft. **Non-published** by design.
@@ -23,9 +23,9 @@ tags:
 - Topic: public acceleration signals in agentic AI capability, interoperability, governance strain, and infrastructure constraints.
 - Time window represented: May 2024 to Feb 2026.
 - This conversion keeps:
-  - section structure A.0 through A.9,
-  - quote bank,
-  - full numbered references with direct URLs.
+- section structure A.0 through A.9,
+- quote bank,
+- full numbered references with direct URLs.
 
 ## A.0 Executive synthesis
 
@@ -170,74 +170,74 @@ These signals map directly to ACP/force-creation logic: decisive advantage comes
 
 ## References (full links retained)
 
-1. **OpenAI** — Introducing OpenAI Frontier (Feb 2026)  
-   <https://openai.com/index/introducing-openai-frontier/>
-2. **TechCrunch** — OpenAI launches a way for enterprises to build and manage AI agents (Feb 2026)  
-   <https://techcrunch.com/2026/02/05/openai-launches-a-way-for-enterprises-to-build-and-manage-ai-agents/>
-3. **Reuters** — OpenAI launches Codex app to gain ground in AI coding race (Feb 2, 2026)  
-   <https://www.reuters.com/business/media-telecom/openai-launches-codex-app-gain-ground-ai-coding-race-2026-02-02/>
-4. **VentureBeat** — OpenAI launches a Codex desktop app for macOS to run multiple AI coding agents in parallel (Feb 2026)  
-   <https://venturebeat.com/orchestration/openai-launches-a-codex-desktop-app-for-macos-to-run-multiple-ai-coding/>
-5. **Google Developers Blog** — A2A: A new era of agent interoperability (Apr 9, 2025)  
-   <https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/>
-6. **Model Context Protocol Blog** — First MCP anniversary / spec cadence update (Nov 25, 2025)  
-   <https://blog.modelcontextprotocol.io/posts/2025-11-25-first-mcp-anniversary/>
-7. **Google Cloud Docs** — Gemini CLI (tools, ReAct loop, MCP servers)  
-   <https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli>
-8. **Google Developers Blog** — Build with Google Antigravity (Nov 20, 2025)  
-   <https://developers.googleblog.com/build-with-google-antigravity-our-new-agentic-development-platform/>
-9. **Anthropic Research** — Building Effective Agents (Dec 19, 2024)  
-   <https://www.anthropic.com/research/building-effective-agents>
-10. **Anthropic Engineering** — Effective context engineering for AI agents (Sep 29, 2025)  
-    <https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents>
-11. **Anthropic Engineering** — Demystifying evals for AI agents (Jan 9, 2026)  
-    <https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents>
-12. **Anthropic** — Sabotage Risk Report: Claude Opus 4.6 (PDF, Feb 2026)  
-    <https://www-cdn.anthropic.com/f21d93f21602ead5cdbecb8c8e1c765759d9e232.pdf>
-13. **Anthropic** — Claude Opus 4.6 System Card (PDF, Feb 2026)  
-    <https://www-cdn.anthropic.com/0dd865075ad3132672ee0ab40b05a53f14cf5288.pdf>
-14. **Anthropic** — Responsible Scaling Policy updates (Feb 2026 update context)  
-    <https://www.anthropic.com/rsp-updates>
-15. **Dario Amodei** — The Adolescence of Technology (Jan 2026)  
-    <https://www.darioamodei.com/essay/the-adolescence-of-technology>
-16. **Financial Times** — Humanity needs to wake up to dangers of AI (Jan 26, 2026)  
-    <https://www.ft.com/content/c3098552-7204-4a93-844c-1b8569c9dcb2>
-17. **Associated Press** — Former OpenAI leader says safety took a backseat (May 17, 2024)  
-    <https://apnews.com/article/openai-jan-leike-safety-ilya-8a7ba341e06a66e9a7935bb06214edcb>
-18. **Reuters** — OpenAI sets up safety and security committee (May 28, 2024)  
-    <https://www.reuters.com/technology/openai-sets-up-safety-security-committee-2024-05-28/>
-19. **Reuters** — OpenAI technology chief Mira Murati to leave (Sep 25, 2024)  
-    <https://www.reuters.com/technology/artificial-intelligence/openais-technology-chief-mira-murati-leave-2024-09-25/>
-20. **Reuters** — Sutskever safety startup SSI raises $1B (Sep 4, 2024)  
-    <https://www.reuters.com/technology/artificial-intelligence/openai-co-founder-sutskevers-new-safety-focused-ai-startup-ssi-raises-1-billion-2024-09-04/>
-21. **Platformer** — OpenAI mission alignment team report (Feb 11, 2026)  
-    <https://www.platformer.news/openai-mission-alignment-team-joshua-achiam/>
-22. **The Verge** — OpenAI reportedly disbanded mission alignment team (Feb 11, 2026)  
-    <https://www.theverge.com/ai-artificial-intelligence/877208/openai-reportedly-disbanded-its-mission-alignment-team>
-23. **TechCrunch** — Microsoft CEO says up to 30% of code written by AI (Apr 29, 2025)  
-    <https://techcrunch.com/2025/04/29/microsoft-ceo-says-up-to-30-of-the-companys-code-was-written-by-ai/>
-24. **Business Insider** — Microsoft CTO: 95% of code AI-generated in five years (Apr 2025)  
-    <https://www.businessinsider.com/microsoft-cto-ai-generated-code-software-developer-job-change-2025-4>
-25. **The Verge** — OpenClaw skill extensions security nightmare (Feb 2026)  
-    <https://www.theverge.com/news/874011/openclaw-ai-skill-clawhub-extensions-security-nightmare>
-26. **Reuters** — China warns of security risks linked to OpenClaw (Feb 5, 2026)  
-    <https://www.reuters.com/world/china/china-warns-security-risks-linked-openclaw-open-source-ai-agent-2026-02-05/>
-27. **1Password** — From magic to malware: OpenClaw skills as attack surface (Feb 2, 2026)  
-    <https://1password.com/blog/from-magic-to-malware-how-openclaws-agent-skills-become-an-attack-surface>
-28. **Trend Micro** — What OpenClaw reveals about agentic assistants (Feb 6, 2026)  
-    <https://www.trendmicro.com/en_us/research/26/b/what-openclaw-reveals-about-agentic-assistants.html>
-29. **Reuters** — Deals showing AI runs on capital (Feb 6, 2026)  
-   <https://www.reuters.com/technology/spacex-nvidia-deals-showing-ai-runs-capital-2026-02-06/>
-30. **International Energy Agency** — Energy demand from AI  
-   <https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai>
-31. **Reuters** — Meta begins construction of $10B Indiana data center (Feb 11, 2026)  
-   <https://www.reuters.com/business/meta-begins-construction-10-billion-indiana-data-center-boost-ai-capabilities-2026-02-11/>
-32. **Reuters** — Anthropic to shoulder some data-center expansion costs (Feb 11, 2026)  
-   <https://www.reuters.com/technology/anthropic-shoulder-some-costs-data-center-expansions-threaten-raise-power-bills-2026-02-11/>
-33. **Reuters** — Artificial Intelligencer: AI and politics at Davos (Jan 22, 2026)  
-   <https://www.reuters.com/technology/artificial-intelligence/artificial-intelligencer-how-ai-politics-dominated-davos-2026-01-22/>
-34. **The Verge** — Anthropic turns to skills for workplace utility (Oct 16, 2025)  
-   <https://www.theverge.com/ai-artificial-intelligence/800868/anthropic-claude-skills-ai-agents>
+1. **OpenAI** — Introducing OpenAI Frontier (Feb 2026)
+<https://openai.com/index/introducing-openai-frontier/>
+2. **TechCrunch** — OpenAI launches a way for enterprises to build and manage AI agents (Feb 2026)
+<https://techcrunch.com/2026/02/05/openai-launches-a-way-for-enterprises-to-build-and-manage-ai-agents/>
+3. **Reuters** — OpenAI launches Codex app to gain ground in AI coding race (Feb 2, 2026)
+<https://www.reuters.com/business/media-telecom/openai-launches-codex-app-gain-ground-ai-coding-race-2026-02-02/>
+4. **VentureBeat** — OpenAI launches a Codex desktop app for macOS to run multiple AI coding agents in parallel (Feb 2026)
+<https://venturebeat.com/orchestration/openai-launches-a-codex-desktop-app-for-macos-to-run-multiple-ai-coding/>
+5. **Google Developers Blog** — A2A: A new era of agent interoperability (Apr 9, 2025)
+<https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/>
+6. **Model Context Protocol Blog** — First MCP anniversary / spec cadence update (Nov 25, 2025)
+<https://blog.modelcontextprotocol.io/posts/2025-11-25-first-mcp-anniversary/>
+7. **Google Cloud Docs** — Gemini CLI (tools, ReAct loop, MCP servers)
+<https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli>
+8. **Google Developers Blog** — Build with Google Antigravity (Nov 20, 2025)
+<https://developers.googleblog.com/build-with-google-antigravity-our-new-agentic-development-platform/>
+9. **Anthropic Research** — Building Effective Agents (Dec 19, 2024)
+<https://www.anthropic.com/research/building-effective-agents>
+10. **Anthropic Engineering** — Effective context engineering for AI agents (Sep 29, 2025)
+<https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents>
+11. **Anthropic Engineering** — Demystifying evals for AI agents (Jan 9, 2026)
+<https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents>
+12. **Anthropic** — Sabotage Risk Report: Claude Opus 4.6 (PDF, Feb 2026)
+<https://www-cdn.anthropic.com/f21d93f21602ead5cdbecb8c8e1c765759d9e232.pdf>
+13. **Anthropic** — Claude Opus 4.6 System Card (PDF, Feb 2026)
+<https://www-cdn.anthropic.com/0dd865075ad3132672ee0ab40b05a53f14cf5288.pdf>
+14. **Anthropic** — Responsible Scaling Policy updates (Feb 2026 update context)
+<https://www.anthropic.com/rsp-updates>
+15. **Dario Amodei** — The Adolescence of Technology (Jan 2026)
+<https://www.darioamodei.com/essay/the-adolescence-of-technology>
+16. **Financial Times** — Humanity needs to wake up to dangers of AI (Jan 26, 2026)
+<https://www.ft.com/content/c3098552-7204-4a93-844c-1b8569c9dcb2>
+17. **Associated Press** — Former OpenAI leader says safety took a backseat (May 17, 2024)
+<https://apnews.com/article/openai-jan-leike-safety-ilya-8a7ba341e06a66e9a7935bb06214edcb>
+18. **Reuters** — OpenAI sets up safety and security committee (May 28, 2024)
+<https://www.reuters.com/technology/openai-sets-up-safety-security-committee-2024-05-28/>
+19. **Reuters** — OpenAI technology chief Mira Murati to leave (Sep 25, 2024)
+<https://www.reuters.com/technology/artificial-intelligence/openais-technology-chief-mira-murati-leave-2024-09-25/>
+20. **Reuters** — Sutskever safety startup SSI raises $1B (Sep 4, 2024)
+<https://www.reuters.com/technology/artificial-intelligence/openai-co-founder-sutskevers-new-safety-focused-ai-startup-ssi-raises-1-billion-2024-09-04/>
+21. **Platformer** — OpenAI mission alignment team report (Feb 11, 2026)
+<https://www.platformer.news/openai-mission-alignment-team-joshua-achiam/>
+22. **The Verge** — OpenAI reportedly disbanded mission alignment team (Feb 11, 2026)
+<https://www.theverge.com/ai-artificial-intelligence/877208/openai-reportedly-disbanded-its-mission-alignment-team>
+23. **TechCrunch** — Microsoft CEO says up to 30% of code written by AI (Apr 29, 2025)
+<https://techcrunch.com/2025/04/29/microsoft-ceo-says-up-to-30-of-the-companys-code-was-written-by-ai/>
+24. **Business Insider** — Microsoft CTO: 95% of code AI-generated in five years (Apr 2025)
+<https://www.businessinsider.com/microsoft-cto-ai-generated-code-software-developer-job-change-2025-4>
+25. **The Verge** — OpenClaw skill extensions security nightmare (Feb 2026)
+<https://www.theverge.com/news/874011/openclaw-ai-skill-clawhub-extensions-security-nightmare>
+26. **Reuters** — China warns of security risks linked to OpenClaw (Feb 5, 2026)
+<https://www.reuters.com/world/china/china-warns-security-risks-linked-openclaw-open-source-ai-agent-2026-02-05/>
+27. **1Password** — From magic to malware: OpenClaw skills as attack surface (Feb 2, 2026)
+<https://1password.com/blog/from-magic-to-malware-how-openclaws-agent-skills-become-an-attack-surface>
+28. **Trend Micro** — What OpenClaw reveals about agentic assistants (Feb 6, 2026)
+<https://www.trendmicro.com/en_us/research/26/b/what-openclaw-reveals-about-agentic-assistants.html>
+29. **Reuters** — Deals showing AI runs on capital (Feb 6, 2026)
+<https://www.reuters.com/technology/spacex-nvidia-deals-showing-ai-runs-capital-2026-02-06/>
+30. **International Energy Agency** — Energy demand from AI
+<https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai>
+31. **Reuters** — Meta begins construction of $10B Indiana data center (Feb 11, 2026)
+<https://www.reuters.com/business/meta-begins-construction-10-billion-indiana-data-center-boost-ai-capabilities-2026-02-11/>
+32. **Reuters** — Anthropic to shoulder some data-center expansion costs (Feb 11, 2026)
+<https://www.reuters.com/technology/anthropic-shoulder-some-costs-data-center-expansions-threaten-raise-power-bills-2026-02-11/>
+33. **Reuters** — Artificial Intelligencer: AI and politics at Davos (Jan 22, 2026)
+<https://www.reuters.com/technology/artificial-intelligence/artificial-intelligencer-how-ai-politics-dominated-davos-2026-01-22/>
+34. **The Verge** — Anthropic turns to skills for workplace utility (Oct 16, 2025)
+<https://www.theverge.com/ai-artificial-intelligence/800868/anthropic-claude-skills-ai-agents>
 
 ## B.0 ACP as a warfighting imperative (continued research)
 
@@ -803,60 +803,208 @@ ACP is therefore not merely an architecture choice. It is a warfighting imperati
 
 ## D.10 Open source intake queue (pending authenticated extraction)
 
-- X post submitted by user:  
-  <https://x.com/vraserx/status/2021654971343610058?s=52>
+- X post submitted by user:
+<https://x.com/vraserx/status/2021654971343610058?s=52>
+- X post submitted by user:
+<https://x.com/theinformation/status/2021707053727662407?s=46>
 
-Current status: link captured as evidence pointer; full text extraction blocked in this environment due X authentication constraints.
+Current status: links captured as evidence pointers; full text extraction blocked in this environment due X authentication constraints.
+
+
+## E.0 Exhaustive academic paper sweep (current pass)
+
+Goal: create a broad, high-signal academic corpus spanning MARL, swarms, agent orchestration, safety/governance, and adversarial resilience for ACP doctrine development.
+
+Method (this pass):
+
+- Queried OpenAlex across focused topic clusters.
+- Applied relevance filters and citation thresholds.
+- Added canonical papers manually where needed.
+- Preserved links for direct retrieval.
+
+Notes:
+
+- This is intentionally broad to maximize coverage for follow-on pruning.
+- Some cross-domain papers are retained because methods transfer directly to military autonomy contexts (coordination, robustness, safety constraints, distributed control).
+
+### MARL core
+1. Multi-Agent Reinforcement Learning: Independent vs. Cooperative Agents (1993), cited by 1789. <https://doi.org/10.1016/b978-1-55860-307-3.50049-6>
+2. Counterfactual Multi-Agent Policy Gradients (2018), cited by 1543. <https://doi.org/10.1609/aaai.v32i1.11794>
+3. Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments (2017), cited by 1014. <http://arxiv.org/abs/1706.02275>
+4. Cooperative Multi-agent Control Using Deep Reinforcement Learning (2017), cited by 846. <https://doi.org/10.1007/978-3-319-71682-4_5>
+5. Multi-agent deep reinforcement learning: a survey (2021), cited by 726. <https://doi.org/10.1007/s10462-021-09996-w>
+6. QMIX: Monotonic Value Function Factorisation for Deep Multi-Agent Reinforcement Learning (2018), cited by 475. <http://arxiv.org/abs/1803.11485>
+7. Monotonic Value Function Factorisation for Deep Multi-Agent Reinforcement Learning (2020), cited by 429. <http://arxiv.org/abs/2003.08839>
+8. A review of cooperative multi-agent deep reinforcement learning (2022), cited by 404. <https://doi.org/10.1007/s10489-022-04105-y>
+9. QMIX: Monotonic Value Function Factorisation for Deep Multi-Agent Reinforcement Learning (2018), cited by 352. <http://arxiv.org/abs/1803.11485>
+10. Multi-Agent Reinforcement Learning: A Review of Challenges and Applications (2021), cited by 315. <https://doi.org/10.3390/app11114948>
+11. A novel optimal bipartite consensus control scheme for unknown multi-agent systems via model-free reinforcement learning (2019), cited by 298. <https://doi.org/10.1016/j.amc.2019.124821>
+12. Actor-Attention-Critic for Multi-Agent Reinforcement Learning (2018), cited by 289. <http://arxiv.org/abs/1810.02912>
+13. Robust Multi-Agent Reinforcement Learning via Minimax Deep Deterministic Policy Gradient (2019), cited by 279. <https://doi.org/10.1609/aaai.v33i01.33014213>
+14. A survey on multi-agent deep reinforcement learning: from the perspective of challenges and applications (2020), cited by 237. <https://doi.org/10.1007/s10462-020-09938-y>
+15. QTRAN: Learning to Factorize with Transformation for Cooperative Multi-Agent Reinforcement Learning (2019), cited by 222. <https://doi.org/10.48550/arxiv.1905.05408>
+16. QTRAN: Learning to Factorize with Transformation for Cooperative Multi-Agent Reinforcement Learning (2019), cited by 198. <http://arxiv.org/abs/1905.05408>
+17. Multi-Agent Deep Reinforcement Learning for Multi-Robot Applications: A Survey (2023), cited by 140. <https://doi.org/10.3390/s23073625>
+18. Dealing with Non-Stationarity in Multi-Agent Deep Reinforcement Learning (2019), cited by 124. <http://arxiv.org/abs/1906.04737>
+19. Evolutionary game theory and multi-agent reinforcement learning (2005), cited by 123. <https://doi.org/10.1017/s026988890500041x>
+20. Multi-Agent Actor-Critic with Hierarchical Graph Attention Network (2020), cited by 118. <https://doi.org/10.1609/aaai.v34i05.6214>
+21. Value-Decomposition Networks For Cooperative Multi-Agent Learning (2017). <https://arxiv.org/abs/1706.05296>
+22. Learning to Communicate with Deep Multi-Agent Reinforcement Learning (2016). <https://arxiv.org/abs/1605.06676>
+
+### Swarm robotics + HSI
+1. Swarm robotics: a review from the swarm engineering perspective (2013), cited by 1638. <https://doi.org/10.1007/s11721-012-0075-2>
+2. A Survey on Aerial Swarm Robotics (2018), cited by 604. <https://doi.org/10.1109/tro.2018.2857475>
+3. Swarm of micro flying robots in the wild (2022), cited by 490. <https://doi.org/10.1126/scirobotics.abm5954>
+4. A review of swarm robotics tasks (2015), cited by 428. <https://doi.org/10.1016/j.neucom.2015.05.116>
+5. Swarm Robotic Behaviors and Current Applications (2020), cited by 413. <https://doi.org/10.3389/frobt.2020.00036>
+6. Human Interaction With Robot Swarms: A Survey (2015), cited by 387. <https://doi.org/10.1109/thms.2015.2480801>
+7. Swarm Robotics: Past, Present, and Future [Point of View] (2021), cited by 327. <https://doi.org/10.1109/jproc.2021.3072740>
+8. Optimized Stochastic Policies for Task Allocation in Swarms of Robots (2009), cited by 244. <https://doi.org/10.1109/tro.2009.2024997>
+9. Search and tracking algorithms for swarms of robots: A survey (2015), cited by 180. <https://doi.org/10.1016/j.robot.2015.08.010>
+10. Predictive control of aerial swarms in cluttered environments (2021), cited by 151. <https://doi.org/10.1038/s42256-021-00341-y>
+11. A Survey on Robotic Technologies for Forest Firefighting: Applying Drone Swarms to Improve Firefighters’ Efficiency and Safety (2021), cited by 134. <https://doi.org/10.3390/app11010363>
+12. Speaking Swarmish: Human-Robot Interface Design for Large Swarms of Autonomous Mobile Robots. (2006), cited by 113. <http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.130.9920>
+13. Human swarm interaction for radiation source search and localization (2008), cited by 112. <https://doi.org/10.1109/sis.2008.4668287>
+14. Human Swarm Interaction: An Experimental Study of Two Types of Interaction with Foraging Swarms (2013), cited by 104. <https://doi.org/10.5898/jhri.2.2.kolling>
+15. Mean-field models in swarm robotics: a survey (2019), cited by 94. <https://doi.org/10.1088/1748-3190/ab49a4>
+16. Aerial Shepherds: Coordination among UAVs and Swarms of Robots (2008), cited by 92. <https://doi.org/10.1007/978-4-431-35873-2_24>
+17. Swarm robots in mechanized agricultural operations: A review about challenges for research (2022), cited by 91. <https://doi.org/10.1016/j.compag.2021.106608>
+18. From animal collective behaviors to swarm robotic cooperation (2023), cited by 86. <https://doi.org/10.1093/nsr/nwad040>
+19. Benchmark of swarm robotics distributed techniques in a search task (2013), cited by 86. <https://doi.org/10.1016/j.robot.2013.10.004>
+20. Human-swarm interaction using spatial gestures (2014), cited by 85. <https://doi.org/10.1109/iros.2014.6943101>
+
+### LLM agents + orchestration
+1. A survey on large language model based autonomous agents (2024), cited by 797. <https://doi.org/10.1007/s11704-024-40231-1>
+2. A survey on LLM-based multi-agent systems: workflow, infrastructure, and challenges (2024), cited by 153. <https://doi.org/10.1007/s44336-024-00009-2>
+3. AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation (2023), cited by 138. <http://arxiv.org/abs/2308.08155>
+4. Orchestrated Scheduling and Multi-Agent Deep Reinforcement Learning for Cloud-Assisted Multi-UAV Charging Systems (2021), cited by 93. <https://doi.org/10.1109/tvt.2021.3062418>
+5. Towards autonomous system: flexible modular production system enhanced with large language model agents (2023), cited by 64. <https://doi.org/10.1109/etfa54631.2023.10275362>
+6. A multi-agent and cloud-edge orchestration framework of digital twin for distributed production control (2023), cited by 62. <https://doi.org/10.1016/j.rcim.2023.102543>
+7. ChatEval: Towards Better LLM-based Evaluators through Multi-Agent Debate (2023), cited by 51. <http://arxiv.org/abs/2308.07201>
+8. Large Language Model based Multi-Agents: A Survey of Progress and Challenges (2024), cited by 50. <http://arxiv.org/abs/2402.01680>
+9. Stance Detection with Collaborative Role-Infused LLM-Based Agents (2024), cited by 44. <https://doi.org/10.1609/icwsm.v18i1.31360>
+10. Exploring Large Language Model based Intelligent Agents: Definitions, Methods, and Prospects (2024), cited by 35. <http://arxiv.org/abs/2401.03428>
+11. Personal LLM Agents: Insights and Survey about the Capability, Efficiency and Security (2024), cited by 30. <http://arxiv.org/abs/2401.05459>
+12. Understanding the planning of LLM agents: A survey (2024), cited by 26. <http://arxiv.org/abs/2402.02716>
+13. Encouraging Divergent Thinking in Large Language Models through Multi-Agent Debate (2023), cited by 26. <http://arxiv.org/abs/2305.19118>
+14. From LLMs to LLM-based Agents for Software Engineering: A Survey of Current, Challenges and Future (2024), cited by 15. <http://arxiv.org/abs/2408.02479>
+15. PRefLexOR: preference-based recursive language modeling for exploratory optimization of reasoning and agentic thinking (2025), cited by 13. <https://doi.org/10.1038/s44387-025-00003-z>
+16. LLM-based Multi-Agent Reinforcement Learning: Current and Future Directions (2024), cited by 10. <http://arxiv.org/abs/2405.11106>
+17. Thematic-LM: A LLM-based Multi-agent System for Large-scale Thematic Analysis (2025), cited by 8. <https://doi.org/10.1145/3696410.3714595>
+18. LLM-Based Multi-Agent Systems for Software Engineering: Literature Review, Vision and the Road Ahead (2024), cited by 8. <http://arxiv.org/abs/2404.04834>
+19. Towards large language model-based personal agents in the enterprise: Current trends and open problems (2023), cited by 8. <https://doi.org/10.18653/v1/2023.findings-emnlp.461>
+20. TradingGPT: Multi-Agent System with Layered Memory and Distinct Characters for Enhanced Financial Trading Performance (2023), cited by 8. <http://arxiv.org/abs/2309.03736>
+21. SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering (2024). <https://arxiv.org/abs/2405.15793>
+22. CAMEL: Communicative Agents for Mind Exploration of Large Language Model Society (2023). <https://arxiv.org/abs/2303.17760>
+23. AgentVerse: Facilitating Multi-Agent Collaboration and Exploring Emergent Behaviors (2023). <https://arxiv.org/abs/2308.10848>
+24. MetaGPT: Meta Programming for Multi-Agent Collaborative Framework (2023). <https://arxiv.org/abs/2308.00352>
+
+### Safety/governance/LAW
+1. Reinforcement Learning: A Survey (1996), cited by 8635. <https://doi.org/10.1613/jair.301>
+2. A Multiagent Approach to Autonomous Intersection Management (2008), cited by 1283. <https://doi.org/10.1613/jair.2502>
+3. A comprehensive survey on safe reinforcement learning (2015), cited by 1191. <https://jmlr.csail.mit.edu/papers/volume16/garcia15a/garcia15a.pdf>
+4. Continuous control for robot based on deep reinforcement learning (2019), cited by 854. <https://doi.org/10.32657/10356/90191>
+5. Safe Learning in Robotics: From Learning-Based Control to Safe Reinforcement Learning (2022), cited by 594. <https://doi.org/10.1146/annurev-control-042920-020211>
+6. A Tour of Reinforcement Learning: The View from Continuous Control (2018), cited by 573. <https://doi.org/10.1146/annurev-control-053018-023825>
+7. Trustworthy artificial intelligence (2020), cited by 507. <https://doi.org/10.1007/s12525-020-00441-4>
+8. Meaningful Human Control over Autonomous Systems: A Philosophical Account (2018), cited by 405. <https://doi.org/10.3389/frobt.2018.00015>
+9. On banning autonomous weapon systems: human rights, automation, and the dehumanization of lethal decision-making (2012), cited by 339. <https://doi.org/10.1017/s1816383112000768>
+10. Reinforcement learning in robotic applications: a comprehensive survey (2021), cited by 318. <https://doi.org/10.1007/s10462-021-09997-9>
+11. A Review of Trustworthy and Explainable Artificial Intelligence (XAI) (2023), cited by 225. <https://doi.org/10.1109/access.2023.3294569>
+12. Improving Robot Controller Transparency Through Autonomous Policy Explanation (2017), cited by 219. <https://doi.org/10.1145/2909824.3020233>
+13. Responsibility Research for Trustworthy Autonomous Systems (Blue Sky Ideas Track) (2021), cited by 218. <https://eprints.soton.ac.uk/447511/1/Responsibility_Research_for_Trustworthy_Autonomous_Systems.pdf>
+14. Governance Strategies for a Sustainable Digital World (2018), cited by 215. <https://doi.org/10.3390/su10020440>
+15. Autonomous weapons systems, killer robots and human dignity (2018), cited by 176. <https://doi.org/10.1007/s10676-018-9494-0>
+16. Overcoming Barriers to Cross-cultural Cooperation in AI Ethics and Governance (2020), cited by 160. <https://doi.org/10.1007/s13347-020-00402-x>
+17. The Law of Armed Conflict: International Humanitarian Law in War (2021), cited by 124. <http://bvbr.bib-bvb.de:8991/F?func=service&doc_library=BVB01&local_base=BVB01&doc_number=020516470&sequence=000001&line_number=0001&func_code=DB_RECORDS&service_type=MEDIA>
+18. Autonomous Weapons and International Humanitarian Law: Advantages, Open Technical Questions and Legal Issues to be Clarified (2014), cited by 113. <https://archive-ouverte.unige.ch/unige:37976>
+19. Autonomous Weapon Systems and International Humanitarian Law: A Reply to the Critics (2012), cited by 101. <https://doi.org/10.2139/ssrn.2184826>
+20. Open Problems and Fundamental Limitations of Reinforcement Learning from Human Feedback (2023), cited by 88. <http://arxiv.org/abs/2307.15217>
+
+### Adversarial resilience
+1. Secure impulsive synchronization control of multi-agent systems under deception attacks (2018), cited by 324. <https://doi.org/10.1016/j.ins.2018.04.020>
+2. Secure impulsive synchronization in Lipschitz-type multi-agent systems subject to deception attacks (2020), cited by 165. <https://doi.org/10.1109/jas.2020.1003297>
+3. A study on cyber-security of autonomous and unmanned vehicles (2015), cited by 136. <https://doi.org/10.1177/1548512915575803>
+4. An analysis of the robustness of UAV agriculture field coverage using multi-agent reinforcement learning (2023), cited by 124. <https://doi.org/10.1007/s41870-023-01264-0>
+5. Cooperative adaptive fault-tolerant control for multi-agent systems with deception attacks (2020), cited by 111. <https://doi.org/10.1016/j.jfranklin.2019.12.032>
+6. Detection of Cyber-attacks to indoor real time localization systems for autonomous robots (2017), cited by 87. <https://doi.org/10.1016/j.robot.2017.10.006>
+7. Fault-Tolerant secure consensus tracking of delayed nonlinear multi-agent systems with deception attacks and uncertain parameters via impulsive control (2019), cited by 85. <https://doi.org/10.1016/j.cnsns.2019.105043>
+8. Robust Regional Coordination of Inverter-Based Volt/Var Control via Multi-Agent Deep Reinforcement Learning (2021), cited by 70. <https://doi.org/10.1109/tsg.2021.3104139>
+9. Enhancing Autonomous System Security and Resilience With Generative AI: A Comprehensive Survey (2024), cited by 60. <https://doi.org/10.1109/access.2024.3439363>
+10. Failure-Scenario Maker for Rule-Based Agent using Multi-agent Adversarial Reinforcement Learning and its Application to Autonomous Driving (2019), cited by 57. <https://doi.org/10.24963/ijcai.2019/832>
+11. Optimal Bi-Level Bidding and Dispatching Strategy Between Active Distribution Network and Virtual Alliances Using Distributed Robust Multi-Agent Deep Reinforcement Learning (2022), cited by 56. <https://doi.org/10.1109/tsg.2022.3164080>
+12. Securing unmanned autonomous systems from cyber threats (2016), cited by 50. <https://doi.org/10.1177/1548512916628335>
+13. Non-fragile consensus control for nonlinear multi-agent systems with uniform quantizations and deception attacks via output feedback approach (2019), cited by 49. <https://doi.org/10.1007/s11071-019-04787-z>
+14. Towards coordinated and robust real-time control: a decentralized approach for combined sewer overflow and urban flooding reduction based on multi-agent reinforcement learning (2022), cited by 48. <https://doi.org/10.1016/j.watres.2022.119498>
+15. Multi-Agent Adversarial Inverse Reinforcement Learning (2019), cited by 45. <http://arxiv.org/abs/1907.13220>
+16. An asymmetric Lyapunov-Krasovskii functional approach for event-triggered consensus of multi-agent systems with deception attacks (2022), cited by 44. <https://doi.org/10.1016/j.amc.2022.127584>
+17. Resilient finite-time distributed event-triggered consensus of multi-agent systems with multiple cyber-attacks (2022), cited by 44. <https://doi.org/10.1016/j.cnsns.2022.106876>
+18. Observer-based non-fragile <i>H</i><sub>∞</sub>-consensus control for multi-agent systems under deception attacks (2021), cited by 44. <https://doi.org/10.1080/00207721.2021.1884917>
+19. Behaviour-Based Anomaly Detection of Cyber-Physical Attacks on a Robotic Vehicle (2016), cited by 44. <https://doi.org/10.1109/iucc-css.2016.017>
+20. Resilience enhancement of multi-agent reinforcement learning-based demand response against adversarial attacks (2022), cited by 43. <https://doi.org/10.1016/j.apenergy.2022.119688>
+21. On the Robustness of Cooperative Multi-Agent Reinforcement Learning (2020). <https://arxiv.org/abs/2006.07538>
+22. Robust Multi-Agent Reinforcement Learning via Minimax Deep Deterministic Policy Gradient (2019). <https://arxiv.org/abs/1810.11960>
+
+
+## E.1 Optional next pass (v5.1) if desired
+
+- Add per-paper relevance tags: `core`, `supporting`, `adjacent`, `drop`.
+- Compute citation graph clusters to identify canonical hubs.
+- Produce a "DoW mission-control reading list" shortlist (25 papers) for direct memo integration.
+- Add a "warfighting translation" column for each paper (what control primitive it informs).
+
 
 ## Additional references for ACP warfighting imperative
 
-35. **GAO** — Defense Command and Control: Further Progress Hinges on Establishing a Comprehensive Framework (Apr 2025)  
-    <https://files.gao.gov/reports/GAO-25-106454/index.html>
-36. **CSIS** — Ukraine’s Future Vision and Current Capabilities for Waging AI-Enabled Autonomous Warfare (Mar 2025)  
-    <https://www.csis.org/analysis/ukraines-future-vision-and-current-capabilities-waging-ai-enabled-autonomous-warfare>
-37. **CSIS** — How Russia Is Reshaping Command and Control for AI-Enabled Warfare (Feb 2026)  
-    <https://www.csis.org/analysis/how-russia-reshaping-command-and-control-ai-enabled-warfare>
-38. **RAND** — How Could Artificial Intelligence Shape the Future of War? (2026)  
-    <https://www.rand.org/pubs/research_reports/RRA4316-1.html>
-39. **RAND** — Strategic competition in the age of AI: Emerging risks and opportunities from military use of AI (2024)  
-    <https://www.rand.org/pubs/research_reports/RRA3295-1.html>
-40. **NATO** — Summary of NATO’s revised AI strategy (Jul 2024)  
-    <https://www.nato.int/en/about-us/official-texts-and-resources/official-texts/2024/07/10/summary-of-natos-revised-artificial-intelligence-ai-strategy>
-41. **UK MOD (GOV.UK)** — JSP 936: Dependable Artificial Intelligence in defence (Part 1 directive) (Nov 2024)  
-    <https://www.gov.uk/government/publications/jsp-936-dependable-artificial-intelligence-ai-in-defence-part-1-directive>
-42. **UK MOD (GOV.UK)** — Laying the Groundwork: Responsible AI Senior Officers’ Report 2025 (Oct 2025)  
-    <https://www.gov.uk/government/publications/laying-the-groundwork-responsible-ai-senior-officers-report-2025>
-43. **U.S. Department of State** — Political Declaration on Responsible Military Use of Artificial Intelligence and Autonomy (updated 2024 context)  
-    <https://www.state.gov/bureau-of-arms-control-deterrence-and-stability/political-declaration-on-responsible-military-use-of-artificial-intelligence-and-autonomy>
-44. **UNODA** — Artificial intelligence in the military domain (including UNGA resolution 79/239 context)  
-    <https://disarmament.unoda.org/en/our-work/emerging-challenges/artificial-intelligence-military-domain>
-45. **SIPRI** — Retaining Human Responsibility in the Development and Use of Autonomous Weapon Systems (Oct 2022)  
-    <https://www.sipri.org/publications/2022/policy-reports/retaining-human-responsibility-development-and-use-autonomous-weapon-systems-accountability>
-46. **ICRC Law & Policy Blog** — Three lessons on AWS regulation to ensure accountability for IHL violations (Mar 2023)  
-    <https://blogs.icrc.org/law-and-policy/2023/03/02/three-lessons-autonomous-weapons-systems-ihl/>
-47. **DIU** — The Replicator Initiative (updated 2025)  
-    <https://www.diu.mil/replicator>
-48. **Arms Control Association** — AI and Nuclear Command and Control: It’s Even More Complicated Than You Think (Sep 2025)  
-    <https://www.armscontrol.org/act/2025-09/features/artificial-intelligence-and-nuclear-command-and-control-its-even-more>
-49. **Microsoft Copilot Blog** — Multi-agent orchestration announcements at Build 2025  
-    <https://www.microsoft.com/en-us/microsoft-copilot/blog/copilot-studio/multi-agent-orchestration-maker-controls-and-more-microsoft-copilot-studio-announcements-at-microsoft-build-2025/>
-50. **Google Cloud Blog** — Build and manage multi-system agents with Vertex AI (Apr 2025)  
-    <https://cloud.google.com/blog/products/ai-machine-learning/build-and-manage-multi-system-agents-with-vertex-ai>
-51. **Google Cloud Blog** — Agent2Agent protocol (A2A) is getting an upgrade (Jul 2025)  
-    <https://cloud.google.com/blog/products/ai-machine-learning/agent2agent-protocol-is-getting-an-upgrade>
-52. **Google Developers Blog** — Google Cloud donates A2A to Linux Foundation (Jun 2025)  
-    <https://developers.googleblog.com/en/google-cloud-donates-a2a-to-linux-foundation/>
-53. **U.S. Army** — Swarm Technology in Sustainment Operations (Jan 2025)  
-    <https://www.army.mil/article/282467/swarm_technology_in_sustainment_operations>
-54. **CNAS** — Countering the Swarm: Protecting the Joint Force in the Drone Age (Sep 2025)  
-    <https://s3.us-east-1.amazonaws.com/files.cnas.org/documents/Report_CUAS_Defense_Sep-2025_final.pdf>
-55. **CNA** — PRC Concepts for UAV Swarms in Future Warfare (Oct 2025)  
-    <https://www.cna.org/analyses/2025/10/prc-concepts-for-uav-swarms-in-future-warfare>
-56. **U.S. Secretary of Defense Memorandum** — Replicator 2 Direction and Execution (Sep 27, 2024)  
-    <https://s3.us-gov-west-1.amazonaws.com/assets.diu.mil/3nanhbfkr0pc/1dkJGhMeAgPldz1nnIwabK/abf85531a4281cddab6b0d8c953440e2/REPLICATOR-2-MEMO-SD-SIGNED__1_.pdf>
+35. **GAO** — Defense Command and Control: Further Progress Hinges on Establishing a Comprehensive Framework (Apr 2025)
+<https://files.gao.gov/reports/GAO-25-106454/index.html>
+36. **CSIS** — Ukraine’s Future Vision and Current Capabilities for Waging AI-Enabled Autonomous Warfare (Mar 2025)
+<https://www.csis.org/analysis/ukraines-future-vision-and-current-capabilities-waging-ai-enabled-autonomous-warfare>
+37. **CSIS** — How Russia Is Reshaping Command and Control for AI-Enabled Warfare (Feb 2026)
+<https://www.csis.org/analysis/how-russia-reshaping-command-and-control-ai-enabled-warfare>
+38. **RAND** — How Could Artificial Intelligence Shape the Future of War? (2026)
+<https://www.rand.org/pubs/research_reports/RRA4316-1.html>
+39. **RAND** — Strategic competition in the age of AI: Emerging risks and opportunities from military use of AI (2024)
+<https://www.rand.org/pubs/research_reports/RRA3295-1.html>
+40. **NATO** — Summary of NATO’s revised AI strategy (Jul 2024)
+<https://www.nato.int/en/about-us/official-texts-and-resources/official-texts/2024/07/10/summary-of-natos-revised-artificial-intelligence-ai-strategy>
+41. **UK MOD (GOV.UK)** — JSP 936: Dependable Artificial Intelligence in defence (Part 1 directive) (Nov 2024)
+<https://www.gov.uk/government/publications/jsp-936-dependable-artificial-intelligence-ai-in-defence-part-1-directive>
+42. **UK MOD (GOV.UK)** — Laying the Groundwork: Responsible AI Senior Officers’ Report 2025 (Oct 2025)
+<https://www.gov.uk/government/publications/laying-the-groundwork-responsible-ai-senior-officers-report-2025>
+43. **U.S. Department of State** — Political Declaration on Responsible Military Use of Artificial Intelligence and Autonomy (updated 2024 context)
+<https://www.state.gov/bureau-of-arms-control-deterrence-and-stability/political-declaration-on-responsible-military-use-of-artificial-intelligence-and-autonomy>
+44. **UNODA** — Artificial intelligence in the military domain (including UNGA resolution 79/239 context)
+<https://disarmament.unoda.org/en/our-work/emerging-challenges/artificial-intelligence-military-domain>
+45. **SIPRI** — Retaining Human Responsibility in the Development and Use of Autonomous Weapon Systems (Oct 2022)
+<https://www.sipri.org/publications/2022/policy-reports/retaining-human-responsibility-development-and-use-autonomous-weapon-systems-accountability>
+46. **ICRC Law & Policy Blog** — Three lessons on AWS regulation to ensure accountability for IHL violations (Mar 2023)
+<https://blogs.icrc.org/law-and-policy/2023/03/02/three-lessons-autonomous-weapons-systems-ihl/>
+47. **DIU** — The Replicator Initiative (updated 2025)
+<https://www.diu.mil/replicator>
+48. **Arms Control Association** — AI and Nuclear Command and Control: It’s Even More Complicated Than You Think (Sep 2025)
+<https://www.armscontrol.org/act/2025-09/features/artificial-intelligence-and-nuclear-command-and-control-its-even-more>
+49. **Microsoft Copilot Blog** — Multi-agent orchestration announcements at Build 2025
+<https://www.microsoft.com/en-us/microsoft-copilot/blog/copilot-studio/multi-agent-orchestration-maker-controls-and-more-microsoft-copilot-studio-announcements-at-microsoft-build-2025/>
+50. **Google Cloud Blog** — Build and manage multi-system agents with Vertex AI (Apr 2025)
+<https://cloud.google.com/blog/products/ai-machine-learning/build-and-manage-multi-system-agents-with-vertex-ai>
+51. **Google Cloud Blog** — Agent2Agent protocol (A2A) is getting an upgrade (Jul 2025)
+<https://cloud.google.com/blog/products/ai-machine-learning/agent2agent-protocol-is-getting-an-upgrade>
+52. **Google Developers Blog** — Google Cloud donates A2A to Linux Foundation (Jun 2025)
+<https://developers.googleblog.com/en/google-cloud-donates-a2a-to-linux-foundation/>
+53. **U.S. Army** — Swarm Technology in Sustainment Operations (Jan 2025)
+<https://www.army.mil/article/282467/swarm_technology_in_sustainment_operations>
+54. **CNAS** — Countering the Swarm: Protecting the Joint Force in the Drone Age (Sep 2025)
+<https://s3.us-east-1.amazonaws.com/files.cnas.org/documents/Report_CUAS_Defense_Sep-2025_final.pdf>
+55. **CNA** — PRC Concepts for UAV Swarms in Future Warfare (Oct 2025)
+<https://www.cna.org/analyses/2025/10/prc-concepts-for-uav-swarms-in-future-warfare>
+56. **U.S. Secretary of Defense Memorandum** — Replicator 2 Direction and Execution (Sep 27, 2024)
+<https://s3.us-gov-west-1.amazonaws.com/assets.diu.mil/3nanhbfkr0pc/1dkJGhMeAgPldz1nnIwabK/abf85531a4281cddab6b0d8c953440e2/REPLICATOR-2-MEMO-SD-SIGNED__1_.pdf>
+57. **X source pointer (The Information)** — post link queued for authenticated extraction
+<https://x.com/theinformation/status/2021707053727662407?s=46>
 
 ## Build target for review
 
-- Generated `.tex` source path (internal): `Whitepaper/writing/notes/tex/2026-02-12-annex-a-supporting-notes-v4.tex`
-- Generated PDF artifact path (internal): `out/memos/2026-02-12-annex-a-supporting-notes-v4.pdf`
+- Generated `.tex` source path (internal): `Whitepaper/writing/notes/tex/2026-02-12-annex-a-supporting-notes-v5.tex`
+- Generated PDF artifact path (internal): `out/memos/2026-02-12-annex-a-supporting-notes-v5.pdf`
 - Publication status: **draft / non-published**.
