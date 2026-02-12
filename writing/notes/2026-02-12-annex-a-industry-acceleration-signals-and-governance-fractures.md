@@ -526,6 +526,288 @@ ACP should be treated as a **programmatic prerequisite** for scaled autonomy ini
 4. Draft **acquisition language** mandating ACP conformance in solicitations and OTA pathways.
 5. Add **wargame inject library** for deception, spoofed telemetry, compromised connectors, and A2A trust abuse.
 
+## D.0 Mission Control doctrine for agentic swarms (ACP deepening)
+
+Thesis: in swarm-era conflict, **Mission Control is not a dashboard**. It is the doctrinal and technical mechanism that keeps delegated autonomy aligned to commander intent under uncertainty.
+
+Without Mission Control, swarms are just distributed compute with weapons-adjacent side effects.
+
+With Mission Control (ACP), swarms become governable military capability:
+
+- delegated, but bounded,
+- fast, but auditable,
+- resilient, but revocable.
+
+## D.1 Command relationship model mapped to ACP objects
+
+To make orchestration operationally legible, command relationships should map to machine-enforceable artifacts.
+
+### Commander intent packet (CIP)
+
+Minimum fields:
+
+- mission objective and desired effect,
+- negative constraints (no-go zones, forbidden targets/actions),
+- escalation thresholds,
+- risk budget,
+- legal policy profile,
+- expiry / review interval.
+
+### Delegation authority token (DAT)
+
+Machine-checkable token carrying:
+
+- who delegated authority,
+- what effect classes are authorized,
+- time/space scope,
+- tool/resource scopes,
+- revocation key and kill conditions.
+
+### Task execution envelope (TEE)
+
+Runtime envelope per assigned agent/squad:
+
+- allowed tools/connectors,
+- interaction permissions (which other agents may coordinate),
+- budget limits,
+- fallback behaviors under comms loss.
+
+### Evidence package (EP)
+
+Post-action bundle:
+
+- input context digest,
+- policy checks passed/failed,
+- tool call receipts,
+- output/action trace,
+- effect verification.
+
+## D.2 Orchestration topologies for contested environments
+
+### Topology A: centralized planner / distributed executors
+
+- Strength: coherent campaign-level prioritization.
+- Risk: planner bottleneck and single-point latency.
+- ACP mitigation: planner heartbeat bounds + automatic local fallback envelopes.
+
+### Topology B: hierarchical swarm cells
+
+- Strength: scalable command trees and local adaptation.
+- Risk: policy drift at lower echelons.
+- ACP mitigation: signed policy bundles + periodic conformity attestations.
+
+### Topology C: mesh federation via protocol (A2A-like)
+
+- Strength: cross-vendor and coalition interoperability.
+- Risk: trust transitivity abuse and policy bypass at protocol edges.
+- ACP mitigation: protocol-level identity attestation, least-privilege federation scopes, signed capability cards. [51][52]
+
+### Topology D: human-on-the-loop mission cell
+
+- Strength: legal and political control for high consequence actions.
+- Risk: operator overload and intervention lag.
+- ACP mitigation: consequence-tier routing and interrupt priority queues.
+
+## D.3 Swarm mission lifecycle with ACP control gates
+
+### Phase 1: Mission framing
+
+- Human command establishes CIP.
+- ACP pre-validates legal/policy compatibility against theater profile.
+
+### Phase 2: Force composition
+
+- Orchestrator allocates specialist agents and swarm units.
+- ACP checks each DAT/TEE against trust scope policy.
+
+### Phase 3: Execution and adaptation
+
+- Agents execute subtasks in parallel.
+- ACP enforces runtime policy, budget, and boundary checks per action.
+
+### Phase 4: Degraded operation
+
+- Under EW/comms impairment, swarms transition to preapproved degraded profiles.
+- ACP requires deterministic downgrade behavior, not emergent improvisation.
+
+### Phase 5: Effect verification
+
+- Mission effects must be verified through independent telemetry or fused confidence checks.
+- Unverified effects cannot be promoted as completed objectives.
+
+### Phase 6: Termination and reconstitution
+
+- Authority tokens expire, are renewed, or revoked.
+- Recovery workflows restore trusted state after fault or compromise.
+
+## D.4 Failure taxonomy for mission control in swarm conflict
+
+### F1. Intent dilution
+
+Subordinate agents optimize local proxy metrics and drift from commander effect.
+
+- Counter: intent anchoring checks at each task split.
+
+### F2. Policy race conditions
+
+Parallel agents trigger conflicting actions faster than governance checks converge.
+
+- Counter: atomic policy arbitration channels and action locks for shared resources.
+
+### F3. Context poisoning
+
+Untrusted observations contaminate planner state and cascade into swarm behavior.
+
+- Counter: provenance tagging, confidence weighting, adversarial context filters.
+
+### F4. Tool compromise / connector hijack
+
+Trusted action channels become adversary-controlled pathways.
+
+- Counter: connector attestation, runtime anomaly detection, immediate credential rotation.
+
+### F5. Comms partition collapse
+
+Disconnected swarm segments diverge and can no longer guarantee common operating logic.
+
+- Counter: partition-safe mission envelopes with hard stop rules.
+
+### F6. Forensic insufficiency
+
+Actions occurred, effects happened, but attribution and legal reconstruction are impossible.
+
+- Counter: mandatory EP completeness checks before mission closure.
+
+## D.5 Red-team inject library (mission-control stress tests)
+
+### Inject family A: Data and telemetry deception
+
+- spoofed ISR targets,
+- delayed sensor feeds,
+- contradictory multi-source observations.
+
+### Inject family B: Orchestration abuse
+
+- fake agent identity announcements,
+- cross-agent impersonation,
+- unauthorized delegation propagation.
+
+### Inject family C: Resource exhaustion
+
+- decoy swarms to drain interceptors,
+- command queue flooding,
+- policy engine saturation attempts.
+
+### Inject family D: Legal boundary pressure
+
+- borderline target discrimination,
+- adversary human-shield framing,
+- deceptive surrender/medical signals.
+
+### Inject family E: Recovery denial
+
+- compromised node rejoin attempts,
+- stale-policy replay,
+- corrupted mission logs at reintegration.
+
+## D.6 Mission Control readiness model (ACP-MC levels)
+
+### Level 0: Ad hoc autonomy
+
+- isolated tools, no enforceable trust scopes.
+
+### Level 1: Structured experimentation
+
+- pilots with basic logging and manual guardrails.
+
+### Level 2: Governed deployment
+
+- trust scopes, policy checks, and role-bound execution in production.
+
+### Level 3: Contested-ready orchestration
+
+- degraded-mode doctrine + partition-safe operation + red-team certification.
+
+### Level 4: Coalition-interoperable mission control
+
+- protocol federation with cross-org policy and evidence compatibility.
+
+### Level 5: Adaptive strategic control plane
+
+- continuous model/tool governance, campaign-scale optimization, and rapid reconstitution at force level.
+
+## D.7 Campaign archetypes where ACP Mission Control is decisive
+
+### Archetype 1: ISR-to-fire compression campaign
+
+- objective: reduce target cycle time while maintaining discrimination.
+- key ACP controls: confidence thresholds, dual-source verification, consequence-tier gating.
+
+### Archetype 2: Logistics corridor under drone harassment
+
+- objective: sustain throughput under persistent attrition pressure.
+- key ACP controls: convoy swarm overwatch orchestration, route policy adaptation, autonomous fallback routing.
+
+### Archetype 3: Base and force concentration C-UAS defense
+
+- objective: survive saturation and preserve operational continuity.
+- key ACP controls: priority queueing, magazine-aware engagement logic, layered defensive coordination.
+
+### Archetype 4: Multi-domain feint/deception battlespace
+
+- objective: avoid adversary manipulation and preserve decision quality.
+- key ACP controls: provenance-centric context fusion, anti-replay messaging, deception-resilient planning loops.
+
+## D.8 Acquisition and force-development implications
+
+### Requirement 1: No autonomy fielding without ACP compatibility profile
+
+Any agentic capability should publish an ACP compatibility declaration:
+
+- trust scope model,
+- policy integration points,
+- evidence schema conformance,
+- degraded-mode behavior,
+- revocation mechanism.
+
+### Requirement 2: Contractual enforcement clauses
+
+Programs should include enforceable clauses for:
+
+- security attestation of connectors and skills,
+- mandatory telemetry and evidence output formats,
+- continuous evaluation and rollback rights,
+- authority for emergency disablement.
+
+### Requirement 3: Training and command education
+
+Mission Control competence must become a command skill:
+
+- delegation design,
+- autonomy risk budgeting,
+- forensic interpretation,
+- degraded-mode battle drills.
+
+## D.9 Working conclusion (current)
+
+The core strategic question is not whether swarms or agent orchestration will matter. They already do.
+
+The strategic question is whether DoW can establish Mission Control discipline faster than adversaries can scale autonomous action.
+
+ACP is therefore not merely an architecture choice. It is a warfighting imperative tied to:
+
+- tempo,
+- legitimacy,
+- survivability,
+- and campaign-level adaptability.
+
+## D.10 Open source intake queue (pending authenticated extraction)
+
+- X post submitted by user:  
+  <https://x.com/vraserx/status/2021654971343610058?s=52>
+
+Current status: link captured as evidence pointer; full text extraction blocked in this environment due X authentication constraints.
+
 ## Additional references for ACP warfighting imperative
 
 35. **GAO** — Defense Command and Control: Further Progress Hinges on Establishing a Comprehensive Framework (Apr 2025)  
@@ -575,6 +857,6 @@ ACP should be treated as a **programmatic prerequisite** for scaled autonomy ini
 
 ## Build target for review
 
-- Generated `.tex` source path (internal): `Whitepaper/writing/notes/tex/2026-02-12-annex-a-supporting-notes-v3.tex`
-- Generated PDF artifact path (internal): `out/memos/2026-02-12-annex-a-supporting-notes-v3.pdf`
+- Generated `.tex` source path (internal): `Whitepaper/writing/notes/tex/2026-02-12-annex-a-supporting-notes-v4.tex`
+- Generated PDF artifact path (internal): `out/memos/2026-02-12-annex-a-supporting-notes-v4.pdf`
 - Publication status: **draft / non-published**.
