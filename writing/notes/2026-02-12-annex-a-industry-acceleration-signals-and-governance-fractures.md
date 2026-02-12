@@ -370,6 +370,162 @@ The following postulates now look supportable from the combined evidence set:
 4. Draft ACP red-team scenarios for contested data, deceptive tools, and supply-chain compromise.
 5. Add acquisition language templates to force ACP conformance in contracts and source selections.
 
+## C.0 What is now being said about agents, swarms, and mission control
+
+Across both defense analysis and commercial agent platform announcements, the narrative is converging:
+
+- single agents are insufficient for real missions,
+- orchestration is becoming the key control surface,
+- scaling without governance is treated as operational risk.
+
+Commercial language calls this multi-agent orchestration and ecosystem interoperability. Defense language calls this C2 modernization, kill-chain compression, and resilient force protection. Functionally, these are the same control problem under different stakes. [35][49][50][51][54]
+
+## C.1 Mission Control is the missing bridge between autonomy and command authority
+
+Observed gap: organizations can field models and tools, but still struggle to turn autonomy into **command-relevant effect** at scale.
+
+- GAO identifies that C2 progress is constrained by lack of comprehensive framework, fragmented data-sharing efforts, and unresolved structural obstacles. [35]
+- OpenAI’s Frontier framing similarly states that the limiting factor is no longer model intelligence alone, but the operational environment for deploying and managing agents with boundaries, permissions, and shared context. [1]
+- Google and Microsoft platform announcements increasingly foreground orchestration, delegation, and cross-agent collaboration as core primitives rather than optional extras. [49][50][51]
+
+### ACP implication
+
+ACP must be positioned as **Mission Control for delegated autonomy**:
+
+- not another chatbot interface,
+- not merely policy docs,
+- but an execution-time control system linking commander intent to bounded machine action.
+
+## C.2 Swarm reality: scale changes the defensive and command equation
+
+Recent defense writing frames swarm-scale autonomy as an operational, not conceptual, issue.
+
+- CNAS assesses cheap drones as a structural threat and argues the United States needs layered, scaled C-UAS and faster kill chains; no single silver-bullet solution exists. [54]
+- CNA’s PRC swarm analysis argues Chinese military research is actively incorporating swarm concepts for Taiwan scenarios and learning from current wars. [55]
+- U.S. Army sustainment commentary shows swarm concepts moving into logistics survivability discussions (convoy warning, support-area monitoring), indicating diffusion beyond frontline maneuver units. [53]
+
+### ACP implication
+
+Once threat volume rises, force performance is bounded by:
+
+1. detection-to-decision latency,
+2. decision-to-effect latency,
+3. coordination fidelity under degraded comms,
+4. ability to constrain cascading error across many autonomous executors.
+
+Those are Mission Control functions. They cannot be left implicit.
+
+## C.3 Agent orchestration trendline (commercial signals with defense relevance)
+
+### Signal cluster
+
+- **Google ADK / Vertex**: explicit multi-agent development, workflow orchestration (sequential/parallel/loop), and enterprise deployment/runtime controls. [50][52]
+- **A2A evolution**: stronger protocol maturity (security card signing, gRPC, SDK support) and ecosystem growth; protocol governance moving under Linux Foundation with major vendors participating. [51][52]
+- **Microsoft Copilot Studio**: multi-agent delegation across systems, with emphasis on coordination, controls, and enterprise integration. [49]
+
+### Why this matters to warfighting
+
+Even if commercial implementations are not military-grade, they reveal where the broader software base is moving:
+
+- orchestration as first-class capability,
+- protocolized inter-agent communication,
+- governance and observability as platform features.
+
+Adversaries can leverage these same primitives faster than bespoke military systems can be built from scratch. ACP should therefore exploit these trends while hardening them for contested and high-consequence use.
+
+## C.4 Replicator + C-UAS: acquisition pressure now favors control-plane discipline
+
+Replicator 1 and 2 signal an explicit move toward accelerated, high-volume autonomy and counter-autonomy acquisition pathways. [47][56]
+
+Replicator 2 memo language is especially relevant:
+
+- warfighter priority is C-sUAS protection,
+- obstacles include production, policy, architecture, integration, and force-structure realities,
+- expectation is capability delivery timeline tied to congressional funding approval. [56]
+
+### ACP implication
+
+When volume + urgency rise together, ad hoc integration becomes a risk multiplier.
+
+ACP should be treated as a **programmatic prerequisite** for scaled autonomy initiatives:
+
+- mandatory trust-scope enforcement,
+- mandatory evidence capture,
+- mandatory degraded-mode policy,
+- mandatory revocation and rollback mechanisms.
+
+## C.5 Mission Control and orchestration: ACP architecture v1 (expanded)
+
+### Layer 1: Intent and authority layer
+
+- Commander intent objects (mission, constraints, priorities, acceptable risk bounds).
+- Delegation authorities encoded as machine-verifiable policy.
+- Time-bounded authority tokens and explicit revocation semantics.
+
+### Layer 2: Orchestration layer
+
+- Task decomposition and assignment logic.
+- Agent role registry (planner, ISR analyst, logistics scheduler, effects coordinator, etc.).
+- Swarm coordination patterns (hierarchical, peer-to-peer, fallback-to-human).
+
+### Layer 3: Execution layer
+
+- Tool gateways and connector controls.
+- Cross-agent messaging policy checks.
+- Action authorization checkpoints by consequence tier.
+
+### Layer 4: Observability and evidence layer
+
+- End-to-end action trajectories.
+- Tool receipts + environmental context digests.
+- Runtime policy decisions and exception traces.
+
+### Layer 5: Resilience and recovery layer
+
+- Degraded comms behaviors.
+- Local autonomy fallback envelopes.
+- Resync/reconstitution playbooks after compromise or partition.
+
+## C.6 Proposed ACP metrics for swarm-era operations
+
+### Tempo metrics
+
+- **D2E (Delegation-to-Effect)**: median and P95 elapsed time from delegated intent to verified effect.
+- **C2 Compression Ratio**: baseline human-only cycle time / ACP-enabled cycle time.
+
+### Control integrity metrics
+
+- **Policy Conformance Rate**: authorized actions / total actions.
+- **Unauthorized Attempt Intercept Rate**: blocked unauthorized actions / unauthorized attempts.
+
+### Reliability and resilience metrics
+
+- **Degraded-Mode Continuity Score**: mission success under comms degradation relative to nominal.
+- **Reconstitution Time**: time from compromise containment to controlled restoration of delegated ops.
+
+### Accountability metrics
+
+- **Attributable Action Coverage**: share of consequential actions with complete provenance package.
+- **Forensic Sufficiency Score**: proportion of incidents with replay-capable evidence.
+
+## C.7 Mission Control pattern matrix (research synthesis)
+
+| Pattern | What it optimizes | Failure mode if unguided | ACP control needed |
+|---|---|---|---|
+| Hierarchical planner + executors | Coherent tasking at scale | Central bottleneck or stale global state | Bounded delegation + local fallback rules |
+| Parallel specialist agents | Throughput and specialization | Conflicting actions / duplicate effects | Arbitration policy + shared state constraints |
+| Protocol-based federation (A2A/MCP) | Cross-vendor interoperability | Trust leakage / policy bypass | Signed identity, attestation, protocol-level authZ |
+| Human-on-the-loop supervision | Legal and command oversight | Alert fatigue / delayed intervention | Consequence-tier gating + prioritized intervention queues |
+| High-volume swarm defense ops | Shot doctrine and magazine management | Resource exhaustion / saturation | Dynamic prioritization and budget-aware orchestration |
+
+## C.8 Immediate next expansion for this annex (if you want v4 next)
+
+1. Add a dedicated **Mission Control doctrine section** mapping ACP to command relationships in joint operations.
+2. Build a **Swarm Attack/Defense playbook appendix** (Red Sea + Ukraine + Taiwan scenario framing).
+3. Add **minimum ACP data schema** for intent packets, trust scopes, and evidence envelopes.
+4. Draft **acquisition language** mandating ACP conformance in solicitations and OTA pathways.
+5. Add **wargame inject library** for deception, spoofed telemetry, compromised connectors, and A2A trust abuse.
+
 ## Additional references for ACP warfighting imperative
 
 35. **GAO** — Defense Command and Control: Further Progress Hinges on Establishing a Comprehensive Framework (Apr 2025)  
@@ -400,9 +556,25 @@ The following postulates now look supportable from the combined evidence set:
     <https://www.diu.mil/replicator>
 48. **Arms Control Association** — AI and Nuclear Command and Control: It’s Even More Complicated Than You Think (Sep 2025)  
     <https://www.armscontrol.org/act/2025-09/features/artificial-intelligence-and-nuclear-command-and-control-its-even-more>
+49. **Microsoft Copilot Blog** — Multi-agent orchestration announcements at Build 2025  
+    <https://www.microsoft.com/en-us/microsoft-copilot/blog/copilot-studio/multi-agent-orchestration-maker-controls-and-more-microsoft-copilot-studio-announcements-at-microsoft-build-2025/>
+50. **Google Cloud Blog** — Build and manage multi-system agents with Vertex AI (Apr 2025)  
+    <https://cloud.google.com/blog/products/ai-machine-learning/build-and-manage-multi-system-agents-with-vertex-ai>
+51. **Google Cloud Blog** — Agent2Agent protocol (A2A) is getting an upgrade (Jul 2025)  
+    <https://cloud.google.com/blog/products/ai-machine-learning/agent2agent-protocol-is-getting-an-upgrade>
+52. **Google Developers Blog** — Google Cloud donates A2A to Linux Foundation (Jun 2025)  
+    <https://developers.googleblog.com/en/google-cloud-donates-a2a-to-linux-foundation/>
+53. **U.S. Army** — Swarm Technology in Sustainment Operations (Jan 2025)  
+    <https://www.army.mil/article/282467/swarm_technology_in_sustainment_operations>
+54. **CNAS** — Countering the Swarm: Protecting the Joint Force in the Drone Age (Sep 2025)  
+    <https://s3.us-east-1.amazonaws.com/files.cnas.org/documents/Report_CUAS_Defense_Sep-2025_final.pdf>
+55. **CNA** — PRC Concepts for UAV Swarms in Future Warfare (Oct 2025)  
+    <https://www.cna.org/analyses/2025/10/prc-concepts-for-uav-swarms-in-future-warfare>
+56. **U.S. Secretary of Defense Memorandum** — Replicator 2 Direction and Execution (Sep 27, 2024)  
+    <https://s3.us-gov-west-1.amazonaws.com/assets.diu.mil/3nanhbfkr0pc/1dkJGhMeAgPldz1nnIwabK/abf85531a4281cddab6b0d8c953440e2/REPLICATOR-2-MEMO-SD-SIGNED__1_.pdf>
 
 ## Build target for review
 
-- Generated `.tex` source path (internal): `Whitepaper/writing/notes/tex/2026-02-12-annex-a-supporting-notes-v2.tex`
-- Generated PDF artifact path (internal): `out/memos/2026-02-12-annex-a-supporting-notes-v2.pdf`
+- Generated `.tex` source path (internal): `Whitepaper/writing/notes/tex/2026-02-12-annex-a-supporting-notes-v3.tex`
+- Generated PDF artifact path (internal): `out/memos/2026-02-12-annex-a-supporting-notes-v3.pdf`
 - Publication status: **draft / non-published**.
