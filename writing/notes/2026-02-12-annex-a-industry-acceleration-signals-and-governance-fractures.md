@@ -239,8 +239,170 @@ These signals map directly to ACP/force-creation logic: decisive advantage comes
 34. **The Verge** — Anthropic turns to skills for workplace utility (Oct 16, 2025)  
    <https://www.theverge.com/ai-artificial-intelligence/800868/anthropic-claude-skills-ai-agents>
 
+## B.0 ACP as a warfighting imperative (continued research)
+
+Postulate: **the decisive wartime delta is no longer raw model quality; it is governed delegation throughput** under contested conditions.
+
+In practical terms, that means a force’s advantage depends on whether it can:
+
+1. delegate intent to machine-executed workflows quickly,
+2. preserve legality and commander accountability,
+3. remain coherent under EW/cyber/data degradation,
+4. recover and reconstitute after compromise.
+
+An Agent Control Plane (ACP) is the mechanism that turns those conditions into enforceable runtime behavior.
+
+## B.1 C2 integration debt is now a combat constraint
+
+GAO’s 2025 CJADC2 assessment describes progress, but also a structural deficit: no comprehensive framework to align investments, measure progress, and resolve persistent data-sharing obstacles across the enterprise. [35]
+
+Implication for ACP framing:
+
+- If C2 data integration and sharing is still uneven, autonomy does not remove that bottleneck automatically.
+- ACP must be treated as C2 infrastructure, not app middleware.
+- Classification, interoperability, and experimentation feedback loops must be policy-enforced surfaces, not optional integration tasks.
+
+## B.2 Battlefield evidence: autonomy shifts hit probability, cycle time, and manpower geometry
+
+Recent CSIS work on Ukraine reports partial autonomy already producing measurable effects:
+
+- AI-enabled autonomous navigation increases strike success probabilities under contested links.
+- Operators can achieve mission effects with fewer attempts/platform losses.
+- Modular autonomy components are moving across multiple unmanned platforms (air/ground) rapidly. [36]
+
+Parallel CSIS reporting on Russian adaptation claims unmanned systems are now central to fire workflows and that software-mediated kill-chain compression (hours to minutes) has become a primary optimization target. [37]
+
+Implication:
+
+- In modern conflict, tempo advantage is increasingly software-governed, not platform-governed.
+- ACP must treat sensor-to-shooter workflows as auditable, policy-constrained pipelines with explicit fallback behavior when comms and data quality degrade.
+
+## B.3 Force design trend: mass + deception + mission command + resilience
+
+RAND’s 2026 framework argues AI pressure concentrates around four competitions, including centralized-vs-decentralized C2 and cyber offense-vs-defense. Key implication is not “full centralization,” but mission-command-compatible delegation with resilient battle networks. [38]
+
+Complementary RAND 2024 work highlights deep uncertainty at strategic level and the need for iterative adaptation rather than static assumptions. [39]
+
+Implication for ACP:
+
+- ACP policy should encode **bounded decentralization**: local autonomy inside defined trust scopes, with command-level constraints and reversion logic.
+- The objective is not maximal autonomy. The objective is **reliable delegated effect under uncertainty**.
+
+## B.4 Alliance governance baseline is converging on enforceable controls
+
+NATO’s revised AI strategy elevates responsible-use principles, TEV&V, interoperability, and adversarial-risk monitoring as operational priorities. [40]
+
+The UK MOD’s JSP 936 (2024) and follow-on RAISO implementation reporting (2025) show concrete institutionalization patterns: lifecycle governance, assurance, ethical-principle operationalization, and named senior accountability roles. [41][42]
+
+The U.S.-led Political Declaration process (State Department) and UN General Assembly work on AI in the military domain reinforce lifecycle applicability of international law and responsibility norms. [43][44]
+
+Implication:
+
+- The governance baseline is shifting from principle-only to role/process/assurance structures.
+- ACP should assume coalition interoperability requires policy/provenance/evidence exchange standards, not just API compatibility.
+
+## B.5 Accountability problem is architectural, not rhetorical
+
+SIPRI/ICRC analysis emphasizes a persistent point: accountability cannot be transferred to machines; legal/operational responsibility requires clearer human-machine role boundaries, traceability, and investigability of outcomes. [45][46]
+
+Implication for ACP:
+
+- Every high-consequence action path needs attributable decision provenance.
+- Model/tool outputs are insufficient evidence by themselves.
+- Evidence envelopes should include intent, scope, context hash, tool/action trace, and post-action state checks.
+
+## B.6 Industrial scaling signal: autonomy is being procured as volume capability
+
+DIU’s Replicator framing (Replicator-1 and Replicator-2) explicitly ties autonomy to delivery speed, volume, and iterative fielding in support of operational demand. [47]
+
+Implication:
+
+- Once autonomy shifts to volume procurement logic, governance debt compounds quickly.
+- ACP needs to be in the acquisition gate, not added post-fielding.
+
+## B.7 Warfighting postulates for ACP
+
+The following postulates now look supportable from the combined evidence set:
+
+1. **Tempo postulate:** Software-mediated delegation can outpace human-only coordination loops in contested environments.
+2. **Fragility postulate:** Without control-plane governance, autonomy amplifies failure/compromise propagation.
+3. **Accountability postulate:** Legal/command responsibility at machine speed requires runtime provenance and auditable constraints.
+4. **Interoperability postulate:** Protocol-level portability without protocol-level governance is an adversary advantage.
+5. **Resilience postulate:** Durable advantage depends on degraded-mode operation and rapid reconstitution, not perfect uptime.
+
+## B.8 ACP minimum warfighting requirement set (v0)
+
+### Authority and scope
+
+- Typed trust scopes for agents, tools, data domains, and effects.
+- Commander-approved delegation manifests with expiry and revocation.
+
+### Policy and enforcement
+
+- Inline policy decision points for tool calls, cross-agent messaging, and external actions.
+- Consequence-tiered controls (observe-only, recommend, execute-with-checkpoint, execute-without-checkpoint).
+
+### Evidence and auditability
+
+- Default capture of action trajectory and evidence receipts.
+- Tamper-evident logs sufficient for after-action legal and operational review.
+
+### Degraded-mode behavior
+
+- Explicit EW/comms-loss policies (autonomy downgrade, mission abort, local fallback constraints).
+- Deterministic rejoin and resync behaviors.
+
+### Supply-chain and skill safety
+
+- Signed skills/connectors, provenance attestations, revocation channels.
+- Runtime sandboxing and scoped credential brokerage.
+
+### Evaluation and release
+
+- Mission-context eval gates, adversarial injection suites, drift alarms.
+- No-scale without passing eval + safety case.
+
+## B.9 Immediate expansion backlog (next research pass)
+
+1. Build comparative matrix: NATO/UK/U.S./UN governance requirements mapped to ACP control primitives.
+2. Add campaign-level case studies (Ukraine, Red Sea, ISR-to-fire integration) with common failure modes.
+3. Quantify a proposed **Delegation-to-Effect (D2E)** metric family for ACP performance tracking.
+4. Draft ACP red-team scenarios for contested data, deceptive tools, and supply-chain compromise.
+5. Add acquisition language templates to force ACP conformance in contracts and source selections.
+
+## Additional references for ACP warfighting imperative
+
+35. **GAO** — Defense Command and Control: Further Progress Hinges on Establishing a Comprehensive Framework (Apr 2025)  
+    <https://files.gao.gov/reports/GAO-25-106454/index.html>
+36. **CSIS** — Ukraine’s Future Vision and Current Capabilities for Waging AI-Enabled Autonomous Warfare (Mar 2025)  
+    <https://www.csis.org/analysis/ukraines-future-vision-and-current-capabilities-waging-ai-enabled-autonomous-warfare>
+37. **CSIS** — How Russia Is Reshaping Command and Control for AI-Enabled Warfare (Feb 2026)  
+    <https://www.csis.org/analysis/how-russia-reshaping-command-and-control-ai-enabled-warfare>
+38. **RAND** — How Could Artificial Intelligence Shape the Future of War? (2026)  
+    <https://www.rand.org/pubs/research_reports/RRA4316-1.html>
+39. **RAND** — Strategic competition in the age of AI: Emerging risks and opportunities from military use of AI (2024)  
+    <https://www.rand.org/pubs/research_reports/RRA3295-1.html>
+40. **NATO** — Summary of NATO’s revised AI strategy (Jul 2024)  
+    <https://www.nato.int/en/about-us/official-texts-and-resources/official-texts/2024/07/10/summary-of-natos-revised-artificial-intelligence-ai-strategy>
+41. **UK MOD (GOV.UK)** — JSP 936: Dependable Artificial Intelligence in defence (Part 1 directive) (Nov 2024)  
+    <https://www.gov.uk/government/publications/jsp-936-dependable-artificial-intelligence-ai-in-defence-part-1-directive>
+42. **UK MOD (GOV.UK)** — Laying the Groundwork: Responsible AI Senior Officers’ Report 2025 (Oct 2025)  
+    <https://www.gov.uk/government/publications/laying-the-groundwork-responsible-ai-senior-officers-report-2025>
+43. **U.S. Department of State** — Political Declaration on Responsible Military Use of Artificial Intelligence and Autonomy (updated 2024 context)  
+    <https://www.state.gov/bureau-of-arms-control-deterrence-and-stability/political-declaration-on-responsible-military-use-of-artificial-intelligence-and-autonomy>
+44. **UNODA** — Artificial intelligence in the military domain (including UNGA resolution 79/239 context)  
+    <https://disarmament.unoda.org/en/our-work/emerging-challenges/artificial-intelligence-military-domain>
+45. **SIPRI** — Retaining Human Responsibility in the Development and Use of Autonomous Weapon Systems (Oct 2022)  
+    <https://www.sipri.org/publications/2022/policy-reports/retaining-human-responsibility-development-and-use-autonomous-weapon-systems-accountability>
+46. **ICRC Law & Policy Blog** — Three lessons on AWS regulation to ensure accountability for IHL violations (Mar 2023)  
+    <https://blogs.icrc.org/law-and-policy/2023/03/02/three-lessons-autonomous-weapons-systems-ihl/>
+47. **DIU** — The Replicator Initiative (updated 2025)  
+    <https://www.diu.mil/replicator>
+48. **Arms Control Association** — AI and Nuclear Command and Control: It’s Even More Complicated Than You Think (Sep 2025)  
+    <https://www.armscontrol.org/act/2025-09/features/artificial-intelligence-and-nuclear-command-and-control-its-even-more>
+
 ## Build target for review
 
-- Generated `.tex` source path (internal): `Whitepaper/writing/notes/tex/2026-02-12-annex-a-supporting-notes-v1.tex`
-- Generated PDF artifact path (internal): `out/memos/2026-02-12-annex-a-supporting-notes-v1.pdf`
+- Generated `.tex` source path (internal): `Whitepaper/writing/notes/tex/2026-02-12-annex-a-supporting-notes-v2.tex`
+- Generated PDF artifact path (internal): `out/memos/2026-02-12-annex-a-supporting-notes-v2.pdf`
 - Publication status: **draft / non-published**.
