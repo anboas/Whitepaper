@@ -1,7 +1,7 @@
 digraph ACP_OV1_Clean {
 	graph [
 		fontname=Helvetica fontsize=10
-		label="Agent Control Plane (ACP) — OV-1 (Color-Coded, Outline-First)" labelloc=t
+		label="Agent Control Plane (ACP) — OV-1" labelloc=t
 		rankdir=LR
 		bgcolor="white"
 		splines=ortho

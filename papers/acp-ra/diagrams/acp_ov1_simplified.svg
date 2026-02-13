@@ -9,7 +9,7 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 529)">
 <title>ACP_OV1_Clean</title>
 <polygon fill="white" stroke="transparent" points="-4,4 -4,-529 1215,-529 1215,4 -4,4"/>
-<text text-anchor="middle" x="605.5" y="-513" font-family="Helvetica,sans-Serif" font-size="10.00">Agent Control Plane (ACP) — OV&#45;1 (Color&#45;Coded, Outline&#45;First)</text>
+<text text-anchor="middle" x="605.5" y="-513" font-family="Helvetica,sans-Serif" font-size="10.00">Agent Control Plane (ACP) — OV&#45;1</text>
 <g id="clust1" class="cluster">
 <title>cluster_enterprise</title>
 <path fill="white" stroke="#6f7e8c" stroke-width="1.45" d="M12,-155C12,-155 181,-155 181,-155 187,-155 193,-161 193,-167 193,-167 193,-418 193,-418 193,-424 187,-430 181,-430 181,-430 12,-430 12,-430 6,-430 0,-424 0,-418 0,-418 0,-167 0,-167 0,-161 6,-155 12,-155"/>
