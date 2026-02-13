@@ -13,64 +13,52 @@ digraph ACP_OV1_Clean {
 		shape=box
 		style="rounded,filled"
 		fillcolor="#FFFFFF"
-		color="#2F3B52"
-		penwidth=1.4
+		color="#27364A"
+		penwidth=1.65
 		margin="0.18,0.10"
 	]
 	edge [
 		fontname=Helvetica fontsize=9
 		color="#1F2937"
-		penwidth=1.2
+		penwidth=1.25
 		arrowsize=0.9
 	]
 
 	subgraph cluster_enterprise {
 		label="Already existing enterprise baseline"
 		style="rounded"
-		color="#7F8C8D"
-		penwidth=1.2
-		ICAM [label="Enterprise ICAM\n(PE + NPE)" fillcolor="#FFFFFF" color="#7F8C8D"]
-		ZT [label="Zero Trust / CNAP\n(ingress + egress)" fillcolor="#FFFFFF" color="#7F8C8D"]
-		DSO [label="DevSecOps Platform\n(CI/CD + supply chain)" fillcolor="#FFFFFF" color="#7F8C8D"]
-		SOC [label="SOC/CSSP\n(SIEM/SOAR)" fillcolor="#FFFFFF" color="#7F8C8D"]
+		color="#6F7E8C"
+		penwidth=1.45
+		ICAM [label="Enterprise ICAM\n(PE + NPE)" fillcolor="#FFFFFF" color="#6F7E8C"]
+		ZT [label="Zero Trust / CNAP\n(ingress + egress)" fillcolor="#FFFFFF" color="#6F7E8C"]
+		DSO [label="DevSecOps Platform\n(CI/CD + supply chain)" fillcolor="#FFFFFF" color="#6F7E8C"]
+		SOC [label="SOC/CSSP\n(SIEM/SOAR)" fillcolor="#FFFFFF" color="#6F7E8C"]
 	}
 
 	subgraph cluster_control {
 		label="ACP-RA specifically constitutes this control plane"
 		style="rounded"
-		color="#6C8EBF"
-		penwidth=1.4
-		AR [label="1) Agent Registry\n+ Persona Issuance" fillcolor="#FFFFFF" color="#6C8EBF"]
-		TS [label="2) Trust Scope Service\n(manifests)" fillcolor="#FFFFFF" color="#6C8EBF"]
-		POL [label="3) Policy Engine\n(PDP + policy-as-code)" fillcolor="#FFFFFF" color="#6C8EBF"]
-		MG [label="4) Model Gateway" fillcolor="#FFFFFF" color="#6C8EBF"]
-		DG [label="4) Data/Context Gateway" fillcolor="#FFFFFF" color="#6C8EBF"]
-		TG [label="4) Tool/Action Gateway" fillcolor="#FFFFFF" color="#6C8EBF"]
-		EH [label="5) Eval Harness\n+ Safety Gates" fillcolor="#FFFFFF" color="#6C8EBF"]
-		EL [label="6) Evidence Ledger" fillcolor="#FFFFFF" color="#6C8EBF"]
-		OB [label="6) Observability Plane" fillcolor="#FFFFFF" color="#6C8EBF"]
+		color="#5F84C2"
+		penwidth=1.65
+		AR [label="1) Agent Registry\n+ Persona Issuance" fillcolor="#FFFFFF" color="#5F84C2"]
+		TS [label="2) Trust Scope Service\n(manifests)" fillcolor="#FFFFFF" color="#5F84C2"]
+		POL [label="3) Policy Engine\n(PDP + policy-as-code)" fillcolor="#FFFFFF" color="#5F84C2"]
+		MG [label="4) Model Gateway" fillcolor="#FFFFFF" color="#5F84C2"]
+		DG [label="4) Data/Context Gateway" fillcolor="#FFFFFF" color="#5F84C2"]
+		TG [label="4) Tool/Action Gateway" fillcolor="#FFFFFF" color="#5F84C2"]
+		EH [label="5) Eval Harness\n+ Safety Gates" fillcolor="#FFFFFF" color="#5F84C2"]
+		EL [label="6) Evidence Ledger" fillcolor="#FFFFFF" color="#5F84C2"]
+		OB [label="6) Observability Plane" fillcolor="#FFFFFF" color="#5F84C2"]
 	}
 
 	subgraph cluster_runtime {
 		label="Runtime plane (mission-specific execution layer)"
 		style="rounded"
-		color="#82B366"
-		penwidth=1.2
-		RT [label="Agent Runtime(s)\n(K8s / container / edge)" fillcolor="#FFFFFF" color="#82B366"]
-		KB [label="Knowledge Stores" fillcolor="#FFFFFF" color="#82B366"]
-		TOOLS [label="Tool Runtimes" fillcolor="#FFFFFF" color="#82B366"]
-	}
-
-	subgraph cluster_legend {
-		label="Key (outline colors)"
-		style="rounded,dashed"
-		color="#B0B7C3"
-		penwidth=0.9
-		fontsize=8
-		node [fontsize=8 margin="0.10,0.06" penwidth=1.1]
-		LEG_EXIST [label="Existing baseline" fillcolor="#FFFFFF" color="#7F8C8D"]
-		LEG_ACP [label="ACP-RA control plane" fillcolor="#FFFFFF" color="#6C8EBF"]
-		LEG_RUNTIME [label="Runtime execution" fillcolor="#FFFFFF" color="#82B366"]
+		color="#72A858"
+		penwidth=1.45
+		RT [label="Agent Runtime(s)\n(K8s / container / edge)" fillcolor="#FFFFFF" color="#72A858"]
+		KB [label="Knowledge Stores" fillcolor="#FFFFFF" color="#72A858"]
+		TOOLS [label="Tool Runtimes" fillcolor="#FFFFFF" color="#72A858"]
 	}
 
 	ICAM -> AR [label="identities\n+ attributes"]
