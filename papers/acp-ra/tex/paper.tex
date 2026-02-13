@@ -214,9 +214,13 @@ DoW CIO reference architectures guide and constrain downstream architectures by 
 \begin{figure}[h]
   \centering
   \includegraphics[width=\linewidth]{papers/acp-ra/diagrams/acp_ov1_simplified.png}
-  \caption{Agent Control Plane OV-1 (Simplified). The control plane governs identity, trust scopes, policy, gateways, evaluation, and evidence across the runtime plane. It aligns to enterprise identity and access management, DevSecOps, Zero Trust/CNAP, and security operations patterns.}
+  \caption{Agent Control Plane OV-1 (Color-Coded). Key: gray = already existing enterprise baseline, teal = ACP-RA control-plane components, green = runtime execution layer integrated by ACP-RA.}
   \label{fig:acp-ov1}
 \end{figure}
+
+\textbf{What already exists:} Enterprise ICAM, Zero Trust/CNAP controls, DevSecOps platform, SOC/CSSP operations, and mission-specific runtime/tool infrastructure.
+
+\textbf{What ACP-RA specifically constitutes:} Agent registry and persona issuance, trust-scope service, policy engine (PDP + policy-as-code), model/data/tool gateways, evaluation harness with safety gates, and evidence/observability primitives.
 
 The conceptual model is a control system with two planes:
 

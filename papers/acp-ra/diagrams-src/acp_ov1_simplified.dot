@@ -1,7 +1,7 @@
 digraph ACP_OV1_Clean {
 	graph [
 		fontname=Helvetica fontsize=10
-		label="Agent Control Plane (ACP) — OV-1 (Simplified)" labelloc=t
+		label="Agent Control Plane (ACP) — OV-1 (Color-Coded)" labelloc=t
 		rankdir=LR
 		bgcolor="white"
 		splines=ortho
@@ -25,40 +25,57 @@ digraph ACP_OV1_Clean {
 	]
 
 	subgraph cluster_enterprise {
-		label="DoD Enterprise Baseline"
+		label="Already existing enterprise baseline"
 		style="rounded"
 		color="#94A3B8"
 		penwidth=1.2
-		ICAM [label="Enterprise ICAM\n(PE + NPE)" fillcolor="#FFFFFF"]
-		ZT [label="Zero Trust / CNAP\n(ingress + egress)" fillcolor="#FFFFFF"]
-		DSO [label="DevSecOps Platform\n(CI/CD + supply chain)" fillcolor="#FFFFFF"]
-		SOC [label="SOC/CSSP\n(SIEM/SOAR)" fillcolor="#FFFFFF"]
+		ICAM [label="Enterprise ICAM\n(PE + NPE)" fillcolor="#E2E8F0" color="#475569"]
+		ZT [label="Zero Trust / CNAP\n(ingress + egress)" fillcolor="#E2E8F0" color="#475569"]
+		DSO [label="DevSecOps Platform\n(CI/CD + supply chain)" fillcolor="#E2E8F0" color="#475569"]
+		SOC [label="SOC/CSSP\n(SIEM/SOAR)" fillcolor="#E2E8F0" color="#475569"]
 	}
 
 	subgraph cluster_control {
-		label="Agent Control Plane (govern + enforce + prove)"
+		label="ACP-RA specifically constitutes this control plane"
 		style="rounded"
-		color="#204060"
+		color="#0F766E"
 		penwidth=1.4
-		AR [label="Agent Registry\n+ Persona Issuance"]
-		TS [label="Trust Scope Service\n(manifests)"]
-		POL [label="Policy Engine\n(PDP + policy-as-code)"]
-		MG [label="Model Gateway"]
-		DG [label="Data/Context Gateway"]
-		TG [label="Tool/Action Gateway"]
-		EH [label="Eval Harness\n+ Safety Gates"]
-		EL [label="Evidence Ledger"]
-		OB [label="Observability Plane"]
+		AR [label="1) Agent Registry\n+ Persona Issuance" fillcolor="#CCFBF1" color="#0F766E"]
+		TS [label="2) Trust Scope Service\n(manifests)" fillcolor="#CCFBF1" color="#0F766E"]
+		POL [label="3) Policy Engine\n(PDP + policy-as-code)" fillcolor="#CCFBF1" color="#0F766E"]
+		MG [label="4) Model Gateway" fillcolor="#CCFBF1" color="#0F766E"]
+		DG [label="4) Data/Context Gateway" fillcolor="#CCFBF1" color="#0F766E"]
+		TG [label="4) Tool/Action Gateway" fillcolor="#CCFBF1" color="#0F766E"]
+		EH [label="5) Eval Harness\n+ Safety Gates" fillcolor="#CCFBF1" color="#0F766E"]
+		EL [label="6) Evidence Ledger" fillcolor="#CCFBF1" color="#0F766E"]
+		OB [label="6) Observability Plane" fillcolor="#CCFBF1" color="#0F766E"]
 	}
 
 	subgraph cluster_runtime {
-		label="Runtime Plane (execute)"
+		label="Runtime plane (mission-specific execution layer)"
 		style="rounded"
-		color="#94A3B8"
+		color="#86EFAC"
 		penwidth=1.2
-		RT [label="Agent Runtime(s)\n(K8s / container / edge)" fillcolor="#FFFFFF"]
-		KB [label="Knowledge Stores" fillcolor="#FFFFFF"]
-		TOOLS [label="Tool Runtimes" fillcolor="#FFFFFF"]
+		RT [label="Agent Runtime(s)\n(K8s / container / edge)" fillcolor="#DCFCE7" color="#15803D"]
+		KB [label="Knowledge Stores" fillcolor="#DCFCE7" color="#15803D"]
+		TOOLS [label="Tool Runtimes" fillcolor="#DCFCE7" color="#15803D"]
+	}
+
+	subgraph cluster_legend {
+		label="Key"
+		style="rounded,dashed"
+		color="#94A3B8"
+		penwidth=1.0
+		LEG_EXIST [label="Already existing baseline" fillcolor="#E2E8F0" color="#475569"]
+		LEG_ACP [label="ACP-RA constituted control-plane components" fillcolor="#CCFBF1" color="#0F766E"]
+		LEG_RUNTIME [label="Runtime execution layer (integrated/mission-specific)" fillcolor="#DCFCE7" color="#15803D"]
+		LEG_NOTE [
+			shape=note
+			style="filled"
+			fillcolor="#FEF9C3"
+			color="#A16207"
+			label="Reading guide:\nRe-use enterprise controls,\ninsert ACP-RA control plane,\nand enforce runtime through gateways + policy + evidence."
+		]
 	}
 
 	ICAM -> AR [label="identities\n+ attributes"]
