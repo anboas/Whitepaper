@@ -152,6 +152,35 @@ A software actor that can plan, retrieve context, communicate, invoke tools, and
 ## Persona
 A controlled mission role for an agent (e.g., enterprise drafting, logistics planner, intel triage, policy checker). Persona is an attribute used by policy.
 
+## Principal
+A security subject that can hold permissions and be audited. A principal may be a human identity (ICAM subject) or a non-person entity (NPE) such as an agent runtime, tool runtime, or service.
+
+## Delegation chain
+A signed binding that captures the principals involved in an execution step:
+
+- `ownerPrincipal`: the human or organization principal that created/owns the agent configuration.
+- `agentServicePrincipal`: the service principal under which the agent executor runs.
+- `onBehalfOfPrincipal`: the human principal whose authority is being exercised at a particular point in time (optional; required for delegated-user semantics).
+
+Delegation does not create authority. It selects whose authority is being exercised under the constraints of the trust scope and policy bundle. Effective authority composes by intersection across the trust scope and all principals present in the chain.
+
+## Trust boundaries: authority sources vs data sources
+
+### Authority sources (may authorize actions)
+
+1. Authenticated human principals and authenticated service principals.
+2. Signed trust scope manifests and signed policy bundles valid for the target environment.
+3. Policy decisions produced by authorized PDP/PEP enforcement at runtime.
+
+Delegation context is an authority *input*, not an authority *source*. Prompts, documents, or tool outputs MUST NOT be allowed to assert “on behalf of” execution. If an agent is acting on behalf of a human principal, that binding MUST be derived from an authenticated session and recorded as evidence; otherwise, the agent operates only as its own NPE identity under its trust scope.
+
+Declared intent is not an authority source. It is a claim recorded for accountability and policy evaluation; authorization still derives from authenticated principals, trust scope constraints, and policy decisions.
+
+### Data sources (inform decisions, never grant authority)
+
+- Prompts, retrieved documents, tool outputs, and model-generated text are data inputs only.
+- Data can influence prioritization and recommendation, but cannot grant privileges or delegation rights.
+
 ## Trust Scope Manifest (TSM)
 A signed, versioned contract defining an agent’s delegated authority and constraints:
 
@@ -161,6 +190,8 @@ A signed, versioned contract defining an agent’s delegated authority and const
 - uncertainty thresholds and escalation triggers
 - budgets (compute/tokens/tool calls/egress/power/time)
 - evidence requirements (fields, redactions, retention)
+- approved model profiles (MAP allowlist) and model usage modes by tier
+- policy trust anchors: accepted signing authorities (keys/certs) and allowlisted policy bundle and trust scope hashes per environment
 - degraded-mode behaviors and containment semantics
 
 ## Work unit
@@ -187,6 +218,32 @@ A signed, versioned set of policy rules consumed by enforcement points:
 - safety interlocks (quarantine/kill/rollback)
 - work-unit transition constraints (pause/resume/cancel)
 
+Policy authoring methods vary (boards, working groups, automated review pipelines, or hybrid workflows). ACP is agnostic to how policy is deliberated; it is strict about how policy becomes enforceable. Only signed, versioned policy bundles and trust scopes grant authority at runtime. Deliberation transcripts, discussions, and draft “constitutions” are procedural artifacts and MAY be recorded as evidence or procedural memory, but they MUST NOT be treated as executable authorization.
+
+## Model assurance profile (MAP)
+A signed, versioned artifact that describes the assurances and constraints of a model endpoint. A MAP is referenced by immutable hash and used by the model gateway for routing and enforcement.
+
+A MAP SHOULD include:
+
+- model identifier and version (or immutable build hash)
+- hosting boundary (enclave/region) and allowed deployment environments
+- data handling constraints (prompt/completion retention, training use, telemetry content)
+- security posture requirements (encryption, network boundary, authentication)
+- approved usage modes (interactive assistance vs autonomous agent execution)
+- eval coverage references (required eval packs, red-team suites, canary criteria)
+- rollback and deprecation signals (upgrade windows, kill-switch semantics)
+
+## Evidence export profile (EEP)
+A signed, versioned configuration that defines how canonical ACP evidence is transformed into derived event records for external consumers (for example SIEM pipelines or analytics systems). EEPs do not change what ACP records; they standardize how evidence is represented for downstream systems.
+
+An EEP MUST define:
+
+- target schema and profile identifier (when applicable)
+- required linkage fields (`envelopeHash`, `evidenceRootHash`, `workUnitId`, `trustScopeRef`, `policyBundleRef`)
+- field-level minimization and redaction rules
+- label propagation and access constraints for exported records
+- export destinations as governed sinks (export is an action, not a background task)
+
 ## Context bundle
 A replayable artifact representing retrieved/used context:
 
@@ -196,26 +253,119 @@ A replayable artifact representing retrieved/used context:
 - freshness/rot signals
 - a stable hash identifier (so later evidence can reference it)
 
-## Action envelope
-A signed record of an attempted tool/action:
+## Action envelope (minimum schema)
+A signed record of an attempted tool/action. Minimum schema example:
 
-- work_unit_id
-- request intent + parameters
-- policy decision + policy hash
-- approvals and override records (if any)
-- execution environment and attestation identifiers
-- outcome metadata
-- evidence pointers for replay
+```yaml
+actionEnvelope:
+  envelopeVersion: "v1"
+  actionId: "act-..."
+  workUnitId: "wu-..."
+  actor:
+    principalRef: "principal://npe/service/..."
+    persona: "ops-planner"
+  delegation:
+    ownerPrincipal: "principal://icam/subject/..."
+    agentServicePrincipal: "principal://npe/service/..."
+    onBehalfOfPrincipal: "principal://icam/subject/..."     # optional; required for delegated-user semantics
+    sessionRef: "session://sha256:..."                      # binds onBehalfOfPrincipal to an authenticated session
+    delegationHash: "sha256:..."                            # canonical hash of delegation fields
+  intent:
+    declaredPurpose: "Create a pull request to remediate CVE-2026-XXXX in repository X"
+    expectedEffects:
+      - "modify:repo://X/path/to/file"
+      - "create:repo://X/pull-request"
+    consequenceTier: "t2"
+    intentHash: "sha256:..."                                # canonical hash of intent fields
+  scope:
+    trustScopeRef: "trustscope://...@sha256:..."
+    policyBundleRef: "policy://...@sha256:..."
+  context:
+    bundleRefs:
+      - "context://...@sha256:..."
+  lineage:
+    model:
+      modelId: "model:..."
+      modelVersion: "sha256:..."
+      mapRef: "map://sha256:..."
+    tool:
+      toolId: "tool:github.pull_request.create"
+      toolVersion: "1.3.2"
+    outputs:
+      - artifactHash: "sha256:..."
+        artifactRef: "evidence://artifact/sha256:..."
+        labels: ["artifact:pr", "tier:t1"]
+  evidence:
+    envelopeHash: "sha256:..."
+    evidenceRootHash: "sha256:..."
+    traceId: "trace://..."
+  transport:                                                 # optional; only for tool-invocation actions
+    protocol: "<string>"                                   # e.g., "mcp", "grpc", "https"
+    serverId: "tool-server://..."
+    clientId: "agent-client://..."
+    connectionMode: "<string>"                             # e.g., "stdio", "http", "sse"
+  decision:
+    verdict: "allow"
+    decisionRef: "decision://..."
+  outcome:
+    status: "success"
+    completedAt: "2026-02-16T00:00:00Z"
+  signature:
+    signer: "principal://npe/service/..."
+    signatureAlgorithm: "ed25519"
+    signatureValue: "base64:..."
+```
 
-## Inter-agent message envelope
-A signed record of a message between agents (or ensembles):
+Minimum required properties (non-exhaustive):
 
-- work_unit_id (and optionally ensemble_id)
-- sender/receiver identities and personas
-- message type (typed schema)
-- TTL, rate-limit class, and fan-out metadata
-- provenance hashes (policy, tool outputs, referenced context bundles)
-- minimal “why” field for auditability
+- `workUnitId`, `trustScopeRef`, `policyBundleRef`, and policy decision references.
+- Delegation binding: `delegationHash` and signature-covered delegation fields; `onBehalfOfPrincipal` MUST be tied to an authenticated `sessionRef` when present.
+- Intent is an evidence-bearing claim. It is OPTIONAL for low-consequence reversible operations, but MUST be present (with `intentHash`) for irreversible actions and/or consequence tiers T2+ (as defined by the policy bundle / trust scope).
+- Lineage binding: `toolId`/`toolVersion`, `modelId`/`modelVersion` (or build hash) when applicable, and produced artifact hashes MUST be present and signature-covered to support trace-to-version replay.
+
+Additional normative rules:
+
+- `delegation` is OPTIONAL.
+- If `onBehalfOfPrincipal` is present, `sessionRef` MUST be present.
+- `delegationHash` MUST be computed over canonicalized delegation fields and covered by the envelope signature (not agent-supplied).
+- `intentHash` MUST be computed over canonicalized intent fields and MUST be signature-covered in the action envelope.
+- `envelopeHash` and `evidenceRootHash` MUST be computed by the gateway/evidence-ledger writer (not supplied by the agent).
+- `traceId` MUST be generated by the platform/gateway and propagated consistently across exports and observability.
+
+## Inter-agent message envelope (minimum schema)
+A signed record of a message between agents (or ensembles). Minimum schema example:
+
+```yaml
+messageEnvelope:
+  envelopeVersion: "v1"
+  messageId: "msg-..."
+  sender:
+    principalRef: "principal://npe/service/..."
+    persona: "ops-planner"
+  recipients:
+    - "principal://npe/service/..."
+  sequenceNumber: 14
+  ttlSeconds: 120
+  payloadHash: "sha256:..."
+  scope:
+    workUnitId: "wu-..."
+    trustScopeRef: "trustscope://...@sha256:..."
+    policyBundleRef: "policy://...@sha256:..."
+    delegation:
+      ownerPrincipal: "principal://icam/subject/..."
+      agentServicePrincipal: "principal://npe/service/..."
+      onBehalfOfPrincipal: "principal://icam/subject/..."     # optional
+      sessionRef: "session://sha256:..."
+      delegationHash: "sha256:..."
+  signature:
+    signer: "principal://npe/service/..."
+    signatureAlgorithm: "ed25519"
+    signatureValue: "base64:..."
+```
+
+Replay protection and signature coverage:
+
+- Signature coverage: the sender signature MUST cover recipients, sequenceNumber, TTL, payloadHash, workUnitId, trustScopeRef, policyBundleRef, and delegationHash (when present).
 
 ## Ensemble (swarm)
 A first-class multi-agent object with explicit governance:
@@ -343,6 +493,8 @@ The policy engine evaluates requests using:
 - work-unit state and constraints
 - environment signals (enclave, connectivity mode, posture)
 - resource tags (data labels, tool categories)
+- delegation context (`ownerPrincipal`, `agentServicePrincipal`, and `onBehalfOfPrincipal` where applicable), bound to an authenticated session claim
+- declared intent (`intentHash` and structured intent fields), treated as an evidence-bearing claim and validated against trust scope, policy, and observed actions
 - current budgets and risk posture
 
 PEPs exist at:
@@ -354,6 +506,20 @@ PEPs exist at:
 - model gateway
 - work-unit transitions (pause/resume/cancel)
 - CI/CD promotion gates
+
+## Runtime admission control (executor substrate)
+Agent orchestration depends on a compute substrate that is resilient, observable, and insulated. ACP treats executor placement as a policy-enforced admission problem, not an implementation detail.
+
+Runtime admission control enforces:
+
+- identity and scope validity: agent identity, persona, trust scope hash, and policy bundle hash MUST be validated before an executor can run.
+- delegated execution validity: if `onBehalfOfPrincipal` is asserted, it MUST be bound to a current authenticated `sessionRef` and included in the policy decision input.
+- sandbox profile selection: executors MUST run within a policy-selected sandbox profile aligned to consequence tier (isolation, filesystem controls, network egress, device access, and allowed tool classes).
+- ephemeral-by-default execution: agent executors SHOULD run on short-lived compute instances (containers/VMs) with immutable images and rapid rotation. Long-lived executors require explicit justification in policy and tighter monitoring.
+- secrets and credentials boundaries: executors MUST NOT hold long-lived credentials. Secrets are brokered per action via the secrets broker; models never receive credential material.
+- attestation hooks: where available, runtime posture and attestation identifiers SHOULD be produced and referenced (`attest://…`) so actions and messages can be tied to verified runtime state.
+
+The executor substrate is a bulkhead. It constrains the blast radius of compromised tools, poisoned context, and runaway coordination loops while preserving throughput under contested conditions.
 
 ## Model gateway
 The model gateway enforces:
@@ -368,6 +534,13 @@ The model gateway is also the upgrade discipline:
 - shadow → canary → promote → rollback
 - policy-hash and eval-pack gating
 
+Model routing is not only a performance decision; it is an assurance decision. Minimum additional requirements:
+
+- MAP allowlists: every routed model MUST resolve to an approved Model Assurance Profile (MAP) for the enclave and trust scope. Model routing policies reference MAP hashes, not informal names.
+- segmented permissions: permission to use a model for general interactive assistance MUST be separable from permission to use that model in autonomous agent workflows. Agent-building and agent-execution are distinct privileges.
+- evidence-grade metadata: model gateway events MUST stamp `modelId`/`modelVersion` (or build hash), MAP hash, route decision, and token/compute consumption so replay can reconstitute the exact reasoning core used.
+- assurance-preserving upgrades: model upgrades are promoted only if eval-pack gates pass for the applicable trust scopes. MAP changes (including data handling constraints or hosting boundary changes) are treated as upgrades and MUST be gated and rollbackable.
+
 ## Context/Data gateway
 This gateway turns “context engineering” into a governed plane:
 
@@ -376,6 +549,16 @@ This gateway turns “context engineering” into a governed plane:
 - minimization and redaction
 - freshness SLAs and “context rot” warnings
 - production of stable context bundles referenced by action envelopes
+
+### Memory governance (memory is data, not prompts)
+Agent “memory” is data movement and state mutation and MUST be governed like any other enterprise information flow.
+
+Minimum requirements:
+
+- uniform policy mediation: reads and writes MUST be mediated by the same tag-aware policy surface (ABAC + trust scope + environment posture), regardless of storage type (object, vector, stream, geospatial, media)
+- writes are side effects: every write to persistent stores MUST be treated as a governed action (policy decision, budgets, and evidence event)
+- provenance and labels: memory writes MUST inherit labels from sources unless policy explicitly redacts or downgrades, and MUST record provenance (for example source context bundle hashes)
+- poisoning response: memory poisoning is assumed. The gateway MUST support quarantine, re-index, and selective rollback of compromised knowledge nodes and embeddings
 
 ## Tool/Action gateway
 This is the most important boundary: it mediates side effects.
@@ -387,6 +570,8 @@ This is the most important boundary: it mediates side effects.
 - idempotency keys and retry control to prevent amplification
 - action envelopes emitted to evidence ledger
 - tool provenance and attestation stamped into every action envelope
+
+Tool transports are not trust boundaries. When a transport protocol is used to connect an agent to tools and resources (for example persistent sessions for tool discovery and invocation), the Tool/Action Gateway MUST treat the transport as a conduit and MUST still enforce policy at the gateway. For provenance, the gateway SHOULD capture transport metadata (server identity, client identity, connection mode) as evidence attributes on each tool invocation so that downstream exports and dashboards can correlate actions to the concrete execution channel.
 
 ### Tool/skill supply chain governance (registry + provenance tiers)
 Agent ecosystems expand by attaching tools, connectors, and “skills.” Open marketplaces make that expansion fast—and create a predictable attack surface.
@@ -442,6 +627,8 @@ The ACP does not bet on a single wire protocol; it standardizes the policy surfa
 - circuit breakers: cascade detection and automatic throttling/quarantine triggers
 - evidence emission: ensemble graph metadata sufficient for replay and triage
 
+Agents joining a swarm MUST verify the `trustScopeRef` and `policyBundleRef` hashes before accepting tasks or messages. Unknown or unverified policy artifacts result in refusal, quarantine, or escalation per policy.
+
 ### A2A ↔ MCP crosswalk (how both map to ACP boundaries)
 A2A and MCP address different interoperability surfaces. The ACP governs both by applying the same policy primitives—identity, trust scope, budgets, and evidence—at the appropriate gateway.
 
@@ -453,6 +640,16 @@ A2A and MCP address different interoperability surfaces. The ACP governs both by
 | Agent output becomes executable action | N/A | Tool/Action Gateway | approvals/quorums, sandboxing, secrets brokerage, action envelopes, rollback/replay |
 
 The design goal is not to predict which protocol dominates. The goal is to ensure that whichever protocols are used, they terminate at governed boundaries with consistent controls.
+
+### Standards touchpoints (non-normative)
+ACP is compatible with multiple standards-based identity and authorization approaches. Implementations MAY select one or more of the following patterns:
+
+- OAuth 2.x and OpenID Connect for delegated access and session-bound “on behalf of” semantics
+- workload identity and attestation frameworks (for example SPIFFE/SPIRE) for executor and tool runtime identities
+- SCIM for provisioning, lifecycle management, and deprovisioning of agent and tool identities where enterprise IAM systems require standard interfaces
+- attribute-centric authorization approaches (for example NGAC-style models) for fine-grained ABAC graphs and delegation semantics
+
+Selection of standards does not change ACP’s normative requirements: enforcement occurs at gateways using policy decisions, and evidence is signature-covered and replayable.
 
 ## Evaluation harness (functional + adversarial) and tool eval packs
 The evaluation harness provides:
@@ -488,6 +685,38 @@ Evidence is a structured event stream supporting:
 - attribution: who/what/under which scope/policy
 - replay: reconstructing intent → context → decision → action → outcome
 - continuous authorization: evidence inside the system boundary
+
+### Lineage graph (data → logic → action → artifact)
+Replay is only useful if the system can answer “what changed because of what.” ACP therefore requires a lineage graph that ties together data, logic, actions, and produced artifacts.
+
+Minimum lineage requirements:
+
+- every action envelope MUST be linkable to:
+  - the context bundles it relied on (hashes)
+  - the tool identity and version it invoked
+  - the model identity/version (or build hash) used for reasoning steps (when applicable)
+  - the policy bundle hash and decision record
+  - the produced artifact identifiers (content hashes and references)
+- lineage MUST be queryable across time for blast-radius analysis:
+  - “show all artifacts produced under trustScopeRef X”
+  - “show all actions that used toolVersion Y”
+  - “show all outputs derived from a given context bundle hash”
+  - “show all actions executed with MAP hash Z”
+
+Lineage is a control-plane capability. It enables fast containment, surgical rollback, and defensible audits without relying on informal operator reconstruction.
+
+### Evidence interchange formats (derived, non-authoritative)
+ACP evidence is recorded canonically as signature-covered action and message envelopes and persisted in the evidence ledger. Implementations MAY additionally produce derived event records in external schemas to support visualization, analytics, training oversight, and integration with existing observability and audit platforms.
+
+Derived records MUST be treated as non-authoritative representations:
+
+- canonical truth: the signature-covered ACP envelope and its evidence root remain the canonical record of what was requested, what was authorized, and what occurred
+- required linkage: every derived record MUST include an immutable pointer to its originating ACP envelope(s) (for example `envelopeHash` and `evidenceRootHash`) so any consumer can resolve back to the canonical record
+- immutable binding: derived records MUST carry canonical linkage fields as non-optional extensions (at minimum `envelopeHash` and `evidenceRootHash`)
+- no bypass: derived exports MUST NOT become the sole source of auditability. If export fails or is suppressed by policy, canonical evidence capture still occurs
+- policy-bound export: exporting evidence to external systems is a governed action. The export path MUST enforce labeling, minimization, redaction, and access constraints consistent with the trust scope and policy bundle (see Observability and SOC/CSSP integration)
+
+Non-normative examples of derived schemas include xAPI, common SIEM event shapes, and internal analytics schemas. Derived formats do not change ACP’s canonical evidence model.
 
 ### Swarm-scale evidence: hierarchical aggregation for practical replay
 Swarm replay can be prohibitively expensive if every message and trace is retained at full fidelity. ACP uses hierarchical evidence aggregation:
@@ -529,25 +758,24 @@ ACP emits telemetry so operations teams can see:
 - work-unit status and stall signals (blocked, deadlocked, retry storms)
 - containment events (quarantine/kill/rollback) with evidence pointers
 
+Telemetry and evidence are often more sensitive than the outputs they describe. ACP therefore treats logs, traces, and evidence as governed resources:
+
+- label-bound access: access to telemetry and evidence MUST be controlled by the same labeling and ABAC mechanisms used for data and artifacts. If evidence references labeled context, evidence access MUST not bypass those constraints
+- export is an action: exporting telemetry/evidence to external systems (including SIEM/SOAR) MUST be mediated as a governed tool/action with explicit policy, budgets, and evidence of the export itself
+- mutation audit: changes to policy bundles, trust scopes, model routes, tool registries, memory policies, and labeling rules MUST generate audit evidence with before/after hashes, actor identity, `delegationHash` (when present), and a reason code. Policy mutation is a first-class event stream, not an administrative footnote
+
+Exporting telemetry supports monitoring and visualization, but it does not replace canonical evidence capture. Auditability and non-repudiation derive from signature-covered envelopes persisted in the evidence ledger; exports are derived products that MUST link back to canonical hashes.
+
 ### Swarm observability: SOC/CSSP views
-For ensembles, the primary failure mode is a coordination cascade. ACP provides swarm-specific views:
 
-**Dashboards**
+- Identity and delegation: actions grouped by principal chain (owner, agent service principal, on-behalf-of principal), including session binding and denied/approved rates.
+- Tool utilization: tool invocations by `toolId`/`toolVersion`, by trust scope, and by consequence tier; include egress-denied and policy-blocked events.
+- Data and memory operations: read/write activity by label, by store type (working, episodic, semantic, procedural), including quarantine and rollback events.
+- Model usage: `modelId`/`modelVersion` and assurance profile (when used), token/latency/cost budgets, and anomaly triggers.
+- Policy mutation: before/after hashes, approvers, and effective-time changes for policy bundles, trust scopes, tool registries, and model routes.
+- Trace-to-version replay: drill-down from an output artifact to the exact context hashes, tool versions, model identifiers, and policy decision records that produced it.
 
-- coordination graph (A2A edges by type over time; fan-out heatmap)
-- arbitration events (conflicts, quorums, leader changes, deadlocks/timeouts)
-- budget burn-down (aggregate + per-role + anomaly overlays)
-- ensemble drift (distribution shifts across actions/plans)
-- work-unit DAG health (dependency blocks, repeated stalls)
-- containment posture (quarantined members, degraded mode active, policy lockdown status)
-
-**Alertable signals**
-
-- fan-out spikes and retry storms
-- message-type violations (out-of-scope coordination attempts)
-- budget exhaustion anomalies (loops, adversarial stimulus)
-- tool-call distribution shifts at ensemble level
-- quarantine and kill-switch activations with evidence references
+Dashboards are consumers of evidence, not sources of authority. Any dashboard view MUST be reconstructible from the evidence ledger.
 
 ## Containment and revocation
 Containment operates at multiple levels:
@@ -571,6 +799,7 @@ Budgets are policy-enforced constraints:
 - time
 - power (watt-hours) in edge deployments
 - risk budget (number of high-consequence actions per window)
+- unified token accounting: token usage MUST be attributable by work unit, trust scope, principal chain (`delegationHash`), and model MAP; budgets can be enforced and trended at each level
 
 Budget allocation can be static by tier or dynamic by mission priority (see “Patterns”).
 
@@ -642,6 +871,13 @@ Shared state is governed by:
 - concurrency semantics (leases, idempotency, OCC)
 - replayability (state changes reference evidence)
 - “memory hygiene” policies (retention, poisoning mitigation, periodic pruning)
+
+Shared state is also shared memory. To prevent “collective hallucination” becoming durable enterprise state, ACP requires:
+
+- memory typing: shared state stores MUST declare what type(s) of memory they contain (for example transient vs persistent; episodic vs semantic) or explicitly partition them
+- write constraints: writes MUST be scoped (by work unit, trust scope, and tags) and lease-controlled; long-lived shared writes require tighter tiers or explicit approvals
+- provenance-on-write: every mutation MUST reference evidence (policy decision, source context bundle hashes, and actor `delegationHash` when present)
+- hygiene as policy: retention windows, pruning cadence, and re-validation triggers MUST be declared in policy bundles and enforced automatically (not left to operator convention)
 
 ## Arbitration and deadlock prevention
 Ensembles declare:
@@ -928,11 +1164,19 @@ At minimum, version-control the following:
 - `inter-agent-policy.yaml`
 - `mcp-connectors/*.yaml` (MCP servers/resources/prompts allowlists, if used)
 - `model-routing.yaml`
+- `model-assurance/*.yaml` (Model Assurance Profiles; hosting + data handling + eval references)
+- `sandbox-profiles/*.yaml` (executor and tool sandbox profiles by tier and enclave)
+- `lineage-schema/*.json` (required lineage fields and query keys)
+- `delegation-schema/*.json` (delegation chain fields and signature coverage requirements)
+- `memory-policies/*.yaml` (retention, write rules, poisoning mitigation, pruning cadence)
+- `policy-trust-anchors/*.yaml` (accepted signing authorities and hash allowlists for policy bundles and trust scopes)
 - `context-sources.yaml`
 - `eval-packs/*.yaml`
 - `tool-evals/*.yaml`
 - `evidence-schema/*.json`
+- `evidence-export-profiles/*.yaml` (Evidence Export Profiles; minimization, linkage requirements, and governed sinks)
 - `dashboards/*.json` (SIEM/SOAR/SOC views)
+- `dashboard-queries/*.yaml` (optional: saved lineage/governance queries derived from evidence)
 - `runbooks/*.md` (containment, rollback, degraded-mode transitions)
 
 ---
@@ -1023,6 +1267,103 @@ spec:
     onBlockedSeconds: 300
     onNovelToolUse: true
 ```
+
+---
+
+# Appendix: Example model assurance profile (illustrative, non-normative)
+
+```yaml
+apiVersion: acp.dod/v1
+kind: ModelAssuranceProfile
+metadata:
+  name: "map-commercial-no-retention"
+spec:
+  modelId: "model:frontier-x"
+  modelVersion: "sha256:<immutable-build-hash>"
+  hosting:
+    enclave: "npe-il5"
+    region: "us-gov"
+  dataHandling:
+    promptRetention: "none"
+    completionRetention: "none"
+    trainingUse: "prohibited"
+    telemetryContent: "metadata-only"
+  usageModesAllowed:
+    - "interactive-assist"
+    - "agent-execution"
+  evalRequirements:
+    evalPackRefs:
+      - "eval://pack/agentic-baseline@sha256:..."
+      - "eval://pack/adversarial-injection@sha256:..."
+  lifecycle:
+    canaryPolicy: "shadow-then-canary"
+    rollback: "enabled"
+```
+
+---
+
+# Appendix: Example sandbox profile (illustrative, non-normative)
+
+```yaml
+apiVersion: acp.dod/v1
+kind: SandboxProfile
+metadata:
+  name: "sandbox:t2"
+spec:
+  isolation:
+    mode: "container"
+    ephemeral: true
+  filesystem: "read-only-root"
+  network:
+    egressPolicyRef: "egress:t2-restricted"
+    allowDns: true
+    allowOutboundDomains:
+      - "internal.gov.service"
+  secrets:
+    brokerRef: "secrets://broker/v1"
+    allowDirectSecretRead: false
+  observability:
+    sessionCapture: "enabled"
+    evidenceSampling: "high"
+  toolClassesAllowed:
+    - "data.read"
+    - "repo.pr.create"
+    - "ticket.update"
+```
+
+---
+
+# Appendix: Alignment to NIST “Software and AI Agent Identity and Authorization” focus areas (draft, as of 2026-02-16)
+
+This appendix maps ACP control surfaces to the identity and authorization considerations currently being explored by NIST NCCoE for software and AI agents. This is alignment context, not a dependency and not a normative requirement source.
+
+1. Identification
+   - ACP principals include human subjects and non-person entities (NPEs) and support stable identities (service principals) and ephemeral identities (run/session identifiers) bound to evidence.
+   - Trust scopes bind allowed actions to explicit principals and environments.
+2. Authentication
+   - ACP requires authenticated service identity for agent executors and authenticated human identity for delegated (“on behalf of”) execution.
+   - Key lifecycle (issuance/rotation/revocation) is an implementation requirement for executor and tool identities.
+3. Authorization
+   - ACP authorization is evaluated continuously using PDP/PEP enforcement at model, data/context, tool/action, and inter-agent gateways.
+   - Least privilege is enforced by trust scope constraints, policy bundles, environment posture, budgets, and consequence tiers.
+   - Delegation is explicit, session-bound, and intersected across owner, agent service principal, and on-behalf-of principal when present.
+4. Auditing and non-repudiation
+   - ACP emits signature-covered envelopes for all governed actions and messages and persists these into an evidence ledger sufficient for replay, attribution, and forensic reconstruction.
+   - Derived exports remain non-authoritative and MUST link back to canonical envelope hashes.
+5. Prompt injection prevention and mitigation
+   - ACP treats retrieved content and tool outputs as data, not authority.
+   - Context ingestion and tool outputs are label-scoped, provenance-tracked, and subject to quarantine, rollback, and minimization.
+
+---
+
+# Appendix: Memory modalities (illustrative)
+
+These modalities are implementation mental models. They do not create authority and do not change ACP’s trust boundaries.
+
+- Working memory: the information at the disposal of the agent during the current control loop (prompt inputs, intermediate variables, scratchpads). Working memory is transient by default and MUST NOT be persisted unless policy explicitly allows it.
+- Episodic memory: information retained across execution sessions that is primarily temporal (what happened, when, under which scope). Episodic memory SHOULD be implemented as structured, queryable records tied to work units and evidence roots.
+- Semantic memory: durable knowledge organized for retrieval (knowledge nodes, vector indexes, curated references). Semantic memory MUST be governed as a knowledge base: controlled ingestion, labeling, provenance, and periodic re-validation.
+- Procedural memory: durable instructions and routines that shape behavior (prompt templates, policies-as-code, workflow logic, tool schemas, agent “skills”). Procedural memory MUST be treated as a supply chain artifact: versioned, signed, evaluated, and promoted through gates.
 
 ---
 
