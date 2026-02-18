@@ -27,7 +27,7 @@ If you "ITARize" frontier AI in a way that captures general-purpose model develo
 - **Research disclosure becomes legally radioactive.** AI is not a single item you can box up. Competitiveness depends on iterative publication, open benchmarks, shared safety practices, and rapid diffusion of defensive techniques. Over-controlling "technical data" risks converting a safety culture into a legal risk surface.
 - **Compliance becomes a moat.** ITAR overhead does not fall evenly. It advantages incumbents with deep compliance departments and punishes startups and research labs where genuine innovation often occurs. You can accidentally build a policy that "secures" AI by concentrating it.
 
-This is not hypothetical. Even under the Commerce Department's Export Administration Regulations (EAR)-based approach, which is typically more flexible than ITAR, the U.S. has already seen backlash when proposed AI diffusion controls were viewed as innovation- and diplomacy-hostile. In May 2025, BIS explicitly described the Biden-era AI Diffusion Rule as something that "would have stifled American innovation" and "undermined U.S. diplomatic relations," then announced rescission with a replacement promised [3].
+This is not hypothetical. Even under the Commerce Department's Export Administration Regulations (EAR)-based approach, which is typically more flexible than ITAR, the U.S. has already seen backlash when proposed AI diffusion controls were viewed as innovation- and diplomacy-hostile. In May 2025, the Bureau of Industry and Security (BIS) explicitly described the Biden-era AI Diffusion Rule as something that "would have stifled American innovation" and "undermined U.S. diplomatic relations," then announced rescission with a replacement promised [3].
 
 If that friction triggered a course correction under EAR, it is hard to argue full ITAR treatment would be anything other than a strategic self-inflicted wound.
 
@@ -43,7 +43,7 @@ A maximalist ITAR approach would encourage:
 
 That is not security. That is strategic isolation.
 
-The U.S. government is already using a more targeted model. BIS has explored controlling model weights for the most advanced closed-weight AI models under EAR constructs. CRS coverage of the AI Diffusion Rule proposal discussed restrictions on model weights for advanced U.S. closed-weight dual-use AI models [4].
+The U.S. government is already using a more targeted model. BIS has explored controlling model weights for the most advanced closed-weight AI models under EAR constructs. Congressional Research Service (CRS) coverage of the AI Diffusion Rule proposal discussed restrictions on model weights for advanced U.S. closed-weight dual-use AI models [4].
 
 This is what scalable export control should look like: define a narrow set of controllable artifacts and chokepoints while avoiding a sweep of the domestic innovation base.
 
@@ -64,15 +64,17 @@ In practice, risk comes from systems that can:
 
 Those are governance failures. They are solvable with architecture, enforcement, and evidence. ITAR is an export regime, not an operational control plane.
 
+That is exactly where the Agent Control Plane Reference Architecture (ACP-RA) becomes strategically useful: it is not a theory of AI safety, but an implementation pattern for enforceable delegation, policy-gated action, and replayable operational evidence in high-consequence environments.
+
 ## A smarter alternative: dual-use controls + defense-unique controls + mandated provenance
 
 If the goal is reducing catastrophic misuse while preserving U.S. innovation, a more defensible approach is:
 
 1. **Keep general-purpose frontier model development under EAR, not ITAR,** with narrowly defined controls on specific high-risk artifacts (for example: certain closed-weight model weights, specialized training/inference pipelines, and chip-enabled training services), updated as thresholds shift [4].
 2. **Apply ITAR only to defense-unique implementations,** including fine-tunes, toolchains, integrations, and services specifically designed for military end use (targeting, weapons employment, mission systems integration). This aligns with ITAR's purpose: regulating defense articles/services and direct technical data [1].
-3. **Require "no identity, no action" provenance for high-consequence agentic systems** in regulated environments (defense, critical infrastructure, classified or controlled domains). Make provenance operationally mandatory: signed delegation chains, policy decisions at gateways, and replayable evidence.
+3. **Require "no identity, no action" provenance for high-consequence agentic systems** in regulated environments (defense, critical infrastructure, classified or controlled domains). Make provenance operationally mandatory: signed delegation chains, policy decisions at gateways, and replayable evidence, using ACP-RA as the reference implementation profile for program offices and mission owners.
 
-This preserves what matters most: U.S. ability to innovate broadly, collaborate with allies, and lead on safety, while still drawing hard lines around defense-unique capabilities and sensitive artifacts.
+This preserves what matters most: U.S. ability to innovate broadly, collaborate with allies, and lead on safety, while still drawing hard lines around defense-unique capabilities and sensitive artifacts. It also gives leaders a practical bridge between policy and execution: targeted export controls on one side, ACP-RA style operational governance on the other.
 
 ## The punchline
 
@@ -81,6 +83,8 @@ Putting "AI companies" under ITAR feels strong because ITAR is strong. In this d
 A sweeping ITAR move would slow U.S. innovation, fragment talent, complicate allied collaboration, and push development offshore, while doing little to stop capable actors elsewhere.
 
 If we want to keep the future from becoming science fiction, we should not start by regulating yesterday's way. We should regulate the condition that actually creates harm: **uncontrolled autonomy without enforceable identity, authorization, and action provenance.**
+
+That is the core case for ACP-RA. It lets the U.S. stay fast in frontier AI while being unambiguous about control, accountability, and mission-safe delegation where consequences are real.
 
 ## References
 
