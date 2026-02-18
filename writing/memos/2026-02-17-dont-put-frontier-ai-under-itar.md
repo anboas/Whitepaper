@@ -89,6 +89,6 @@ That is the core case for ACP-RA. It lets the U.S. stay fast in frontier AI whil
 ## References
 
 1. International Traffic in Arms Regulations (ITAR) | Wex | LII. https://www.law.cornell.edu/wex/international_traffic_in_arms_regulations_%28itar%29
-2. International Traffic in Arms Regulations (ITAR) Compliance -- Interim Policy | University of Arkansas Research Integrity and Compliance. https://rsic.uark.edu/exportcontrol/itar-compliance.php
+2. International Traffic in Arms Regulations (ITAR) Compliance - Interim Policy | University of Arkansas Research Integrity and Compliance. https://rsic.uark.edu/exportcontrol/itar-compliance.php
 3. Department of Commerce announces rescission of Biden-era AI Diffusion Rule | Bureau of Industry and Security. https://www.bis.gov/press-release/department-commerce-announces-rescission-biden-era-artificial-intelligence-diffusion-rule-strengthens
 4. U.S. Export Controls and China: Advanced Semiconductors | CRS | Congress.gov. https://www.congress.gov/crs-product/R48642
