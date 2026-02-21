@@ -1,7 +1,7 @@
 ---
 title: "Don't Put Frontier AI Under ITAR: A Blunt Instrument for a Dual-Use Reality"
 date: 2026-02-17
-summary: "A policy memo arguing against sweeping ITAR treatment for frontier AI and proposing a targeted control framework centered on dual-use export controls, defense-unique controls, and enforceable operational provenance."
+summary: "A policy memo arguing against sweeping ITAR treatment for frontier AI and proposing a targeted control framework centered on narrow export controls, defense-unique controls, and enforceable operational provenance."
 status: draft
 type: memo
 pdfPath: /memos/2026-02-17-dont-put-frontier-ai-under-itar.pdf
@@ -13,82 +13,81 @@ tags:
   - governance
 ---
 
-There is a seductive simplicity to the idea: if frontier AI models and agentic runtimes can enable lethal autonomy, cyber operations, and strategic-scale influence, then treat them like a weapon. Pull major AI companies under the International Traffic in Arms Regulations (ITAR), lock it down, and stop pretending it is "just software."
+## Executive Recommendation
 
-I am not convinced that works, and I am increasingly convinced it would backfire.
+Do not place general-purpose frontier artificial intelligence (AI) development under the International Traffic in Arms Regulations (ITAR).
 
-ITAR is built to control defense articles, defense services, and associated technical data on the U.S. Munitions List, administered by the State Department. It is intentionally broad and punitive, and "export" includes disclosing controlled technical data to foreign persons, including within the United States (a deemed export) [1]. That is a feature for missiles and fire-control systems. It is a bug for a technology ecosystem where capability is distributed across models, data, tooling, evaluation harnesses, chips, and the global talent base that builds and defends them.
+Instead, adopt a three-part policy:
 
-## The innovation cost would not be a side effect; it would be the main effect
+1. Keep broad frontier model development under the Export Administration Regulations (EAR), with narrow controls on specific high-risk artifacts and chokepoints.
+2. Apply ITAR only to defense-unique implementations and services designed for military end use.
+3. Require enforceable operational provenance for high-consequence agentic systems: clear identity, explicit authorization, and replayable action evidence.
 
-If you "ITARize" frontier AI in a way that captures general-purpose model development, you do not just throttle exports. You throttle basic operating mechanics:
+This approach is stronger in practice because it constrains real risk surfaces without freezing the U.S. innovation base.
 
-- **Hiring and collaboration become export-control exercises.** In ITAR-land, foreign-person access is not a rounding error; it is a compliance event. Day-to-day AI work, including code review, model debugging, red-teaming, and vendor incident response, depends on cross-border and cross-national participation. Treating routine collaboration as a regulated export will push companies into U.S.-person enclaves and split teams along citizenship lines [2].
-- **Research disclosure becomes legally radioactive.** AI is not a single item you can box up. Competitiveness depends on iterative publication, open benchmarks, shared safety practices, and rapid diffusion of defensive techniques. Over-controlling "technical data" risks converting a safety culture into a legal risk surface.
-- **Compliance becomes a moat.** ITAR overhead does not fall evenly. It advantages incumbents with deep compliance departments and punishes startups and research labs where genuine innovation often occurs. You can accidentally build a policy that "secures" AI by concentrating it.
+## Why Sweeping ITAR Coverage Is the Wrong Tool
 
-This is not hypothetical. Even under the Commerce Department's Export Administration Regulations (EAR)-based approach, which is typically more flexible than ITAR, the U.S. has already seen backlash when proposed AI diffusion controls were viewed as innovation- and diplomacy-hostile. In May 2025, the Bureau of Industry and Security (BIS) described the Biden-era AI Diffusion Rule as innovation-stifling and diplomatically harmful, and rescinded it pending replacement [3].
+The argument for full ITAR treatment sounds simple: advanced models can support lethal autonomy, cyber operations, and strategic influence, so regulate frontier AI like munitions.
 
-If that friction triggered a course correction under EAR, it is hard to argue full ITAR treatment would be anything other than a strategic self-inflicted wound.
+The problem is that ITAR was built for defense articles, defense services, and associated technical data on the U.S. Munitions List [1]. ITAR can be expansive by design, including treatment of disclosures to foreign persons as exports in defined contexts [2]. That design is appropriate for missiles, targeting systems, and tightly bounded military technologies. It is poorly matched to a distributed software ecosystem where capability is produced by combinations of model weights, data pipelines, evaluations, compute access, and operations engineering.
 
-## ITAR does not stop capability abroad; it mostly stops the U.S. from participating
+If policymakers "ITARize" general frontier AI development, the primary effect will be operational drag inside U.S. teams, not durable denial of capability abroad.
 
-The uncomfortable truth is that frontier AI is already global. Export controls can slow diffusion of specific chokepoints, such as chips, select manufacturing tools, and some closed-weight artifacts, but cannot prevent capable states and well-resourced firms from developing comparable systems.
+### 1) It would tax routine engineering and collaboration
 
-A maximalist ITAR approach would encourage:
+Modern AI work depends on cross-border teams, external researchers, cloud operators, and security responders. Sweeping ITAR treatment would push normal workflows into compliance-heavy pathways, slowing development and incident response.
 
-- sovereign model programs outside U.S. jurisdiction,
-- offshore safety and evaluation ecosystems that evolve without U.S. participation,
-- and a bifurcated world where U.S. AI becomes compliance-heavy and slower-moving while others innovate around it.
+### 2) It would concentrate innovation in a few incumbents
 
-That is not security. That is strategic isolation.
+Large firms can absorb complex export-control overhead. Startups, university labs, and smaller dual-use companies generally cannot. That creates policy-induced concentration risk.
 
-The U.S. government is already using a more targeted model. BIS has explored controlling model weights for the most advanced closed-weight AI models under EAR constructs. Congressional Research Service (CRS) coverage of the AI Diffusion Rule proposal discussed restrictions on model weights for advanced U.S. closed-weight dual-use AI models [4].
+### 3) It would not stop capable actors from building abroad
 
-This is what scalable export control should look like: define a narrow set of controllable artifacts and chokepoints while avoiding a sweep of the domestic innovation base.
+Advanced AI capability is already global. Aggressive U.S. restrictions can slow selected transfers, but they also incentivize offshore substitutes and sovereign programs. A maximalist framework can isolate U.S. participation faster than it suppresses global capability growth.
 
-## The real problem is not "AI exists"; it is "AI acts without governance"
+## Evidence From Recent Export-Control Friction
 
-The strongest ITARization argument is moral and operational: if AI can be used for lethal autonomy at scale, we have crossed a line, so treat enablers as munitions.
+Recent policy movement already shows the difficulty of broad diffusion controls. In 2025, the Bureau of Industry and Security (BIS) rescinded the prior AI Diffusion Rule and stated intent to replace it with a different approach [3].
 
-Even if you accept the premise, the conclusion does not follow.
+That episode does not prove export controls are ineffective. It does show that over-broad controls can trigger strategic and operational backlash, even before moving to the higher-friction ITAR regime.
 
-The answer to "Pandora's box is open" is not "regulate the box." It is "regulate the interfaces where the box touches reality."
+Congressional Research Service (CRS) analysis has also highlighted how advanced-compute and model-related controls are tied to specific technical chokepoints, not a blanket prohibition on all AI development [4]. That supports a narrow-control strategy rather than a category-wide ITAR shift.
 
-In practice, risk comes from systems that can:
+## What to Control Instead
 
-- access sensitive data without enforced labeling and minimization,
-- invoke tools with side effects without authorization gates,
-- operate with unclear "on behalf of" semantics,
-- and produce actions without provenance.
+The central policy mistake is framing the problem as "AI exists" instead of "AI acts in high-consequence environments without enforceable governance."
 
-Those are governance failures. They are solvable with architecture, enforcement, and evidence. ITAR is an export regime, not an operational control plane.
+For national security risk management, the key control points are operational:
 
-That is where an agent control-plane approach matters: enforceable delegation, policy-gated action, and replayable operational evidence in high-consequence environments (the Agent Control Plane Reference Architecture, ACP-RA, is one proposed reference architecture for this).
+- who is acting,
+- with what delegated authority,
+- against which systems and data,
+- under what policy gates,
+- with what auditable evidence.
 
-## A smarter alternative
+This is where architecture and enforcement matter. A control-plane model, such as the Agent Control Plane Reference Architecture (ACP-RA), addresses those conditions directly through delegated authority boundaries, policy decision points, and provenance requirements [5].
 
-If the goal is reducing catastrophic misuse while preserving U.S. innovation, a more defensible approach is:
+## Target Policy Package
 
-1. **Keep general-purpose frontier model development under EAR, not ITAR,** with narrowly defined controls on specific high-risk artifacts (for example: certain closed-weight model weights, specialized training/inference pipelines, and chip-enabled training services), updated as thresholds shift [4].
-2. **Apply ITAR only to defense-unique implementations,** including fine-tunes, toolchains, integrations, and services specifically designed for military end use (targeting, weapons employment, mission systems integration). This aligns with ITAR's purpose: regulating defense articles/services and direct technical data [1].
-3. **Require "no identity, no action" provenance for high-consequence agentic systems** in regulated environments (defense, critical infrastructure, classified or controlled domains). Make provenance operationally mandatory: signed delegation chains, policy decisions at gateways, and replayable evidence.
+A publishable U.S. position can be both hard-edged and practical:
 
-This preserves what matters most: U.S. ability to innovate broadly, collaborate with allies, and lead on safety, while still drawing hard lines around defense-unique capabilities and sensitive artifacts. It also gives leaders a practical bridge between policy and execution: targeted export controls on one side, and operational governance on the other.
+1. **EAR-first for general frontier AI:** keep baseline model development and broad commercial research in EAR scope, with technical thresholding tied to identifiable risk artifacts.
+2. **ITAR for defense-unique implementations:** apply ITAR when systems, fine-tunes, integrations, or services are purpose-built for military targeting, weapons employment, mission-system integration, or equivalent defense-unique end use.
+3. **Mandatory provenance in high-consequence deployments:** require identity-bound delegation, policy-gated tool execution, immutable logs, and replayable evidence for regulated mission environments.
+4. **Periodic threshold review:** update controlled-artifact definitions on a fixed cadence so controls remain tied to real technical change, not static assumptions.
 
-## Conclusion
+## Bottom Line
 
-Putting "AI companies" under ITAR feels strong because ITAR is strong. In this domain, strength is not measured by restrictiveness. It is measured by whether outcomes beat what adversaries can get for free.
+A sweeping ITAR approach to frontier AI feels forceful but is strategically blunt. It risks slowing U.S. innovation and allied collaboration while delivering limited long-run denial of capability to determined external actors.
 
-A sweeping ITAR move would slow U.S. innovation, fragment talent, complicate allied collaboration, and push development offshore, while doing little to stop capable actors elsewhere.
+A stronger strategy is targeted export control plus enforceable operational governance.
 
-If we want to keep the future from becoming science fiction, we should not start by regulating yesterday's way. We should regulate the condition that actually creates harm: **uncontrolled autonomy without enforceable identity, authorization, and action provenance.**
-
-Control the interfaces where autonomy touches reality - identity, authorization, and provenance - without freezing innovation.
+Control what is genuinely defense-unique. Control the chokepoints that are technically meaningful. And require verifiable identity, authorization, and provenance where autonomous systems can produce real-world effects.
 
 ## References
 
-1. International Traffic in Arms Regulations (ITAR) | Wex | LII. https://www.law.cornell.edu/wex/international_traffic_in_arms_regulations_%28itar%29
-2. International Traffic in Arms Regulations (ITAR) Compliance - Interim Policy | University of Arkansas Research Integrity and Compliance. https://rsic.uark.edu/exportcontrol/itar-compliance.php
-3. Department of Commerce announces rescission of Biden-era AI Diffusion Rule | Bureau of Industry and Security. https://www.bis.gov/press-release/department-commerce-announces-rescission-biden-era-artificial-intelligence-diffusion-rule-strengthens
-4. U.S. Export Controls and China: Advanced Semiconductors | CRS | Congress.gov. https://www.congress.gov/crs-product/R48642
+1. Electronic Code of Federal Regulations (eCFR), 22 CFR Parts 120-121 (ITAR scope, definitions, and U.S. Munitions List structure). https://www.ecfr.gov/current/title-22/chapter-I/subchapter-M
+2. Cornell Law School Legal Information Institute, International Traffic in Arms Regulations (ITAR) overview (including deemed-export framing). https://www.law.cornell.edu/wex/international_traffic_in_arms_regulations_%28itar%29
+3. Bureau of Industry and Security (BIS), U.S. Department of Commerce, "Department of Commerce Announces Rescission of Biden-Era Artificial Intelligence Diffusion Rule." https://www.bis.gov/press-release/department-commerce-announces-rescission-biden-era-artificial-intelligence-diffusion-rule-strengthens
+4. Congressional Research Service (CRS), "U.S. Export Controls and China: Advanced Semiconductors" (R48642), including discussion of AI-related control direction and chokepoint strategy. https://www.congress.gov/crs-product/R48642
+5. Adam Boas, "Agent Control Plane Reference Architecture (ACP-RA)." https://www.adamboas.com/writing/acp-ra/
