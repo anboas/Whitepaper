@@ -1,0 +1,33 @@
+digraph CAFAuthorityData {
+  rankdir=LR;
+  graph [bgcolor="white", pad="0.25", nodesep="0.6", ranksep="0.7", labelloc="t", label="CAF Separation: Authority Lane vs Data Lane"];
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10];
+  edge [color="#204060", arrowsize=0.75, penwidth=1.15];
+
+  subgraph cluster_auth {
+    label="Authority Lane";
+    color="#9A3412";
+    style="rounded,dashed";
+    ASM [label="Assurance Scope Manifest (ASM)", fillcolor="#FFF7ED", color="#9A3412"];
+    Policy [label="Policy Bundle", fillcolor="#FFF7ED", color="#9A3412"];
+    Decision [label="Decision Record\n(policy hash + ASM hash + refs)", fillcolor="#FFF7ED", color="#9A3412"];
+    ASM -> Decision;
+    Policy -> Decision;
+  }
+
+  subgraph cluster_data {
+    label="Data Lane";
+    color="#1D4ED8";
+    style="rounded,dashed";
+    Evidence [label="Evidence Envelopes", fillcolor="#EEF6FF", color="#1D4ED8"];
+    Posture [label="Posture + Confidence", fillcolor="#EEF6FF", color="#1D4ED8"];
+    Surface [label="Decision Surface", fillcolor="#EEF6FF", color="#1D4ED8"];
+    Evidence -> Posture -> Surface;
+  }
+
+  Evidence -> Decision [label="references", style=dashed];
+  Posture -> Decision [label="informs", style=dashed];
+
+  Guard [label="Rule: score informs,\nscore does NOT grant authority", shape=note, fillcolor="#FEF2F2", color="#991B1B", fontsize=10];
+  Posture -> Guard [style=dotted, color="#991B1B"];
+}

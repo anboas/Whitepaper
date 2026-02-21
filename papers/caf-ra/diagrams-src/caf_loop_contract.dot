@@ -1,0 +1,14 @@
+digraph CAFLoopContract {
+  rankdir=LR;
+  graph [bgcolor="white", pad="0.25", nodesep="0.55", ranksep="0.75", labelloc="t", label="CAF Loop Contract (Question -> Artifact -> Gate)"];
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=9.8];
+  edge [color="#204060", arrowsize=0.75, penwidth=1.15];
+
+  Emit [label="EMIT\nQ: What happened?\nOut: Evidence envelope\nGate: producer identity + signing"];
+  Enrich [label="ENRICH\nQ: Is evidence decision-grade?\nOut: labeled, anchored evidence\nGate: schema + anti-replay"];
+  Score [label="SCORE\nQ: What is posture/confidence?\nOut: posture statement + confidence\nGate: explainability to evidence IDs"];
+  Surface [label="SURFACE\nQ: Can humans supervise?\nOut: work-unit decision surface\nGate: drillable provenance"];
+  Act [label="ACT\nQ: What action is allowed now?\nOut: bounded enforcement action\nGate: decision record + verification"];
+
+  Emit -> Enrich -> Score -> Surface -> Act;
+}

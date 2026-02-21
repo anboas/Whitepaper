@@ -1,0 +1,20 @@
+digraph CAFDegraded {
+  rankdir=LR;
+  graph [bgcolor="white", pad="0.25", nodesep="0.6", ranksep="0.75", labelloc="t", label="CAF Degraded-Mode State Behavior"];
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10];
+  edge [color="#204060", arrowsize=0.75, penwidth=1.2];
+
+  Normal [label="Normal Connected\nfull policy/evidence exchange", fillcolor="#ECFDF5", color="#166534"];
+  Partitioned [label="Partition Detected\nlatency/loss/time-skew/deception", fillcolor="#FFF7ED", color="#9A3412"];
+  Local [label="Local Constrained Ops\ncache ASM+policy, bounded EPs\nno authority expansion", fillcolor="#FEF2F2", color="#991B1B"];
+  Reconcile [label="Reconciliation\nbackfill evidence + verify divergence\nresolve exceptions", fillcolor="#EEF6FF", color="#1D4ED8"];
+  Resume [label="Resume Normal\nupdated manifests + policy bundles", fillcolor="#ECFDF5", color="#166534"];
+
+  Normal -> Partitioned;
+  Partitioned -> Local [label="tighten authority"];
+  Local -> Reconcile [label="connectivity restored"];
+  Reconcile -> Resume;
+
+  Block [label="Blocked in degraded mode:\nraw cross-domain movement\nunbounded automation", shape=note, fillcolor="#FEF2F2", color="#991B1B", fontsize=9.5];
+  Local -> Block [style=dotted, color="#991B1B"];
+}

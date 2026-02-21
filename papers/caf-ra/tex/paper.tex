@@ -374,6 +374,12 @@ execution, translated to assurance. ({[}Adam Boas{]}{[}1{]})
 
 CAF is written as five verbs because the verbs are the architecture.
 
+\begin{figure}
+\centering
+\includegraphics[width=0.98\linewidth]{papers/caf-ra/diagrams/caf_loop_contract.png}
+\caption{CAF loop contracts: each stage answers a question, emits an artifact, and enforces a gate}
+\end{figure}
+
 \hypertarget{emit}{%
 \subsection{EMIT}\label{emit}}
 
@@ -596,6 +602,12 @@ verification is hope. CAF is built to replace hope with evidence.
 \caption{Decision-record driven enforcement at real operational boundaries}
 \end{figure}
 
+\begin{figure}
+\centering
+\includegraphics[width=0.98\linewidth]{papers/caf-ra/diagrams/caf_decision_trace.png}
+\caption{CAF decision trace from evidence to replay}
+\end{figure}
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{cross-cutting-the-governance-overlay}{%
@@ -604,6 +616,12 @@ overlay}\label{cross-cutting-the-governance-overlay}}
 
 The loop is the spine. Governance is the overlay that prevents the loop
 from becoming an untrusted dashboard.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.98\linewidth]{papers/caf-ra/diagrams/caf_authority_data_separation.png}
+\caption{Authority artifacts and data artifacts remain separate by design}
+\end{figure}
 
 \hypertarget{authority-assurance-scope-manifests-and-policy-bundles}{%
 \subsection{Authority: Assurance Scope Manifests and policy
@@ -659,6 +677,12 @@ CAF therefore supports ``autonomy cells'' not as a separate
 architecture, but as a deployment pattern: local enforcement points and
 local evidence buffering that can operate under denial while preserving
 replay and later reconciliation.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.98\linewidth]{papers/caf-ra/diagrams/caf_degraded_mode_state.png}
+\caption{Degraded-mode state transitions and authority tightening behavior}
+\end{figure}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 

@@ -1,0 +1,17 @@
+digraph CAFDecisionTrace {
+  rankdir=LR;
+  graph [bgcolor="white", pad="0.25", nodesep="0.6", ranksep="0.7", labelloc="t", label="CAF Decision Trace and Replay Chain"];
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10];
+  edge [color="#204060", arrowsize=0.75, penwidth=1.2];
+
+  E [label="Evidence Envelope\n(identity + schema + labels + integrity)", fillcolor="#EEF6FF"];
+  D [label="Decision Record\n(ASM hash + policy hash + evidence refs)", fillcolor="#FFF7ED", color="#9A3412"];
+  EP [label="Enforcement Point\n(merge/admission/segmentation/data/response)"];
+  A [label="Action Record\n(principal + scope + effect)"];
+  V [label="Verification Evidence\n(independent signal confirms effect)", fillcolor="#ECFDF5", color="#166534"];
+  R [label="Replay / After-Action\nwhat known -> decided -> done", fillcolor="#F1F5F9"];
+
+  E -> D -> EP -> A -> V -> R;
+  E -> R [style=dashed, label="reconstruct state"];
+  D -> R [style=dashed, label="reconstruct authority"];
+}
