@@ -1,0 +1,48 @@
+digraph CAFBoundaries {
+  rankdir=LR;
+  graph [bgcolor="white", pad="0.25", nodesep="0.55", ranksep="0.65", labelloc="t", label="CAF Enforcement at Real Boundaries"];
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10.5];
+  edge [color="#204060", arrowsize=0.75, penwidth=1.2];
+
+  Decision [label="Decision Record\n(policy hash + ASM hash + evidence refs)", fillcolor="#EEF6FF"];
+
+  subgraph cluster_factory {
+    label="Software Factory";
+    color="#94A3B8";
+    style="rounded,dashed";
+    Merge [label="Merge Gate"];
+    Promote [label="Promotion Gate"];
+  }
+
+  subgraph cluster_runtime {
+    label="Runtime";
+    color="#94A3B8";
+    style="rounded,dashed";
+    Admission [label="Admission Gate"];
+    Segment [label="Segmentation Gate"];
+    Data [label="Data-Access Gate"];
+  }
+
+  subgraph cluster_response {
+    label="Response";
+    color="#94A3B8";
+    style="rounded,dashed";
+    Response [label="Bounded Response\nAutomation Gate"];
+  }
+
+  Verify [label="Independent Verification\n(closes loop)", fillcolor="#FFF7ED", color="#9A3412"];
+
+  Decision -> Merge;
+  Decision -> Promote;
+  Decision -> Admission;
+  Decision -> Segment;
+  Decision -> Data;
+  Decision -> Response;
+
+  Merge -> Verify [style=dashed, color="#9A3412"];
+  Promote -> Verify [style=dashed, color="#9A3412"];
+  Admission -> Verify [style=dashed, color="#9A3412"];
+  Segment -> Verify [style=dashed, color="#9A3412"];
+  Data -> Verify [style=dashed, color="#9A3412"];
+  Response -> Verify [style=dashed, color="#9A3412"];
+}

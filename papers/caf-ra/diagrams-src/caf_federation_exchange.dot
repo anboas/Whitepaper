@@ -1,0 +1,37 @@
+digraph CAFFederation {
+  rankdir=LR;
+  graph [bgcolor="white", pad="0.25", nodesep="0.7", ranksep="0.65", labelloc="t", label="Federated Posture Exchange (Summary by Default)"];
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10.5];
+  edge [color="#204060", arrowsize=0.75, penwidth=1.2];
+
+  subgraph cluster_a {
+    label="Enclave A";
+    color="#94A3B8";
+    style="rounded,dashed";
+    APolicy [label="ASM + Policy Bundles", fillcolor="#EEF6FF"];
+    AEvidence [label="Evidence + Decisions", fillcolor="#EEF6FF"];
+    ASummary [label="Posture Summary\n(minimized)"];
+  }
+
+  Broker [label="Exchange Boundary\n(contract + conformance checks)", fillcolor="#FFF7ED", color="#9A3412"];
+
+  subgraph cluster_b {
+    label="Enclave B";
+    color="#94A3B8";
+    style="rounded,dashed";
+    BPolicy [label="ASM + Policy Bundles", fillcolor="#EEF6FF"];
+    BEvidence [label="Evidence + Decisions", fillcolor="#EEF6FF"];
+    BSummary [label="Posture Summary\n(minimized)"];
+  }
+
+  ASummary -> Broker -> BSummary;
+  BSummary -> Broker -> ASummary;
+
+  APolicy -> ASummary [style=dashed];
+  AEvidence -> ASummary [style=dashed];
+  BPolicy -> BSummary [style=dashed];
+  BEvidence -> BSummary [style=dashed];
+
+  RawMove [label="Raw evidence movement\n(exception-only, governed)", shape=note, fillcolor="#FEF2F2", color="#991B1B", fontname="Arial", fontsize=10];
+  Broker -> RawMove [style=dotted, color="#991B1B"];
+}

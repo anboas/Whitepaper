@@ -1,0 +1,21 @@
+digraph CAFAdoption {
+  rankdir=LR;
+  graph [bgcolor="white", pad="0.25", nodesep="0.55", ranksep="0.65", labelloc="t", label="CAF Adoption Progression"];
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10.5];
+  edge [color="#204060", arrowsize=0.75, penwidth=1.2];
+
+  P1 [label="Phase 1\nShadow Mode\n(no enforcement)", fillcolor="#EEF6FF"];
+  P2 [label="Phase 2\nLow-Consequence Gates\n(promotion/admission)"];
+  P3 [label="Phase 3\nBounded Containment\n(verified remediation)"];
+  P4 [label="Phase 4\nFederated Scaling\n(cross-enclave conformance)", fillcolor="#ECFDF5", color="#166534"];
+
+  P1 -> P2 -> P3 -> P4;
+
+  M1 [label="Exit criteria:\ndecision-grade evidence quality", shape=note, fillcolor="#FFF7ED", color="#9A3412", fontsize=9.5];
+  M2 [label="Exit criteria:\nrollback + blast-radius discipline", shape=note, fillcolor="#FFF7ED", color="#9A3412", fontsize=9.5];
+  M3 [label="Exit criteria:\nposture-summary contracts", shape=note, fillcolor="#FFF7ED", color="#9A3412", fontsize=9.5];
+
+  P1 -> M1 [style=dashed, color="#9A3412"];
+  P2 -> M2 [style=dashed, color="#9A3412"];
+  P3 -> M3 [style=dashed, color="#9A3412"];
+}

@@ -1,19 +1,21 @@
-digraph CAF {
+digraph CAFCore {
   rankdir=LR;
-  graph [bgcolor="white", pad="0.2", nodesep="0.5", ranksep="0.6"];
+  graph [bgcolor="white", pad="0.25", nodesep="0.55", ranksep="0.65", labelloc="t", label="CAF Core Loop"];
   node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=11];
-  edge [color="#204060", arrowsize=0.7, penwidth=1.2];
+  edge [color="#204060", arrowsize=0.75, penwidth=1.25];
 
-  Runtime [label="Runtime Plane\n(factory, runtime, identity, network, data)"];
+  Runtime [label="Runtime Plane\n(factory, runtime, identity, network, data)", fillcolor="#EEF6FF"];
   Emit [label="EMIT"];
   Enrich [label="ENRICH"];
   Score [label="SCORE"];
   Surface [label="SURFACE"];
   Act [label="ACT"];
-  Governance [label="Governance Overlay\n(ASM + policy bundles + replay)"];
+  Governance [label="Governance Overlay\n(ASM + policy bundles + replay)", fillcolor="#FFF7ED", color="#9A3412"];
 
-  Runtime -> Emit -> Enrich -> Score -> Surface -> Act;
-  Governance -> Enrich;
-  Governance -> Score;
-  Governance -> Act;
+  Runtime -> Emit;
+  Emit -> Enrich -> Score -> Surface -> Act;
+
+  Governance -> Enrich [style=dashed, color="#9A3412"];
+  Governance -> Score [style=dashed, color="#9A3412"];
+  Governance -> Act [style=dashed, color="#9A3412"];
 }
