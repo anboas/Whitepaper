@@ -1,0 +1,14 @@
+paper:
+  id: caf-ra
+  title: "Continuous Assurance Fabric Reference Architecture (CAF-RA)"
+  subtitle: "A control-plane architecture for governed, scalable continuous assurance at mission tempo"
+  date: "February 2026"
+  series_tag: "Whitepaper Series"
+
+author:
+  name: "Adam Boas"
+  role: "Agentic Warfare Architect, Department of War"
+
+distribution:
+  channel: "Working draft (unpublished)"
+  disclaimer: "Views are the author's and do not represent official policy."
