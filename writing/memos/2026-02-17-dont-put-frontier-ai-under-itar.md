@@ -2,9 +2,9 @@
 title: "Don't Put Frontier AI Under ITAR: A Blunt Instrument for a Dual-Use Reality"
 date: 2026-02-17
 summary: "A policy memo arguing against sweeping ITAR treatment for frontier AI and proposing a targeted control framework centered on dual-use export controls, defense-unique controls, and enforceable operational provenance."
-status: draft
-type: memo
-pdfPath: /memos/2026-02-17-dont-put-frontier-ai-under-itar.pdf
+status: "draft"
+type: "memo"
+pdfPath: "/memos/2026-02-17-dont-put-frontier-ai-under-itar.pdf"
 tags:
   - ai-policy
   - export-controls

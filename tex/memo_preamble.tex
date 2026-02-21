@@ -1,0 +1,62 @@
+% =========================================================
+% Shared LaTeX preamble for all memos/*/tex/memo.tex
+% =========================================================
+
+\usepackage[letterpaper,top=1in,bottom=1in,left=1in,right=1in]{geometry}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{xurl}
+\usepackage{enumitem}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\setlist[itemize]{leftmargin=1.2em,itemsep=0.04em,topsep=0.08em}
+\setlist[enumerate]{leftmargin=1.4em,itemsep=0.04em,topsep=0.08em}
+
+\definecolor{accentgold}{HTML}{D4A574}
+\definecolor{ink}{HTML}{0F172A}
+
+\hypersetup{
+  hidelinks,
+  pdftitle={\MemoTitle},
+  pdfauthor={Adam Boas},
+  pdfsubject={Policy Memo}
+}
+
+\pagestyle{empty}
+\sloppy
+
+\providecommand{\MemoTitle}{Memo}
+\providecommand{\MemoDate}{\today}
+\providecommand{\MemoLogoPath}{../../../tex/assets/icon-180.png}
+\providecommand{\MemoAuthorName}{Adam Boas}
+\providecommand{\MemoAuthorSite}{https://adamboas.com/}
+\providecommand{\MemoAuthorSiteLabel}{adamboas.com}
+\providecommand{\MemoAuthorEmail}{anboas@gmail.com}
+
+\providecommand{\tightlist}{}
+
+\newcommand{\MemoRenderHeader}{%
+  \vspace*{-3.15em}
+  \noindent
+  \begin{minipage}[c]{0.14\textwidth}
+  \raggedright
+  \includegraphics[width=0.66\linewidth]{\MemoLogoPath}
+  \end{minipage}%
+  \begin{minipage}[c]{0.86\textwidth}
+  \centering
+  {\Large\bfseries\textcolor{ink}{\MemoAuthorName}}\\[-0.1em]
+  {\small\textcolor{ink}{\href{\MemoAuthorSite}{\MemoAuthorSiteLabel} \quad|\quad \href{mailto:\MemoAuthorEmail}{\MemoAuthorEmail}}}\\[-0.1em]
+  {\small\textcolor{ink}{\MemoDate}}
+  \end{minipage}
+
+  \vspace{0.35em}
+  {\centering\large\bfseries \MemoTitle\par}
+  \vspace{0.28em}
+  \textcolor{accentgold}{\rule{\textwidth}{1.2pt}}
+}

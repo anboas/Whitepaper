@@ -1,0 +1,160 @@
+name: build-memos
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: set
+        run: |
+          python3 scripts/list_memos_json.py > /tmp/matrix.json
+          echo "matrix=$(cat /tmp/matrix.json)" >> $GITHUB_OUTPUT
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [matrix]
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.matrix.outputs.matrix) }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml requests
+
+      - name: UTF-8 sanitize check (LaTeX inputs)
+        run: |
+          python3 scripts/utf8_latex_sanitize.py --check
+
+      - name: Validate memo markdown mirrors
+        run: |
+          python3 scripts/sync_memo_mirrors.py --check
+
+      - name: Validate MEMO.yml
+        run: |
+          python3 - <<'PY'
+          import yaml
+          from pathlib import Path
+          slug = "${{ matrix.memo }}"
+          p = Path(f"memos/{slug}/MEMO.yml")
+          if not p.exists():
+              raise SystemExit(f"missing {p}")
+          data = yaml.safe_load(p.read_text()) or {}
+          required = ["slug", "title", "date", "summary", "status", "tags", "pdfPath"]
+          for k in required:
+              if k not in data or data[k] in (None, ""):
+                  raise SystemExit(f"{slug}: MEMO.yml missing required key: {k}")
+          if data["slug"] != slug:
+              raise SystemExit(f"{slug}: MEMO.yml slug must match folder name")
+          if data["status"] not in {"draft", "published"}:
+              raise SystemExit(f"{slug}: status must be draft|published")
+          if not isinstance(data["tags"], list) or not data["tags"]:
+              raise SystemExit(f"{slug}: tags must be a non-empty list")
+          print(f"MEMO.yml OK: {slug}")
+          PY
+
+      - name: Compile PDF
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: memos/${{ matrix.memo }}/tex/memo.tex
+          args: -pdf -interaction=nonstopmode -halt-on-error -output-directory=build/memos/${{ matrix.memo }}
+
+      - name: Fix build/ permissions
+        run: |
+          sudo chown -R "$USER":"$USER" build || true
+          chmod -R u+rwX build || true
+
+      - name: Install build tools (qpdf + pandoc + poppler-utils)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qpdf pandoc poppler-utils
+
+      - name: Optimize PDFs (linearize)
+        run: |
+          PDF="build/memos/${{ matrix.memo }}/memo.pdf"
+          test -f "$PDF"
+          qpdf --linearize "$PDF" "${PDF%.pdf}.linearized.pdf"
+          mv "${PDF%.pdf}.linearized.pdf" "$PDF"
+
+      - name: PDF QA gate
+        run: |
+          set -euo pipefail
+          PDF="build/memos/${{ matrix.memo }}/memo.pdf"
+          test -f "$PDF"
+
+          echo "== pdfinfo =="
+          pdfinfo "$PDF" | sed -n '1,40p'
+
+          TITLE=$(pdfinfo "$PDF" | awk -F: '/^Title:/ {sub(/^ +/,"",$2); print $2}')
+          AUTHOR=$(pdfinfo "$PDF" | awk -F: '/^Author:/ {sub(/^ +/,"",$2); print $2}')
+          OPTIMIZED=$(pdfinfo "$PDF" | awk -F: '/^Optimized:/ {sub(/^ +/,"",$2); print $2}')
+          test -n "$TITLE" || (echo "Missing Title metadata" && exit 1)
+          test -n "$AUTHOR" || (echo "Missing Author metadata" && exit 1)
+          test "$OPTIMIZED" = "yes" || (echo "PDF not optimized/linearized" && exit 1)
+
+          echo "== pdffonts =="
+          pdffonts "$PDF" | head -n 50
+          pdffonts "$PDF" | awk 'NR>2 && $1 != "" {print $4}' | grep -qv "no" || (echo "Non-embedded font detected" && exit 1)
+
+          echo "== pdftotext head =="
+          pdftotext -layout "$PDF" - | head -n 10
+          pdftotext -layout "$PDF" - | head -n 5 | grep -q "[A-Za-z]" || (echo "Text extraction looks empty" && exit 1)
+
+      - name: Build HTML (pandoc)
+        run: |
+          mkdir -p build/memos/${{ matrix.memo }}
+
+          python3 scripts/pandoc_preprocess_tex.py \
+            memos/${{ matrix.memo }}/tex/memo.tex \
+            memos/${{ matrix.memo }}/tex/memo.pandoc.tex
+
+          pandoc memos/${{ matrix.memo }}/tex/memo.pandoc.tex \
+            -t html5 \
+            -o build/memos/${{ matrix.memo }}/memo.html
+
+      - name: Site ingestion check (HTML safety)
+        run: |
+          python3 scripts/site_ingestion_check.py \
+            --paper-dir memos/${{ matrix.memo }} \
+            --html build/memos/${{ matrix.memo }}/memo.html
+
+      - name: Create sync manifest (sha256)
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          python3 scripts/hash_manifest.py \
+            --slug "${{ matrix.memo }}" \
+            --kind memo \
+            --pdf build/memos/${{ matrix.memo }}/memo.pdf \
+            --html build/memos/${{ matrix.memo }}/memo.html \
+            --source-sha "$SOURCE_SHA" \
+            --out build/memos/${{ matrix.memo }}/manifest.json
+
+      - name: Copy MEMO metadata into build
+        run: |
+          cp memos/${{ matrix.memo }}/MEMO.yml build/memos/${{ matrix.memo }}/MEMO.yml
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: memo-${{ matrix.memo }}
+          path: |
+            build/memos/${{ matrix.memo }}/memo.pdf
+            build/memos/${{ matrix.memo }}/memo.html
+            build/memos/${{ matrix.memo }}/manifest.json
+            build/memos/${{ matrix.memo }}/MEMO.yml

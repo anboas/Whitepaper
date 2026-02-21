@@ -1,0 +1,19 @@
+slug: 2026-02-12-stand-up-dad-joint-control-plane-authority
+status: published
+
+title: "Stand Up Delegated Autonomy Directorate (DAD) as a Joint Control Plane Authority"
+date: 2026-02-12
+summary: "Decision memo recommending immediate standup of a Delegated Autonomy Directorate (DAD) as a joint authority to accelerate trusted delegated autonomy at mission tempo."
+tags:
+  - autonomy
+  - governance
+  - control-plane
+  - dad
+  - mission-assurance
+  - modernization
+
+pdfPath: /memos/2026-02-12-stand-up-dad-joint-control-plane-authority.pdf
+htmlPath: /writing/2026-02-12-stand-up-dad-joint-control-plane-authority/
+
+source:
+  tex: memos/2026-02-12-stand-up-dad-joint-control-plane-authority/tex/memo.tex

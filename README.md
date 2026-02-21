@@ -72,6 +72,20 @@ We support multiple papers in parallel under `papers/`.
 
 CI builds all papers via `.github/workflows/build-papers.yml`.
 
+## Memo pipeline (LaTeX-first)
+Memos now follow the same artifact discipline as papers.
+
+- `memos/<memo-slug>/MEMO.yml` — memo metadata (title/date/summary/status/tags)
+- `memos/<memo-slug>/tex/memo.tex` — memo source-of-truth in LaTeX
+- `tex/memo_preamble.tex` — shared memo style/preamble
+
+CI builds memos via `.github/workflows/build-memos.yml` and publishes deterministic artifacts:
+- `memo.pdf`
+- `memo.html`
+- `manifest.json` (sha256 hash manifest)
+
+The site sync workflow ingests memo artifacts into `/memos/*` and `/writing/*`.
+
 ## Layout (legacy single-paper)
 - `tex/whitepaper.tex` — legacy single working paper + template
 - `INTENT.md` — legacy intent

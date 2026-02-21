@@ -1,0 +1,15 @@
+slug: example-memo
+status: draft
+
+title: "Memo Title"
+date: 2026-01-01
+summary: "One-line summary for site index cards."
+tags:
+  - memo
+  - policy
+
+pdfPath: /memos/example-memo.pdf
+htmlPath: /writing/example-memo/
+
+source:
+  tex: memos/example-memo/tex/memo.tex

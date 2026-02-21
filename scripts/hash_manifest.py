@@ -20,12 +20,18 @@ def sha256_file(p: Path) -> str:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--paper", required=True, help="paper slug")
+    ap.add_argument("--paper", default=None, help="(deprecated) paper slug")
+    ap.add_argument("--slug", default=None, help="artifact slug")
+    ap.add_argument("--kind", default="paper", help="artifact kind (paper|memo|other)")
     ap.add_argument("--pdf", required=True)
     ap.add_argument("--html", required=True)
     ap.add_argument("--source-sha", required=True)
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
+
+    slug = args.slug or args.paper
+    if not slug:
+        raise SystemExit("hash_manifest: pass --slug (or legacy --paper)")
 
     pdf = Path(args.pdf)
     html = Path(args.html)
@@ -37,7 +43,8 @@ def main() -> None:
         raise SystemExit(f"hash_manifest: missing html: {html}")
 
     manifest = {
-        "paper": args.paper,
+        "kind": args.kind,
+        "slug": slug,
         "source": {"repo": "anboas/Whitepaper", "sha": args.source_sha},
         "artifacts": {
             "pdf": {"path": str(pdf).replace('\\\\', '/'), "sha256": sha256_file(pdf)},

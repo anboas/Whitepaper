@@ -16,6 +16,7 @@
 *.snm
 *.vrb
 *.xdv
+*.pandoc.tex
 
 # PDFs (keep built output out of git by default)
 *.pdf
