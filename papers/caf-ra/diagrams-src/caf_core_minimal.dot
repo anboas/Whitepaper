@@ -1,0 +1,19 @@
+digraph CAF {
+  rankdir=LR;
+  graph [bgcolor="white", pad="0.2", nodesep="0.5", ranksep="0.6"];
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=11];
+  edge [color="#204060", arrowsize=0.7, penwidth=1.2];
+
+  Runtime [label="Runtime Plane\n(factory, runtime, identity, network, data)"];
+  Emit [label="EMIT"];
+  Enrich [label="ENRICH"];
+  Score [label="SCORE"];
+  Surface [label="SURFACE"];
+  Act [label="ACT"];
+  Governance [label="Governance Overlay\n(ASM + policy bundles + replay)"];
+
+  Runtime -> Emit -> Enrich -> Score -> Surface -> Act;
+  Governance -> Enrich;
+  Governance -> Score;
+  Governance -> Act;
+}

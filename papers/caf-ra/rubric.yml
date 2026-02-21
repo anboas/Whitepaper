@@ -1,0 +1,62 @@
+# CAF-RA rubric override
+# Normative architecture papers use many ALLCAPS tokens (MUST/SHOULD/MAY)
+# and longer technical sentences by design.
+
+min_total_score: 0.80
+
+checks:
+  no_todos:
+    weight: 0.10
+    patterns: ["TODO", "TBD", "FIXME"]
+
+  required_sections:
+    weight: 0.15
+    required_phrases:
+      - "\\begin{execsummary}"
+      - "\\tableofcontents"
+
+  has_sources_or_refs:
+    weight: 0.10
+    required_phrases_any: ["References", "Bibliography"]
+    min_citation_markers: 2
+
+  length_sanity:
+    weight: 0.10
+    min_words: 500
+
+  tone_avoid_hedging:
+    weight: 0.10
+    max_hits: 16
+    patterns:
+      - "maybe"
+      - "might"
+      - "could"
+      - "possibly"
+      - "somewhat"
+      - "sort of"
+      - "kind of"
+      - "in my opinion"
+      - "i think"
+
+  tone_avoid_hype:
+    weight: 0.05
+    max_exclamations: 1
+    max_allcaps_words: 260
+
+  clarity_sentence_length:
+    weight: 0.10
+    max_avg_words_per_sentence: 26
+    max_sentence_words: 70
+
+  clarity_readability:
+    weight: 0.10
+    min_flesch_reading_ease: 25
+
+  voice_prefer_active:
+    weight: 0.10
+    max_passive_ratio: 0.25
+
+  elements_actionability:
+    weight: 0.05
+    required_phrases_any: ["Adopt", "Require", "Instrument", "Implement", "Establish", "Define"]
+    min_hits: 2
