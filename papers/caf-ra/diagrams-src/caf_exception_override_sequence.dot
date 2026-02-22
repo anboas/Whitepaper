@@ -1,0 +1,25 @@
+digraph CAFOverrideSequence {
+  rankdir=LR;
+  graph [
+    bgcolor="white",
+    pad="0.20",
+    nodesep="0.55",
+    ranksep="0.70",
+    labelloc="t",
+    label="Governed Exceptions and Overrides Sequence"
+  ];
+
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10.5];
+  edge [color="#204060", arrowsize=0.75, penwidth=1.2];
+
+  Req [label="Exception request", fillcolor="#EEF6FF"];
+  Work [label="Surfaced assurance\nwork unit", fillcolor="#EEF6FF"];
+  Ovr [label="Constrained override\n(policy/ASM scoped + time-bound)", fillcolor="#FFF7ED", color="#9A3412"];
+  Dec [label="Signed decision record", fillcolor="#FFF7ED", color="#9A3412"];
+  EP [label="Enforcement point"];
+  Act [label="Action record", fillcolor="#EEF6FF"];
+  Ver [label="Verification evidence", fillcolor="#ECFDF5", color="#166534"];
+  Rev [label="Expiry + review", fillcolor="#F1F5F9"];
+
+  Req -> Work -> Ovr -> Dec -> EP -> Act -> Ver -> Rev;
+}

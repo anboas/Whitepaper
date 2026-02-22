@@ -1,0 +1,35 @@
+digraph CAFSnapshotVsContinuous {
+  rankdir=LR;
+  graph [
+    bgcolor="white",
+    pad="0.20",
+    nodesep="0.60",
+    ranksep="0.75",
+    labelloc="t",
+    label="Point-in-Time Approval vs Continuously Maintained Authorization State"
+  ];
+
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10.4];
+  edge [color="#204060", arrowsize=0.75, penwidth=1.2];
+
+  subgraph cluster_left {
+    label="Point-in-time model";
+    color="#94A3B8";
+    style="rounded,dashed";
+    S1 [label="Snapshot evidence"];
+    S2 [label="Single approval event", fillcolor="#FFF7ED", color="#9A3412"];
+    S3 [label="Operational drift", fillcolor="#FEF2F2", color="#991B1B"];
+    S1 -> S2 -> S3;
+  }
+
+  subgraph cluster_right {
+    label="CAF continuous model";
+    color="#166534";
+    style="rounded,dashed";
+    C1 [label="Continuous evidence\n(EMIT/ENRICH)", fillcolor="#EEF6FF", color="#1D4ED8"];
+    C2 [label="Decision records at\nchange boundaries", fillcolor="#FFF7ED", color="#9A3412"];
+    C3 [label="Continuously maintained\nauthorization state", fillcolor="#ECFDF5", color="#166534"];
+    C1 -> C2 -> C3;
+    C3 -> C1 [label="looped governance", style=dashed, color="#166534", fontcolor="#166534", fontsize=8.8];
+  }
+}

@@ -1,0 +1,53 @@
+digraph CAFEnrichGateway {
+  rankdir=LR;
+  graph [
+    bgcolor="white",
+    pad="0.20",
+    nodesep="0.60",
+    ranksep="0.72",
+    labelloc="t",
+    label="ENRICH Ingestion Gateway: Threat Controls and Anchoring"
+  ];
+
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10.6];
+  edge [color="#204060", arrowsize=0.75, penwidth=1.25];
+
+  subgraph cluster_producers {
+    label="Producers";
+    color="#94A3B8";
+    style="rounded,dashed";
+    Pipe [label="Pipeline producer", fillcolor="#EEF6FF"];
+    Sensor [label="Runtime/identity sensor", fillcolor="#EEF6FF"];
+    Agent [label="Agentic producer\n(model + tool outputs)", fillcolor="#EEF6FF"];
+  }
+
+  Gateway [label="ENRICH Ingestion Gateway", fillcolor="#FFF7ED", color="#9A3412"];
+
+  VerifySig [label="Signature verify / sealing", fillcolor="#FFF7ED", color="#9A3412"];
+  Schema [label="Schema compatibility check", fillcolor="#FFF7ED", color="#9A3412"];
+  Label [label="Labeling + handling metadata", fillcolor="#FFF7ED", color="#9A3412"];
+  Replay [label="Anti-replay + freshness checks", fillcolor="#FFF7ED", color="#9A3412"];
+  Quarantine [label="Throttling / quarantine", fillcolor="#FFF7ED", color="#9A3412"];
+
+  Envelope [label="Admitted evidence envelope", fillcolor="#EEF6FF", color="#1D4ED8"];
+  Ledger [label="Proof ledger anchor", fillcolor="#ECFDF5", color="#166534"];
+
+  Pipe -> Gateway;
+  Sensor -> Gateway;
+  Agent -> Gateway;
+
+  Gateway -> VerifySig -> Schema -> Label -> Replay -> Quarantine -> Envelope;
+  Envelope -> Ledger [style=bold, color="#166534", penwidth=2.0, label="verification/closure", fontsize=9.0, fontcolor="#166534"];
+
+  T1 [label="Replay attempt", shape=note, fillcolor="#FEF2F2", color="#991B1B", fontsize=9.4];
+  T2 [label="Schema confusion", shape=note, fillcolor="#FEF2F2", color="#991B1B", fontsize=9.4];
+  T3 [label="Mislabeled movement", shape=note, fillcolor="#FEF2F2", color="#991B1B", fontsize=9.4];
+  T4 [label="Producer spoofing", shape=note, fillcolor="#FEF2F2", color="#991B1B", fontsize=9.4];
+  T5 [label="Context/tool-output substitution", shape=note, fillcolor="#FEF2F2", color="#991B1B", fontsize=9.4];
+
+  T1 -> Replay [style=dotted, color="#991B1B", label="blocked", fontsize=8.5, fontcolor="#991B1B"];
+  T2 -> Schema [style=dotted, color="#991B1B", label="blocked", fontsize=8.5, fontcolor="#991B1B"];
+  T3 -> Label [style=dotted, color="#991B1B", label="blocked", fontsize=8.5, fontcolor="#991B1B"];
+  T4 -> VerifySig [style=dotted, color="#991B1B", label="blocked", fontsize=8.5, fontcolor="#991B1B"];
+  T5 -> Quarantine [style=dotted, color="#991B1B", label="contained", fontsize=8.5, fontcolor="#991B1B"];
+}

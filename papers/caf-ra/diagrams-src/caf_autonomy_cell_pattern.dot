@@ -1,0 +1,34 @@
+digraph CAFAutonomyCell {
+  rankdir=LR;
+  graph [
+    bgcolor="white",
+    pad="0.20",
+    nodesep="0.62",
+    ranksep="0.74",
+    labelloc="t",
+    label="Autonomy Cell Deployment Pattern (Disconnected Operation)"
+  ];
+
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10.4];
+  edge [color="#204060", arrowsize=0.75, penwidth=1.2];
+
+  subgraph cluster_cell {
+    label="Disconnected Enclave / Autonomy Cell";
+    color="#9A3412";
+    style="rounded,dashed";
+    Cached [label="Cached manifests +\npolicy bundles", fillcolor="#FFF7ED", color="#9A3412"];
+    LocalEP [label="Local enforcement points\n(bounded scope)", fillcolor="#EEF6FF", color="#1D4ED8"];
+    Buffer [label="Local evidence buffer", fillcolor="#EEF6FF", color="#1D4ED8"];
+    Cached -> LocalEP [style=dashed, color="#9A3412", penwidth=1.3, label="authority/control constraint", fontsize=8.6, fontcolor="#9A3412"];
+    LocalEP -> Buffer [style=solid, color="#204060", label="data flow", fontsize=8.6, fontcolor="#204060"];
+  }
+
+  Reconcile [label="Reconciliation service", fillcolor="#ECFDF5", color="#166534"];
+  Ledger [label="Proof ledger / anchoring", fillcolor="#ECFDF5", color="#166534"];
+
+  Buffer -> Reconcile [style=bold, color="#166534", penwidth=2.0, label="verification/closure", fontsize=8.8, fontcolor="#166534"];
+  Reconcile -> Ledger [style=bold, color="#166534", penwidth=2.0, label="anchor after reconnect", fontsize=8.8, fontcolor="#166534"];
+
+  Denied [label="No scope expansion while disconnected", shape=note, fillcolor="#FEF2F2", color="#991B1B", fontsize=9.4];
+  Cached -> Denied [style=dotted, color="#991B1B", constraint=false];
+}

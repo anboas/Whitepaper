@@ -1,0 +1,34 @@
+digraph CAFAgenticMediation {
+  rankdir=LR;
+  graph [
+    bgcolor="white",
+    pad="0.20",
+    nodesep="0.58",
+    ranksep="0.72",
+    labelloc="t",
+    label="Agentic Mediation: Non-Person Principals Propose, EPs Execute"
+  ];
+
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10.8];
+  edge [color="#204060", arrowsize=0.76, penwidth=1.25];
+
+  Agent [label="Agent principal\n(non-person)", fillcolor="#EEF6FF", color="#1D4ED8"];
+  Request [label="Action request\n(proposed bounded action)", fillcolor="#EEF6FF"];
+  EP [label="Enforcement Point", fillcolor="#FFF7ED", color="#9A3412"];
+  Check [label="Signed decision record check\n(policy hash + ASM hash + evidence refs)", fillcolor="#FFF7ED", color="#9A3412"];
+  Effect [label="Effect at real boundary\n(merge/admission/segmentation/data/response)"];
+  ActionRec [label="Action record", fillcolor="#EEF6FF"];
+  VerifyEnv [label="Verification evidence envelope", fillcolor="#ECFDF5", color="#166534"];
+  Ledger [label="Proof ledger / anchoring", fillcolor="#ECFDF5", color="#166534"];
+
+  Agent -> Request -> EP;
+  EP -> Check [style=dashed, color="#9A3412", penwidth=1.35, label="authority/control constraint", fontsize=8.8, fontcolor="#9A3412"];
+  Check -> Effect [style=dashed, color="#9A3412", penwidth=1.35];
+  Effect -> ActionRec -> VerifyEnv;
+  ActionRec -> Ledger [style=bold, color="#166534", penwidth=2.0, label="anchor", fontsize=8.8, fontcolor="#166534"];
+  VerifyEnv -> Ledger [style=bold, color="#166534", penwidth=2.0, label="anchor", fontsize=8.8, fontcolor="#166534"];
+
+  Blocked [label="Direct side effects\nby agent: blocked", shape=note, fillcolor="#FEF2F2", color="#991B1B", fontsize=9.6];
+  Agent -> Effect [style=dotted, color="#991B1B", label="not allowed", fontsize=8.6, fontcolor="#991B1B"];
+  Agent -> Blocked [style=dotted, color="#991B1B", constraint=false];
+}

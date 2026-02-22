@@ -70,6 +70,13 @@ This loop is not a metaphor. It is the architecture. Each verb names a responsib
 
 CAF is deliberately aligned to the same ``control shift'' posture found in the memo and ACP-RA: this is not a tooling cycle; it is a shift in how authority is executed when non-person entities act at machine tempo. CAF provides the assurance control plane that keeps autonomous execution governable, with acquisition leverage and conformance as the mechanism that prevents fragmentation. \cite{DADMemo}
 
+\begin{figure}
+\centering
+\includegraphics[width=0.98\linewidth]{papers/caf-ra/diagrams/caf_snapshot_vs_continuous.png}
+\caption{Point-in-time approval drifts; CAF maintains authorization state continuously at governed change boundaries}
+\label{fig:caf-snapshot-vs-continuous}
+\end{figure}
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{executive-summary}{%
@@ -397,6 +404,13 @@ Agentic systems expand the same failure modes ENRICH exists to prevent. Context 
 
 The ENRICH contract is explicit: it answers ``is this evidence admissible, transportable, and replay-safe?''; it emits labeled and anchored evidence ready for policy use; its unsafe failure mode is schema confusion, replay, or mislabeled movement; and its primary control is a governed ingestion gateway that verifies, labels, and anchors before admission.
 
+\begin{figure}
+\centering
+\includegraphics[width=0.98\linewidth]{papers/caf-ra/diagrams/caf_enrich_gateway_controls.png}
+\caption{ENRICH gateway threat-controls: producer admission, anti-replay/schema/label controls, quarantine, and proof-ledger anchoring}
+\label{fig:caf-enrich-gateway}
+\end{figure}
+
 \textbf{Technical position (ENRICH-1): Evidence ingestion MUST be a
 gateway, not an open endpoint.} CAF requires an ingestion gateway that
 verifies signatures (or applies sealing signatures where appropriate),
@@ -546,6 +560,13 @@ dual control, tighter rate limits, and tighter rollback requirements.
 This is how CAF turns ``risk tolerance'' from a meeting artifact into an
 enforceable runtime constraint.
 
+\begin{figure}
+\centering
+\includegraphics[width=0.96\linewidth]{papers/caf-ra/diagrams/caf_consequence_tiers.png}
+\caption{Consequence tiers tighten evidence/approval constraints and narrow action eligibility}
+\label{fig:caf-consequence-tiers}
+\end{figure}
+
 \textbf{Technical position (ACT-3): Enforcement points MUST be at real
 boundaries.} CAF enforcement points must exist where change becomes
 real: merge/promotion in the factory, admission at deployment,
@@ -565,6 +586,13 @@ signals. Quarantine without verification is a story. Rollback without
 verification is hope. CAF is built to replace hope with evidence.
 
 \textbf{Technical position (ACT-6): Agentic orchestrators MUST be mediated.} Any agent or automation that can trigger side effects MUST do so through an enforcement point that enforces policy, rate limits, and rollback discipline, and that emits action evidence cryptographically bound to the decision record.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.98\linewidth]{papers/caf-ra/diagrams/caf_agentic_mediation.png}
+\caption{Agentic mediation: non-person principals can propose bounded actions but side effects execute only through enforcement points}
+\label{fig:caf-agentic-mediation}
+\end{figure}
 
 \begin{figure}
 \centering
@@ -633,6 +661,13 @@ directly aligned to the control-plane posture described in ACP-RA:
 mediated action and evidence are non-negotiable under contested
 conditions. \cite{ACPRA}
 
+\begin{figure}
+\centering
+\includegraphics[width=0.98\linewidth]{papers/caf-ra/diagrams/caf_exception_override_sequence.png}
+\caption{Exceptions and overrides remain governed loop actions with signed records, enforcement, verification, and expiry review}
+\label{fig:caf-exception-override}
+\end{figure}
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{degraded-mode-survivability}{%
@@ -652,7 +687,16 @@ returns.
 CAF therefore supports ``autonomy cells'' not as a separate
 architecture, but as a deployment pattern: local enforcement points and
 local evidence buffering that can operate under denial while preserving
-replay and later reconciliation. Figure~\ref{fig:caf-degraded-mode} makes the expected transitions explicit so degraded behavior is governable in advance, not improvised mid-incident.
+replay and later reconciliation.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.98\linewidth]{papers/caf-ra/diagrams/caf_autonomy_cell_pattern.png}
+\caption{Autonomy cell deployment pattern: cached authority artifacts, bounded local enforcement, local buffering, and reconnect reconciliation}
+\label{fig:caf-autonomy-cell}
+\end{figure}
+
+Figure~\ref{fig:caf-degraded-mode} then makes the expected state transitions explicit so degraded behavior is governable in advance, not improvised mid-incident.
 
 \clearpage
 \begin{figure}[p]
