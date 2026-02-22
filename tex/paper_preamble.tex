@@ -63,7 +63,8 @@
 \usepackage{xurl}
 \usepackage[hidelinks]{hyperref}
 \usepackage{hyperxmp}
-\hypersetup{colorlinks=true, linkcolor=BrandAccent, urlcolor=BrandAccent, breaklinks=true}
+\hypersetup{colorlinks=true, linkcolor=BrandAccent, citecolor=BrandAccent, urlcolor=BrandAccent, breaklinks=true}
+\urlstyle{same}
 
 % PDF metadata (papers can define these macros)
 \AtBeginDocument{%
@@ -155,6 +156,14 @@
 \usepackage{tocloft}
 \usepackage{titlesec}
 \usepackage[section]{placeins} % prevent figures/tables from drifting past their section
+
+% Float placement tuning (pipeline-wide): reduce sparse/near-empty float pages.
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.8}
+\setcounter{topnumber}{3}
+\setcounter{totalnumber}{5}
 
 % Lists: consistent spacing + margins
 \setlist[itemize]{leftmargin=*, topsep=0.28em, itemsep=0.20em, parsep=0pt, partopsep=0pt}

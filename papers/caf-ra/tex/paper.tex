@@ -11,8 +11,8 @@
 \newcommand{\AuthorRole}{Agentic Warfare Architect, Department of War}
 \newcommand{\PaperDate}{February 2026}
 \renewcommand{\ShortTitle}{CAF-RA}
-\renewcommand{\DocVersion}{v1.2}
-\fancyfoot[L]{\small\textcolor{BrandGray}{CAF-RA v1.2 | February 2026}}
+\renewcommand{\DocVersion}{v1.5-draft}
+\fancyfoot[L]{\small\textcolor{BrandGray}{\ShortTitle\ \DocVersion\ | \PaperDate}}
 \fancyfoot[C]{\small\textcolor{BrandGray}{\thepage}}
 \fancyfoot[R]{}
 
@@ -28,7 +28,7 @@
 \vspace{0.2in}
 {\normalsize\textbf{\AuthorName}\par\textcolor{BrandGray}{\AuthorRole}\par\vspace{6pt}\textcolor{BrandGray}{\PaperDate}\par}
 \vfill
-\noindent\textcolor{BrandGray}{\small\textbf{Distribution:} Unpublished working draft.\quad\textbf{Disclaimer:} Views are the author's and do not represent official policy.}
+\noindent\textcolor{BrandGray}{\small\textbf{Distribution:} Draft for review (pre-publication).\quad\textbf{Disclaimer:} Views are the author's and do not represent official policy.}
 \newpage
 
 {\small\renewcommand{\baselinestretch}{0.96}\selectfont\tableofcontents}
@@ -71,7 +71,7 @@ EMIT $\rightarrow$ ENRICH $\rightarrow$ SCORE $\rightarrow$ SURFACE $\rightarrow
 
 This loop is not a metaphor. It is the architecture. Each verb names a responsibility boundary, a contract surface, and an audit trail requirement. If CAF is implemented as ten services or fifty does not matter; what matters is that the five responsibilities remain distinct and governed, and that they produce evidence and replay sufficient to sustain continuous authorization state and after-action reconstruction. \cite{ACPRA}
 
-CAF is deliberately aligned to the same ``control shift'' posture found in the memo and ACP-RA: this is not a tooling cycle; it is a shift in how authority is executed when non-person entities act at machine tempo. CAF provides the assurance control plane that keeps autonomous execution governable, with acquisition leverage and conformance as the mechanism that prevents fragmentation. \cite{DADMemo}
+CAF is deliberately aligned to the same ``control shift'' posture found in \textit{Stand Up Delegated Autonomy Directorate (DAD) as a Joint Control Plane Authority} and ACP-RA: this is not a tooling cycle; it is a shift in how authority is executed when non-person entities act at machine tempo. CAF provides the assurance control plane that keeps autonomous execution governable, with acquisition leverage and conformance as the mechanism that prevents fragmentation. \cite{DADMemo,ACPRA}
 
 \begin{figure}
 \centering
@@ -205,8 +205,7 @@ first-class}\label{p5-evidence-and-replay-are-first-class}}
 
 CAF must support deterministic reconstruction: what was known, what was
 decided, what was done, and under what authority. Without replay,
-continuous authorization collapses into narrative. ({[}Adam
-Boas{]}{[}1{]})
+continuous authorization collapses into narrative. \cite{ACPRA}
 
 \hypertarget{p6-rollback-and-containment-are-routine-capabilities}{%
 \subsubsection{P6 --- Rollback and containment are routine
@@ -435,8 +434,7 @@ tamper-evident mechanism (proof ledger) and retained with queryable
 indices. You cannot do continuous authorization or credible after-action
 reconstruction if evidence can be silently altered or is not replayable
 at the same semantic version. This is the same ``evidence and replay''
-posture that ACP-RA treats as baseline for governed autonomy. ({[}Adam
-Boas{]}{[}1{]})
+posture that ACP-RA treats as baseline for governed autonomy. \cite{ACPRA}
 
 \textbf{Technical position (ENRICH-4): Schema discipline MUST exist, but
 it is not the mental model.} CAF requires schema versioning rules and
@@ -486,8 +484,7 @@ source.} A score can influence decisions; it cannot grant privileges.
 The only authority sources are authenticated principals and signed
 manifests and policies. This separation prevents ``model says allow''
 from becoming accidental authority, which is the same separation ACP-RA
-draws between authority sources and data sources. ({[}Adam
-Boas{]}{[}1{]})
+draws between authority sources and data sources. \cite{ACPRA}
 
 CAF may implement SCORE using graphs, attack-path reasoning, ensemble
 scoring, Bayesian inference, or simple rules. The architecture does not
@@ -594,29 +591,21 @@ verification is hope. CAF is built to replace hope with evidence.
 
 \begin{figure}[htbp]
 \centering
-\begin{minipage}{0.92\textwidth}
-\centering
-\includegraphics[width=\linewidth,height=0.34\textheight,keepaspectratio]{papers/caf-ra/diagrams/caf_agentic_mediation.png}
-\par\smallskip
-\textbf{Figure 6a: Agentic mediation: non-person principals can propose bounded actions but side effects execute only through enforcement points}
-\end{minipage}
-
-\vspace{8pt}
-
-\begin{minipage}{0.92\textwidth}
-\centering
-\includegraphics[width=\linewidth,height=0.34\textheight,keepaspectratio]{papers/caf-ra/diagrams/caf_enforcement_boundaries.png}
-\par\smallskip
-\textbf{Figure 6b: Signed decision-record driven enforcement at real boundaries with verification evidence fed back into ENRICH}
-\end{minipage}
-\caption{ACT mediation and real-boundary enforcement pair}
-\label{fig:caf-act-6ab}
+\includegraphics[width=0.90\textwidth,height=0.44\textheight,keepaspectratio]{papers/caf-ra/diagrams/caf_agentic_mediation.png}
+\caption{Agentic mediation: non-person principals can propose bounded actions but side effects execute only through enforcement points}
+\label{fig:caf-agentic-mediation}
 \end{figure}
 
-\addtocounter{figure}{1}
-\begin{figure}[p]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.90\textwidth,height=0.78\textheight,keepaspectratio]{papers/caf-ra/diagrams/caf_decision_trace.png}
+\includegraphics[width=0.90\textwidth,height=0.44\textheight,keepaspectratio]{papers/caf-ra/diagrams/caf_enforcement_boundaries.png}
+\caption{Signed decision-record-driven enforcement at real boundaries with verification evidence fed back into ENRICH}
+\label{fig:caf-enforcement-boundaries}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth,height=0.70\textheight,keepaspectratio]{papers/caf-ra/diagrams/caf_decision_trace.png}
 \caption{CAF decision trace from evidence to replay, including explicit proof-ledger anchoring on core artifacts}
 \label{fig:caf-decision-trace}
 \end{figure}
@@ -806,12 +795,7 @@ alignment}\label{acquisition-and-governance-alignment}}
 CAF cannot succeed as a ``platform feature.'' It succeeds as a
 conformance surface.
 
-The memo's core insight applies: governed control planes scale when they
-have (1) technical enforcement, (2) operational doctrine, and (3)
-acquisition leverage. CAF's governance should be designed for that dual
-reality: enforcement plumbing and doctrine are both required, and
-procurement must be able to say ``no conformance, no scale.'' ({[}Adam
-Boas{]}{[}2{]})
+The core insight from \textit{Stand Up Delegated Autonomy Directorate (DAD) as a Joint Control Plane Authority} applies: governed control planes scale when they have (1) technical enforcement, (2) operational doctrine, and (3) acquisition leverage. CAF's governance should be designed for that dual reality: enforcement plumbing and doctrine are both required, and procurement must be able to say ``no conformance, no scale.'' \cite{DADMemo}
 
 CAF also aligns with the code-as-policy posture: the artifacts that
 grant authority (manifests, policy bundles, conformance tests, scenario
@@ -879,16 +863,16 @@ CAF's central claim is doctrinal as much as technical: in a continuous, agentic 
 \begin{thebibliography}{99}
 
 \bibitem{ACPRA}
-Boas, A. (2026). \textit{Agent Control Plane Reference Architecture (ACP-RA)}. \url{https://www.adamboas.com/writing/acp-ra/}.
+Boas, A. (2026). \textit{Agent Control Plane Reference Architecture (ACP-RA)}. Available at: \href{https://www.adamboas.com/writing/acp-ra/}{adamboas.com/writing/acp-ra/}.
 
 \bibitem{DADMemo}
-Boas, A. (2026). \textit{Stand Up Delegated Autonomy Directorate (DAD) as a Joint Control Plane Authority}. \url{https://www.adamboas.com/writing/2026-02-12-stand-up-dad-joint-control-plane-authority/}.
+Boas, A. (2026). \textit{Stand Up Delegated Autonomy Directorate (DAD) as a Joint Control Plane Authority}. Available at: \href{https://www.adamboas.com/writing/2026-02-12-stand-up-dad-joint-control-plane-authority/}{adamboas.com/writing/2026-02-12-stand-up-dad-joint-control-plane-authority/}.
 
 \bibitem{CodeAsPolicy}
-Boas, A. (2026). \textit{From PDFs to Pull Requests}. \url{https://www.adamboas.com/writing/code-as-policy/}.
+Boas, A. (2026). \textit{From PDFs to Pull Requests}. Available at: \href{https://www.adamboas.com/writing/code-as-policy/}{adamboas.com/writing/code-as-policy/}.
 
 \bibitem{ForceCreation}
-Boas, A. (2026). \textit{From AI Force Multiplication to Force Creation}. \url{https://www.adamboas.com/writing/agentic-force-creation/}.
+Boas, A. (2026). \textit{From AI Force Multiplication to Force Creation}. Available at: \href{https://www.adamboas.com/writing/agentic-force-creation/}{adamboas.com/writing/agentic-force-creation/}.
 
 \end{thebibliography}
 
