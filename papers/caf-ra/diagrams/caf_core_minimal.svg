@@ -137,8 +137,10 @@
 <!-- Legend -->
 <g id="node9" class="node">
 <title>Legend</title>
-<path fill="#f8fafc" stroke="#64748b" d="M1507.5,-110C1507.5,-110 1000.5,-110 1000.5,-110 994.5,-110 988.5,-104 988.5,-98 988.5,-98 988.5,-86 988.5,-86 988.5,-80 994.5,-74 1000.5,-74 1000.5,-74 1507.5,-74 1507.5,-74 1513.5,-74 1519.5,-80 1519.5,-86 1519.5,-86 1519.5,-98 1519.5,-98 1519.5,-104 1513.5,-110 1507.5,-110"/>
-<text text-anchor="middle" x="1254" y="-89.96" font-family="Arial" font-size="8.80">Legend: solid = data flow | dashed = authority/control constraint | dotted = reference&#45;only linkage | bold solid = verification/closure</text>
+<path fill="#f8fafc" stroke="#64748b" d="M1371.5,-110C1371.5,-110 1136.5,-110 1136.5,-110 1130.5,-110 1124.5,-104 1124.5,-98 1124.5,-98 1124.5,-84 1124.5,-84 1124.5,-78 1130.5,-72 1136.5,-72 1136.5,-72 1371.5,-72 1371.5,-72 1377.5,-72 1383.5,-78 1383.5,-84 1383.5,-84 1383.5,-98 1383.5,-98 1383.5,-104 1377.5,-110 1371.5,-110"/>
+<text text-anchor="middle" x="1254" y="-98.96" font-family="Arial" font-size="8.80">Legend:</text>
+<text text-anchor="middle" x="1254" y="-88.96" font-family="Arial" font-size="8.80">solid=data flow | dashed=authority/control constraint</text>
+<text text-anchor="middle" x="1254" y="-78.96" font-family="Arial" font-size="8.80">dotted=reference&#45;only linkage | bold solid=verification/closure</text>
 </g>
 <!-- Substrate&#45;&gt;Legend -->
 </g>

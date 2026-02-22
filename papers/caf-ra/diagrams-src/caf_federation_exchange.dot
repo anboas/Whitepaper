@@ -59,7 +59,7 @@ digraph CAFFederation {
     fontname="Arial",
     fontsize=8.8,
     margin="0.06,0.05",
-    label="Legend: solid = data flow | dashed = authority/control constraint | dotted = reference-only linkage | bold solid = verification/closure"
+    label="Legend:\nsolid=data flow | dashed=authority/control constraint\ndotted=reference-only linkage | bold solid=verification/closure"
   ];
 
   { rank=sink; Legend; }
