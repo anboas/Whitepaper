@@ -10,8 +10,11 @@
 \newcommand{\AuthorName}{Adam Boas}
 \newcommand{\AuthorRole}{Agentic Warfare Architect, Department of War}
 \newcommand{\PaperDate}{February 2026}
-\renewcommand{\ShortTitle}{CAF-RA Draft}
-\renewcommand{\DocVersion}{v0.6-draft}
+\renewcommand{\ShortTitle}{CAF-RA}
+\renewcommand{\DocVersion}{v1.2}
+\fancyfoot[L]{\small\textcolor{BrandGray}{CAF-RA v1.2 | February 2026}}
+\fancyfoot[C]{\small\textcolor{BrandGray}{\thepage}}
+\fancyfoot[R]{}
 
 \begin{document}
 
@@ -546,6 +549,8 @@ In agentic operations, autonomous agents may propose and execute bounded actions
 
 The ACT contract is explicit: it answers ``what bounded action is eligible now?''; it emits an action record cryptographically bound to a decision record and verification evidence; its unsafe failure mode is unmediated side effects or runaway remediation; and its primary control is enforcement-point mediation with consequence-tier constraints, rollback, and independent verification.
 
+Figures 5 through 8 should be read as one continuous doctrine, not four separate illustrations. Figure 5 shows how consequence tiers mechanize risk tolerance into enforceable constraints. Figure 6 shows the agentic rule that preserves human authority: agents may propose, but side effects execute only through mediated enforcement points. Figure 7 shows where those enforcement points must live in the real enterprise, and why verification must close the loop. Figure 8 shows the replay chain that proves, after the fact, what was known, what was decided, and what was done under which authority.
+
 \textbf{Technical position (ACT-1): No consequential action without a
 decision record.} Any enforcement beyond advisory MUST be preceded by a
 signed decision record binding evidence references, policy hash, and ASM
@@ -558,7 +563,7 @@ enforce it mechanically. Low consequence allows automation; high
 consequence requires stronger evidence thresholds, explicit approvals,
 dual control, tighter rate limits, and tighter rollback requirements.
 This is how CAF turns ``risk tolerance'' from a meeting artifact into an
-enforceable runtime constraint.
+enforceable runtime constraint. Figure 5 illustrates the minimal tier ladder and the way higher consequence mechanically tightens evidence, approval, rollback, and action eligibility.
 
 \begin{figure}[htbp]
 \centering
@@ -587,26 +592,36 @@ verification is hope. CAF is built to replace hope with evidence.
 
 \textbf{Technical position (ACT-6): Agentic orchestrators MUST be mediated.} Any agent or automation that can trigger side effects MUST do so through an enforcement point that enforces policy, rate limits, and rollback discipline, and that emits action evidence cryptographically bound to the decision record.
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.94\linewidth]{papers/caf-ra/diagrams/caf_agentic_mediation.png}
-\caption{Agentic mediation: non-person principals can propose bounded actions but side effects execute only through enforcement points}
-\label{fig:caf-agentic-mediation}
+\begin{minipage}{0.92\textwidth}
+\centering
+\includegraphics[width=\linewidth,height=0.34\textheight,keepaspectratio]{papers/caf-ra/diagrams/caf_agentic_mediation.png}
+\par\smallskip
+\textbf{Figure 6a: Agentic mediation: non-person principals can propose bounded actions but side effects execute only through enforcement points}
+\end{minipage}
+
+\vspace{8pt}
+
+\begin{minipage}{0.92\textwidth}
+\centering
+\includegraphics[width=\linewidth,height=0.34\textheight,keepaspectratio]{papers/caf-ra/diagrams/caf_enforcement_boundaries.png}
+\par\smallskip
+\textbf{Figure 6b: Signed decision-record driven enforcement at real boundaries with verification evidence fed back into ENRICH}
+\end{minipage}
+\caption{ACT mediation and real-boundary enforcement pair}
+\label{fig:caf-act-6ab}
 \end{figure}
 
-\begin{figure}
-\centering
-\includegraphics[width=0.94\linewidth]{papers/caf-ra/diagrams/caf_enforcement_boundaries.png}
-\caption{Signed decision-record driven enforcement at real boundaries with verification evidence fed back into ENRICH}
-\label{fig:caf-enforcement-boundaries}
-\end{figure}
-
+\addtocounter{figure}{1}
 \begin{figure}[p]
 \centering
 \includegraphics[width=0.90\textwidth,height=0.78\textheight,keepaspectratio]{papers/caf-ra/diagrams/caf_decision_trace.png}
 \caption{CAF decision trace from evidence to replay, including explicit proof-ledger anchoring on core artifacts}
 \label{fig:caf-decision-trace}
 \end{figure}
+
+The operational effect of these four figures is that CAF becomes a control plane rather than a reporting plane. Consequence constrains what automation is eligible; mediation ensures capability does not become authority; boundary enforcement ensures decisions are real; and replay ensures the Department can reconstruct governance under contested conditions. With that operational discipline established, the governance overlay exists to preserve trust categories: authority artifacts remain authoritative, data artifacts remain informative, and proof-ledger anchoring makes both replayable without collapsing them into the same trust class.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
