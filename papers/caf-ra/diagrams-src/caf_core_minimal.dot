@@ -1,8 +1,16 @@
 digraph CAFCore {
   rankdir=LR;
-  graph [bgcolor="white", pad="0.25", nodesep="0.55", ranksep="0.65", labelloc="t", label="CAF Core Loop"];
-  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=11];
-  edge [color="#204060", arrowsize=0.75, penwidth=1.25];
+  graph [
+    bgcolor="white",
+    pad="0.20",
+    nodesep="0.55",
+    ranksep="0.70",
+    labelloc="t",
+    label="CAF Core Loop"
+  ];
+
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=11.5];
+  edge [color="#204060", arrowsize=0.78, penwidth=1.35];
 
   Runtime [label="Runtime Plane\n(factory, runtime, identity, network, data)", fillcolor="#EEF6FF"];
   Emit [label="EMIT"];
@@ -10,12 +18,32 @@ digraph CAFCore {
   Score [label="SCORE"];
   Surface [label="SURFACE"];
   Act [label="ACT"];
-  Governance [label="Governance Overlay\n(ASM + policy bundles + replay)", fillcolor="#FFF7ED", color="#9A3412"];
+
+  Governance [label="Governance Overlay\n(ASM + policy bundles)", fillcolor="#FFF7ED", color="#9A3412"];
+  Ledger [label="Proof Ledger / Anchoring\n(tamper-evident replay substrate)", fillcolor="#ECFDF5", color="#166534"];
 
   Runtime -> Emit;
   Emit -> Enrich -> Score -> Surface -> Act;
 
-  Governance -> Enrich [style=dashed, color="#9A3412"];
-  Governance -> Score [style=dashed, color="#9A3412"];
-  Governance -> Act [style=dashed, color="#9A3412"];
+  Governance -> Enrich [style=dashed, color="#9A3412", penwidth=1.35];
+  Governance -> Score [style=dashed, color="#9A3412", penwidth=1.35];
+  Governance -> Act [style=dashed, color="#9A3412", penwidth=1.35];
+
+  Enrich -> Ledger [style=bold, color="#166534", penwidth=2.1, label="verification/closure", fontsize=9.2, fontcolor="#166534"];
+  Act -> Ledger [style=bold, color="#166534", penwidth=2.1, label="verification/closure", fontsize=9.2, fontcolor="#166534"];
+  Score -> Ledger [style=dotted, color="#64748B", label="reference-only linkage", fontsize=9.0, fontcolor="#64748B"];
+
+  Legend [
+    shape=box,
+    style="rounded,filled",
+    fillcolor="#F8FAFC",
+    color="#64748B",
+    fontname="Arial",
+    fontsize=8.8,
+    margin="0.06,0.05",
+    label="Legend: solid = data flow | dashed = authority/control constraint | dotted = reference-only linkage | bold solid = verification/closure"
+  ];
+
+  { rank=sink; Legend; }
+  Ledger -> Legend [style=invis, weight=0.01, constraint=false];
 }

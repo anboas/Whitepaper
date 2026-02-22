@@ -1,8 +1,16 @@
 digraph CAFBoundaries {
   rankdir=LR;
-  graph [bgcolor="white", pad="0.25", nodesep="0.55", ranksep="0.65", labelloc="t", label="CAF Enforcement at Real Boundaries"];
-  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10.5];
-  edge [color="#204060", arrowsize=0.75, penwidth=1.2];
+  graph [
+    bgcolor="white",
+    pad="0.20",
+    nodesep="0.58",
+    ranksep="0.72",
+    labelloc="t",
+    label="CAF Enforcement at Real Boundaries"
+  ];
+
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10.8];
+  edge [color="#204060", arrowsize=0.76, penwidth=1.25];
 
   Decision [label="Decision Record\n(policy hash + ASM hash + evidence refs)", fillcolor="#EEF6FF"];
 
@@ -30,19 +38,38 @@ digraph CAFBoundaries {
     Response [label="Bounded Response\nAutomation Gate"];
   }
 
-  Verify [label="Independent Verification\n(closes loop)", fillcolor="#FFF7ED", color="#9A3412"];
+  Verify [label="Independent Verification\n(closes loop)", fillcolor="#ECFDF5", color="#166534"];
+  Ledger [label="Proof Ledger / Anchoring", fillcolor="#ECFDF5", color="#166534"];
 
-  Decision -> Merge;
-  Decision -> Promote;
-  Decision -> Admission;
-  Decision -> Segment;
-  Decision -> Data;
-  Decision -> Response;
+  Decision -> Merge [style=dashed, color="#9A3412", penwidth=1.35];
+  Decision -> Promote [style=dashed, color="#9A3412", penwidth=1.35];
+  Decision -> Admission [style=dashed, color="#9A3412", penwidth=1.35];
+  Decision -> Segment [style=dashed, color="#9A3412", penwidth=1.35];
+  Decision -> Data [style=dashed, color="#9A3412", penwidth=1.35];
+  Decision -> Response [style=dashed, color="#9A3412", penwidth=1.35];
 
-  Merge -> Verify [style=dashed, color="#9A3412"];
-  Promote -> Verify [style=dashed, color="#9A3412"];
-  Admission -> Verify [style=dashed, color="#9A3412"];
-  Segment -> Verify [style=dashed, color="#9A3412"];
-  Data -> Verify [style=dashed, color="#9A3412"];
-  Response -> Verify [style=dashed, color="#9A3412"];
+  Merge -> Verify [style=bold, color="#166534", penwidth=2.0];
+  Promote -> Verify [style=bold, color="#166534", penwidth=2.0];
+  Admission -> Verify [style=bold, color="#166534", penwidth=2.0];
+  Segment -> Verify [style=bold, color="#166534", penwidth=2.0];
+  Data -> Verify [style=bold, color="#166534", penwidth=2.0];
+  Response -> Verify [style=bold, color="#166534", penwidth=2.0];
+
+  Decision -> Ledger [style=bold, color="#166534", penwidth=2.0, label="anchor decision", fontsize=9.0, fontcolor="#166534"];
+  Verify -> Ledger [style=bold, color="#166534", penwidth=2.0, label="anchor closure", fontsize=9.0, fontcolor="#166534"];
+  Ledger -> Decision [style=dotted, color="#64748B", label="reference-only linkage", fontsize=8.7, fontcolor="#64748B"];
+
+  Legend [
+    shape=box,
+    style="rounded,filled",
+    fillcolor="#F8FAFC",
+    color="#64748B",
+    fontname="Arial",
+    fontsize=8.8,
+    margin="0.06,0.05",
+    label="Legend: solid = data flow | dashed = authority/control constraint | dotted = reference-only linkage | bold solid = verification/closure"
+  ];
+
+  { rank=sink; Legend; }
+  Ledger -> Legend [style=invis, weight=0.01, constraint=false];
 }

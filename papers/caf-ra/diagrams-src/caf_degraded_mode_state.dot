@@ -1,20 +1,28 @@
 digraph CAFDegraded {
-  rankdir=LR;
-  graph [bgcolor="white", pad="0.25", nodesep="0.6", ranksep="0.75", labelloc="t", label="CAF Degraded-Mode State Behavior"];
-  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10];
-  edge [color="#204060", arrowsize=0.75, penwidth=1.2];
+  rankdir=TB;
+  graph [
+    bgcolor="white",
+    pad="0.20",
+    nodesep="0.65",
+    ranksep="0.72",
+    labelloc="t",
+    label="CAF Degraded-Mode State Behavior"
+  ];
 
-  Normal [label="Normal Connected\nfull policy/evidence exchange", fillcolor="#ECFDF5", color="#166534"];
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=11.4];
+  edge [color="#204060", arrowsize=0.78, penwidth=1.3];
+
+  Normal      [label="Normal Connected\nfull policy + evidence exchange", fillcolor="#ECFDF5", color="#166534"];
   Partitioned [label="Partition Detected\nlatency/loss/time-skew/deception", fillcolor="#FFF7ED", color="#9A3412"];
-  Local [label="Local Constrained Ops\ncache ASM+policy, bounded EPs\nno authority expansion", fillcolor="#FEF2F2", color="#991B1B"];
-  Reconcile [label="Reconciliation\nbackfill evidence + verify divergence\nresolve exceptions", fillcolor="#EEF6FF", color="#1D4ED8"];
-  Resume [label="Resume Normal\nupdated manifests + policy bundles", fillcolor="#ECFDF5", color="#166534"];
+  Local       [label="Local Constrained Ops\ncache ASM+policy, bounded EPs\nno authority expansion", fillcolor="#FEF2F2", color="#991B1B"];
+  Reconcile   [label="Reconciliation\nbackfill evidence + verify divergence\nresolve exceptions", fillcolor="#EEF6FF", color="#1D4ED8"];
+  Resume      [label="Resume Normal\nupdated manifests + policy bundles", fillcolor="#ECFDF5", color="#166534"];
 
   Normal -> Partitioned;
-  Partitioned -> Local [label="tighten authority"];
-  Local -> Reconcile [label="connectivity restored"];
-  Reconcile -> Resume;
+  Partitioned -> Local [label="tighten authority", fontsize=10, fontcolor="#9A3412", color="#9A3412", style=dashed, penwidth=1.4];
+  Local -> Reconcile [label="connectivity restored", fontsize=10];
+  Reconcile -> Resume [style=bold, color="#166534", penwidth=2.0, label="verification/closure", fontsize=10, fontcolor="#166534"];
 
-  Block [label="Blocked in degraded mode:\nraw cross-domain movement\nunbounded automation", shape=note, fillcolor="#FEF2F2", color="#991B1B", fontsize=9.5];
-  Local -> Block [style=dotted, color="#991B1B"];
+  Block [label="Blocked in degraded mode:\nraw cross-domain movement\nunbounded automation", shape=note, fillcolor="#FEF2F2", color="#991B1B", fontsize=10];
+  Local -> Block [style=dotted, color="#991B1B", label="reference-only linkage", fontsize=9, fontcolor="#991B1B"];
 }

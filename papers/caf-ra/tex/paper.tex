@@ -573,10 +573,10 @@ verification is hope. CAF is built to replace hope with evidence.
 \label{fig:caf-enforcement-boundaries}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[p]
 \centering
-\includegraphics[width=0.98\linewidth]{papers/caf-ra/diagrams/caf_decision_trace.png}
-\caption{CAF decision trace from evidence to replay}
+\includegraphics[width=\textwidth,height=0.86\textheight,keepaspectratio]{papers/caf-ra/diagrams/caf_decision_trace.png}
+\caption{CAF decision trace from evidence to replay, including proof-ledger anchoring}
 \label{fig:caf-decision-trace}
 \end{figure}
 
@@ -653,9 +653,9 @@ architecture, but as a deployment pattern: local enforcement points and
 local evidence buffering that can operate under denial while preserving
 replay and later reconciliation. Figure~\ref{fig:caf-degraded-mode} makes the expected transitions explicit so degraded behavior is governable in advance, not improvised mid-incident.
 
-\begin{figure}
+\begin{figure}[p]
 \centering
-\includegraphics[width=0.98\linewidth]{papers/caf-ra/diagrams/caf_degraded_mode_state.png}
+\includegraphics[width=\textwidth,height=0.86\textheight,keepaspectratio]{papers/caf-ra/diagrams/caf_degraded_mode_state.png}
 \caption{Degraded-mode state transitions and authority tightening behavior}
 \label{fig:caf-degraded-mode}
 \end{figure}

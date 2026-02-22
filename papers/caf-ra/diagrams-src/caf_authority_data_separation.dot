@@ -1,8 +1,16 @@
 digraph CAFAuthorityData {
   rankdir=LR;
-  graph [bgcolor="white", pad="0.25", nodesep="0.6", ranksep="0.7", labelloc="t", label="CAF Separation: Authority Lane vs Data Lane"];
-  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10];
-  edge [color="#204060", arrowsize=0.75, penwidth=1.15];
+  graph [
+    bgcolor="white",
+    pad="0.20",
+    nodesep="0.62",
+    ranksep="0.72",
+    labelloc="t",
+    label="CAF Separation: Authority Lane vs Data Lane"
+  ];
+
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10.5];
+  edge [color="#204060", arrowsize=0.75, penwidth=1.2];
 
   subgraph cluster_auth {
     label="Authority Lane";
@@ -11,8 +19,8 @@ digraph CAFAuthorityData {
     ASM [label="Assurance Scope Manifest (ASM)", fillcolor="#FFF7ED", color="#9A3412"];
     Policy [label="Policy Bundle", fillcolor="#FFF7ED", color="#9A3412"];
     Decision [label="Decision Record\n(policy hash + ASM hash + refs)", fillcolor="#FFF7ED", color="#9A3412"];
-    ASM -> Decision;
-    Policy -> Decision;
+    ASM -> Decision [style=dashed, color="#9A3412", penwidth=1.35];
+    Policy -> Decision [style=dashed, color="#9A3412", penwidth=1.35];
   }
 
   subgraph cluster_data {
@@ -25,9 +33,27 @@ digraph CAFAuthorityData {
     Evidence -> Posture -> Surface;
   }
 
-  Evidence -> Decision [label="references", style=dashed];
-  Posture -> Decision [label="informs", style=dashed];
+  Evidence -> Decision [label="reference-only linkage", style=dotted, color="#64748B", fontcolor="#64748B", fontsize=8.7];
+  Posture -> Decision [label="reference-only linkage", style=dotted, color="#64748B", fontcolor="#64748B", fontsize=8.7];
+
+  Verify [label="Verification / closure evidence", fillcolor="#ECFDF5", color="#166534"];
+  Decision -> Verify [style=bold, color="#166534", penwidth=2.0];
+  Verify -> Surface [style=bold, color="#166534", penwidth=2.0];
 
   Guard [label="Rule: score informs,\nscore does NOT grant authority", shape=note, fillcolor="#FEF2F2", color="#991B1B", fontsize=10];
   Posture -> Guard [style=dotted, color="#991B1B"];
+
+  Legend [
+    shape=box,
+    style="rounded,filled",
+    fillcolor="#F8FAFC",
+    color="#64748B",
+    fontname="Arial",
+    fontsize=8.8,
+    margin="0.06,0.05",
+    label="Legend: solid = data flow | dashed = authority/control constraint | dotted = reference-only linkage | bold solid = verification/closure"
+  ];
+
+  { rank=sink; Legend; }
+  Verify -> Legend [style=invis, weight=0.01, constraint=false];
 }
