@@ -38,7 +38,7 @@ CAF is a single governed loop---EMIT $\rightarrow$ ENRICH $\rightarrow$ SCORE $\
 
 CAF-RA enforces three non-negotiables. Authority is explicit and executable through signed manifests and policy bundles. Evidence is portable, labeled, and replayable through sealed envelopes and tamper-evident anchoring. Consequential action is mediated and attributable at real change boundaries through signed decision records, not inferred from advisory dashboards.
 
-This paper keeps the baseline simple and pushes sophistication into conformance profiles. It defines testable technical positions, a governance overlay, degraded-mode behavior, and an adoption path that starts in shadow mode and graduates to bounded automation. The objective is practical: sustain continuously governed cyber resilience at mission tempo without sacrificing control, attribution, or rollback discipline [1][2][3].
+This paper keeps the baseline simple and pushes sophistication into conformance profiles. It defines testable technical positions, a governance overlay, degraded-mode behavior, and an adoption path that starts in shadow mode and graduates to bounded automation. The objective is practical: sustain continuously governed cyber resilience at mission tempo without sacrificing control, attribution, or rollback discipline \cite{ACPRA,DADMemo,CodeAsPolicy}.
 \end{execsummary}
 
 \hypertarget{continuous-assurance-fabric-reference-architecture-cafra}{%
@@ -66,9 +66,9 @@ CAF solves that by standardizing a single operational loop:
 
 EMIT $\rightarrow$ ENRICH $\rightarrow$ SCORE $\rightarrow$ SURFACE $\rightarrow$ ACT
 
-This loop is not a metaphor. It is the architecture. Each verb names a responsibility boundary, a contract surface, and an audit trail requirement. If CAF is implemented as ten services or fifty does not matter; what matters is that the five responsibilities remain distinct and governed, and that they produce evidence and replay sufficient to sustain continuous authorization state and after-action reconstruction. ([Adam Boas][1])
+This loop is not a metaphor. It is the architecture. Each verb names a responsibility boundary, a contract surface, and an audit trail requirement. If CAF is implemented as ten services or fifty does not matter; what matters is that the five responsibilities remain distinct and governed, and that they produce evidence and replay sufficient to sustain continuous authorization state and after-action reconstruction. \cite{ACPRA}
 
-CAF is deliberately aligned to the same ``control shift'' posture found in the memo and ACP-RA: this is not a tooling cycle; it is a shift in how authority is executed when non-person entities act at machine tempo. CAF provides the assurance control plane that keeps autonomous execution governable, with acquisition leverage and conformance as the mechanism that prevents fragmentation. ([Adam Boas][2])
+CAF is deliberately aligned to the same ``control shift'' posture found in the memo and ACP-RA: this is not a tooling cycle; it is a shift in how authority is executed when non-person entities act at machine tempo. CAF provides the assurance control plane that keeps autonomous execution governable, with acquisition leverage and conformance as the mechanism that prevents fragmentation. \cite{DADMemo}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -84,11 +84,11 @@ not attributable to strong identity, not schema-consistent, not labeled
 for cross-enclave operation, not confidence-scored, and not bound to
 enforceable authority.
 
-CAF makes assurance decision-grade by enforcing three non-negotiables that remain valid even as autonomy increases. Authority is explicit and enforceable: human risk authority is represented as a signed, versioned manifest and signed policy bundles that constrain what actions are allowed, in what environment, at what consequence tier, and under what uncertainty tolerance. This is the assurance analogue to ACP-RA's trust-scope posture: intent is not authority; manifests and policy are. ([Adam Boas][1])
+CAF makes assurance decision-grade by enforcing three non-negotiables that remain valid even as autonomy increases. Authority is explicit and enforceable: human risk authority is represented as a signed, versioned manifest and signed policy bundles that constrain what actions are allowed, in what environment, at what consequence tier, and under what uncertainty tolerance. This is the assurance analogue to ACP-RA's trust-scope posture: intent is not authority; manifests and policy are. \cite{ACPRA}
 
-Evidence is portable and replayable: evidence is emitted in sealed envelopes, admitted through an ingestion gateway, anchored in a tamper-evident mechanism, and queryable by stable IDs. If you cannot reconstruct what was known at the time and bind it to who asserted it, you cannot credibly claim you governed the decision---especially when agents and automation act faster than human recollection. ([Adam Boas][1])
+Evidence is portable and replayable: evidence is emitted in sealed envelopes, admitted through an ingestion gateway, anchored in a tamper-evident mechanism, and queryable by stable IDs. If you cannot reconstruct what was known at the time and bind it to who asserted it, you cannot credibly claim you governed the decision---especially when agents and automation act faster than human recollection. \cite{ACPRA}
 
-Enforcement is mediated and attributable: CAF does not ``recommend'' safety. It makes safety enforceable at the boundaries where change becomes real---pipeline gates, admission gates, segmentation gates, data-access gates, and bounded response automation---under signed decision records that bind policy hash, manifest hash, and evidence references. Centralize decisions; distribute enforcement. ([Adam Boas][1])
+Enforcement is mediated and attributable: CAF does not ``recommend'' safety. It makes safety enforceable at the boundaries where change becomes real---pipeline gates, admission gates, segmentation gates, data-access gates, and bounded response automation---under signed decision records that bind policy hash, manifest hash, and evidence references. Centralize decisions; distribute enforcement. \cite{ACPRA}
 
 Everything else---risk graphs, ensemble scoring, digital twins, formal policy coherence checks, autonomous validation agents---can and should exist, but they belong in profiles and patterns. They must not bloat the core mental model, and they must never become accidental authority sources.
 
@@ -100,7 +100,7 @@ Everything else---risk graphs, ensemble scoring, digital twins, formal policy co
 Before debating design details, we bound the problem. CAF-RA focuses on
 the control-plane mechanisms that make assurance governable at scale and
 at tempo. It guides and constrains downstream architectures; it does not
-prescribe a single implementation. ({[}Adam Boas{]}{[}1{]})
+prescribe a single implementation. \cite{ACPRA}
 
 CAF-RA is \textbf{in scope} for enterprise cloud and platform services,
 software factories and delivery pipelines, mission runtimes
@@ -147,7 +147,7 @@ optimism.
 is federated. CAF must be protocol-neutral and vendor-neutral while
 enforcing a consistent policy surface across enclaves and programs. That
 consistency is achieved through contracts and conformance, not through
-central procurement of a single toolchain. ({[}Adam Boas{]}{[}2{]})
+central procurement of a single toolchain. \cite{DADMemo}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -157,7 +157,7 @@ central procurement of a single toolchain. ({[}Adam Boas{]}{[}2{]})
 CAF-RA adopts the same architecture posture used in ACP-RA and related
 papers: explicit authority artifacts, mediated side effects through
 gateways, governance-as-code with gates, evidence and replay, and
-degraded-mode survivability. ({[}Adam Boas{]}{[}1{]})
+degraded-mode survivability. \cite{ACPRA}
 
 \hypertarget{p1-producers-and-enforcers-are-non-person-entities-not-tools}{%
 \subsubsection{P1 --- Producers and enforcers are principals (including agents), not
@@ -172,7 +172,7 @@ enforcement}\label{p2-centralize-policy-decisions-distribute-enforcement}}
 CAF uses a policy decision function and multiple enforcement points at
 the boundaries where change becomes real. Central decisioning without
 enforcement is theater; enforcement without centralized decisioning is
-fragmentation. ({[}Adam Boas{]}{[}1{]})
+fragmentation. \cite{ACPRA}
 
 \hypertarget{p3-default-deny-for-consequential-change-allow-by-explicit-tolerance}{%
 \subsubsection{P3 --- Default deny for consequential change; allow by
@@ -216,7 +216,7 @@ movement}\label{p7-context-is-governed-data-movement}}
 Context influences decisions; it must not grant authority. Context must
 be provenance-preserving, minimized, labeled, freshness-aware, and
 replayable. This is the assurance analogue to ``context engineering is
-governed data movement.'' ({[}Adam Boas{]}{[}1{]})
+governed data movement.'' \cite{ACPRA}
 
 \hypertarget{p8-evaluation-and-validation-are-gates}{%
 \subsubsection{P8 --- Evaluation and validation are
@@ -224,7 +224,7 @@ gates}\label{p8-evaluation-and-validation-are-gates}}
 
 Tests, drift checks, detection-fidelity checks, and adversarial
 validation are not reports. They are release gates and runtime gates.
-({[}Adam Boas{]}{[}1{]})
+\cite{ACPRA}
 
 \hypertarget{p9-confidence-is-explicit-uncertainty-drives-safe-behavior}{%
 \subsubsection{P9 --- Confidence is explicit; uncertainty drives safe
@@ -241,7 +241,7 @@ replaceable}\label{p10-interfaces-are-government-owned-components-are-replaceabl
 CAF is an architecture, not a product. Replaceability is enforced
 through stable schemas, API contracts, and conformance
 tests---consistent with the broader ``code-as-policy /
-governance-as-code'' posture. ({[}Adam Boas{]}{[}3{]})
+governance-as-code'' posture. \cite{CodeAsPolicy}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -254,7 +254,7 @@ positions, patterns, and vocabulary. The loop provides the narrative
 spine; technical positions define the hard edges that make the loop
 governable; patterns show how to implement without prescribing a vendor
 stack. This is deliberately congruent with ACP-RA's structure and tone.
-({[}Adam Boas{]}{[}1{]})
+\cite{ACPRA}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -287,7 +287,7 @@ that represents delegated authority for assurance actions within a
 scope. It binds four parameters that must be explicit and testable:
 \textbf{Authority $\times$ Consequence $\times$ Environment $\times$ Uncertainty tolerance}.
 This structure mirrors the trust-scope decomposition used in the related
-papers, but applied to assurance. ({[}Adam Boas{]}{[}4{]})
+papers, but applied to assurance. \cite{ForceCreation}
 
 \textbf{Policy bundle.} A signed, versioned set of executable rules
 consumed by CAF decisions and enforcement points. Policy bundles encode
@@ -315,7 +315,7 @@ tamper detection, not novelty.
 Humans supervise \emph{work units} (changes, incidents, releases,
 environments) rather than individual low-level events. This mirrors
 ACP-RA's use of work units as the supervised unit of long-running
-execution, translated to assurance. ({[}Adam Boas{]}{[}1{]})
+execution, translated to assurance. \cite{ACPRA}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -362,7 +362,7 @@ audit. ``The scanner said\ldots{}'' is not an assurance claim unless
 ``scanner'' is a principal whose evidence can be verified, rotated, and
 revoked. This aligns directly to the control-plane posture in ACP-RA:
 identity for non-person entities is the foundation of governed
-automation. ({[}Adam Boas{]}{[}1{]})
+automation. \cite{ACPRA}
 
 \textbf{Technical position (EMIT-2): Emissions MUST be sealable into an
 evidence envelope.} CAF does not mandate what every producer emits
@@ -459,7 +459,7 @@ confidence.} Every posture claim used for gating or enforcement must
 include confidence fields driven by evidence completeness, provenance,
 freshness, and consistency. When confidence drops, CAF must tighten
 authority and/or escalate. This is the assurance analogue to uncertainty
-tolerance in trust scopes. ({[}Adam Boas{]}{[}4{]})
+tolerance in trust scopes. \cite{ForceCreation}
 
 \textbf{Technical position (SCORE-2): Posture MUST be explainable back
 to evidence IDs.} If an AO, commander, or platform lead cannot drill
@@ -508,7 +508,7 @@ work units,'' not just events.} Humans supervise bounded threads: a
 release, an incident, a platform baseline, a mission environment.
 Surfacing work units prevents supervision from devolving into log
 watching, and mirrors ACP-RA's work-unit model for scalable supervision.
-({[}Adam Boas{]}{[}1{]})
+\cite{ACPRA}
 
 \textbf{Technical position (SURFACE-3): Cross-enclave posture summaries
 MUST be first-class artifacts.} Federation cannot require raw evidence
@@ -612,14 +612,14 @@ In an agentic enterprise, these authority artifacts also constrain autonomous ac
 CAF's manifest structure deliberately mirrors the ``authority $\times$
 consequence $\times$ environment $\times$ uncertainty tolerance'' decomposition used
 in the related writing, because it is the minimum sufficient structure
-to bound machine-speed decisioning. ({[}Adam Boas{]}{[}4{]})
+to bound machine-speed decisioning. \cite{ForceCreation}
 
 Policies become enforceable only as signed bundles. Drafts, discussions,
 or tickets may be recorded as evidence, but they are not authority
 sources. The code-as-policy posture exists because large organizations
 cannot scale governance through serialized document workflows; they
 scale through versioned artifacts, review, and automated verification
-gates. ({[}Adam Boas{]}{[}3{]})
+gates. \cite{CodeAsPolicy}
 
 \hypertarget{overrides-and-exceptions}{%
 \subsection{Overrides and exceptions}\label{overrides-and-exceptions}}
@@ -633,7 +633,7 @@ because under pressure the Department cannot rely on memory and chat
 logs to reconstruct why a decision boundary was crossed. This is
 directly aligned to the control-plane posture described in ACP-RA:
 mediated action and evidence are non-negotiable under contested
-conditions. ({[}Adam Boas{]}{[}1{]})
+conditions. \cite{ACPRA}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -740,7 +740,7 @@ Control inheritance as proof treats inheritance as a lineage graph bound to evid
 
 Bulkhead gateways treat ingestion, export, and orchestration boundaries as bulkheads that prevent cascades. This pattern focuses on failure containment: schema confusion, replay attempts, poisoned producers, and runaway remediation are contained at controlled boundaries where throttling, quarantine, and rollback are enforceable and attributable.
 
-Assurance work units make supervision scalable by organizing human oversight around bounded threads---releases, incidents, environments, and baselines---rather than event floods. This mirrors the scalable supervision posture in ACP-RA and keeps human authority operationally relevant even when machine-tempo actors are generating and acting on evidence continuously. ([Adam Boas][1])
+Assurance work units make supervision scalable by organizing human oversight around bounded threads---releases, incidents, environments, and baselines---rather than event floods. This mirrors the scalable supervision posture in ACP-RA and keeps human authority operationally relevant even when machine-tempo actors are generating and acting on evidence continuously. \cite{ACPRA}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -762,7 +762,7 @@ CAF also aligns with the code-as-policy posture: the artifacts that
 grant authority (manifests, policy bundles, conformance tests, scenario
 suites) must be versioned, reviewable, and continuously verified.
 Otherwise, CAF will drift into informal exceptions and untraceable
-variance. ({[}Adam Boas{]}{[}3{]})
+variance. \cite{CodeAsPolicy}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -816,7 +816,7 @@ Adopt CAF as a loop-first control-plane architecture and keep the core vocabular
 
 CAF-RA is a practical control-plane architecture for continuous assurance at mission tempo. It does not add complexity for its own sake. It limits baseline complexity to one governed loop and uses profiles to scale depth only where mission consequence requires it.
 
-The architecture is successful when it does three things consistently: it keeps authority explicit, it keeps evidence replayable, and it keeps enforcement mediated at real boundaries. When those conditions hold, continuous authorization becomes operationally credible in federated and contested environments [1][2].
+The architecture is successful when it does three things consistently: it keeps authority explicit, it keeps evidence replayable, and it keeps enforcement mediated at real boundaries. When those conditions hold, continuous authorization becomes operationally credible in federated and contested environments \cite{ACPRA,DADMemo}.
 
 CAF's central claim is doctrinal as much as technical: in a continuous, agentic enterprise, authorization is not a point-in-time approval attached to a deployment. It is a continuously maintained state produced by explicit authority artifacts, replayable evidence, confidence-aware posture, and mediated enforcement at the boundaries where change becomes real. CAF makes autonomous speed compatible with governable control by ensuring that capability never becomes authority, that every consequential action is attributable to a decision record, and that every decision remains replayable under contested and degraded operations. The loop-contract framing in Figure~\ref{fig:caf-loop-contract} is therefore not presentation style; it is the operational doctrine that keeps assurance governable when machine-tempo actors are part of the force.
 
