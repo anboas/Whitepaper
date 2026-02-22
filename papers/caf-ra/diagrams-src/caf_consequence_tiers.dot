@@ -2,23 +2,23 @@ digraph CAFConsequenceTiers {
   rankdir=TB;
   graph [
     bgcolor="white",
-    pad="0.20",
-    nodesep="0.50",
-    ranksep="0.62",
+    pad="0.16",
+    nodesep="0.40",
+    ranksep="0.50",
     labelloc="t",
     label="Consequence Tiers vs Action Eligibility"
   ];
 
-  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10.8, margin="0.10,0.08"];
-  edge [color="#204060", arrowsize=0.74, penwidth=1.2];
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=9.6, margin="0.07,0.06"];
+  edge [color="#204060", arrowsize=0.72, penwidth=1.15];
 
-  T1 [label="Tier 1 (low consequence)\nEvidence: baseline confidence\nApprovals: pre-authorized policy\nRate limits: permissive\nRollback: standard\nEligible actions: bounded automation", fillcolor="#ECFDF5", color="#166534"];
+  T1 [label="Tier 1 (low)\nEvidence: baseline confidence\nApproval: pre-authorized policy\nRate/Rollback: permissive / standard\nEligible: bounded automation", fillcolor="#ECFDF5", color="#166534"];
 
-  T2 [label="Tier 2 (moderate consequence)\nEvidence: stronger corroboration\nApprovals: explicit reviewer\nRate limits: tighter\nRollback: pre-staged\nEligible actions: narrowed automation", fillcolor="#EEF6FF", color="#1D4ED8"];
+  T2 [label="Tier 2 (moderate)\nEvidence: stronger corroboration\nApproval: explicit reviewer\nRate/Rollback: tighter / pre-staged\nEligible: narrowed automation", fillcolor="#EEF6FF", color="#1D4ED8"];
 
-  T3 [label="Tier 3 (high consequence)\nEvidence: high-confidence + provenance checks\nApprovals: dual control\nRate limits: strict\nRollback: rehearsed + fast\nEligible actions: constrained containment only", fillcolor="#FFF7ED", color="#9A3412"];
+  T3 [label="Tier 3 (high)\nEvidence: high confidence + provenance\nApproval: dual control\nRate/Rollback: strict / rehearsed fast\nEligible: constrained containment", fillcolor="#FFF7ED", color="#9A3412"];
 
-  T4 [label="Tier 4 (critical consequence)\nEvidence: highest-confidence package\nApprovals: senior authority + dual control\nRate limits: minimal\nRollback: immediate + mandatory verification\nEligible actions: minimal safe set", fillcolor="#FEF2F2", color="#991B1B"];
+  T4 [label="Tier 4 (critical)\nEvidence: highest-confidence package\nApproval: senior authority + dual control\nRate/Rollback: minimal / immediate verify\nEligible: minimal safe set", fillcolor="#FEF2F2", color="#991B1B"];
 
-  T1 -> T2 -> T3 -> T4 [label="higher consequence narrows eligibility", fontsize=9.0, fontcolor="#204060"];
+  T1 -> T2 -> T3 -> T4 [label="higher consequence narrows eligibility", fontsize=8.4, fontcolor="#204060"];
 }
