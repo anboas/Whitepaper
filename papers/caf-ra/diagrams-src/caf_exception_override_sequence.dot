@@ -1,16 +1,16 @@
 digraph CAFOverrideSequence {
-  rankdir=LR;
+  rankdir=TB;
   graph [
     bgcolor="white",
-    pad="0.20",
-    nodesep="0.55",
-    ranksep="0.70",
+    pad="0.18",
+    nodesep="0.48",
+    ranksep="0.55",
     labelloc="t",
     label="Governed Exceptions and Overrides Sequence"
   ];
 
-  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10.5];
-  edge [color="#204060", arrowsize=0.75, penwidth=1.2];
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10.1];
+  edge [color="#204060", arrowsize=0.72, penwidth=1.15];
 
   Req [label="Exception request", fillcolor="#EEF6FF"];
   Work [label="Surfaced assurance\nwork unit", fillcolor="#EEF6FF"];
