@@ -11,7 +11,7 @@
 \newcommand{\AuthorRole}{Agentic Warfare Architect, Department of War}
 \newcommand{\PaperDate}{February 2026}
 \renewcommand{\ShortTitle}{CAF-RA}
-\renewcommand{\DocVersion}{v1.8-draft}
+\renewcommand{\DocVersion}{v1.9-draft}
 \fancyfoot[L]{\small\textcolor{BrandGray}{\ShortTitle\ \DocVersion\ | \PaperDate}}
 \fancyfoot[C]{\small\textcolor{BrandGray}{\thepage}}
 \fancyfoot[R]{}
@@ -551,13 +551,20 @@ reversible, and contained.
 
 In agentic operations, autonomous agents may propose and execute bounded actions. CAF's rule is simple: agents do not execute side effects directly. All consequential effects are mediated through enforcement points that verify decision records, enforce consequence-tier constraints, apply rate limits, and preserve rollback and verification discipline. This makes agentic speed compatible with governable authority.
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.68\textheight,keepaspectratio]{papers/caf-ra/diagrams/caf_sensor_swarm_verified_remediation.png}
+\caption{Sensor-to-swarm-to-verified-remediation loop. Sensors emit sealed evidence; an assurance swarm adjudicates with quorum/outlier rejection to produce posture + confidence and bounded recommendations; policy + manifests issue a signed decision record; enforcement points execute bounded action; independent verification closes the loop and anchors proof for replay.}
+\label{fig:caf-sensor-swarm-verified-remediation}
+\end{figure}
+
 Automated remediation in CAF is not ``auto-fix.'' It is governed change executed at machine tempo under explicit scope. Drift and issues are detected through EMIT/ENRICH, adjudicated through SCORE, and surfaced as supervised work units with traceable evidence. Remediation agents then propose bounded plans that are attributable, consequence-tiered, and verification-first. The plan is itself evidence: it must reference the triggering envelopes, declare intended effects and blast radius, and specify how independent verification will confirm success or force rollback.
 
 When policy and confidence allow, CAF authorizes remediation only through enforcement points. Agents do not execute side effects directly; they submit plans and requests that enforcement points validate against signed decision records, rate limits, rollback requirements, and consequence-tier constraints. After execution, ACT emits action evidence and requires independent verification signals to close the loop. If verification fails or confidence collapses, CAF tightens authority automatically---contain, reduce privileges, and escalate---rather than allowing ``optimistic remediation'' to become drift by another name.
 
 The ACT contract is explicit: it answers ``what bounded action is eligible now?''; it emits an action record cryptographically bound to a decision record and verification evidence; its unsafe failure mode is unmediated side effects or runaway remediation; and its primary control is enforcement-point mediation with consequence-tier constraints, rollback, and independent verification.
 
-Figures 5 through 8 should be read as one continuous doctrine, not four separate illustrations. Figure 5 shows how consequence tiers mechanize risk tolerance into enforceable constraints. Figure 6 shows the agentic rule that preserves human authority: agents may propose, but side effects execute only through mediated enforcement points. Figure 7 shows where those enforcement points must live in the real enterprise, and why verification must close the loop. Figure 8 shows the replay chain that proves, after the fact, what was known, what was decided, and what was done under which authority.
+Figures 5 through 7 should be read as one continuous doctrine, not three separate illustrations. Figure 5 shows how consequence tiers mechanize risk tolerance into enforceable constraints. Figure 6 shows the sensor-to-swarm-to-verified-remediation loop: sensors and assessors produce evidence, swarm adjudication produces posture and bounded recommendations, policy and manifests issue the decision record, enforcement points execute bounded action, and independent verification closes the loop. Figure 7 shows the replay chain that proves, after the fact, what was known, what was decided, and what was done under which authority.
 
 \textbf{Technical position (ACT-1): No consequential action without a
 decision record.} Any enforcement beyond advisory MUST be preceded by a
@@ -602,19 +609,6 @@ verification is hope. CAF is built to replace hope with evidence.
 
 \textbf{Technical position (ACT-7): Remediation plans MUST be treated as change proposals with bounded scope and verification requirements, and MUST execute only through CAF enforcement points under signed decision records.}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.90\textwidth,height=0.44\textheight,keepaspectratio]{papers/caf-ra/diagrams/caf_agentic_mediation.png}
-\caption{Agentic mediation: non-person principals can propose bounded actions but side effects execute only through enforcement points}
-\label{fig:caf-agentic-mediation}
-\end{figure}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.90\textwidth,height=0.44\textheight,keepaspectratio]{papers/caf-ra/diagrams/caf_enforcement_boundaries.png}
-\caption{Signed decision-record-driven enforcement at real boundaries with verification evidence fed back into ENRICH}
-\label{fig:caf-enforcement-boundaries}
-\end{figure}
 
 \begin{figure}[htbp]
 \centering
@@ -623,7 +617,7 @@ verification is hope. CAF is built to replace hope with evidence.
 \label{fig:caf-decision-trace}
 \end{figure}
 
-The operational effect of these four figures is that CAF becomes a control plane rather than a reporting plane. Consequence constrains what automation is eligible; mediation ensures capability does not become authority; boundary enforcement ensures decisions are real; and replay ensures the Department can reconstruct governance under contested conditions. With that operational discipline established, the governance overlay exists to preserve trust categories: authority artifacts remain authoritative, data artifacts remain informative, and proof-ledger anchoring makes both replayable without collapsing them into the same trust class.
+The operational effect of these three figures is that CAF becomes a control plane rather than a reporting plane. Consequence constrains what automation is eligible; swarm adjudication and bounded remediation preserve authority discipline at machine tempo; and replay ensures the Department can reconstruct governance under contested conditions. With that operational discipline established, the governance overlay exists to preserve trust categories: authority artifacts remain authoritative, data artifacts remain informative, and proof-ledger anchoring makes both replayable without collapsing them into the same trust class.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
