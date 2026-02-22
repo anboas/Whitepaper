@@ -6,7 +6,7 @@
 \input{tex/paper_preamble.tex}
 
 \newcommand{\PaperTitle}{Continuous Assurance Fabric Reference Architecture (CAF-RA)}
-\newcommand{\PaperSubtitle}{A Control-Plane Architecture for Governed, Scalable Continuous Assurance at Mission Tempo}
+\newcommand{\PaperSubtitle}{A Control-Plane Architecture for Governed, Scalable Continuous Assurance for Agentic Operations at Mission Tempo}
 \newcommand{\AuthorName}{Adam Boas}
 \newcommand{\AuthorRole}{Agentic Warfare Architect, Department of War}
 \newcommand{\PaperDate}{February 2026}
@@ -32,13 +32,13 @@
 \newpage
 
 \begin{execsummary}
-The Department of War (DoW) already operates in a continuous environment. Dependencies change hourly, identities drift, and adversaries adapt faster than periodic review cycles. The core problem is not evidence collection. The core problem is converting evidence into decision-grade assurance at mission tempo.
+The Department of War (DoW) already operates in a continuous and increasingly autonomous environment. Dependencies change hourly, identities drift, adversaries adapt faster than periodic review cycles, and non-person entities now initiate consequential change: pipelines promote, controllers admit, and agents propose and execute responses. In this environment, point-in-time authorization is a category error. Cyber resilience is not a milestone; it is a continuously maintained operating state. CAF-RA defines the assurance control plane that maintains that state at mission tempo.
 
-CAF-RA defines a single governed loop for that mission: \textbf{EMIT $\rightarrow$ ENRICH $\rightarrow$ SCORE $\rightarrow$ SURFACE $\rightarrow$ ACT}. The loop is the architecture. It sets responsibility boundaries, contract surfaces, and audit requirements.
+CAF is a single governed loop---EMIT $\rightarrow$ ENRICH $\rightarrow$ SCORE $\rightarrow$ SURFACE $\rightarrow$ ACT---where each verb is a responsibility boundary, a contract surface, and an audit trail requirement. The loop converts raw telemetry into decision-grade assurance and binds decisions to enforceable authority at the change boundaries where reality becomes irreversible.
 
-CAF-RA enforces three non-negotiables. First, \textbf{authority must be explicit and enforceable} through signed manifests and policy bundles. Second, \textbf{evidence must be portable and replayable} through sealed envelopes and tamper-evident anchoring. Third, \textbf{enforcement must be mediated and attributable} at real change boundaries, not advisory dashboards.
+CAF-RA enforces three non-negotiables. Authority is explicit and executable through signed manifests and policy bundles. Evidence is portable, labeled, and replayable through sealed envelopes and tamper-evident anchoring. Consequential action is mediated and attributable at real change boundaries through signed decision records, not inferred from advisory dashboards.
 
-This paper keeps the baseline simple and pushes sophistication into conformance profiles. It defines testable technical positions, a governance overlay, degraded-mode behavior, and an adoption path that starts in shadow mode and graduates to bounded automation. The objective is practical: enable continuous authorization without sacrificing control, attribution, or rollback discipline [1][2][3].
+This paper keeps the baseline simple and pushes sophistication into conformance profiles. It defines testable technical positions, a governance overlay, degraded-mode behavior, and an adoption path that starts in shadow mode and graduates to bounded automation. The objective is practical: sustain continuously governed cyber resilience at mission tempo without sacrificing control, attribution, or rollback discipline [1][2][3].
 \end{execsummary}
 
 \hypertarget{continuous-assurance-fabric-reference-architecture-cafra}{%
@@ -48,6 +48,8 @@ This paper keeps the baseline simple and pushes sophistication into conformance 
 \emph{A reference architecture for governed, scalable continuous
 assurance---designed for mission tempo, federated enclaves, and
 contested/degraded operations.}
+
+CAF is written for an agentic enterprise. As autonomy shifts from human operators to non-person principals, governance cannot remain a periodic documentation workflow or a monitoring program. CAF treats assurance as an executable control plane that constrains autonomous change at runtime boundaries, preserves replayable proof of what was known and done, and keeps human authority relevant by making it enforceable at machine tempo.
 
 \textbf{Draft:} v0.3 (loop-centric simplification) \textbf{Normative
 language:} ``MUST / SHOULD / MAY'' indicate requirements,
@@ -62,29 +64,15 @@ previous CAF-RA draft tried to be comprehensive by enumerating too many
 \hypertarget{cafra-at-a-glance}{%
 \subsection{CAF-RA at a glance}\label{cafra-at-a-glance}}
 
-CAF is a \textbf{control plane for assurance}. It exists because the
-unit of operational change is now smaller than the unit of human
-governance. When code ships hourly and posture shifts continuously,
-assurance cannot remain a periodic document workflow without becoming
-either irrelevant (rubber-stamp) or destructive (paralyzing friction).
+CAF is a control plane for assurance. It exists because the unit of operational change is now smaller than the unit of human governance, and because an increasing share of that change is initiated by non-person principals operating at machine tempo. When code ships hourly, posture shifts continuously, and agents can propose and execute bounded actions, assurance cannot remain a point-in-time document workflow without becoming either irrelevant (rubber-stamp) or destructive (paralyzing friction). In a continuous enterprise, authorization is not an event; it is a continuously maintained state produced by governed evidence, explicit authority, and mediated enforcement.
 
 CAF solves that by standardizing a single operational loop:
 
-\textbf{EMIT $\rightarrow$ ENRICH $\rightarrow$ SCORE $\rightarrow$ SURFACE $\rightarrow$ ACT}
+EMIT $\rightarrow$ ENRICH $\rightarrow$ SCORE $\rightarrow$ SURFACE $\rightarrow$ ACT
 
-This loop is not a metaphor. It is the architecture. Each verb names a
-responsibility boundary, a contract surface, and an audit trail
-requirement. If CAF is implemented as ten services or fifty does not
-matter; what matters is that the \textbf{five responsibilities remain
-distinct and governed}, and that they produce \textbf{evidence and
-replay} sufficient for continuous authorization and after-action
-reconstruction. ({[}Adam Boas{]}{[}1{]})
+This loop is not a metaphor. It is the architecture. Each verb names a responsibility boundary, a contract surface, and an audit trail requirement. If CAF is implemented as ten services or fifty does not matter; what matters is that the five responsibilities remain distinct and governed, and that they produce evidence and replay sufficient to sustain continuous authorization state and after-action reconstruction. ([Adam Boas][1])
 
-CAF is deliberately aligned to the same ``control shift'' posture found
-in the memo and ACP-RA: this is not a tooling cycle; it is a shift in
-how authority is executed at machine tempo, with acquisition leverage
-and conformance as the mechanism that prevents fragmentation. ({[}Adam
-Boas{]}{[}2{]})
+CAF is deliberately aligned to the same ``control shift'' posture found in the memo and ACP-RA: this is not a tooling cycle; it is a shift in how authority is executed when non-person entities act at machine tempo. CAF provides the assurance control plane that keeps autonomous execution governable, with acquisition leverage and conformance as the mechanism that prevents fragmentation. ([Adam Boas][2])
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -100,37 +88,13 @@ not attributable to strong identity, not schema-consistent, not labeled
 for cross-enclave operation, not confidence-scored, and not bound to
 enforceable authority.
 
-CAF makes assurance decision-grade by enforcing three non-negotiables:
+CAF makes assurance decision-grade by enforcing three non-negotiables that remain valid even as autonomy increases. Authority is explicit and enforceable: human risk authority is represented as a signed, versioned manifest and signed policy bundles that constrain what actions are allowed, in what environment, at what consequence tier, and under what uncertainty tolerance. This is the assurance analogue to ACP-RA's trust-scope posture: intent is not authority; manifests and policy are. ([Adam Boas][1])
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  \textbf{Authority is explicit and enforceable.} Human risk authority
-  is represented as a signed, versioned manifest that constrains what
-  actions are allowed, in what environment, at what consequence tier,
-  and under what uncertainty tolerance. This is the assurance analogue
-  to ACP-RA's trust scope manifests: intent is not authority; manifests
-  and policy are. ({[}Adam Boas{]}{[}1{]})
-\item
-  \textbf{Evidence is portable and replayable.} Evidence is emitted in
-  sealed envelopes, ingested through a gateway, anchored in a
-  tamper-evident ledger, and queryable by stable IDs. If you cannot
-  replay what was known at the time, you cannot credibly claim you
-  governed the decision. ({[}Adam Boas{]}{[}1{]})
-\item
-  \textbf{Enforcement is mediated and attributable.} CAF does not
-  ``recommend'' safety; it makes safety enforceable at the boundaries
-  where change becomes real: pipeline gates, admission gates,
-  segmentation gates, data-access gates, and bounded response
-  automation. Centralize decisions; distribute enforcement. ({[}Adam
-  Boas{]}{[}1{]})
-\end{enumerate}
+Evidence is portable and replayable: evidence is emitted in sealed envelopes, admitted through an ingestion gateway, anchored in a tamper-evident mechanism, and queryable by stable IDs. If you cannot reconstruct what was known at the time and bind it to who asserted it, you cannot credibly claim you governed the decision---especially when agents and automation act faster than human recollection. ([Adam Boas][1])
 
-Everything else---risk graphs, ensemble scoring, digital twins, formal
-policy coherence checks, autonomous validation agents---can and should
-exist, but they belong in profiles and patterns. They must not bloat the
-core mental model.
+Enforcement is mediated and attributable: CAF does not ``recommend'' safety. It makes safety enforceable at the boundaries where change becomes real---pipeline gates, admission gates, segmentation gates, data-access gates, and bounded response automation---under signed decision records that bind policy hash, manifest hash, and evidence references. Centralize decisions; distribute enforcement. ([Adam Boas][1])
+
+Everything else---risk graphs, ensemble scoring, digital twins, formal policy coherence checks, autonomous validation agents---can and should exist, but they belong in profiles and patterns. They must not bloat the core mental model, and they must never become accidental authority sources.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -167,6 +131,10 @@ of acceleration, the architecture must assume high change rates rather
 than ``best-effort modernization.'' A control plane that cannot keep
 pace will be bypassed.
 
+Agentic execution changes the identity of ``who changes the enterprise.'' Non-person principals can generate, configure, and remediate continuously, sometimes faster than humans can observe, much less convene. Governance that assumes humans initiate consequential change will either be routed around or will collapse operations into serialized approvals. CAF exists to keep autonomous action governable by pre-binding authority in enforceable artifacts and mediating side effects at real boundaries.
+
+Continuous monitoring alone cannot produce assurance in a machine-tempo enterprise. Monitoring observes after-the-fact; assurance governs before-the-fact by constraining what actions are eligible under what authority and what confidence. CAF therefore treats monitoring as evidence input to a governed loop, not as a substitute for decision records, enforcement points, and replayable proof.
+
 \textbf{The core problem shifts from ``can we collect evidence?'' to
 ``can we decide with evidence at tempo?''} Evidence is abundant.
 Decision-grade evidence is not. CAF exists to transform raw telemetry
@@ -196,14 +164,10 @@ gateways, governance-as-code with gates, evidence and replay, and
 degraded-mode survivability. ({[}Adam Boas{]}{[}1{]})
 
 \hypertarget{p1-producers-and-enforcers-are-non-person-entities-not-tools}{%
-\subsubsection{P1 --- Producers and enforcers are non-person entities,
-not
+\subsubsection{P1 --- Producers and enforcers are principals (including agents), not
 ``tools''}\label{p1-producers-and-enforcers-are-non-person-entities-not-tools}}
 
-Evidence producers and enforcement points are actors with identity,
-attributes, credential lifecycle, and accountability. Anonymous
-producers create anonymous evidence; anonymous evidence creates
-unauditable governance.
+Evidence producers and enforcement points are actors with identity, attributes, credential lifecycle, and accountability. This includes autonomous validation agents and other agentic producers whose outputs may be policy-relevant. Anonymous producers create anonymous evidence; anonymous evidence creates unauditable governance; and unauditable governance cannot safely authorize machine-tempo action.
 
 \hypertarget{p2-centralize-policy-decisions-distribute-enforcement}{%
 \subsubsection{P2 --- Centralize policy decisions; distribute
@@ -302,18 +266,7 @@ stack. This is deliberately congruent with ACP-RA's structure and tone.
 \subsection{Conceptual view: CAF as a governed
 loop}\label{conceptual-view-caf-as-a-governed-loop}}
 
-CAF is a control system with two planes:
-
-\begin{itemize}
-\tightlist
-\item
-  The \textbf{runtime plane}, where the enterprise actually changes
-  (factories, registries, clusters, identity, networks, data stores,
-  mission services).
-\item
-  The \textbf{assurance control plane}, where authority, evidence,
-  posture, decisions, and enforcement are mediated and proven.
-\end{itemize}
+CAF is a control system with two planes: the runtime plane, where the enterprise actually changes (factories, registries, clusters, identity, networks, data stores, mission services), and the assurance control plane, where authority, evidence, posture, decisions, and enforcement are mediated and proven.
 
 Here's the minimal mental model; everything in CAF-RA is a refinement of
 these boxes, not an expansion into a new ontology:
@@ -347,11 +300,11 @@ rules, and action eligibility.
 \textbf{Evidence envelope.} A sealed wrapper around an evidence event
 that binds producer identity, schema reference, time and clock
 confidence, handling labels, integrity hashes, anti-replay fields, and
-pointers to raw artifacts.
+pointers to raw artifacts. For agentic producers, the envelope also binds model/toolchain identifiers and explicit references to the governed context and tool outputs used to form the claim, so that after-action reconstruction remains possible.
 
 \textbf{Decision record.} A signed record binding policy hash + ASM hash
 + evidence references to a decision (permit, deny, contain, require
-approval, advisory), with confidence and expiry.
+approval, advisory), with confidence, expiry, and pointers sufficient to replay the decisioning function that produced the verdict.
 
 \textbf{Enforcement point (EP).} A mediated boundary where decisions
 become real effects: merge gates, promotion gates, admission gates,
@@ -398,6 +351,8 @@ network controls, data-access controls, and validation harnesses. But
 non-person entity with identity and lifecycle controls, because evidence
 without provenance becomes narrative.
 
+In an agentic enterprise, some evidence is generated by reasoning systems rather than sensors: autonomous validators, triage agents, detection-tuning agents, and response planning agents. CAF treats these as producers, not oracles. Their outputs become decision-grade only when the producer is an attributable principal and the output is sealed into an envelope that binds inputs, confidence, and provenance so the Department can later reconstruct what was asserted and why.
+
 \textbf{Technical position (EMIT-1): Producers MUST be attributable
 principals.} Every producer that can influence posture or gating MUST
 have identity, credentials, and attributes sufficient for ABAC and
@@ -425,6 +380,8 @@ This is the point where CAF gains power without gaining complexity:
 validation is not a new plane; it is a privileged emitter whose outputs
 are policy-relevant.
 
+\textbf{Technical position (EMIT-4): Agentic assertions MUST be provenance-bound.} When a producer's output is derived from model reasoning, the evidence envelope MUST include a model identifier/version, policy-governed context references, and a rationale pointer sufficient for after-action reconstruction. Agent outputs without provenance are advisory at most and MUST NOT directly gate consequential change.
+
 \hypertarget{enrich}{%
 \subsection{ENRICH}\label{enrich}}
 
@@ -436,6 +393,8 @@ normalizes, labels, seals, and anchors evidence. The gateway is a
 security boundary: it is where the Department prevents replay, schema
 confusion, mislabeled data movement, and producer spoofing from becoming
 governance failure.
+
+Agentic systems expand the same failure modes ENRICH exists to prevent. Context can be spoofed, tool outputs can be substituted, and ungoverned retrieval can smuggle mislabeled data across boundaries. ENRICH therefore treats ``context'' and ``agent outputs'' as data that must be admitted, labeled, and anchored under the same discipline as any other evidence, or it is not decision-grade.
 
 \textbf{Technical position (ENRICH-1): Evidence ingestion MUST be a
 gateway, not an open endpoint.} CAF requires an ingestion gateway that
@@ -564,6 +523,8 @@ not acceleration; it is fragile risk transfer. CAF uses consequence
 tiers and bounded orchestration so that action remains attributable,
 reversible, and contained.
 
+In agentic operations, autonomous agents may propose and execute bounded actions. CAF's rule is simple: agents do not execute side effects directly. All consequential effects are mediated through enforcement points that verify decision records, enforce consequence-tier constraints, apply rate limits, and preserve rollback and verification discipline. This makes agentic speed compatible with governable authority.
+
 \textbf{Technical position (ACT-1): No consequential action without a
 decision record.} Any enforcement beyond advisory MUST be preceded by a
 signed decision record binding evidence references, policy hash, and ASM
@@ -595,6 +556,8 @@ what result. Without this, CAF cannot prove it acted within authority.
 CAF must verify that an action had the intended effect using independent
 signals. Quarantine without verification is a story. Rollback without
 verification is hope. CAF is built to replace hope with evidence.
+
+\textbf{Technical position (ACT-6): Agentic orchestrators MUST be mediated.} Any agent or automation that can trigger side effects MUST do so through an enforcement point that enforces policy, rate limits, and rollback discipline, and that emits action evidence cryptographically bound to the decision record.
 
 \begin{figure}
 \centering
@@ -630,6 +593,8 @@ bundles}\label{authority-assurance-scope-manifests-and-policy-bundles}}
 CAF requires that authority is explicit and enforceable through signed
 artifacts. The manifest is not bureaucracy; it is how human authority
 remains relevant at tempo.
+
+In an agentic enterprise, these authority artifacts also constrain autonomous action surfaces. A manifest and its policy bundles must be able to express which non-person principals are permitted to act, what classes of actions are eligible, what tool interfaces may be invoked, and what rate and consequence limits apply. This keeps ``agent capability'' from becoming accidental authority by ensuring that capability is always subordinate to signed, reviewable, enforceable scope.
 
 CAF's manifest structure deliberately mirrors the ``authority $\times$
 consequence $\times$ environment $\times$ uncertainty tolerance'' decomposition used
@@ -750,29 +715,17 @@ do not burden the CAF mental model.
 \hypertarget{patterns}{%
 \section{Patterns}\label{patterns}}
 
-Patterns are not mandatory components; they are reusable solutions that
-preserve conformance while allowing implementation flexibility.
+Patterns are not mandatory components; they are reusable moves that preserve conformance while allowing implementation flexibility. Their purpose is to capture the quickest ways to get operational leverage from the loop without expanding the core ontology or turning CAF into a product catalog.
 
-\textbf{Evidence-first releases.} Promotion is contingent on evidence,
-not calendar time. Progressive delivery becomes a proof mechanism, not
-just a resilience mechanism.
+Evidence-first releases treat promotion as a proof act rather than a calendar event. Promotion becomes contingent on decision-grade evidence and explicit authority, so progressive delivery is not only a resilience mechanism but also an assurance mechanism: it produces bounded proof of what changed, what was observed, what was decided, and what was rolled back if needed.
 
-\textbf{Validation-as-gate.} Scenario-as-code suites are versioned
-artifacts; their outputs are evidence envelopes; their verdicts gate
-promotion and runtime escalation.
+Validation-as-gate treats scenario suites as governed artifacts and treats their outcomes as first-class evidence. In this pattern, automated validation---including bounded adversarial emulation and detection-fidelity checks---is not an external reporting activity. It is a producer whose outputs are enveloped, anchored, and made policy-relevant so that promotion and runtime escalation can be gated by verifiable results.
 
-\textbf{Control inheritance as proof.} Inheritance is not a spreadsheet
-claim; it is a lineage graph bound to evidence and policy versions, so
-that inherited controls remain auditable.
+Control inheritance as proof treats inheritance as a lineage graph bound to evidence and policy versions rather than a spreadsheet claim. Inheritance remains auditable because the inherited control is tied to specific evidence envelopes, specific policy bundles, and specific decision records, so an inherited claim can be replayed and validated rather than asserted.
 
-\textbf{Bulkhead gateways.} Ingestion, export, and orchestration
-boundaries are treated as bulkheads that prevent cascades: schema
-confusion, replay, poisoned producers, runaway remediation.
+Bulkhead gateways treat ingestion, export, and orchestration boundaries as bulkheads that prevent cascades. This pattern focuses on failure containment: schema confusion, replay attempts, poisoned producers, and runaway remediation are contained at controlled boundaries where throttling, quarantine, and rollback are enforceable and attributable.
 
-\textbf{Assurance work units.} Human supervision is organized around
-bounded threads (release, incident, environment) rather than event
-floods, mirroring the scalable supervision model in ACP-RA. ({[}Adam
-Boas{]}{[}1{]})
+Assurance work units make supervision scalable by organizing human oversight around bounded threads---releases, incidents, environments, and baselines---rather than event floods. This mirrors the scalable supervision posture in ACP-RA and keeps human authority operationally relevant even when machine-tempo actors are generating and acting on evidence continuously. ([Adam Boas][1])
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -812,8 +765,7 @@ decision-grade.
 
 Next, CAF enforces low-consequence gates (promotion and admission
 constraints) where rollback is cheap and lessons are fast. Then it
-graduates into bounded containment and remediation where blast radius
-can be constrained. Finally, it scales across enclaves through posture
+graduates into bounded containment and remediation, including agentic remediation executed only through CAF enforcement points under signed decision records, where blast radius can be constrained. Finally, it scales across enclaves through posture
 summaries and conformance governance.
 
 \begin{figure}
@@ -831,38 +783,26 @@ behavior changes.
 \section{Minimal schema appendix
 (illustrative)}\label{minimal-schema-appendix-illustrative}}
 
-CAF's schemas are contracts. The exact fields evolve, but the invariants
-do not: identity, labeling, integrity, anti-replay, and replayable
-references.
+CAF's schemas are contracts. The exact fields evolve, but the invariants do not: attributable identity, handling labels, integrity anchoring, anti-replay, and replayable references. The purpose of the schema is not to standardize every internal producer format; it is to standardize what enters the fabric and what can be audited, gated, and replayed across enclaves.
 
-\textbf{Evidence envelope} includes producer principal, schema ref, time
-+ clock confidence, labels, subject ID, integrity anchors, and
-signature.
+An evidence envelope binds a producer principal, schema reference, time and clock confidence, handling labels, subject identifiers, integrity anchors, anti-replay fields, and a signature. When the producer is agentic, the envelope also binds model/toolchain identifiers and explicit references to the governed context and tool outputs used to produce the claim, so that later reconstruction is possible even when the reasoning system is probabilistic.
 
-\textbf{Decision record} includes policy hash, ASM hash, evidence
-references, decision/verdict, confidence, expiry, and rationale
-pointers.
+A decision record binds policy hash, ASM hash, and evidence references to a verdict, with explicit confidence, expiry, and rationale pointers. The record exists to prove that a consequential action was eligible under a specific authority scope and policy version, based on specific evidence, at a specific time, and through a decisioning function that can be replayed.
 
-\textbf{Action record} includes decision record ID, principal, scope,
-effect, and verification evidence pointers.
-
+An action record binds a decision record ID to the principal that executed the effect, the scope and boundary where it was enforced, the observed result, and the verification evidence that confirms the action achieved its intended effect. This closes the loop by turning enforcement into evidence rather than narrative.
 
 
 \section{Recommendations}
 
-\begin{enumerate}
-  \item \textbf{Adopt} CAF as a loop-first architecture and keep the core vocabulary constrained.
-  \item \textbf{Require} signed ASMs and policy bundles before any consequential automation.
-  \item \textbf{Implement} evidence envelopes, proof-ledger anchoring, and decision records as mandatory contracts.
-  \item \textbf{Establish} enforcement points at pipeline, admission, segmentation, and data-access boundaries.
-  \item \textbf{Define} confidence-driven escalation thresholds and degraded-mode operating rules.
-\end{enumerate}
+Adopt CAF as a loop-first control-plane architecture and keep the core vocabulary constrained so it remains operable at mission tempo. Require signed ASMs and policy bundles before any consequential automation, and treat evidence envelopes, proof-ledger anchoring, and decision records as mandatory contracts for anything that can gate change. Establish enforcement points at pipeline, admission, segmentation, data-access, and bounded response boundaries so the control plane is real rather than advisory. Define confidence-driven escalation thresholds and rehearsed degraded-mode operating rules so uncertainty tightens authority instead of silently relaxing it.
 
 \section{Conclusion}
 
 CAF-RA is a practical control-plane architecture for continuous assurance at mission tempo. It does not add complexity for its own sake. It limits baseline complexity to one governed loop and uses profiles to scale depth only where mission consequence requires it.
 
 The architecture is successful when it does three things consistently: it keeps authority explicit, it keeps evidence replayable, and it keeps enforcement mediated at real boundaries. When those conditions hold, continuous authorization becomes operationally credible in federated and contested environments [1][2].
+
+CAF's central claim is doctrinal as much as technical: in a continuous, agentic enterprise, authorization is not a point-in-time approval attached to a deployment. It is a continuously maintained state produced by explicit authority artifacts, replayable evidence, confidence-aware posture, and mediated enforcement at the boundaries where change becomes real. CAF makes autonomous speed compatible with governable control by ensuring that capability never becomes authority, that every consequential action is attributable to a decision record, and that every decision remains replayable under contested and degraded operations.
 
 \section*{References}
 \begin{thebibliography}{99}
