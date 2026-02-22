@@ -6,7 +6,7 @@ digraph CAFAdoption {
 
   P1 [label="Phase 1\nShadow Mode\n(no enforcement)", fillcolor="#EEF6FF"];
   P2 [label="Phase 2\nLow-Consequence Gates\n(promotion/admission)"];
-  P3 [label="Phase 3\nBounded Containment\n(verified remediation)"];
+  P3 [label="Phase 3\nBounded Containment\n(agentic remediation via EPs\nunder signed decision records)"];
   P4 [label="Phase 4\nFederated Scaling\n(cross-enclave conformance)", fillcolor="#ECFDF5", color="#166534"];
 
   P1 -> P2 -> P3 -> P4;

@@ -45,6 +45,9 @@ digraph CAFFederation {
   Conformance [label="Verification / closure\n(conformance + reconciliation)", fillcolor="#ECFDF5", color="#166534"];
   Broker -> Conformance [style=bold, color="#166534", penwidth=2.0];
 
+  Intersection [label="Effective authority =\nintersection(ASM_A, ASM_B)", shape=note, fillcolor="#FFF7ED", color="#9A3412", fontsize=9.6];
+  Broker -> Intersection [style=dashed, color="#9A3412", penwidth=1.2];
+
   RawMove [label="Raw evidence movement\n(exception-only, governed)", shape=note, fillcolor="#FEF2F2", color="#991B1B", fontname="Arial", fontsize=10];
   Broker -> RawMove [style=dotted, color="#991B1B"];
 

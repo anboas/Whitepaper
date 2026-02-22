@@ -18,9 +18,11 @@ digraph CAFAuthorityData {
     style="rounded,dashed";
     ASM [label="Assurance Scope Manifest (ASM)", fillcolor="#FFF7ED", color="#9A3412"];
     Policy [label="Policy Bundle", fillcolor="#FFF7ED", color="#9A3412"];
-    Decision [label="Decision Record\n(policy hash + ASM hash + refs)", fillcolor="#FFF7ED", color="#9A3412"];
+    Decision [label="Signed Decision Record\n(policy hash + ASM hash + refs)", fillcolor="#FFF7ED", color="#9A3412"];
+    Action [label="Action Records\n(from ACT)", fillcolor="#EEF6FF", color="#1D4ED8"];
     ASM -> Decision [style=dashed, color="#9A3412", penwidth=1.35];
     Policy -> Decision [style=dashed, color="#9A3412", penwidth=1.35];
+    Decision -> Action [style=dotted, color="#64748B", penwidth=1.1];
   }
 
   subgraph cluster_data {
@@ -40,6 +42,11 @@ digraph CAFAuthorityData {
   Decision -> Verify [style=bold, color="#166534", penwidth=2.0];
   Verify -> Surface [style=bold, color="#166534", penwidth=2.0];
 
+  Ledger [label="Proof ledger\n(anchors evidence + decisions + actions)", fillcolor="#ECFDF5", color="#166534"];
+  Evidence -> Ledger [style=dashed, color="#166534", penwidth=1.3, label="anchor", fontsize=8.7, fontcolor="#166534"];
+  Decision -> Ledger [style=dashed, color="#166534", penwidth=1.3, label="anchor", fontsize=8.7, fontcolor="#166534"];
+  Action -> Ledger [style=dashed, color="#166534", penwidth=1.3, label="anchor", fontsize=8.7, fontcolor="#166534"];
+
   Guard [label="Rule: score informs,\nscore does NOT grant authority", shape=note, fillcolor="#FEF2F2", color="#991B1B", fontsize=10];
   Posture -> Guard [style=dotted, color="#991B1B"];
 
@@ -55,5 +62,5 @@ digraph CAFAuthorityData {
   ];
 
   { rank=sink; Legend; }
-  Verify -> Legend [style=invis, weight=0.01, constraint=false];
+  Ledger -> Legend [style=invis, weight=0.01, constraint=false];
 }

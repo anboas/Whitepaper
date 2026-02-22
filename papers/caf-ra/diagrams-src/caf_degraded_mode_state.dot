@@ -14,14 +14,18 @@ digraph CAFDegraded {
 
   Normal      [label="Normal Connected\nfull policy + evidence exchange", fillcolor="#ECFDF5", color="#166534"];
   Partitioned [label="Partition Detected\nlatency/loss/time-skew/deception", fillcolor="#FFF7ED", color="#9A3412"];
-  Local       [label="Local Constrained Ops\ncache ASM+policy, bounded EPs\nno authority expansion", fillcolor="#FEF2F2", color="#991B1B"];
-  Reconcile   [label="Reconciliation\nbackfill evidence + verify divergence\nresolve exceptions", fillcolor="#EEF6FF", color="#1D4ED8"];
+  Local       [label="Local Constrained Ops\ncached manifests + cached policy bundles\nbounded local EPs + evidence buffering\nno scope expansion", fillcolor="#FEF2F2", color="#991B1B"];
+  Buffer      [label="Local Evidence Buffer", fillcolor="#EEF6FF", color="#1D4ED8"];
+  Reconcile   [label="Reconciliation\nbackfill buffered evidence + verify divergence\nresolve exceptions", fillcolor="#EEF6FF", color="#1D4ED8"];
   Resume      [label="Resume Normal\nupdated manifests + policy bundles", fillcolor="#ECFDF5", color="#166534"];
+  Ledger      [label="Proof Ledger / Anchoring", fillcolor="#ECFDF5", color="#166534"];
 
   Normal -> Partitioned;
-  Partitioned -> Local [label="tighten authority", fontsize=10, fontcolor="#9A3412", color="#9A3412", style=dashed, penwidth=1.4];
-  Local -> Reconcile [label="connectivity restored", fontsize=10];
+  Partitioned -> Local [label="authority tightens", fontsize=10, fontcolor="#9A3412", color="#9A3412", style=dashed, penwidth=1.4];
+  Local -> Buffer [label="buffer evidence locally", fontsize=9.6];
+  Buffer -> Reconcile [label="connectivity restored", fontsize=9.6];
   Reconcile -> Resume [style=bold, color="#166534", penwidth=2.0, label="verification/closure", fontsize=10, fontcolor="#166534"];
+  Reconcile -> Ledger [style=bold, color="#166534", penwidth=2.0, label="reconcile -> anchor", fontsize=9.6, fontcolor="#166534"];
 
   Block [label="Blocked in degraded mode:\nraw cross-domain movement\nunbounded automation", shape=note, fillcolor="#FEF2F2", color="#991B1B", fontsize=10];
   Local -> Block [style=dotted, color="#991B1B", label="reference-only linkage", fontsize=9, fontcolor="#991B1B"];

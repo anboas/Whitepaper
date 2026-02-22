@@ -569,14 +569,15 @@ verification is hope. CAF is built to replace hope with evidence.
 \begin{figure}
 \centering
 \includegraphics[width=0.98\linewidth]{papers/caf-ra/diagrams/caf_enforcement_boundaries.png}
-\caption{Decision-record driven enforcement at real operational boundaries}
+\caption{Signed decision-record driven enforcement at real boundaries with verification evidence fed back into ENRICH}
 \label{fig:caf-enforcement-boundaries}
 \end{figure}
 
+\clearpage
 \begin{figure}[p]
 \centering
-\includegraphics[width=\textwidth,height=0.86\textheight,keepaspectratio]{papers/caf-ra/diagrams/caf_decision_trace.png}
-\caption{CAF decision trace from evidence to replay, including proof-ledger anchoring}
+\includegraphics[width=\textwidth,height=0.90\textheight,keepaspectratio]{papers/caf-ra/diagrams/caf_decision_trace.png}
+\caption{CAF decision trace from evidence to replay, including explicit proof-ledger anchoring on core artifacts}
 \label{fig:caf-decision-trace}
 \end{figure}
 
@@ -592,7 +593,7 @@ from becoming an untrusted dashboard. Figure~\ref{fig:caf-authority-data} is the
 \begin{figure}
 \centering
 \includegraphics[width=0.98\linewidth]{papers/caf-ra/diagrams/caf_authority_data_separation.png}
-\caption{Authority artifacts and data artifacts remain separate by design}
+\caption{Authority artifacts and data artifacts remain separate while sharing proof-ledger anchoring}
 \label{fig:caf-authority-data}
 \end{figure}
 
@@ -653,10 +654,11 @@ architecture, but as a deployment pattern: local enforcement points and
 local evidence buffering that can operate under denial while preserving
 replay and later reconciliation. Figure~\ref{fig:caf-degraded-mode} makes the expected transitions explicit so degraded behavior is governable in advance, not improvised mid-incident.
 
+\clearpage
 \begin{figure}[p]
 \centering
-\includegraphics[width=\textwidth,height=0.86\textheight,keepaspectratio]{papers/caf-ra/diagrams/caf_degraded_mode_state.png}
-\caption{Degraded-mode state transitions and authority tightening behavior}
+\includegraphics[width=\textwidth,height=0.90\textheight,keepaspectratio]{papers/caf-ra/diagrams/caf_degraded_mode_state.png}
+\caption{Degraded-mode state transitions with explicit authority-tightening rule, local evidence buffering, and reconciliation anchoring}
 \label{fig:caf-degraded-mode}
 \end{figure}
 
@@ -669,8 +671,7 @@ exchange}\label{federation-and-cross-domain-posture-exchange}}
 CAF is federated by default. Authority composes by intersection across
 manifests and policy bundles, not by union. This prevents accidental
 over-permission as systems connect. ACP-RA makes the same point for
-delegated autonomy; CAF adopts it for assurance authority. ({[}Adam
-Boas{]}{[}1{]})
+delegated autonomy; CAF adopts it for assurance authority. \cite{ACPRA}
 
 Cross-domain behavior is handled by treating posture summaries and
 evidence packages as explicit artifacts. The default is to exchange
@@ -680,7 +681,7 @@ exception-based and governed. Figure~\ref{fig:caf-federation} shows the summary-
 \begin{figure}
 \centering
 \includegraphics[width=0.98\linewidth]{papers/caf-ra/diagrams/caf_federation_exchange.png}
-\caption{Federated posture exchange with summary-by-default discipline}
+\caption{Federated posture exchange with summary-by-default discipline and intersection authority rule}
 \label{fig:caf-federation}
 \end{figure}
 
@@ -783,7 +784,7 @@ summaries and conformance governance, with explicit phase-exit criteria as shown
 \begin{figure}
 \centering
 \includegraphics[width=0.98\linewidth]{papers/caf-ra/diagrams/caf_adoption_phases.png}
-\caption{CAF adoption progression and phase-exit criteria}
+\caption{CAF adoption progression and phase-exit criteria, including bounded agentic containment in Phase 3}
 \label{fig:caf-adoption}
 \end{figure}
 

@@ -12,7 +12,7 @@ digraph CAFBoundaries {
   node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10.8];
   edge [color="#204060", arrowsize=0.76, penwidth=1.25];
 
-  Decision [label="Decision Record\n(policy hash + ASM hash + evidence refs)", fillcolor="#EEF6FF"];
+  Decision [label="Signed decision record\n(policy hash + ASM hash + evidence refs)", fillcolor="#EEF6FF"];
 
   subgraph cluster_factory {
     label="Software Factory";
@@ -38,7 +38,9 @@ digraph CAFBoundaries {
     Response [label="Bounded Response\nAutomation Gate"];
   }
 
-  Verify [label="Independent Verification\n(closes loop)", fillcolor="#ECFDF5", color="#166534"];
+  Verify [label="Independent Verification", fillcolor="#ECFDF5", color="#166534"];
+  VerifyEnvelope [label="Verification evidence envelope", fillcolor="#EEF6FF", color="#1D4ED8"];
+  EnrichIntake [label="ENRICH intake", fillcolor="#EEF6FF", color="#1D4ED8"];
   Ledger [label="Proof Ledger / Anchoring", fillcolor="#ECFDF5", color="#166534"];
 
   Decision -> Merge [style=dashed, color="#9A3412", penwidth=1.35];
@@ -55,8 +57,11 @@ digraph CAFBoundaries {
   Data -> Verify [style=bold, color="#166534", penwidth=2.0];
   Response -> Verify [style=bold, color="#166534", penwidth=2.0];
 
+  Verify -> VerifyEnvelope [style=bold, color="#166534", penwidth=2.0, label="verification/closure", fontsize=9.0, fontcolor="#166534"];
+  VerifyEnvelope -> EnrichIntake [style=solid, color="#204060", penwidth=1.35, label="data flow", fontsize=8.8, fontcolor="#204060"];
+
   Decision -> Ledger [style=bold, color="#166534", penwidth=2.0, label="anchor decision", fontsize=9.0, fontcolor="#166534"];
-  Verify -> Ledger [style=bold, color="#166534", penwidth=2.0, label="anchor closure", fontsize=9.0, fontcolor="#166534"];
+  VerifyEnvelope -> Ledger [style=bold, color="#166534", penwidth=2.0, label="anchor closure evidence", fontsize=9.0, fontcolor="#166534"];
   Ledger -> Decision [style=dotted, color="#64748B", label="reference-only linkage", fontsize=8.7, fontcolor="#64748B"];
 
   Legend [

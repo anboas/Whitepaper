@@ -86,30 +86,45 @@
 <!-- Conformance -->
 <g id="node8" class="node">
 <title>Conformance</title>
-<path fill="#ecfdf5" stroke="#166534" d="M715,-224C715,-224 578,-224 578,-224 572,-224 566,-218 566,-212 566,-212 566,-200 566,-200 566,-194 572,-188 578,-188 578,-188 715,-188 715,-188 721,-188 727,-194 727,-200 727,-200 727,-212 727,-212 727,-218 721,-224 715,-224"/>
-<text text-anchor="middle" x="646.5" y="-209.36" font-family="Arial" font-size="10.80">Verification / closure</text>
-<text text-anchor="middle" x="646.5" y="-197.36" font-family="Arial" font-size="10.80">(conformance + reconciliation)</text>
+<path fill="#ecfdf5" stroke="#166534" d="M715,-267C715,-267 578,-267 578,-267 572,-267 566,-261 566,-255 566,-255 566,-243 566,-243 566,-237 572,-231 578,-231 578,-231 715,-231 715,-231 721,-231 727,-237 727,-243 727,-243 727,-255 727,-255 727,-261 721,-267 715,-267"/>
+<text text-anchor="middle" x="646.5" y="-252.36" font-family="Arial" font-size="10.80">Verification / closure</text>
+<text text-anchor="middle" x="646.5" y="-240.36" font-family="Arial" font-size="10.80">(conformance + reconciliation)</text>
 </g>
 <!-- Broker&#45;&gt;Conformance -->
 <g id="edge9" class="edge">
 <title>Broker&#45;&gt;Conformance</title>
-<path fill="none" stroke="#166534" stroke-width="2" d="M516.09,-180.12C529.92,-182.88 544.26,-185.75 558.14,-188.53"/>
-<polygon fill="#166534" stroke="#166534" stroke-width="2" points="557.92,-191.16 565.79,-190.06 558.95,-186.01 557.92,-191.16"/>
+<path fill="none" stroke="#166534" stroke-width="2" d="M475.57,-181.03C509.97,-194.79 557.43,-213.77 593.44,-228.18"/>
+<polygon fill="#166534" stroke="#166534" stroke-width="2" points="592.55,-230.65 600.49,-231 594.5,-225.77 592.55,-230.65"/>
+</g>
+<!-- Intersection -->
+<g id="node9" class="node">
+<title>Intersection</title>
+<polygon fill="#fff7ed" stroke="#9a3412" points="712.5,-181 574.5,-181 574.5,-145 718.5,-145 718.5,-175 712.5,-181"/>
+<polyline fill="none" stroke="#9a3412" points="712.5,-181 712.5,-175 "/>
+<polyline fill="none" stroke="#9a3412" points="718.5,-175 712.5,-175 "/>
+<text text-anchor="middle" x="646.5" y="-166.32" font-family="Arial" font-size="9.60">Effective authority =</text>
+<text text-anchor="middle" x="646.5" y="-155.32" font-family="Arial" font-size="9.60">intersection(ASM_A, ASM_B)</text>
+</g>
+<!-- Broker&#45;&gt;Intersection -->
+<g id="edge10" class="edge">
+<title>Broker&#45;&gt;Intersection</title>
+<path fill="none" stroke="#9a3412" stroke-width="1.2" stroke-dasharray="5,2" d="M516.09,-163C532.85,-163 550.34,-163 566.86,-163"/>
+<polygon fill="#9a3412" stroke="#9a3412" stroke-width="1.2" points="566.87,-165.63 574.37,-163 566.87,-160.38 566.87,-165.63"/>
 </g>
 <!-- RawMove -->
-<g id="node9" class="node">
+<g id="node10" class="node">
 <title>RawMove</title>
-<polygon fill="#fef2f2" stroke="#991b1b" points="706,-138 581,-138 581,-102 712,-102 712,-132 706,-138"/>
-<polyline fill="none" stroke="#991b1b" points="706,-138 706,-132 "/>
-<polyline fill="none" stroke="#991b1b" points="712,-132 706,-132 "/>
-<text text-anchor="middle" x="646.5" y="-123" font-family="Arial" font-size="10.00">Raw evidence movement</text>
-<text text-anchor="middle" x="646.5" y="-112" font-family="Arial" font-size="10.00">(exception&#45;only, governed)</text>
+<polygon fill="#fef2f2" stroke="#991b1b" points="706,-95 581,-95 581,-59 712,-59 712,-89 706,-95"/>
+<polyline fill="none" stroke="#991b1b" points="706,-95 706,-89 "/>
+<polyline fill="none" stroke="#991b1b" points="712,-89 706,-89 "/>
+<text text-anchor="middle" x="646.5" y="-80" font-family="Arial" font-size="10.00">Raw evidence movement</text>
+<text text-anchor="middle" x="646.5" y="-69" font-family="Arial" font-size="10.00">(exception&#45;only, governed)</text>
 </g>
 <!-- Broker&#45;&gt;RawMove -->
-<g id="edge10" class="edge">
+<g id="edge11" class="edge">
 <title>Broker&#45;&gt;RawMove</title>
-<path fill="none" stroke="#991b1b" stroke-width="1.25" stroke-dasharray="1,5" d="M516.09,-145.88C534.94,-142.11 554.74,-138.15 573.01,-134.5"/>
-<polygon fill="#991b1b" stroke="#991b1b" stroke-width="1.25" points="573.91,-137 580.75,-132.95 572.88,-131.85 573.91,-137"/>
+<path fill="none" stroke="#991b1b" stroke-width="1.25" stroke-dasharray="1,5" d="M475.57,-144.97C509.97,-131.21 557.43,-112.23 593.44,-97.82"/>
+<polygon fill="#991b1b" stroke="#991b1b" stroke-width="1.25" points="594.5,-100.23 600.49,-95 592.55,-95.35 594.5,-100.23"/>
 </g>
 <!-- BPolicy -->
 <g id="node5" class="node">
@@ -142,10 +157,10 @@
 <polygon fill="#204060" stroke="#204060" stroke-width="1.25" points="397.5,-144.3 405.43,-144.82 399.55,-139.47 397.5,-144.3"/>
 </g>
 <!-- Legend -->
-<g id="node10" class="node">
+<g id="node11" class="node">
 <title>Legend</title>
-<path fill="#f8fafc" stroke="#64748b" d="M1296,-224C1296,-224 789,-224 789,-224 783,-224 777,-218 777,-212 777,-212 777,-200 777,-200 777,-194 783,-188 789,-188 789,-188 1296,-188 1296,-188 1302,-188 1308,-194 1308,-200 1308,-200 1308,-212 1308,-212 1308,-218 1302,-224 1296,-224"/>
-<text text-anchor="middle" x="1042.5" y="-203.96" font-family="Arial" font-size="8.80">Legend: solid = data flow | dashed = authority/control constraint | dotted = reference&#45;only linkage | bold solid = verification/closure</text>
+<path fill="#f8fafc" stroke="#64748b" d="M1296,-267C1296,-267 789,-267 789,-267 783,-267 777,-261 777,-255 777,-255 777,-243 777,-243 777,-237 783,-231 789,-231 789,-231 1296,-231 1296,-231 1302,-231 1308,-237 1308,-243 1308,-243 1308,-255 1308,-255 1308,-261 1302,-267 1296,-267"/>
+<text text-anchor="middle" x="1042.5" y="-246.96" font-family="Arial" font-size="8.80">Legend: solid = data flow | dashed = authority/control constraint | dotted = reference&#45;only linkage | bold solid = verification/closure</text>
 </g>
 <!-- Conformance&#45;&gt;Legend -->
 </g>

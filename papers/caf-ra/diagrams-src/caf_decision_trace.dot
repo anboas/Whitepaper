@@ -1,27 +1,28 @@
 digraph CAFDecisionTrace {
-  rankdir=LR;
+  rankdir=TB;
   graph [
     bgcolor="white",
     pad="0.20",
-    nodesep="0.58",
-    ranksep="0.75",
+    nodesep="0.55",
+    ranksep="0.72",
     labelloc="t",
     label="CAF Decision Trace and Replay Chain"
   ];
 
-  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=11.2];
-  edge [color="#204060", arrowsize=0.78, penwidth=1.3];
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=11.8, margin="0.10,0.09"];
+  edge [color="#204060", arrowsize=0.80, penwidth=1.35];
 
-  E  [label="Evidence Envelope\n(identity + schema + labels + integrity)", fillcolor="#EEF6FF"];
-  D  [label="Decision Record\n(ASM hash + policy hash + evidence refs)", fillcolor="#FFF7ED", color="#9A3412"];
+  E  [label="Evidence Envelope [anchored]\n(identity + schema + labels + integrity)", fillcolor="#EEF6FF"];
+  D  [label="Signed Decision Record [anchored]\n(ASM hash + policy hash + evidence refs)", fillcolor="#FFF7ED", color="#9A3412"];
   EP [label="Enforcement Point\n(merge/admission/segmentation/data/response)"];
-  A  [label="Action Record\n(principal + scope + effect)"];
+  A  [label="Action Record [anchored]\n(principal + scope + effect)"];
   V  [label="Verification Evidence\n(independent signal confirms effect)", fillcolor="#ECFDF5", color="#166534"];
   R  [label="Replay / After-Action\nwhat known -> decided -> done", fillcolor="#F1F5F9"];
   L  [label="Proof Ledger / Anchoring\n(tamper-evident chain)", fillcolor="#ECFDF5", color="#166534"];
 
   E -> D -> EP -> A -> V -> R;
 
+  E -> L [style=bold, color="#166534", penwidth=2.0, label="anchor evidence", fontsize=9.2, fontcolor="#166534"];
   D -> L [style=bold, color="#166534", penwidth=2.0, label="anchor decision", fontsize=9.2, fontcolor="#166534"];
   A -> L [style=bold, color="#166534", penwidth=2.0, label="anchor action", fontsize=9.2, fontcolor="#166534"];
   V -> L [style=bold, color="#166534", penwidth=2.0, label="anchor closure", fontsize=9.2, fontcolor="#166534"];
