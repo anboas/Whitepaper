@@ -11,7 +11,7 @@
 \newcommand{\AuthorRole}{Agentic Warfare Architect, Department of War}
 \newcommand{\PaperDate}{February 2026}
 \renewcommand{\ShortTitle}{CAF-RA}
-\renewcommand{\DocVersion}{v1.6-draft}
+\renewcommand{\DocVersion}{v1.7-draft}
 \fancyfoot[L]{\small\textcolor{BrandGray}{\ShortTitle\ \DocVersion\ | \PaperDate}}
 \fancyfoot[C]{\small\textcolor{BrandGray}{\thepage}}
 \fancyfoot[R]{}
@@ -135,6 +135,8 @@ than ``best-effort modernization.'' A control plane that cannot keep
 pace will be bypassed.
 
 Agentic execution changes the identity of ``who changes the enterprise.'' Non-person principals can generate, configure, and remediate continuously, sometimes faster than humans can observe, much less convene. Governance that assumes humans initiate consequential change will either be routed around or will collapse operations into serialized approvals. CAF exists to keep autonomous action governable by pre-binding authority in enforceable artifacts and mediating side effects at real boundaries.
+
+Agentic execution will not arrive as a single ``agent.'' It will arrive as populations of specialized non-person principals: validators, triage agents, detection-tuning agents, remediation planners, and bounded effectors. In that environment, resilience cannot depend on the correctness of any one producer or one model. CAF therefore treats multiplicity as a security primitive: posture and action eligibility should be derived from independent principals, and adjudicated for agreement, disagreement, and outliers. Consensus does not grant authority---manifests and policy bundles remain the only authority sources---but consensus raises confidence and increases adversary cost by forcing corruption across multiple independent paths to move governance outcomes.
 
 Continuous monitoring alone cannot produce assurance in a machine-tempo enterprise. Monitoring observes after-the-fact; assurance governs before-the-fact by constraining what actions are eligible under what authority and what confidence. CAF therefore treats monitoring as evidence input to a governed loop, not as a substitute for decision records, enforcement points, and replayable proof.
 
@@ -464,6 +466,10 @@ fidelity, detection readiness, and validation outcomes. Some of these
 can be measured directly; others are inferred. CAF does not prohibit
 inference. It prohibits opaque inference.
 
+In an agentic enterprise, deterministic sensors and probabilistic assessors increasingly compute posture together. They will disagree. CAF treats disagreement as signal rather than noise.
+
+\textbf{Technical position (SCORE-4): When multi-principal adjudication influences action eligibility, the scoring stage must record and replay it with consequence-tier thresholds.} For each governed decision, the scoring stage records the adjudication rule (including quorum thresholds), participating principals, agreement and dissent sets, outlier handling, abstentions/failures, and confidence adjustment. Higher consequence tiers require stricter quorum and narrower dissent tolerance before action eligibility. Unresolved dissent cannot be silently averaged away; it lowers confidence and tightens policy bounds or routes to human review. The pipeline binds adjudication outputs into the signed decision record so downstream remediation can be replayed, audited, and challenged.
+
 The SCORE contract is explicit: it answers ``given admitted evidence, what is posture now and how certain are we?''; it emits confidence-bearing posture claims traceable to evidence IDs; its unsafe failure mode is opaque scoring that is treated as authority; and its primary control is explainability with authority/data separation enforced in policy.
 
 \textbf{Technical position (SCORE-1): Posture outputs MUST include
@@ -637,6 +643,8 @@ artifacts. The manifest is not bureaucracy; it is how human authority
 remains relevant at tempo.
 
 In an agentic enterprise, these authority artifacts also constrain autonomous action surfaces. A manifest and its policy bundles must be able to express which non-person principals are permitted to act, what classes of actions are eligible, what tool interfaces may be invoked, and what rate and consequence limits apply. This keeps ``agent capability'' from becoming accidental authority by ensuring that capability is always subordinate to signed, reviewable, enforceable scope.
+
+CAF does not define tool-call governance; it consumes it. Tool invocation is an action surface, and the authority artifacts must constrain it explicitly: which tools may be called, under what parameters, at what budget/rate, and with what consequence-tier limits. ACP-RA defines the control-plane discipline for governed tool use by non-person principals; CAF treats those tool-call records and tool outputs as admissible evidence when they influence posture, gating, exceptions, or remediation eligibility. If a claim depends on a tool call, the system must bind the tool-call transcript (or a cryptographic reference to it), its outputs, and the governing policy context into evidence envelopes and replay them alongside the decision record. \cite{ACPRA}
 
 CAF's manifest structure deliberately mirrors the ``authority $\times$
 consequence $\times$ environment $\times$ uncertainty tolerance'' decomposition used
