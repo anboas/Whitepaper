@@ -1,14 +1,27 @@
 digraph CAFLoopContract {
-  rankdir=LR;
-  graph [bgcolor="white", pad="0.25", nodesep="0.55", ranksep="0.75", labelloc="t", label="CAF Loop Contract (Question -> Artifact -> Gate)"];
-  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=9.8];
-  edge [color="#204060", arrowsize=0.75, penwidth=1.15];
+  rankdir=TB;
+  graph [
+    bgcolor="white",
+    pad="0.20",
+    nodesep="0.45",
+    ranksep="0.62",
+    labelloc="t",
+    label="CAF Loop Contract Cards"
+  ];
 
-  Emit [label="EMIT\nQ: What happened?\nOut: Evidence envelope\nGate: producer identity + signing"];
-  Enrich [label="ENRICH\nQ: Is evidence decision-grade?\nOut: labeled, anchored evidence\nGate: schema + anti-replay"];
-  Score [label="SCORE\nQ: What is posture/confidence?\nOut: posture statement + confidence\nGate: explainability to evidence IDs"];
-  Surface [label="SURFACE\nQ: Can humans supervise?\nOut: work-unit decision surface\nGate: drillable provenance"];
-  Act [label="ACT\nQ: What action is allowed now?\nOut: bounded enforcement action\nGate: decision record + verification"];
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#204060", fontname="Arial", fontsize=10.8, margin="0.12,0.10"];
+  edge [color="#204060", arrowsize=0.72, penwidth=1.2];
+
+  Emit [label="EMIT\nQuestion: What changed, and who is asserting it?\nArtifact: Sealed evidence envelope from attributable producer\nUnsafe failure mode: Anonymous or spoofed claims enter governance\nPrimary control: Identity-bound producer admission + envelope sealing"];
+
+  Enrich [label="ENRICH\nQuestion: Is this evidence admissible and replay-safe?\nArtifact: Labeled, anchored evidence ready for policy use\nUnsafe failure mode: Schema confusion, replay, mislabeled movement\nPrimary control: Governed ingestion gateway verifies, labels, anchors"];
+
+  Score [label="SCORE\nQuestion: Given admitted evidence, what is posture now?\nArtifact: Confidence-bearing posture claim traceable to IDs\nUnsafe failure mode: Opaque scoring treated as authority\nPrimary control: Explainability + authority/data separation"];
+
+  Surface [label="SURFACE\nQuestion: What decision is pending and under what authority?\nArtifact: Supervised assurance work unit with drillable trace\nUnsafe failure mode: Dashboard theater or human bypass\nPrimary control: Decision surfaces with provenance + exception discipline"];
+
+  Act [label="ACT\nQuestion: What bounded action is eligible now?\nArtifact: Action record bound to decision + verification evidence\nUnsafe failure mode: Unmediated side effects or runaway remediation\nPrimary control: EP mediation, consequence tiers, rollback + verification"];
 
   Emit -> Enrich -> Score -> Surface -> Act;
+  Act -> Emit [style=dotted, color="#64748B", penwidth=1.0, label="continuous loop", fontsize=9.0, fontcolor="#64748B"];
 }

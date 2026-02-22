@@ -20,18 +20,30 @@ digraph CAFCore {
   Act [label="ACT"];
 
   Governance [label="Governance Overlay\n(ASM + policy bundles)", fillcolor="#FFF7ED", color="#9A3412"];
-  Ledger [label="Proof Ledger / Anchoring\n(tamper-evident replay substrate)", fillcolor="#ECFDF5", color="#166534"];
+
+  Substrate [
+    shape=box,
+    style="rounded,filled",
+    fixedsize=true,
+    width=7.8,
+    height=0.42,
+    fillcolor="#F1F5F9",
+    color="#94A3B8",
+    fontsize=9.4,
+    label="Anchoring substrate: proof ledger (replay/tamper detection)"
+  ];
 
   Runtime -> Emit;
   Emit -> Enrich -> Score -> Surface -> Act;
 
+  Governance -> Emit   [style=dashed, color="#9A3412", penwidth=1.35];
   Governance -> Enrich [style=dashed, color="#9A3412", penwidth=1.35];
-  Governance -> Score [style=dashed, color="#9A3412", penwidth=1.35];
-  Governance -> Act [style=dashed, color="#9A3412", penwidth=1.35];
+  Governance -> Score  [style=dashed, color="#9A3412", penwidth=1.35];
+  Governance -> Surface[style=dashed, color="#9A3412", penwidth=1.35];
+  Governance -> Act    [style=dashed, color="#9A3412", penwidth=1.35];
 
-  Enrich -> Ledger [style=bold, color="#166534", penwidth=2.1, label="verification/closure", fontsize=9.2, fontcolor="#166534"];
-  Act -> Ledger [style=bold, color="#166534", penwidth=2.1, label="verification/closure", fontsize=9.2, fontcolor="#166534"];
-  Score -> Ledger [style=dotted, color="#64748B", label="reference-only linkage", fontsize=9.0, fontcolor="#64748B"];
+  Enrich -> Substrate [style=dashed, color="#166534", penwidth=1.35, label="anchor evidence", fontsize=9.0, fontcolor="#166534"];
+  Act -> Substrate    [style=dashed, color="#166534", penwidth=1.35, label="anchor decision/action records", fontsize=9.0, fontcolor="#166534"];
 
   Legend [
     shape=box,
@@ -44,6 +56,6 @@ digraph CAFCore {
     label="Legend: solid = data flow | dashed = authority/control constraint | dotted = reference-only linkage | bold solid = verification/closure"
   ];
 
-  { rank=sink; Legend; }
-  Ledger -> Legend [style=invis, weight=0.01, constraint=false];
+  { rank=sink; Substrate; Legend; }
+  Substrate -> Legend [style=invis, weight=0.01, constraint=false];
 }
