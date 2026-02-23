@@ -11,7 +11,7 @@
 \newcommand{\AuthorRole}{Agentic Warfare Architect, Department of War}
 \newcommand{\PaperDate}{February 2026}
 \renewcommand{\ShortTitle}{CAF-RA}
-\renewcommand{\DocVersion}{v1.9-draft}
+\renewcommand{\DocVersion}{v1.10-draft}
 \fancyfoot[L]{\small\textcolor{BrandGray}{\ShortTitle\ \DocVersion\ | \PaperDate}}
 \fancyfoot[C]{\small\textcolor{BrandGray}{\thepage}}
 \fancyfoot[R]{}
@@ -67,7 +67,9 @@ CAF is a control plane for assurance. It exists because the unit of operational 
 
 CAF solves that by standardizing a single operational loop:
 
-EMIT $\rightarrow$ ENRICH $\rightarrow$ SCORE $\rightarrow$ SURFACE $\rightarrow$ ACT
+\begin{center}
+\textbf{EMIT $\rightarrow$ ENRICH $\rightarrow$ SCORE $\rightarrow$ SURFACE $\rightarrow$ ACT}
+\end{center}
 
 This loop is not a metaphor. It is the architecture. Each verb names a responsibility boundary, a contract surface, and an audit trail requirement. If CAF is implemented as ten services or fifty does not matter; what matters is that the five responsibilities remain distinct and governed, and that they produce evidence and replay sufficient to sustain continuous authorization state and after-action reconstruction. \cite{ACPRA}
 
