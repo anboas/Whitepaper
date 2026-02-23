@@ -12,7 +12,7 @@ digraph CAFSensorSwarmLoop {
   ];
 
   node [shape=box, style="rounded,filled", fontname="Arial", fontsize=10.2, color="#1E3A8A", fillcolor="#EFF6FF", penwidth=1.2];
-  edge [arrowsize=0.72, penwidth=1.2, color="#1E3A8A", fontname="Arial", fontsize=8.8, fontcolor="#1E3A8A"];
+  edge [arrowsize=0.72, penwidth=1.2, color="#1D4ED8", fontname="Arial", fontsize=8.8, fontcolor="#1D4ED8"];
 
   subgraph cluster_plane {
     label="CAF Assurance Control Plane (governed loop)";
@@ -41,7 +41,7 @@ digraph CAFSensorSwarmLoop {
 
       Sensors [label="Sensors / Producers\npipelines | runtime | identity | network | data | validators", fillcolor="#DBEAFE", color="#1D4ED8"];
       Emit [label="EMIT: Seal Evidence Envelope\nproducer identity | schema | labels | integrity", fillcolor="#DBEAFE", color="#1D4ED8"];
-      Enrich [label="ENRICH Gateway\nverify | label | anti-replay | anchor", fillcolor="#DBEAFE", color="#1D4ED8"];
+      Enrich [label="① ENRICH Gateway\nverify | label | anti-replay | anchor", fillcolor="#DBEAFE", color="#1D4ED8", penwidth=1.5];
 
       subgraph cluster_swarm {
         label="Assurance Swarm (agent ensemble)";
@@ -53,16 +53,16 @@ digraph CAFSensorSwarmLoop {
         Exposure [label="Exposure / Attack-Path Agent", fillcolor="#EFF6FF", color="#1D4ED8"];
         Compliance [label="Policy-Compliance Agent", fillcolor="#EFF6FF", color="#1D4ED8"];
         Planner [label="Remediation Planner Agent", fillcolor="#EFF6FF", color="#1D4ED8"];
-        Adjudication [label="Swarm Adjudication\nquorum / weighted vote / outlier reject", fillcolor="#DBEAFE", color="#1D4ED8", penwidth=1.4];
+        Adjudication [label="② Swarm Adjudication\nquorum + outlier rejection (policy-governed)", fillcolor="#DBEAFE", color="#1D4ED8", penwidth=1.6];
 
         { rank=same; Drift; Exposure; }
         { rank=same; Compliance; Planner; }
       }
 
-      Posture [label="Posture Claim + Confidence\ntraceable to evidence IDs", fillcolor="#DBEAFE", color="#1D4ED8"];
+      Posture [label="③ Posture Claim + Confidence\ntraceable to evidence IDs", fillcolor="#DBEAFE", color="#1D4ED8", penwidth=1.5];
       Actions [label="Proposed Bounded Actions\nrationale + expected effect", fillcolor="#DBEAFE", color="#1D4ED8"];
       PDP [label="Policy Decision Function (PDP)\npolicy + ASM + confidence -> verdict", fillcolor="#EFF6FF", color="#1D4ED8", penwidth=1.4];
-      Decision [label="Signed Decision Record\npolicy hash + ASM hash + evidence refs", fillcolor="#FFF7ED", color="#C2410C", penwidth=1.35];
+      Decision [label="④ Signed Decision Record\npolicy hash + ASM hash + evidence refs", fillcolor="#FFF7ED", color="#C2410C", penwidth=1.6];
 
       SwarmCallout [shape=note, label="Swarm informs;\nswarm does NOT grant authority.", fillcolor="#FFF1F2", color="#BE123C", fontsize=9.0];
 
@@ -81,7 +81,7 @@ digraph CAFSensorSwarmLoop {
         color="#15803D";
         style="rounded,dashed";
 
-        Merge [label="Merge / Promotion Gate", fillcolor="#ECFDF5", color="#15803D"];
+        Merge [label="⑤ Merge / Promotion Gate", fillcolor="#ECFDF5", color="#15803D", penwidth=1.5];
         Admission [label="Admission Gate", fillcolor="#ECFDF5", color="#15803D"];
         Segment [label="Segmentation Gate", fillcolor="#ECFDF5", color="#15803D"];
         Data [label="Data-Access Gate", fillcolor="#ECFDF5", color="#15803D"];
@@ -89,66 +89,69 @@ digraph CAFSensorSwarmLoop {
       }
 
       ActionRec [label="Action Record\nprincipal | scope | effect", fillcolor="#ECFDF5", color="#15803D"];
-      Verify [label="Independent Verification\nconfirm effect via independent signals", fillcolor="#ECFDF5", color="#15803D", penwidth=1.35];
+      Verify [label="⑥ Independent Verification\nconfirm effect via independent signals", fillcolor="#ECFDF5", color="#15803D", penwidth=1.6];
       EPCallout [shape=note, label="Agents propose; enforcement points\nexecute side effects.", fillcolor="#ECFDF5", color="#15803D", fontsize=9.0];
     }
   }
 
-  Ledger [label="Proof Ledger / Anchoring (tamper-evident)", shape=box, style="rounded,filled", fillcolor="#F1F5F9", color="#166534", penwidth=1.4, fontsize=10.4, width=8.2];
+  Ledger [label="Proof Ledger / Anchoring (tamper-evident)", shape=box, style="rounded,filled", fillcolor="#F1F5F9", color="#166534", penwidth=1.6, fontsize=10.4, width=8.2];
   ReplayNote [shape=note, label="replay: what was known -> decided -> done", fillcolor="#F8FAFC", color="#64748B", fontsize=8.6];
 
-  // Lane B operational flow (blue)
-  Sensors -> Emit [color="#1D4ED8", penwidth=1.5];
-  Emit -> Enrich [color="#1D4ED8", penwidth=1.5];
+  // Supporting data flow (faded)
+  Sensors -> Emit [color="#93C5FD", penwidth=0.9];
+  Emit -> Enrich [color="#60A5FA", penwidth=1.2];
 
-  Enrich -> Drift [color="#1D4ED8", penwidth=1.3];
-  Enrich -> Exposure [color="#1D4ED8", penwidth=1.3];
-  Enrich -> Compliance [color="#1D4ED8", penwidth=1.3];
-  Enrich -> Planner [color="#1D4ED8", penwidth=1.3];
+  Enrich -> Drift [color="#93C5FD", penwidth=0.8];
+  Enrich -> Exposure [color="#93C5FD", penwidth=0.8];
+  Enrich -> Compliance [color="#93C5FD", penwidth=0.8];
+  Enrich -> Planner [color="#93C5FD", penwidth=0.8];
 
-  Drift -> Adjudication [color="#1D4ED8", penwidth=1.3];
-  Exposure -> Adjudication [color="#1D4ED8", penwidth=1.3];
-  Compliance -> Adjudication [color="#1D4ED8", penwidth=1.3];
-  Planner -> Adjudication [color="#1D4ED8", penwidth=1.3];
+  Drift -> Adjudication [color="#93C5FD", penwidth=0.8];
+  Exposure -> Adjudication [color="#93C5FD", penwidth=0.8];
+  Compliance -> Adjudication [color="#93C5FD", penwidth=0.8];
+  Planner -> Adjudication [color="#93C5FD", penwidth=0.8];
 
-  Adjudication -> Posture [color="#1D4ED8", penwidth=1.4];
-  Adjudication -> Actions [color="#1D4ED8", penwidth=1.4];
+  Adjudication -> Actions [color="#93C5FD", penwidth=0.9];
+  Actions -> PDP [color="#93C5FD", penwidth=0.9];
 
-  Posture -> PDP [color="#1D4ED8", penwidth=1.4];
-  Actions -> PDP [color="#1D4ED8", penwidth=1.4];
-  PDP -> Decision [color="#1D4ED8", penwidth=1.4];
+  // Primary path (thick/dark)
+  Enrich -> Adjudication [color="#0F3A75", penwidth=2.8];
+  Adjudication -> Posture [color="#0F3A75", penwidth=2.8];
+  Posture -> PDP [color="#0F3A75", penwidth=2.8];
+  PDP -> Decision [color="#0F3A75", penwidth=2.8];
+  Decision -> Merge [color="#1E293B", penwidth=2.6];
+  Merge -> ActionRec [color="#166534", penwidth=2.6];
+  ActionRec -> Verify [color="#166534", penwidth=2.8];
+  Verify -> Ledger [color="#166534", penwidth=2.8];
+
+  // Secondary enforcement edges (faded)
+  Decision -> Admission [color="#94A3B8", penwidth=0.8, constraint=false];
+  Decision -> Segment [color="#94A3B8", penwidth=0.8, constraint=false];
+  Decision -> Data [color="#94A3B8", penwidth=0.8, constraint=false];
+  Decision -> Response [color="#94A3B8", penwidth=0.8, constraint=false];
+
+  Admission -> ActionRec [color="#86EFAC", penwidth=0.8, constraint=false];
+  Segment -> ActionRec [color="#86EFAC", penwidth=0.8, constraint=false];
+  Data -> ActionRec [color="#86EFAC", penwidth=0.8, constraint=false];
+  Response -> ActionRec [color="#86EFAC", penwidth=0.8, constraint=false];
+
+  // Verification feedback loop
+  Verify -> Enrich [color="#15803D", penwidth=1.9, label="feedback / closure", fontcolor="#15803D"];
 
   // Authority constraints (orange dashed)
   ASM -> PDP [style=dashed, color="#C2410C", penwidth=1.5];
   Policy -> PDP [style=dashed, color="#C2410C", penwidth=1.5];
   AuthorityCallout -> PDP [style=dashed, color="#C2410C", penwidth=1.0, constraint=false];
 
-  // Lane C flow (green)
-  Decision -> Merge [color="#334155", penwidth=1.4];
-  Decision -> Admission [color="#334155", penwidth=1.4, constraint=false];
-  Decision -> Segment [color="#334155", penwidth=1.4, constraint=false];
-  Decision -> Data [color="#334155", penwidth=1.4, constraint=false];
-  Decision -> Response [color="#334155", penwidth=1.4, constraint=false];
-
-  Merge -> ActionRec [color="#15803D", penwidth=1.5];
-  Admission -> ActionRec [color="#15803D", penwidth=1.2, constraint=false];
-  Segment -> ActionRec [color="#15803D", penwidth=1.2, constraint=false];
-  Data -> ActionRec [color="#15803D", penwidth=1.2, constraint=false];
-  Response -> ActionRec [color="#15803D", penwidth=1.2, constraint=false];
-
-  ActionRec -> Verify [color="#15803D", penwidth=1.6];
-  Verify -> Enrich [color="#15803D", penwidth=1.8, label="feedback / closure", fontcolor="#15803D"];
-
   // Callouts
   SwarmCallout -> Adjudication [style=dashed, color="#BE123C", penwidth=1.0, constraint=false];
   EPCallout -> Merge [style=dashed, color="#15803D", penwidth=1.0, constraint=false];
 
-  // Proof anchoring (dotted gray)
-  Emit -> Ledger [style=dotted, color="#6B7280", penwidth=1.4];
-  Enrich -> Ledger [style=dotted, color="#6B7280", penwidth=1.4];
-  Decision -> Ledger [style=dotted, color="#6B7280", penwidth=1.4];
-  ActionRec -> Ledger [style=dotted, color="#6B7280", penwidth=1.4];
-  Verify -> Ledger [style=dotted, color="#6B7280", penwidth=1.4];
+  // Proof anchoring references (dotted)
+  Emit -> Ledger [style=dotted, color="#9CA3AF", penwidth=1.0];
+  Enrich -> Ledger [style=dotted, color="#9CA3AF", penwidth=1.0];
+  Decision -> Ledger [style=dotted, color="#9CA3AF", penwidth=1.0];
+  ActionRec -> Ledger [style=dotted, color="#9CA3AF", penwidth=1.0];
 
   Ledger -> ReplayNote [style=dotted, color="#6B7280", constraint=false];
 
