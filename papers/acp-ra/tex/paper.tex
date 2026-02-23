@@ -13,7 +13,7 @@
 \newcommand{\AuthorRole}{Agentic Warfare Architect, Department of War}
 \newcommand{\PaperDate}{February 2026}
 \renewcommand{\ShortTitle}{ACP-RA White Paper}
-\renewcommand{\DocVersion}{v0.1}
+\renewcommand{\DocVersion}{v0.2-draft}
 
 \begin{document}
 
@@ -59,15 +59,14 @@ This document is written as a DoW CIO--style reference architecture: strategic p
 % Body (generated from papers/acp-ra/draft.md via pandoc)
 % =========================================================
 \hypertarget{agent-control-plane-reference-architecture-acpra}{%
-\section{Agent Control Plane Reference Architecture
-(ACP‑RA)}\label{agent-control-plane-reference-architecture-acpra}}
+\section{Agent Control Plane Reference Architecture (ACP‑RA)}\label{agent-control-plane-reference-architecture-acpra}}
 
 This section defines ACP‑RA at a glance: what it covers, why it exists,
 and the baseline principles it enforces. The goal is to establish a
 shared frame before diving into specific control surfaces and patterns.
 
 \hypertarget{executive-summary}{%
-\subsection{Executive summary}\label{executive-summary}}
+\subsection{Executive Summary}\label{executive-summary}}
 
 Agentic autonomy is shifting the unit of output from \emph{human-hours}
 to \emph{agent-hours}. That is the transition from ``force
@@ -114,10 +113,10 @@ strategic purpose, principles, technical positions, patterns, and
 vocabulary. It is intended to guide and constrain downstream solution
 architectures rather than prescribe a single implementation.
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{scope-and-non-goals}{%
-\subsection{Scope and non-goals}\label{scope-and-non-goals}}
+\subsection{Scope and Non-Goals}\label{scope-and-non-goals}}
 
 Before debating design details, we bound the problem. ACP‑RA focuses on
 the control-plane mechanisms that make agent execution governable at
@@ -125,7 +124,7 @@ scale. It does not attempt to prescribe mission tactics, weapon
 employment, or policy beyond the control plane.
 
 \hypertarget{in-scope}{%
-\subsubsection{In scope}\label{in-scope}}
+\subsubsection{In Scope}\label{in-scope}}
 
 \begin{itemize}
 \tightlist
@@ -147,7 +146,7 @@ employment, or policy beyond the control plane.
 \end{itemize}
 
 \hypertarget{out-of-scope}{%
-\subsubsection{Out of scope}\label{out-of-scope}}
+\subsubsection{Out of Scope}\label{out-of-scope}}
 
 \begin{itemize}
 \tightlist
@@ -166,10 +165,10 @@ applies. DoDD 3000.09 remains the governing policy for autonomy in
 weapon systems.\\
 (References: DoDD 3000.09; see Appendix ``References.'')
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{strategic-drivers}{%
-\subsection{Strategic drivers}\label{strategic-drivers}}
+\subsection{Strategic Drivers}\label{strategic-drivers}}
 
 The drivers below describe why the Department needs an ACP now. They are
 constraints that shape requirements: speed without loss of governance,
@@ -177,8 +176,7 @@ supervision at scale, resilience under denial, and interoperability
 across federated enclaves.
 
 \hypertarget{a-posture-of-acceleration}{%
-\subsubsection{A posture of
-acceleration}\label{a-posture-of-acceleration}}
+\subsubsection{A Posture of Acceleration}\label{a-posture-of-acceleration}}
 
 Recent Department strategy and senior-leadership messaging emphasize
 acceleration in AI adoption, experimentation, compute access, and rapid
@@ -187,9 +185,7 @@ platforms must support rapid onboarding and change while staying
 governable and reversible.
 
 \hypertarget{the-core-problem-is-shifting-from-can-agents-do-x-to-can-people-supervise-agents-at-scale}{%
-\subsubsection{The core problem is shifting from ``can agents do X?'' to
-``can people supervise agents at
-scale?''}\label{the-core-problem-is-shifting-from-can-agents-do-x-to-can-people-supervise-agents-at-scale}}
+\subsubsection{The Core Problem Is Shifting from ``Can Agents Do X?'' to ``Can People Supervise Agents at Scale?''}\label{the-core-problem-is-shifting-from-can-agents-do-x-to-can-people-supervise-agents-at-scale}}
 
 Commercial agent systems are converging on a command-center model: many
 tasks in parallel, long-running execution, and human supervision as a
@@ -199,9 +195,7 @@ work-unit identity, evidence indexing, pause/resume semantics, and
 escalation controls that remain enforceable at machine tempo.
 
 \hypertarget{contested-and-degraded-environments-are-the-baseline-not-the-exception}{%
-\subsubsection{Contested and degraded environments are the baseline, not
-the
-exception}\label{contested-and-degraded-environments-are-the-baseline-not-the-exception}}
+\subsubsection{Contested and Degraded Environments Are the Baseline, Not the Exception}\label{contested-and-degraded-environments-are-the-baseline-not-the-exception}}
 
 Agentic systems fail differently than traditional software. They are
 vulnerable to deception, poisoning, and cascade failures---especially
@@ -210,8 +204,7 @@ partial connectivity, intermittent access to centralized services, and
 adversary attempts to subvert policy and evidence mechanisms themselves.
 
 \hypertarget{interoperability-and-federation-are-unavoidable}{%
-\subsubsection{Interoperability and federation are
-unavoidable}\label{interoperability-and-federation-are-unavoidable}}
+\subsubsection{Interoperability and Federation Are Unavoidable}\label{interoperability-and-federation-are-unavoidable}}
 
 DoW reality is federated: Services, agencies, mission partners, and
 multiple classification enclaves. Interoperability is also plural:
@@ -220,22 +213,20 @@ being standardized in industry. The ACP must be
 \textbf{protocol-neutral} while enforcing a consistent policy surface
 across whichever interop protocols are in use.
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{architectural-principles}{%
-\subsection{Architectural principles}\label{architectural-principles}}
+\subsection{Architectural Principles}\label{architectural-principles}}
 
 \hypertarget{p1-agents-are-non-person-entities-npes-not-apps}{%
-\subsubsection{P1 --- Agents are non-person entities (NPEs), not
-``apps''}\label{p1-agents-are-non-person-entities-npes-not-apps}}
+\subsubsection{P1 --- Agents Are Non-Person Entities (NPEs), Not ``Apps''}\label{p1-agents-are-non-person-entities-npes-not-apps}}
 
 Agents must have identity, credentials, lifecycle controls, and
 attributes consistent with enterprise identity patterns. Treat them as
 first-class actors with accountability.
 
 \hypertarget{p2-centralize-policy-decisions-distribute-enforcement}{%
-\subsubsection{P2 --- Centralize policy decisions; distribute
-enforcement}\label{p2-centralize-policy-decisions-distribute-enforcement}}
+\subsubsection{P2 --- Centralize Policy Decisions; Distribute Enforcement}\label{p2-centralize-policy-decisions-distribute-enforcement}}
 
 The ACP uses a policy decision point (PDP) with multiple policy
 enforcement points (PEPs): at runtime admission, model routing, context
@@ -243,71 +234,62 @@ retrieval, tool invocation, inter-agent messaging, and work-unit state
 transitions.
 
 \hypertarget{p3-default-deny-allow-by-explicit-trust-scope}{%
-\subsubsection{P3 --- Default deny; allow by explicit trust
-scope}\label{p3-default-deny-allow-by-explicit-trust-scope}}
+\subsubsection{P3 --- Default Deny; Allow by Explicit Trust Scope}\label{p3-default-deny-allow-by-explicit-trust-scope}}
 
 Agents do not gain authority because a prompt implies it. Authority is
 granted by a signed, versioned trust scope manifest and enforced by
 gateways.
 
 \hypertarget{p4-the-doing-boundary-is-explicit}{%
-\subsubsection{P4 --- The ``doing boundary'' is
-explicit}\label{p4-the-doing-boundary-is-explicit}}
+\subsubsection{P4 --- The ``Doing Boundary'' Is Explicit}\label{p4-the-doing-boundary-is-explicit}}
 
 Tool calls and other side effects are mediated. Every action is a policy
 event. ``It can think'' is not the same as ``it can do.''
 
 \hypertarget{p5-evidence-is-first-class}{%
-\subsubsection{P5 --- Evidence is
-first-class}\label{p5-evidence-is-first-class}}
+\subsubsection{P5 --- Evidence Is First-Class}\label{p5-evidence-is-first-class}}
 
 Evidence is produced at the same tempo as actions. Continuous
 authorization and credible after-action review require deterministic,
 replayable artifacts.
 
 \hypertarget{p6-rollback-and-containment-are-capabilities}{%
-\subsubsection{P6 --- Rollback and containment are
-capabilities}\label{p6-rollback-and-containment-are-capabilities}}
+\subsubsection{P6 --- Rollback and Containment Are Capabilities}\label{p6-rollback-and-containment-are-capabilities}}
 
 Speed wins only if rollback is instant and scoped. Containment must
 isolate a single agent without collapsing an ensemble.
 
 \hypertarget{p7-context-engineering-is-governed-data-movement}{%
-\subsubsection{P7 --- Context engineering is governed data
-movement}\label{p7-context-engineering-is-governed-data-movement}}
+\subsubsection{P7 --- Context Engineering Is Governed Data Movement}\label{p7-context-engineering-is-governed-data-movement}}
 
 Context is not a prompt trick; it is a data plane. Provenance,
 minimization, freshness, and labeling are mandatory.
 
 \hypertarget{p8-evals-and-monitoring-are-gates}{%
-\subsubsection{P8 --- Evals and monitoring are
-gates}\label{p8-evals-and-monitoring-are-gates}}
+\subsubsection{P8 --- Evals and Monitoring Are Gates}\label{p8-evals-and-monitoring-are-gates}}
 
 Continuous evaluation, red-teaming, drift detection, and anomaly
 response are not documentation---they are release and runtime gates.
 
 \hypertarget{p9-budgets-are-policy-not-accounting}{%
-\subsubsection{P9 --- Budgets are policy, not
-accounting}\label{p9-budgets-are-policy-not-accounting}}
+\subsubsection{P9 --- Budgets Are Policy, Not Accounting}\label{p9-budgets-are-policy-not-accounting}}
 
 Compute, bandwidth, tool calls, and power are operational constraints.
 Autonomy must operate within explicit budgets---especially in contested
 logistics.
 
 \hypertarget{p10-toolsskills-are-a-supply-chain}{%
-\subsubsection{P10 --- Tools/skills are a supply
-chain}\label{p10-toolsskills-are-a-supply-chain}}
+\subsubsection{P10 --- Tools/Skills Are a Supply Chain}\label{p10-toolsskills-are-a-supply-chain}}
 
 Agent capability expansion via tools, connectors, and ``skills'' is
 unavoidable. Tool ecosystems become attack surfaces. Therefore: tools
 are onboarded, signed, scanned, evaluated, and attested like software
 packages; execution is sandboxed and governed by trust scope.
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{reference-architecture-structure}{%
-\subsection{Reference architecture
-structure}\label{reference-architecture-structure}}
+\subsection{Reference Architecture Structure}\label{reference-architecture-structure}}
 
 DoW CIO reference architectures guide and constrain downstream
 architectures by providing: \textbf{strategic purpose, principles,
@@ -330,10 +312,10 @@ structure.
   different meaning'' failures
 \end{itemize}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{conceptual-view-ov1}{%
-\subsection{Conceptual view (OV‑1)}\label{conceptual-view-ov1}}
+\subsection{Conceptual View (OV‑1)}\label{conceptual-view-ov1}}
 
 \begin{figure}[H]
 \centering
@@ -356,10 +338,10 @@ The conceptual model is a control system with two planes:
 The ACP does not ``run the mission.'' It constrains, mediates, and
 proves mission execution.
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{core-vocabulary}{%
-\section{Core vocabulary}\label{core-vocabulary}}
+\section{Core Vocabulary}\label{core-vocabulary}}
 
 This section defines primitives that remain stable even as frameworks
 change.
@@ -385,7 +367,7 @@ may be a human identity (ICAM subject) or a non-person entity (NPE) such
 as an agent runtime, tool runtime, or service.
 
 \hypertarget{delegation-chain}{%
-\subsection{Delegation chain}\label{delegation-chain}}
+\subsection{Delegation Chain}\label{delegation-chain}}
 
 A signed binding that captures the principals involved in an execution
 step:
@@ -410,12 +392,10 @@ bundle. Effective authority composes by intersection across the trust
 scope and all principals present in the chain.
 
 \hypertarget{trust-boundaries-authority-sources-vs-data-sources}{%
-\subsection{Trust boundaries: authority sources vs data
-sources}\label{trust-boundaries-authority-sources-vs-data-sources}}
+\subsection{Trust Boundaries: Authority Sources vs Data Sources}\label{trust-boundaries-authority-sources-vs-data-sources}}
 
 \hypertarget{authority-sources-may-authorize-actions}{%
-\subsubsection{Authority sources (may authorize
-actions)}\label{authority-sources-may-authorize-actions}}
+\subsubsection{Authority Sources (May Authorize Actions)}\label{authority-sources-may-authorize-actions}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -442,8 +422,7 @@ accountability and policy evaluation; authorization still derives from
 authenticated principals, trust scope constraints, and policy decisions.
 
 \hypertarget{data-sources-inform-decisions-never-grant-authority}{%
-\subsubsection{Data sources (inform decisions, never grant
-authority)}\label{data-sources-inform-decisions-never-grant-authority}}
+\subsubsection{Data Sources (Inform Decisions, Never Grant Authority)}\label{data-sources-inform-decisions-never-grant-authority}}
 
 \begin{itemize}
 \tightlist
@@ -485,7 +464,7 @@ constraints:
 \end{itemize}
 
 \hypertarget{work-unit}{%
-\subsection{Work unit}\label{work-unit}}
+\subsection{Work Unit}\label{work-unit}}
 
 A durable, supervised task thread for long-running and parallel agent
 execution.
@@ -517,7 +496,7 @@ do not ``watch every tool call,'' they supervise work units, review
 diffs, and intervene on escalation triggers.
 
 \hypertarget{policy-bundle}{%
-\subsection{Policy bundle}\label{policy-bundle}}
+\subsection{Policy Bundle}\label{policy-bundle}}
 
 A signed, versioned set of policy rules consumed by enforcement points:
 
@@ -547,8 +526,7 @@ evidence or procedural memory, but they MUST NOT be treated as
 executable authorization.
 
 \hypertarget{model-assurance-profile-map}{%
-\subsection{Model assurance profile
-(MAP)}\label{model-assurance-profile-map}}
+\subsection{Model Assurance Profile (MAP)}\label{model-assurance-profile-map}}
 
 A signed, versioned artifact that describes the assurances and
 constraints of a model endpoint. A MAP is referenced by immutable hash
@@ -580,8 +558,7 @@ A MAP SHOULD include:
 \end{itemize}
 
 \hypertarget{evidence-export-profile-eep}{%
-\subsection{Evidence export profile
-(EEP)}\label{evidence-export-profile-eep}}
+\subsection{Evidence Export Profile (EEP)}\label{evidence-export-profile-eep}}
 
 A signed, versioned configuration that defines how canonical ACP
 evidence is transformed into derived event records for external
@@ -610,7 +587,7 @@ An EEP MUST define:
 \end{itemize}
 
 \hypertarget{context-bundle}{%
-\subsection{Context bundle}\label{context-bundle}}
+\subsection{Context Bundle}\label{context-bundle}}
 
 A replayable artifact representing retrieved/used context:
 
@@ -629,8 +606,7 @@ A replayable artifact representing retrieved/used context:
 \end{itemize}
 
 \hypertarget{action-envelope-minimum-schema}{%
-\subsection{Action envelope (minimum required fields + extension
-blocks)}\label{action-envelope-minimum-schema}}
+\subsection{Action Envelope (Minimum Required Fields + Extension Blocks)}\label{action-envelope-minimum-schema}}
 
 A signed record of an attempted tool/action. Example (minimum required fields + optional extension blocks):
 
@@ -747,8 +723,7 @@ Additional normative rules:
 Canonicalization and hash computation rules: Hashes MUST be computed over a deterministic canonical serialization of the input object (e.g., RFC 8785 JSON Canonicalization Scheme). \texttt{delegationHash} MUST be computed over the \texttt{delegation} object excluding the \texttt{delegationHash} field itself. \texttt{intentHash} MUST be computed over the \texttt{intent} object excluding the \texttt{intentHash} field itself. \texttt{envelopeHash} MUST be computed over the entire envelope excluding the \texttt{signature} block and excluding \texttt{evidence.envelopeHash} (to avoid self-reference). \texttt{evidenceRootHash} MUST refer to the work unit's evidence-root anchor maintained by the Evidence Ledger (keyed by \texttt{workUnitId}), not a per-envelope Merkle root.
 
 \hypertarget{inter-agent-message-envelope-minimum-schema}{%
-\subsection{Inter-agent message envelope (minimum
-schema)}\label{inter-agent-message-envelope-minimum-schema}}
+\subsection{Inter-Agent Message Envelope (Minimum Schema)}\label{inter-agent-message-envelope-minimum-schema}}
 
 A signed record of a message between agents (or ensembles). Minimum
 schema example:
@@ -794,7 +769,7 @@ Replay protection and signature coverage:
 \end{itemize}
 
 \hypertarget{ensemble-swarm}{%
-\subsection{Ensemble (swarm)}\label{ensemble-swarm}}
+\subsection{Ensemble (Swarm)}\label{ensemble-swarm}}
 
 A first-class multi-agent object with explicit governance:
 
@@ -814,11 +789,10 @@ A first-class multi-agent object with explicit governance:
   containment semantics (isolate member vs freeze ensemble)
 \end{itemize}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{consequence-tiers-and-required-controls}{%
-\section{Consequence tiers and required
-controls}\label{consequence-tiers-and-required-controls}}
+\section{Consequence Tiers and Required Controls}\label{consequence-tiers-and-required-controls}}
 
 Trust scopes and ensembles reference consequence tiers explicitly.
 Consequence is the most effective way to translate ``mission impact''
@@ -861,32 +835,28 @@ agent→ensemble, cross-enclave), authority composes by
 \textbf{intersection}, not union. The effective authority is the overlap
 of allowed actions, data, and environments---never the sum.
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{technical-positions-required-control-surfaces}{%
-\section{Technical positions (required control
-surfaces)}\label{technical-positions-required-control-surfaces}}
+\section{Technical Positions (Required Control Surfaces)}\label{technical-positions-required-control-surfaces}}
 
 ACP‑RA constrains solution architectures through required control
 surfaces and boundary points.
 
 \hypertarget{tp1-agent-identity-as-npe-icam-aligned}{%
-\subsection{TP1 --- Agent identity as NPE
-(ICAM-aligned)}\label{tp1-agent-identity-as-npe-icam-aligned}}
+\subsection{TP1 --- Agent Identity as NPE (ICAM-aligned)}\label{tp1-agent-identity-as-npe-icam-aligned}}
 
 Every agent and tool-runtime has an identity, attributes, and lifecycle
 controls. Sponsorship and ownership are attributable.
 
 \hypertarget{tp2-trust-scopes-are-signed-versioned-and-enforceable}{%
-\subsection{TP2 --- Trust scopes are signed, versioned, and
-enforceable}\label{tp2-trust-scopes-are-signed-versioned-and-enforceable}}
+\subsection{TP2 --- Trust Scopes Are Signed, Versioned, and Enforceable}\label{tp2-trust-scopes-are-signed-versioned-and-enforceable}}
 
 Trust scopes are artifacts. Enforcement points validate and cache them.
 Scope changes require promotion gates.
 
 \hypertarget{tp3-work-units-are-first-class-governance-objects}{%
-\subsection{TP3 --- Work units are first-class governance
-objects}\label{tp3-work-units-are-first-class-governance-objects}}
+\subsection{TP3 --- Work Units Are First-Class Governance Objects}\label{tp3-work-units-are-first-class-governance-objects}}
 
 Every long-running agent effort is a work unit with:
 
@@ -903,15 +873,13 @@ Every long-running agent effort is a work unit with:
 \end{itemize}
 
 \hypertarget{tp4-toolaction-gateway-mediates-all-doing}{%
-\subsection{TP4 --- Tool/Action Gateway mediates all
-``doing''}\label{tp4-toolaction-gateway-mediates-all-doing}}
+\subsection{TP4 --- Tool/Action Gateway Mediates All ``Doing''}\label{tp4-toolaction-gateway-mediates-all-doing}}
 
 No direct access from model runtime to privileged tools. Tool calls are
 policy checked, budgeted, sandboxed, and logged.
 
 \hypertarget{tp5-toolsskills-are-onboarded-through-supply-chain-controls}{%
-\subsection{TP5 --- Tools/skills are onboarded through supply-chain
-controls}\label{tp5-toolsskills-are-onboarded-through-supply-chain-controls}}
+\subsection{TP5 --- Tools/Skills Are Onboarded Through Supply-Chain Controls}\label{tp5-toolsskills-are-onboarded-through-supply-chain-controls}}
 
 Tools, connectors, and skills are:
 
@@ -930,61 +898,54 @@ Tools, connectors, and skills are:
 \end{itemize}
 
 \hypertarget{tp6-inter-agent-gateway-governs-agent-to-agent-communication}{%
-\subsection{TP6 --- Inter-Agent Gateway governs agent-to-agent
-communication}\label{tp6-inter-agent-gateway-governs-agent-to-agent-communication}}
+\subsection{TP6 --- Inter-Agent Gateway Governs Agent-to-Agent Communication}\label{tp6-inter-agent-gateway-governs-agent-to-agent-communication}}
 
 Agent-to-agent messaging is authenticated, authorized, schema-validated,
 rate-limited, and attributable. It has circuit breakers to prevent
 cascades.
 
 \hypertarget{tp7-contextdata-gateway-governs-context-engineering}{%
-\subsection{TP7 --- Context/Data Gateway governs context
-engineering}\label{tp7-contextdata-gateway-governs-context-engineering}}
+\subsection{TP7 --- Context/Data Gateway Governs Context Engineering}\label{tp7-contextdata-gateway-governs-context-engineering}}
 
 Context retrieval is policy checked, tag-aware, provenance-preserving,
 and freshness-aware. Context becomes a replayable bundle.
 
 \hypertarget{tp8-model-gateway-governs-model-routing-and-upgrades}{%
-\subsection{TP8 --- Model Gateway governs model routing and
-upgrades}\label{tp8-model-gateway-governs-model-routing-and-upgrades}}
+\subsection{TP8 --- Model Gateway Governs Model Routing and Upgrades}\label{tp8-model-gateway-governs-model-routing-and-upgrades}}
 
 Model usage is controlled by allowlists, routing policies,
 canary/rollback, and evidence capture. The ACP never assumes a single
 model or vendor.
 
 \hypertarget{tp9-evaluation-harness-gates-promotion-monitoring-gates-runtime}{%
-\subsection{TP9 --- Evaluation harness gates promotion; monitoring gates
-runtime}\label{tp9-evaluation-harness-gates-promotion-monitoring-gates-runtime}}
+\subsection{TP9 --- Evaluation Harness Gates Promotion; Monitoring Gates Runtime}\label{tp9-evaluation-harness-gates-promotion-monitoring-gates-runtime}}
 
 Evals are blocking checks (functional + policy conformance + adversarial
 tests). Runtime monitors detect drift and trigger containment.
 
 \hypertarget{tp10-evidence-ledger-is-tamper-evident-and-queryable}{%
-\subsection{TP10 --- Evidence ledger is tamper-evident and
-queryable}\label{tp10-evidence-ledger-is-tamper-evident-and-queryable}}
+\subsection{TP10 --- Evidence Ledger Is Tamper-Evident and Queryable}\label{tp10-evidence-ledger-is-tamper-evident-and-queryable}}
 
 Actions, context bundles, policy decisions, approvals, inter-agent
 envelopes, and containment events generate structured evidence
 sufficient for replay and continuous authorization.
 
 \hypertarget{tp11-degraded-mode-behaviors-are-declared-and-enforced}{%
-\subsection{TP11 --- Degraded-mode behaviors are declared and
-enforced}\label{tp11-degraded-mode-behaviors-are-declared-and-enforced}}
+\subsection{TP11 --- Degraded-Mode Behaviors Are Declared and Enforced}\label{tp11-degraded-mode-behaviors-are-declared-and-enforced}}
 
 When connectivity, model access, or centralized policy is denied, the
 system transitions to a defined degraded mode with tightened authority.
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{architecture-components}{%
-\section{Architecture components}\label{architecture-components}}
+\section{Architecture Components}\label{architecture-components}}
 
 The ACP is best understood as a set of ``bulkheads'' and ``gates.''
 Bulkheads contain failures. Gates enforce policy.
 
 \hypertarget{agent-registry-and-persona-issuance}{%
-\subsection{Agent registry and persona
-issuance}\label{agent-registry-and-persona-issuance}}
+\subsection{Agent Registry and Persona Issuance}\label{agent-registry-and-persona-issuance}}
 
 This component issues and manages agent identities and personas:
 
@@ -1001,7 +962,7 @@ This component issues and manages agent identities and personas:
 \end{itemize}
 
 \hypertarget{trust-scope-service}{%
-\subsection{Trust scope service}\label{trust-scope-service}}
+\subsection{Trust Scope Service}\label{trust-scope-service}}
 
 The trust scope service stores and signs manifests, enforces schema, and
 supports delegation:
@@ -1042,8 +1003,7 @@ This service creates and tracks work units as supervised objects:
 \end{itemize}
 
 \hypertarget{supervision-console-human-direction-and-oversight-surface}{%
-\subsection{Supervision console (Human Direction and Oversight
-Surface)}\label{supervision-console-human-direction-and-oversight-surface}}
+\subsection{Supervision Console (Human Direction and Oversight Surface)}\label{supervision-console-human-direction-and-oversight-surface}}
 
 This is not ``a UI.'' It is an operational control surface that enables
 humans to supervise autonomy at scale without becoming the throughput
@@ -1072,8 +1032,7 @@ Minimum capabilities:
 \end{itemize}
 
 \hypertarget{policy-engine-pdp-and-distributed-enforcement-peps}{%
-\subsection{Policy engine (PDP) and distributed enforcement
-(PEPs)}\label{policy-engine-pdp-and-distributed-enforcement-peps}}
+\subsection{Policy Engine (PDP) and Distributed Enforcement (PEPs)}\label{policy-engine-pdp-and-distributed-enforcement-peps}}
 
 The policy engine evaluates requests using:
 
@@ -1122,8 +1081,7 @@ PEPs exist at:
 \end{itemize}
 
 \hypertarget{runtime-admission-control-executor-substrate}{%
-\subsection{Runtime admission control (executor
-substrate)}\label{runtime-admission-control-executor-substrate}}
+\subsection{Runtime Admission Control (Executor Substrate)}\label{runtime-admission-control-executor-substrate}}
 
 Agent orchestration depends on a compute substrate that is resilient,
 observable, and insulated. ACP treats executor placement as a
@@ -1165,7 +1123,7 @@ compromised tools, poisoned context, and runaway coordination loops
 while preserving throughput under contested conditions.
 
 \hypertarget{model-gateway}{%
-\subsection{Model gateway}\label{model-gateway}}
+\subsection{Model Gateway}\label{model-gateway}}
 
 The model gateway enforces:
 
@@ -1218,7 +1176,7 @@ decision. Minimum additional requirements:
 \end{itemize}
 
 \hypertarget{contextdata-gateway}{%
-\subsection{Context/Data gateway}\label{contextdata-gateway}}
+\subsection{Context/Data Gateway}\label{contextdata-gateway}}
 
 This gateway turns ``context engineering'' into a governed plane:
 
@@ -1237,8 +1195,7 @@ This gateway turns ``context engineering'' into a governed plane:
 \end{itemize}
 
 \hypertarget{memory-governance-memory-is-data-not-prompts}{%
-\subsubsection{Memory governance (memory is data, not
-prompts)}\label{memory-governance-memory-is-data-not-prompts}}
+\subsubsection{Memory Governance (Memory Is Data, Not Prompts)}\label{memory-governance-memory-is-data-not-prompts}}
 
 Agent ``memory'' is data movement and state mutation and MUST be
 governed like any other enterprise information flow.
@@ -1267,7 +1224,7 @@ Minimum requirements:
 \end{itemize}
 
 \hypertarget{toolaction-gateway}{%
-\subsection{Tool/Action gateway}\label{toolaction-gateway}}
+\subsection{Tool/Action Gateway}\label{toolaction-gateway}}
 
 This is the most important boundary: it mediates side effects.
 
@@ -1299,8 +1256,7 @@ attributes on each tool invocation so that downstream exports and
 dashboards can correlate actions to the concrete execution channel.
 
 \hypertarget{toolskill-supply-chain-governance-registry-provenance-tiers}{%
-\subsubsection{Tool/skill supply chain governance (registry + provenance
-tiers)}\label{toolskill-supply-chain-governance-registry-provenance-tiers}}
+\subsubsection{Tool/Skill Supply Chain Governance (Registry + Provenance Tiers)}\label{toolskill-supply-chain-governance-registry-provenance-tiers}}
 
 Agent ecosystems expand by attaching tools, connectors, and ``skills.''
 Open marketplaces make that expansion fast---and create a predictable
@@ -1361,8 +1317,7 @@ The goal is simple: adding tools expands capability \textbf{without}
 expanding unbounded risk.
 
 \hypertarget{computer-use-gui-actuation-tools-os-level-and-rpa-class}{%
-\subsubsection{Computer-use / GUI actuation tools (OS-level and RPA
-class)}\label{computer-use-gui-actuation-tools-os-level-and-rpa-class}}
+\subsubsection{Computer-Use / GUI Actuation Tools (OS-level and RPA Class)}\label{computer-use-gui-actuation-tools-os-level-and-rpa-class}}
 
 A special class of tools exists where the ``tool'' is a computer:
 mouse/keyboard control, screenshots, UI navigation, and OS-level
@@ -1439,8 +1394,7 @@ Unknown or unverified policy artifacts result in refusal, quarantine, or
 escalation per policy.
 
 \hypertarget{a2a-mcp-crosswalk-how-both-map-to-acp-boundaries}{%
-\subsubsection{A2A <-> MCP crosswalk (how both map to ACP
-boundaries)}\label{a2a-mcp-crosswalk-how-both-map-to-acp-boundaries}}
+\subsubsection{A2A <-> MCP Crosswalk (How Both Map to ACP Boundaries)}\label{a2a-mcp-crosswalk-how-both-map-to-acp-boundaries}}
 
 A2A and MCP address different interoperability surfaces. The ACP governs
 both by applying the same policy primitives---identity, trust scope,
@@ -1487,8 +1441,7 @@ to ensure that whichever protocols are used, they terminate at governed
 boundaries with consistent controls.
 
 \hypertarget{standards-touchpoints-non-normative}{%
-\subsubsection{Standards touchpoints
-(non-normative)}\label{standards-touchpoints-non-normative}}
+\subsubsection{Standards Touchpoints (Non-Normative)}\label{standards-touchpoints-non-normative}}
 
 ACP is compatible with multiple standards-based identity and
 authorization approaches. Implementations MAY select one or more of the
@@ -1516,8 +1469,7 @@ enforcement occurs at gateways using policy decisions, and evidence is
 signature-covered and replayable.
 
 \hypertarget{evaluation-harness-functional-adversarial-and-tool-eval-packs}{%
-\subsection{Evaluation harness (functional + adversarial) and tool eval
-packs}\label{evaluation-harness-functional-adversarial-and-tool-eval-packs}}
+\subsection{Evaluation Harness (Functional + Adversarial) and Tool Eval Packs}\label{evaluation-harness-functional-adversarial-and-tool-eval-packs}}
 
 The evaluation harness provides:
 
@@ -1537,9 +1489,7 @@ The evaluation harness provides:
 \end{itemize}
 
 \hypertarget{tool-contract-design-tools-as-contracts-for-non-deterministic-callers}{%
-\subsubsection{Tool contract design (tools as contracts for
-non-deterministic
-callers)}\label{tool-contract-design-tools-as-contracts-for-non-deterministic-callers}}
+\subsubsection{Tool Contract Design (Tools as Contracts for Non-Deterministic Callers)}\label{tool-contract-design-tools-as-contracts-for-non-deterministic-callers}}
 
 Agents call tools differently than deterministic software. Tool APIs
 must be designed as contracts for a non-deterministic caller:
@@ -1563,8 +1513,7 @@ must be designed as contracts for a non-deterministic caller:
 \end{itemize}
 
 \hypertarget{tool-eval-packs-gating-tool-onboarding-and-tool-changes}{%
-\subsubsection{Tool eval packs (gating tool onboarding and tool
-changes)}\label{tool-eval-packs-gating-tool-onboarding-and-tool-changes}}
+\subsubsection{Tool Eval Packs (Gating Tool Onboarding and Tool Changes)}\label{tool-eval-packs-gating-tool-onboarding-and-tool-changes}}
 
 New tools and tool changes require tool-specific eval packs, including:
 
@@ -1584,8 +1533,7 @@ New tools and tool changes require tool-specific eval packs, including:
 \end{itemize}
 
 \hypertarget{evidence-ledger-and-replay-service}{%
-\subsection{Evidence ledger and replay
-service}\label{evidence-ledger-and-replay-service}}
+\subsection{Evidence Ledger and Replay Service}\label{evidence-ledger-and-replay-service}}
 
 Evidence is a structured event stream supporting:
 
@@ -1600,8 +1548,7 @@ Evidence is a structured event stream supporting:
 \end{itemize}
 
 \hypertarget{lineage-graph-data-logic-action-artifact}{%
-\subsubsection{Lineage graph (data → logic → action →
-artifact)}\label{lineage-graph-data-logic-action-artifact}}
+\subsubsection{Lineage Graph (Data → Logic → Action → Artifact)}\label{lineage-graph-data-logic-action-artifact}}
 
 Replay is only useful if the system can answer ``what changed because of
 what.'' ACP therefore requires a lineage graph that ties together data,
@@ -1649,8 +1596,7 @@ surgical rollback, and defensible audits without relying on informal
 operator reconstruction.
 
 \hypertarget{evidence-interchange-formats-derived-non-authoritative}{%
-\subsubsection{Evidence interchange formats (derived,
-non-authoritative)}\label{evidence-interchange-formats-derived-non-authoritative}}
+\subsubsection{Evidence Interchange Formats (Derived, Non-Authoritative)}\label{evidence-interchange-formats-derived-non-authoritative}}
 
 ACP evidence is recorded canonically as signature-covered action and
 message envelopes and persisted in the evidence ledger. Implementations
@@ -1691,9 +1637,7 @@ event shapes, and internal analytics schemas. Derived formats do not
 change ACP's canonical evidence model.
 
 \hypertarget{swarm-scale-evidence-hierarchical-aggregation-for-practical-replay}{%
-\subsubsection{Swarm-scale evidence: hierarchical aggregation for
-practical
-replay}\label{swarm-scale-evidence-hierarchical-aggregation-for-practical-replay}}
+\subsubsection{Swarm-Scale Evidence: Hierarchical Aggregation for Practical Replay}\label{swarm-scale-evidence-hierarchical-aggregation-for-practical-replay}}
 
 Swarm replay can be prohibitively expensive if every message and trace
 is retained at full fidelity. ACP uses hierarchical evidence
@@ -1767,8 +1711,7 @@ This yields three replay tiers:
 \end{enumerate}
 
 \hypertarget{observability-and-soccssp-integration}{%
-\subsection{Observability and SOC/CSSP
-integration}\label{observability-and-soccssp-integration}}
+\subsection{Observability and SOC/CSSP Integration}\label{observability-and-soccssp-integration}}
 
 ACP emits telemetry so operations teams can see:
 
@@ -1816,8 +1759,7 @@ ledger; exports are derived products that MUST link back to canonical
 hashes.
 
 \hypertarget{swarm-observability-soccssp-views}{%
-\subsubsection{Swarm observability: SOC/CSSP
-views}\label{swarm-observability-soccssp-views}}
+\subsubsection{Swarm Observability: SOC/CSSP Views}\label{swarm-observability-soccssp-views}}
 
 \begin{itemize}
 \tightlist
@@ -1850,8 +1792,7 @@ Dashboards are consumers of evidence, not sources of authority. Any
 dashboard view MUST be reconstructible from the evidence ledger.
 
 \hypertarget{containment-and-revocation}{%
-\subsection{Containment and
-revocation}\label{containment-and-revocation}}
+\subsection{Containment and Revocation}\label{containment-and-revocation}}
 
 Containment operates at multiple levels:
 
@@ -1880,8 +1821,7 @@ Containment must be fast (seconds), attributable, logged, and---when
 safe---reversible.
 
 \hypertarget{resource-governance-budget-engine}{%
-\subsection{Resource governance (budget
-engine)}\label{resource-governance-budget-engine}}
+\subsection{Resource Governance (Budget Engine)}\label{resource-governance-budget-engine}}
 
 Budgets are policy-enforced constraints:
 
@@ -1911,8 +1851,7 @@ Budget allocation can be static by tier or dynamic by mission priority
 (see ``Patterns'').
 
 \hypertarget{federation-and-cross-domain-transfer}{%
-\subsection{Federation and cross-domain
-transfer}\label{federation-and-cross-domain-transfer}}
+\subsection{Federation and Cross-Domain Transfer}\label{federation-and-cross-domain-transfer}}
 
 ACP supports federation by treating identity, scopes, context, and
 evidence as portable artifacts:
@@ -1930,15 +1869,13 @@ evidence as portable artifacts:
   evidence bridging: prove linkage without leaking content
 \end{itemize}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{control-loops-how-the-system-behaves}{%
-\section{Control loops (how the system
-behaves)}\label{control-loops-how-the-system-behaves}}
+\section{Control Loops (How the System Behaves)}\label{control-loops-how-the-system-behaves}}
 
 \hypertarget{action-loop-intent-policy-mediated-action-evidence}{%
-\subsection{Action loop: intent → policy → mediated action →
-evidence}\label{action-loop-intent-policy-mediated-action-evidence}}
+\subsection{Action Loop: Intent → Policy → Mediated Action → Evidence}\label{action-loop-intent-policy-mediated-action-evidence}}
 
 \begin{figure}[H]
 \centering
@@ -1974,8 +1911,7 @@ Narrative flow:
 \end{enumerate}
 
 \hypertarget{governance-loop-artifacts-tests-promotion-enforcement}{%
-\subsection{Governance loop: artifacts → tests → promotion →
-enforcement}\label{governance-loop-artifacts-tests-promotion-enforcement}}
+\subsection{Governance Loop: Artifacts → Tests → Promotion → Enforcement}\label{governance-loop-artifacts-tests-promotion-enforcement}}
 
 \begin{figure}[H]
 \centering
@@ -1999,11 +1935,10 @@ ACP governance is GitOps-oriented:
   improvement
 \end{itemize}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{multi-agent-governance-ensembles-and-swarms}{%
-\section{Multi-agent governance (ensembles and
-swarms)}\label{multi-agent-governance-ensembles-and-swarms}}
+\section{Multi-Agent Governance (Ensembles and Swarms)}\label{multi-agent-governance-ensembles-and-swarms}}
 
 Multi-agent behavior is where risk and value both amplify. Without
 explicit ensemble governance, emergent behavior becomes an incident
@@ -2014,8 +1949,7 @@ shared memory.
 ACP treats ensembles as first-class objects.
 
 \hypertarget{coordination-patterns-policy-selectable}{%
-\subsection{Coordination patterns
-(policy-selectable)}\label{coordination-patterns-policy-selectable}}
+\subsection{Coordination Patterns (Policy-Selectable)}\label{coordination-patterns-policy-selectable}}
 
 Common patterns are supported as declared coordination policies:
 
@@ -2037,8 +1971,7 @@ Common patterns are supported as declared coordination policies:
 \end{itemize}
 
 \hypertarget{trust-scope-composition-and-delegation}{%
-\subsection{Trust scope composition and
-delegation}\label{trust-scope-composition-and-delegation}}
+\subsection{Trust Scope Composition and Delegation}\label{trust-scope-composition-and-delegation}}
 
 \begin{itemize}
 \tightlist
@@ -2053,7 +1986,7 @@ delegation}\label{trust-scope-composition-and-delegation}}
 \end{itemize}
 
 \hypertarget{shared-state-governance}{%
-\subsection{Shared state governance}\label{shared-state-governance}}
+\subsection{Shared State Governance}\label{shared-state-governance}}
 
 Shared state is governed by:
 
@@ -2094,8 +2027,7 @@ hallucination'' becoming durable enterprise state, ACP requires:
 \end{itemize}
 
 \hypertarget{arbitration-and-deadlock-prevention}{%
-\subsection{Arbitration and deadlock
-prevention}\label{arbitration-and-deadlock-prevention}}
+\subsection{Arbitration and Deadlock Prevention}\label{arbitration-and-deadlock-prevention}}
 
 Ensembles declare:
 
@@ -2115,8 +2047,7 @@ Deadlocks and retry storms are both reliability incidents and security
 risks.
 
 \hypertarget{swarm-budgets-and-dynamic-allocation}{%
-\subsection{Swarm budgets and dynamic
-allocation}\label{swarm-budgets-and-dynamic-allocation}}
+\subsection{Swarm Budgets and Dynamic Allocation}\label{swarm-budgets-and-dynamic-allocation}}
 
 Budgets exist at ensemble and member levels:
 
@@ -2143,8 +2074,7 @@ Allocation mechanisms can include:
 \end{itemize}
 
 \hypertarget{swarm-containment-without-collapse}{%
-\subsection{Swarm containment without
-collapse}\label{swarm-containment-without-collapse}}
+\subsection{Swarm Containment without Collapse}\label{swarm-containment-without-collapse}}
 
 Containment must be able to isolate one misbehaving member without
 collapsing collective behavior:
@@ -2160,17 +2090,16 @@ collapsing collective behavior:
   indicators rise
 \end{itemize}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{adversarial-robustness-and-contesteddegraded-operation}{%
-\section{Adversarial robustness and contested/degraded
-operation}\label{adversarial-robustness-and-contesteddegraded-operation}}
+\section{Adversarial Robustness and Contested/Degraded Operation}\label{adversarial-robustness-and-contesteddegraded-operation}}
 
 ACP assumes sophisticated adversaries and treats ``benign'' inputs as
 untrusted until proven otherwise.
 
 \hypertarget{threat-classes}{%
-\subsection{Threat classes}\label{threat-classes}}
+\subsection{Threat Classes}\label{threat-classes}}
 
 \begin{itemize}
 \tightlist
@@ -2192,8 +2121,7 @@ untrusted until proven otherwise.
 \end{itemize}
 
 \hypertarget{defenses-engineered-into-acp}{%
-\subsection{Defenses engineered into
-ACP}\label{defenses-engineered-into-acp}}
+\subsection{Defenses Engineered into ACP}\label{defenses-engineered-into-acp}}
 
 \begin{itemize}
 \tightlist
@@ -2219,8 +2147,7 @@ ACP}\label{defenses-engineered-into-acp}}
 \end{itemize}
 
 \hypertarget{degraded-modes-policy-driven-safe-behavior}{%
-\subsection{Degraded modes (policy-driven safe
-behavior)}\label{degraded-modes-policy-driven-safe-behavior}}
+\subsection{Degraded Modes (Policy-Driven Safe Behavior)}\label{degraded-modes-policy-driven-safe-behavior}}
 
 Degraded operation is a declared policy mode, not a surprise outage.
 
@@ -2245,19 +2172,17 @@ Examples:
 Trust scopes declare which degraded modes are allowed and what behaviors
 change per mode.
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{human-oversight-escalation-and-responsible-ai-alignment}{%
-\section{Human oversight, escalation, and Responsible AI
-alignment}\label{human-oversight-escalation-and-responsible-ai-alignment}}
+\section{Human Oversight, Escalation, and Responsible AI Alignment}\label{human-oversight-escalation-and-responsible-ai-alignment}}
 
 Human involvement is not binary. It is engineered as governed
 transitions based on confidence, novelty, consequence, and ethical
 constraints.
 
 \hypertarget{escalation-taxonomy-what-triggers-humans}{%
-\subsection{Escalation taxonomy (what triggers
-humans)}\label{escalation-taxonomy-what-triggers-humans}}
+\subsection{Escalation Taxonomy (What Triggers Humans)}\label{escalation-taxonomy-what-triggers-humans}}
 
 Escalation triggers include:
 
@@ -2284,8 +2209,7 @@ Trust scopes declare which triggers are binding and what
 approvals/quorums apply.
 
 \hypertarget{override-surfaces-are-governed}{%
-\subsection{Override surfaces are
-governed}\label{override-surfaces-are-governed}}
+\subsection{Override Surfaces Are Governed}\label{override-surfaces-are-governed}}
 
 Human override is a privileged act:
 
@@ -2302,7 +2226,7 @@ Human override is a privileged act:
 \end{itemize}
 
 \hypertarget{hybrid-teaming-patterns}{%
-\subsection{Hybrid teaming patterns}\label{hybrid-teaming-patterns}}
+\subsection{Hybrid Teaming Patterns}\label{hybrid-teaming-patterns}}
 
 ACP supports multiple teaming modes by tier:
 
@@ -2317,8 +2241,7 @@ ACP supports multiple teaming modes by tier:
 \end{itemize}
 
 \hypertarget{responsible-ai-alignment-operationalized-as-controls}{%
-\subsection{Responsible AI alignment (operationalized as
-controls)}\label{responsible-ai-alignment-operationalized-as-controls}}
+\subsection{Responsible AI Alignment (Operationalized as Controls)}\label{responsible-ai-alignment-operationalized-as-controls}}
 
 DoW AI ethical principles are implemented as control-plane behaviors:
 
@@ -2344,16 +2267,15 @@ DoW AI ethical principles are implemented as control-plane behaviors:
 After-action review loops feed back into trust scope refinement, eval
 pack expansion, and policy updates.
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{composability-federation-and-cross-enclave-interoperability}{%
-\section{Composability, federation, and cross-enclave
-interoperability}\label{composability-federation-and-cross-enclave-interoperability}}
+\section{Composability, Federation, and Cross-Enclave Interoperability}\label{composability-federation-and-cross-enclave-interoperability}}
 
 ACP is designed to operate in federated DoW reality.
 
 \hypertarget{federation-patterns}{%
-\subsection{Federation patterns}\label{federation-patterns}}
+\subsection{Federation Patterns}\label{federation-patterns}}
 
 \begin{itemize}
 \tightlist
@@ -2380,8 +2302,7 @@ ACP is designed to operate in federated DoW reality.
 \end{itemize}
 
 \hypertarget{cross-domain-context-transfer}{%
-\subsection{Cross-domain context
-transfer}\label{cross-domain-context-transfer}}
+\subsection{Cross-Domain Context Transfer}\label{cross-domain-context-transfer}}
 
 Cross-domain handoffs use context bundles:
 
@@ -2396,8 +2317,7 @@ Cross-domain handoffs use context bundles:
 \end{itemize}
 
 \hypertarget{portability-across-clouds-on-prem-and-edge}{%
-\subsection{Portability across clouds, on-prem, and
-edge}\label{portability-across-clouds-on-prem-and-edge}}
+\subsection{Portability Across Clouds, on-Prem, and Edge}\label{portability-across-clouds-on-prem-and-edge}}
 
 ACP achieves portability by standardizing:
 
@@ -2414,18 +2334,16 @@ ACP achieves portability by standardizing:
 This allows consistent enforcement whether workloads run behind CNAP
 patterns, on K8s factories, or on disconnected edge nodes.
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{lifecycle-of-the-acp-itself}{%
-\section{Lifecycle of the ACP
-itself}\label{lifecycle-of-the-acp-itself}}
+\section{Lifecycle of the ACP Itself}\label{lifecycle-of-the-acp-itself}}
 
 The ACP will evolve at the same tempo it enables. Control plane upgrades
 must not break enforcement.
 
 \hypertarget{safe-upgrades-and-migrations}{%
-\subsection{Safe upgrades and
-migrations}\label{safe-upgrades-and-migrations}}
+\subsection{Safe Upgrades and Migrations}\label{safe-upgrades-and-migrations}}
 
 \begin{itemize}
 \tightlist
@@ -2445,8 +2363,7 @@ migrations}\label{safe-upgrades-and-migrations}}
 \end{itemize}
 
 \hypertarget{load-chaos-and-attack-simulation}{%
-\subsection{Load, chaos, and attack
-simulation}\label{load-chaos-and-attack-simulation}}
+\subsection{Load, Chaos, and Attack Simulation}\label{load-chaos-and-attack-simulation}}
 
 ACP is tested like a mission system:
 
@@ -2465,15 +2382,13 @@ ACP is tested like a mission system:
   evidence tiers
 \end{itemize}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{patterns-reusable-implementation-guidance}{%
-\section{Patterns (reusable implementation
-guidance)}\label{patterns-reusable-implementation-guidance}}
+\section{Patterns (Reusable Implementation Guidance)}\label{patterns-reusable-implementation-guidance}}
 
 \hypertarget{pattern-work-units-as-the-unit-of-supervision}{%
-\subsection{Pattern: ``Work units as the unit of
-supervision''}\label{pattern-work-units-as-the-unit-of-supervision}}
+\subsection{Pattern: ``Work Units as the Unit of Supervision''}\label{pattern-work-units-as-the-unit-of-supervision}}
 
 Humans supervise work units, not tool calls:
 
@@ -2488,55 +2403,48 @@ Humans supervise work units, not tool calls:
 \end{itemize}
 
 \hypertarget{pattern-policy-centered-mesh}{%
-\subsection{Pattern: ``Policy-centered
-mesh''}\label{pattern-policy-centered-mesh}}
+\subsection{Pattern: ``Policy-Centered Mesh''}\label{pattern-policy-centered-mesh}}
 
 Central policy decisions, distributed enforcement at every boundary
 (tool, context, model, inter-agent, work-unit transitions).
 
 \hypertarget{pattern-bulkhead-gateways}{%
-\subsection{Pattern: ``Bulkhead
-gateways''}\label{pattern-bulkhead-gateways}}
+\subsection{Pattern: ``Bulkhead Gateways''}\label{pattern-bulkhead-gateways}}
 
 Gateways as bulkheads: tool sandboxing, context controls, inter-agent
 circuit breakers, and supply-chain attestation.
 
 \hypertarget{pattern-budgeted-autonomy}{%
-\subsection{Pattern: ``Budgeted
-autonomy''}\label{pattern-budgeted-autonomy}}
+\subsection{Pattern: ``Budgeted Autonomy''}\label{pattern-budgeted-autonomy}}
 
 Budgets treated as policy and enforced at runtime; budgets drive safe
 degradation and allocation under scarcity.
 
 \hypertarget{pattern-tool-supply-chain-governance}{%
-\subsection{Pattern: ``Tool supply chain
-governance''}\label{pattern-tool-supply-chain-governance}}
+\subsection{Pattern: ``Tool Supply Chain Governance''}\label{pattern-tool-supply-chain-governance}}
 
 Tools and skills are onboarded and operated like software supply chains:
 signing, scanning, eval packs, attestation, and quarantine.
 
 \hypertarget{pattern-evidence-first-releases}{%
-\subsection{Pattern: ``Evidence-first
-releases''}\label{pattern-evidence-first-releases}}
+\subsection{Pattern: ``Evidence-First Releases''}\label{pattern-evidence-first-releases}}
 
 No promotion without evidence: eval packs, policy hashes, scope
 signatures, and replayability proofs.
 
 \hypertarget{pattern-ensemble-contract}{%
-\subsection{Pattern: ``Ensemble
-contract''}\label{pattern-ensemble-contract}}
+\subsection{Pattern: ``Ensemble Contract''}\label{pattern-ensemble-contract}}
 
 Multi-agent deployments ship with an ensemble contract defining
 orchestration, arbitration, shared state, budgets, and containment.
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{metrics-success-criteria-and-a-transition-roadmap}{%
-\section{Metrics, success criteria, and a transition
-roadmap}\label{metrics-success-criteria-and-a-transition-roadmap}}
+\section{Metrics, Success Criteria, and a Transition Roadmap}\label{metrics-success-criteria-and-a-transition-roadmap}}
 
 \hypertarget{success-metrics}{%
-\subsection{Success metrics}\label{success-metrics}}
+\subsection{Success Metrics}\label{success-metrics}}
 
 \textbf{Tempo and delivery}
 
@@ -2615,8 +2523,7 @@ roadmap}\label{metrics-success-criteria-and-a-transition-roadmap}}
 \end{itemize}
 
 \hypertarget{maturity-levels-acp-conformance}{%
-\subsection{Maturity levels
-(ACP-conformance)}\label{maturity-levels-acp-conformance}}
+\subsection{Maturity Levels (ACP-conformance)}\label{maturity-levels-acp-conformance}}
 
 \begin{itemize}
 \tightlist
@@ -2642,9 +2549,7 @@ roadmap}\label{metrics-success-criteria-and-a-transition-roadmap}}
 \end{itemize}
 
 \hypertarget{transition-roadmap-copilots-governed-agents-supervised-autonomy-governed-swarms}{%
-\subsection{Transition roadmap (copilots → governed agents → supervised
-autonomy → governed
-swarms)}\label{transition-roadmap-copilots-governed-agents-supervised-autonomy-governed-swarms}}
+\subsection{Transition Roadmap (Copilots → Governed Agents → Supervised Autonomy → Governed Swarms)}\label{transition-roadmap-copilots-governed-agents-supervised-autonomy-governed-swarms}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2673,7 +2578,7 @@ swarms)}\label{transition-roadmap-copilots-governed-agents-supervised-autonomy-g
   bridging; portability across environments.
 \end{enumerate}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{recommendations}{%
 \section{Recommendations}\label{recommendations}}
@@ -2707,11 +2612,10 @@ enables faster iteration without turning speed into unmanaged risk,
 including for multi-agent ensembles operating in contested and degraded
 environments.
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{appendix-minimal-artifact-set-gitops-ready}{%
-\section{Appendix: Minimal artifact set
-(GitOps-ready)}\label{appendix-minimal-artifact-set-gitops-ready}}
+\section{Appendix: Minimal Artifact Set (GitOps-ready)}\label{appendix-minimal-artifact-set-gitops-ready}}
 
 At minimum, version-control the following:
 
@@ -2775,11 +2679,10 @@ At minimum, version-control the following:
   transitions)
 \end{itemize}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{appendix-example-ensemble-contract-illustrative}{%
-\section{Appendix: Example ensemble contract
-(illustrative)}\label{appendix-example-ensemble-contract-illustrative}}
+\section{Appendix: Example Ensemble Contract (Illustrative)}\label{appendix-example-ensemble-contract-illustrative}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2837,11 +2740,10 @@ At minimum, version-control the following:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{appendix-example-work-unit-template-illustrative}{%
-\section{Appendix: Example work unit template
-(illustrative)}\label{appendix-example-work-unit-template-illustrative}}
+\section{Appendix: Example Work Unit Template (Illustrative)}\label{appendix-example-work-unit-template-illustrative}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2872,11 +2774,10 @@ At minimum, version-control the following:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{appendix-example-model-assurance-profile-illustrative-non-normative}{%
-\section{Appendix: Example model assurance profile (illustrative,
-non-normative)}\label{appendix-example-model-assurance-profile-illustrative-non-normative}}
+\section{Appendix: Example Model Assurance Profile (Illustrative, Non-Normative)}\label{appendix-example-model-assurance-profile-illustrative-non-normative}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2908,11 +2809,10 @@ non-normative)}\label{appendix-example-model-assurance-profile-illustrative-non-
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{appendix-example-sandbox-profile-illustrative-non-normative}{%
-\section{Appendix: Example sandbox profile (illustrative,
-non-normative)}\label{appendix-example-sandbox-profile-illustrative-non-normative}}
+\section{Appendix: Example Sandbox Profile (Illustrative, Non-Normative)}\label{appendix-example-sandbox-profile-illustrative-non-normative}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2943,12 +2843,10 @@ non-normative)}\label{appendix-example-sandbox-profile-illustrative-non-normativ
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{appendix-alignment-to-nist-software-and-ai-agent-identity-and-authorization-focus-areas-draft-as-of-2026-02-16}{%
-\section{Appendix: Alignment to NIST ``Software and AI Agent Identity
-and Authorization'' focus areas (draft, as of
-2026-02-16)}\label{appendix-alignment-to-nist-software-and-ai-agent-identity-and-authorization-focus-areas-draft-as-of-2026-02-16}}
+\section{Appendix: Alignment to NIST ``Software and AI Agent Identity and Authorization'' Focus Areas (Draft, as of 2026-02-16)}\label{appendix-alignment-to-nist-software-and-ai-agent-identity-and-authorization-focus-areas-draft-as-of-2026-02-16}}
 
 This appendix maps ACP control surfaces to the identity and
 authorization considerations currently being explored by NIST NCCoE for
@@ -3028,11 +2926,10 @@ not a normative requirement source.
   \end{itemize}
 \end{enumerate}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{appendix-memory-modalities-illustrative}{%
-\section{Appendix: Memory modalities
-(illustrative)}\label{appendix-memory-modalities-illustrative}}
+\section{Appendix: Memory Modalities (Illustrative)}\label{appendix-memory-modalities-illustrative}}
 
 These modalities are implementation mental models. They do not create
 authority and do not change ACP's trust boundaries.
@@ -3062,11 +2959,10 @@ authority and do not change ACP's trust boundaries.
   through gates.
 \end{itemize}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\vspace{2pt}\begin{center}\rule{0.62\linewidth}{0.6pt}\end{center}\vspace{2pt}
 
 \hypertarget{appendix-references-authoritative-and-industry-sources}{%
-\section{Appendix: References (authoritative and industry
-sources)}\label{appendix-references-authoritative-and-industry-sources}}
+\section{Appendix: References (Authoritative and Industry Sources)}\label{appendix-references-authoritative-and-industry-sources}}
 
 \begin{quote}
 URLs are listed for traceability; downstream repositories should pin to
@@ -3119,8 +3015,7 @@ specific versions/hashes where possible.
 \end{itemize}
 
 \hypertarget{industry-protocols-and-agent-platform-patterns}{%
-\subsection{Industry protocols and agent platform
-patterns}\label{industry-protocols-and-agent-platform-patterns}}
+\subsection{Industry Protocols and Agent Platform Patterns}\label{industry-protocols-and-agent-platform-patterns}}
 
 \begin{itemize}
 \tightlist
@@ -3157,8 +3052,7 @@ patterns}\label{industry-protocols-and-agent-platform-patterns}}
 \end{itemize}
 
 \hypertarget{toolskill-ecosystem-risk-signals-supply-chain-lessons}{%
-\subsection{Tool/skill ecosystem risk signals (supply chain
-lessons)}\label{toolskill-ecosystem-risk-signals-supply-chain-lessons}}
+\subsection{Tool/Skill Ecosystem Risk Signals (Supply Chain Lessons)}\label{toolskill-ecosystem-risk-signals-supply-chain-lessons}}
 
 \begin{itemize}
 \tightlist
@@ -3177,8 +3071,7 @@ lessons)}\label{toolskill-ecosystem-risk-signals-supply-chain-lessons}}
 \end{itemize}
 
 \hypertarget{prior-papers-conceptual-anchors}{%
-\subsection{Prior papers (conceptual
-anchors)}\label{prior-papers-conceptual-anchors}}
+\subsection{Prior Papers (Conceptual Anchors)}\label{prior-papers-conceptual-anchors}}
 
 \begin{itemize}
 \tightlist
