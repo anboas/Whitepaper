@@ -11,7 +11,7 @@
 \newcommand{\AuthorRole}{Agentic Warfare Architect, Department of War}
 \newcommand{\PaperDate}{February 2026}
 \renewcommand{\ShortTitle}{CAF-RA}
-\renewcommand{\DocVersion}{v1.12-draft}
+\renewcommand{\DocVersion}{v1.13-draft}
 \fancyfoot[L]{\small\textcolor{BrandGray}{\ShortTitle\ \DocVersion\ | \PaperDate}}
 \fancyfoot[C]{\small\textcolor{BrandGray}{\thepage}}
 \fancyfoot[R]{}
@@ -53,8 +53,7 @@ This paper keeps the baseline simple and pushes sophistication into conformance 
 \end{execsummary}
 
 \hypertarget{continuous-assurance-fabric-reference-architecture-cafra}{%
-\section{Continuous Assurance Fabric Reference Architecture
-(CAF-RA)}\label{continuous-assurance-fabric-reference-architecture-cafra}}
+\section{Continuous Assurance Fabric Reference Architecture (CAF-RA)}\label{continuous-assurance-fabric-reference-architecture-cafra}}
 
 \emph{A reference architecture for governed, scalable continuous
 assurance---designed for mission tempo, federated enclaves, and
@@ -69,7 +68,7 @@ CAF keeps baseline complexity to a \textbf{single governed loop}; additional cap
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{cafra-at-a-glance}{%
-\subsection{CAF-RA at a glance}\label{cafra-at-a-glance}}
+\subsection{CAF-RA Overview}\label{cafra-at-a-glance}}
 
 CAF is a control plane for assurance. It exists because the unit of operational change is now smaller than the unit of human governance, and because an increasing share of that change is initiated by non-person principals operating at machine tempo.
 
@@ -95,7 +94,7 @@ CAF is deliberately aligned to the same ``control shift'' posture found in \text
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{operational-problem-statement}{%
-\subsection{Operational problem statement}\label{operational-problem-statement}}
+\subsection{Operational Problem Statement}\label{operational-problem-statement}}
 
 The operating environment is continuous: dependencies mutate, identity posture changes, configuration drifts, network policy evolves, detection logic changes, and adversaries move faster than governance cycles. The problem is not that we lack evidence.
 The problem is that evidence is rarely \textbf{decision-grade}: it is
@@ -114,7 +113,7 @@ Everything else---risk graphs, ensemble scoring, digital twins, formal policy co
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{scope-and-non-goals}{%
-\subsection{Scope and non-goals}\label{scope-and-non-goals}}
+\subsection{Scope and Non-Goals}\label{scope-and-non-goals}}
 
 Before debating design details, we bound the problem. CAF-RA focuses on
 the control-plane mechanisms that make assurance governable at scale and
@@ -137,7 +136,7 @@ authority explicit, mediate actions, and preserve evidence and replay.
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{strategic-drivers}{%
-\subsection{Strategic drivers}\label{strategic-drivers}}
+\subsection{Strategic Drivers}\label{strategic-drivers}}
 
 CAF is shaped by constraints, not trends.
 
@@ -173,7 +172,7 @@ central procurement of a single toolchain. \cite{DADMemo}
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{architectural-principles}{%
-\subsection{Architectural principles}\label{architectural-principles}}
+\subsection{Architectural Principles}\label{architectural-principles}}
 
 CAF-RA adopts the same architecture posture used in ACP-RA and related
 papers: explicit authority artifacts, mediated side effects through
@@ -181,14 +180,12 @@ gateways, governance-as-code with gates, evidence and replay, and
 degraded-mode survivability. \cite{ACPRA}
 
 \hypertarget{p1-producers-and-enforcers-are-non-person-entities-not-tools}{%
-\subsubsection{P1 --- Producers and enforcers are principals (including agents), not
-``tools''}\label{p1-producers-and-enforcers-are-non-person-entities-not-tools}}
+\subsubsection{P1 --- Producers and Enforcers Are Principals (Including Agents), Not ``Tools''}\label{p1-producers-and-enforcers-are-non-person-entities-not-tools}}
 
 Evidence producers and enforcement points are actors with identity, attributes, credential lifecycle, and accountability. This includes autonomous validation agents and other agentic producers whose outputs may be policy-relevant. Anonymous producers create anonymous evidence; anonymous evidence creates unauditable governance; and unauditable governance cannot safely authorize machine-tempo action.
 
 \hypertarget{p2-centralize-policy-decisions-distribute-enforcement}{%
-\subsubsection{P2 --- Centralize policy decisions; distribute
-enforcement}\label{p2-centralize-policy-decisions-distribute-enforcement}}
+\subsubsection{P2 --- Centralize Policy Decisions; Distribute Enforcement}\label{p2-centralize-policy-decisions-distribute-enforcement}}
 
 CAF uses a policy decision function and multiple enforcement points at
 the boundaries where change becomes real. Central decisioning without
@@ -196,17 +193,14 @@ enforcement is theater; enforcement without centralized decisioning is
 fragmentation. \cite{ACPRA}
 
 \hypertarget{p3-default-deny-for-consequential-change-allow-by-explicit-tolerance}{%
-\subsubsection{P3 --- Default deny for consequential change; allow by
-explicit
-tolerance}\label{p3-default-deny-for-consequential-change-allow-by-explicit-tolerance}}
+\subsubsection{P3 --- Default Deny for Consequential Change; Allow by Explicit Tolerance}\label{p3-default-deny-for-consequential-change-allow-by-explicit-tolerance}}
 
 Change is permitted because authority artifacts and policies allow it
 under defined conditions. When authority is ambiguous or confidence is
 low, CAF fails safe: block, contain, or escalate.
 
 \hypertarget{p4-the-change-boundary-is-explicit}{%
-\subsubsection{P4 --- The ``change boundary'' is
-explicit}\label{p4-the-change-boundary-is-explicit}}
+\subsubsection{P4 --- The ``Change Boundary'' Is Explicit}\label{p4-the-change-boundary-is-explicit}}
 
 Systems may compute posture, propose remediation, or recommend
 exceptions. They do not execute side effects directly. All consequential
@@ -214,24 +208,21 @@ effects are mediated through gatekeepers that enforce policy and record
 evidence.
 
 \hypertarget{p5-evidence-and-replay-are-first-class}{%
-\subsubsection{P5 --- Evidence and replay are
-first-class}\label{p5-evidence-and-replay-are-first-class}}
+\subsubsection{P5 --- Evidence and Replay Are First-Class}\label{p5-evidence-and-replay-are-first-class}}
 
 CAF must support deterministic reconstruction: what was known, what was
 decided, what was done, and under what authority. Without replay,
 continuous authorization collapses into narrative. \cite{ACPRA}
 
 \hypertarget{p6-rollback-and-containment-are-routine-capabilities}{%
-\subsubsection{P6 --- Rollback and containment are routine
-capabilities}\label{p6-rollback-and-containment-are-routine-capabilities}}
+\subsubsection{P6 --- Rollback and Containment Are Routine Capabilities}\label{p6-rollback-and-containment-are-routine-capabilities}}
 
 Speed wins only when reversal is fast and scoped. CAF treats rollback,
 quarantine, and compensating controls as normal operations, not heroic
 improvisations.
 
 \hypertarget{p7-context-is-governed-data-movement}{%
-\subsubsection{P7 --- Context is governed data
-movement}\label{p7-context-is-governed-data-movement}}
+\subsubsection{P7 --- Context Is Governed Data Movement}\label{p7-context-is-governed-data-movement}}
 
 Context influences decisions; it must not grant authority. Context must
 be provenance-preserving, minimized, labeled, freshness-aware, and
@@ -239,24 +230,21 @@ replayable. This is the assurance analogue to ``context engineering is
 governed data movement.'' \cite{ACPRA}
 
 \hypertarget{p8-evaluation-and-validation-are-gates}{%
-\subsubsection{P8 --- Evaluation and validation are
-gates}\label{p8-evaluation-and-validation-are-gates}}
+\subsubsection{P8 --- Evaluation and Validation Are Gates}\label{p8-evaluation-and-validation-are-gates}}
 
 Tests, drift checks, detection-fidelity checks, and adversarial
 validation are not reports. They are release gates and runtime gates.
 \cite{ACPRA}
 
 \hypertarget{p9-confidence-is-explicit-uncertainty-drives-safe-behavior}{%
-\subsubsection{P9 --- Confidence is explicit; uncertainty drives safe
-behavior}\label{p9-confidence-is-explicit-uncertainty-drives-safe-behavior}}
+\subsubsection{P9 --- Confidence Is Explicit; Uncertainty Drives Safe Behavior}\label{p9-confidence-is-explicit-uncertainty-drives-safe-behavior}}
 
 CAF treats confidence as policy-relevant input. Evidence completeness,
 provenance, freshness, and consistency drive whether CAF allows action
 or escalates.
 
 \hypertarget{p10-interfaces-are-government-owned-components-are-replaceable}{%
-\subsubsection{P10 --- Interfaces are government-owned; components are
-replaceable}\label{p10-interfaces-are-government-owned-components-are-replaceable}}
+\subsubsection{P10 --- Interfaces Are Government-Owned; Components Are Replaceable}\label{p10-interfaces-are-government-owned-components-are-replaceable}}
 
 CAF is an architecture, not a product. Replaceability is enforced
 through stable schemas, API contracts, and conformance
@@ -266,8 +254,7 @@ governance-as-code'' posture. \cite{CodeAsPolicy}
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{reference-architecture-structure}{%
-\subsection{Reference architecture
-structure}\label{reference-architecture-structure}}
+\subsection{Reference Architecture Structure}\label{reference-architecture-structure}}
 
 CAF-RA is organized as: strategic purpose, principles, technical
 positions, patterns, and vocabulary. The loop provides the narrative
@@ -279,8 +266,7 @@ stack. This is deliberately congruent with ACP-RA's structure and tone.
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{conceptual-view-caf-as-a-governed-loop}{%
-\subsection{Conceptual view: CAF as a governed
-loop}\label{conceptual-view-caf-as-a-governed-loop}}
+\subsection{Conceptual View: CAF as a Governed Loop}\label{conceptual-view-caf-as-a-governed-loop}}
 
 CAF is a control system with two planes: the runtime plane, where the enterprise actually changes (factories, registries, clusters, identity, networks, data stores, mission services), and the assurance control plane, where authority, evidence, posture, decisions, and enforcement are mediated and proven.
 
@@ -297,7 +283,7 @@ these boxes, not an expansion into a new ontology:
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{core-vocabulary}{%
-\subsection{Core vocabulary}\label{core-vocabulary}}
+\subsection{Core Vocabulary}\label{core-vocabulary}}
 
 CAF keeps vocabulary intentionally small. If the first ten pages
 introduce thirty nouns, the architecture will feel like bureaucracy.
@@ -340,7 +326,7 @@ execution, translated to assurance. \cite{ACPRA}
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{the-caf-loop}{%
-\section{The CAF loop}\label{the-caf-loop}}
+\section{The CAF Loop}\label{the-caf-loop}}
 
 CAF is written as five verbs because the verbs are the architecture.
 
@@ -646,8 +632,7 @@ The operational effect of these three figures is that CAF becomes a control plan
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{cross-cutting-the-governance-overlay}{%
-\section{Cross-cutting: the governance
-overlay}\label{cross-cutting-the-governance-overlay}}
+\section{Cross-Cutting: The Governance Overlay}\label{cross-cutting-the-governance-overlay}}
 
 The loop is the spine. Governance is the overlay that prevents the loop
 from becoming an untrusted dashboard. Figure~\ref{fig:caf-authority-data} is the doctrinal guardrail: authority artifacts and data artifacts cooperate, but never collapse into the same trust category.
@@ -660,8 +645,7 @@ from becoming an untrusted dashboard. Figure~\ref{fig:caf-authority-data} is the
 \end{figure}
 
 \hypertarget{authority-assurance-scope-manifests-and-policy-bundles}{%
-\subsection{Authority: Assurance Scope Manifests and policy
-bundles}\label{authority-assurance-scope-manifests-and-policy-bundles}}
+\subsection{Authority: Assurance Scope Manifests and Policy Bundles}\label{authority-assurance-scope-manifests-and-policy-bundles}}
 
 CAF requires that authority is explicit and enforceable through signed
 artifacts. The manifest is not bureaucracy; it is how human authority
@@ -684,7 +668,7 @@ scale through versioned artifacts, review, and automated verification
 gates. \cite{CodeAsPolicy}
 
 \hypertarget{overrides-and-exceptions}{%
-\subsection{Overrides and exceptions}\label{overrides-and-exceptions}}
+\subsection{Overrides and Exceptions}\label{overrides-and-exceptions}}
 
 CAF assumes reality will demand exceptions. CAF's requirement is not
 ``no exceptions.'' CAF's requirement is that exceptions are scoped,
@@ -707,8 +691,7 @@ conditions. \cite{ACPRA}
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{degraded-mode-survivability}{%
-\section{Degraded-mode
-survivability}\label{degraded-mode-survivability}}
+\section{Degraded-Mode Survivability}\label{degraded-mode-survivability}}
 
 CAF is not allowed to assume perfect connectivity. Degraded mode is not
 a ``failure case''; it is a mode of operation.
@@ -744,8 +727,7 @@ Figure~\ref{fig:caf-degraded-mode} then makes the expected state transitions exp
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{federation-and-cross-domain-posture-exchange}{%
-\section{Federation and cross-domain posture
-exchange}\label{federation-and-cross-domain-posture-exchange}}
+\section{Federation and Cross-Domain Posture Exchange}\label{federation-and-cross-domain-posture-exchange}}
 
 CAF is federated by default. Authority composes by intersection across
 manifests and policy bundles, not by union. This prevents accidental
@@ -767,15 +749,14 @@ exception-based and governed. Figure~\ref{fig:caf-federation} shows the summary-
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{conformance-profiles}{%
-\section{Conformance profiles}\label{conformance-profiles}}
+\section{Conformance Profiles}\label{conformance-profiles}}
 
 Profiles are how CAF preserves baseline simplicity while enabling
 high-assurance depth. The core loop does not change. The profile
 determines what sophistication is required.
 
 \hypertarget{cafcore-fieldable-baseline}{%
-\subsection{CAF-Core (fieldable
-baseline)}\label{cafcore-fieldable-baseline}}
+\subsection{CAF-Core (Fieldable Baseline)}\label{cafcore-fieldable-baseline}}
 
 CAF-Core requires the loop and the three non-negotiables: explicit
 authority artifacts, decision-grade evidence envelopes anchored for
@@ -783,8 +764,7 @@ replay, and mediated enforcement at real boundaries. It is the minimum
 profile that prevents CAF from collapsing into advisory dashboards.
 
 \hypertarget{cafstandard-enterprise-scale-continuous-authorization}{%
-\subsection{CAF-Standard (enterprise-scale continuous
-authorization)}\label{cafstandard-enterprise-scale-continuous-authorization}}
+\subsection{CAF-Standard (Enterprise-Scale Continuous Authorization)}\label{cafstandard-enterprise-scale-continuous-authorization}}
 
 CAF-Standard adds disciplined inheritance and validation-as-gate. It
 expects continuous validation results to be produced as evidence,
@@ -792,8 +772,7 @@ bounded remediation actions to exist at moderate consequence tiers, and
 degraded-mode behavior to be rehearsed, not assumed.
 
 \hypertarget{cafhigh-assurance-contested-multi-enclave-high-consequence}{%
-\subsection{CAF-High Assurance (contested, multi-enclave, high
-consequence)}\label{cafhigh-assurance-contested-multi-enclave-high-consequence}}
+\subsection{CAF-High Assurance (Contested, Multi-Enclave, High Consequence)}\label{cafhigh-assurance-contested-multi-enclave-high-consequence}}
 
 CAF-High Assurance assumes contested conditions, partial truth, and active deception. It therefore reduces reliance on any single sensor, any single model, or any single enclave narrative by requiring redundancy and adjudication. Consensus/outlier detection is not a dashboard feature; it is a control-plane mechanism: posture claims and high-consequence action eligibility SHOULD require quorum across independent producer classes (e.g., multiple sensor stacks plus independent agentic assessors), with explicit handling of disagreement and outliers. When the swarm cannot converge, CAF treats that as uncertainty and tightens authority---contain, narrow eligibility, or require explicit human review---rather than averaging disagreement into false confidence. The proof-ledger anchors not only the resulting posture claim, but also the underlying vote set and dissent references, so after-action review can reconstruct which paths agreed, which paths resisted, and why the decisioning function selected the governing verdict.
 
@@ -817,8 +796,7 @@ Assurance work units make supervision scalable by organizing human oversight aro
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{acquisition-and-governance-alignment}{%
-\section{Acquisition and governance
-alignment}\label{acquisition-and-governance-alignment}}
+\section{Acquisition and Governance Alignment}\label{acquisition-and-governance-alignment}}
 
 CAF cannot succeed as a ``platform feature.'' It succeeds as a
 conformance surface.
@@ -834,8 +812,7 @@ variance. \cite{CodeAsPolicy}
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{adoption-path-how-caf-becomes-real}{%
-\section{Adoption path (how CAF becomes
-real)}\label{adoption-path-how-caf-becomes-real}}
+\section{Adoption Path (How CAF Becomes Real)}\label{adoption-path-how-caf-becomes-real}}
 
 CAF is adopted in phases because trust is earned through safe
 enforcement, not asserted through architecture.
@@ -863,8 +840,7 @@ behavior changes.
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{minimal-schema-appendix-illustrative}{%
-\section{Minimal schema appendix
-(illustrative)}\label{minimal-schema-appendix-illustrative}}
+\section{Minimal Schema Appendix (Illustrative)}\label{minimal-schema-appendix-illustrative}}
 
 CAF's schemas are contracts. The exact fields evolve, but the invariants do not: attributable identity, handling labels, integrity anchoring, anti-replay, and replayable references. The purpose of the schema is not to standardize every internal producer format; it is to standardize what enters the fabric and what can be audited, gated, and replayed across enclaves.
 
