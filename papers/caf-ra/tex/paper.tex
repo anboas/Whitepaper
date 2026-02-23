@@ -11,7 +11,7 @@
 \newcommand{\AuthorRole}{Agentic Warfare Architect, Department of War}
 \newcommand{\PaperDate}{February 2026}
 \renewcommand{\ShortTitle}{CAF-RA}
-\renewcommand{\DocVersion}{v1.11-draft}
+\renewcommand{\DocVersion}{v1.12-draft}
 \fancyfoot[L]{\small\textcolor{BrandGray}{\ShortTitle\ \DocVersion\ | \PaperDate}}
 \fancyfoot[C]{\small\textcolor{BrandGray}{\thepage}}
 \fancyfoot[R]{}
@@ -35,9 +35,17 @@
 \newpage
 
 \begin{execsummary}
-Mission demands are pulling the Department of War (DoW) toward mission-tempo operations. The environment changes continuously, while governance remains uneven, episodic, and often retrospective. Dependencies mutate, identities drift, and adversaries adapt on timescales that outpace periodic review cycles. Programs still express authority as point-in-time approvals, and teams still assemble assurance as snapshots; that gap is the operational risk. Automation already drives consequential change in limited, uneven pockets of the enterprise, and agentic systems are poised to expand the set of non-person principals that can propose---and in some cases execute---bounded actions. In this paper, \emph{agentic operations} means non-person principals that can propose, adjudicate, and request bounded changes via governed tool calls, with all side effects mediated by enforcement points and recorded as decision/action evidence. In that world, point-in-time authorization becomes a category error. Cyber resilience is not a milestone; it is a continuously maintained operating state. CAF-RA defines the assurance control plane that makes that state governable at mission tempo. CAF does not assume today's enterprise is continuously governed; it defines the control-plane mechanics required to govern continuous, agentic operations without relying on periodic re-approval.
+Mission demands are pulling the Department of War (DoW) toward mission-tempo operations. The environment changes continuously, while governance remains uneven, episodic, and often retrospective. Dependencies mutate, identities drift, and adversaries adapt on timescales that outpace periodic review cycles. Programs still express authority as point-in-time approvals, and teams still assemble assurance as snapshots; that gap is the operational risk.
 
-CAF is a single governed loop---EMIT $\rightarrow$ ENRICH $\rightarrow$ SCORE $\rightarrow$ SURFACE $\rightarrow$ ACT---where each verb is a responsibility boundary, a contract surface, and an audit trail requirement. The loop converts raw telemetry into decision-grade assurance and binds decisions to enforceable authority at the change boundaries where reality becomes irreversible. CAF is designed for end-to-end inspection: authority $\rightarrow$ evidence $\rightarrow$ posture/confidence $\rightarrow$ decision record $\rightarrow$ enforcement $\rightarrow$ verification.
+Automation already drives consequential change in limited, uneven pockets of the enterprise, and agentic systems are poised to expand the set of non-person principals that can propose---and in some cases execute---bounded actions. In this paper, \emph{agentic operations} means non-person principals that can propose, adjudicate, and request bounded changes via governed tool calls, with all side effects mediated by enforcement points and recorded as decision/action evidence. In that world, point-in-time authorization becomes a category error. Cyber resilience is not a milestone; it is a continuously maintained operating state.
+
+CAF-RA defines the assurance control plane that makes that state governable at mission tempo. CAF does not assume today's enterprise is continuously governed; it defines the control-plane mechanics required to govern continuous, agentic operations without relying on periodic re-approval.
+
+CAF is a single governed loop---EMIT $\rightarrow$ ENRICH $\rightarrow$ SCORE $\rightarrow$ SURFACE $\rightarrow$ ACT---where each verb is a responsibility boundary, a contract surface, and an audit trail requirement. The loop converts raw telemetry into decision-grade assurance and binds decisions to enforceable authority at the change boundaries where reality becomes irreversible. CAF is designed for end-to-end inspection:
+
+\begin{center}
+\textit{authority $\rightarrow$ evidence $\rightarrow$ posture/confidence $\rightarrow$ decision record $\rightarrow$ enforcement $\rightarrow$ verification}
+\end{center}
 
 CAF-RA enforces three non-negotiables. Authority is explicit and executable through signed manifests and policy bundles. Evidence is portable, labeled, and replayable through sealed envelopes and tamper-evident anchoring. Consequential action is mediated and attributable at real change boundaries through signed decision records, not inferred from advisory dashboards.
 
@@ -63,7 +71,9 @@ CAF keeps baseline complexity to a \textbf{single governed loop}; additional cap
 \hypertarget{cafra-at-a-glance}{%
 \subsection{CAF-RA at a glance}\label{cafra-at-a-glance}}
 
-CAF is a control plane for assurance. It exists because the unit of operational change is now smaller than the unit of human governance, and because an increasing share of that change is initiated by non-person principals operating at machine tempo. When code ships hourly, posture shifts continuously, and agents can propose and execute bounded actions, assurance cannot remain a point-in-time document workflow without becoming either irrelevant (rubber-stamp) or destructive (paralyzing friction). In a continuous enterprise, authorization is not an event; it is a continuously maintained state produced by governed evidence, explicit authority, and mediated enforcement.
+CAF is a control plane for assurance. It exists because the unit of operational change is now smaller than the unit of human governance, and because an increasing share of that change is initiated by non-person principals operating at machine tempo.
+
+When code ships hourly, posture shifts continuously, and agents can propose and execute bounded actions, assurance cannot remain a point-in-time document workflow without becoming either irrelevant (rubber-stamp) or destructive (paralyzing friction). In a continuous enterprise, authorization is not an event; it is a continuously maintained state produced by governed evidence, explicit authority, and mediated enforcement.
 
 CAF solves that by standardizing a single operational loop:
 
@@ -468,9 +478,13 @@ fidelity, detection readiness, and validation outcomes. Some of these
 can be measured directly; others are inferred. CAF does not prohibit
 inference. It prohibits opaque inference.
 
-SCORE therefore must support adjudication across multiple independent producers: sensors collect, assessors augment, the ensemble judges, and CAF records the basis for the verdict. This can be implemented as ``swarm voting'' in operational terms: a governed set of attributable principals emit posture-relevant claims with explicit rationales; SCORE aggregates them into a confidence-bearing posture statement; and the system preserves both the consensus and the dissent so the Department can later reconstruct why the decisioning function trusted one path over another. For quorum purposes, ``independent'' means producers drawn from disjoint classes (e.g., distinct telemetry stacks + distinct validation methods + distinct agentic assessors); correlated producers SHOULD be treated as one vote to avoid false confidence from shared failure modes.
+SCORE therefore must support adjudication across multiple independent producers: sensors collect, assessors augment, the ensemble judges, and CAF records the basis for the verdict.
 
-Swarm adjudication does not relax CAF's authority/data separation. Votes and ensembles inform the decisioning function; they never become authority. Quorum thresholds, producer weighting, and outlier rejection criteria MUST be expressed in the signed policy bundle and captured in the decision record so the adjudication rule itself is replayable. Policy owners set these adjudication parameters explicitly, and reviewers test them before deployment. The decision record remains the accountable artifact: it binds manifest + policy hash to the evidence set, including the vote set and dissent references, and records why CAF permitted, denied, contained, or escalated.
+This can be implemented as ``swarm voting'' in operational terms: a governed set of attributable principals emit posture-relevant claims with explicit rationales; SCORE aggregates them into a confidence-bearing posture statement; and the system preserves both the consensus and the dissent so the Department can later reconstruct why the decisioning function trusted one path over another. For quorum purposes, ``independent'' means producers drawn from disjoint classes (e.g., distinct telemetry stacks + distinct validation methods + distinct agentic assessors); correlated producers SHOULD be treated as one vote to avoid false confidence from shared failure modes.
+
+Swarm adjudication does not relax CAF's authority/data separation. Votes and ensembles inform the decisioning function; they never become authority.
+
+Signed policy bundles MUST define quorum thresholds, producer weighting, and outlier rejection criteria, and decision records MUST capture that adjudication rule so teams can replay it. Policy owners set these adjudication parameters explicitly, and reviewers test them before deployment. The decision record remains the accountable artifact: it binds manifest + policy hash to the evidence set, including the vote set and dissent references, and records why CAF permitted, denied, contained, or escalated.
 
 \textbf{Technical position (SCORE-4): For moderate and higher consequence tiers, CAF SHOULD require corroboration across independent producers (including agentic assessors) and MUST preserve the adjudication set---consensus and dissent---as replayable evidence references bound to the decision record.}
 The SCORE contract is explicit: it answers ``given admitted evidence, what is posture now and how certain are we?''; it emits confidence-bearing posture claims traceable to evidence IDs; its unsafe failure mode is opaque scoring that is treated as authority; and its primary control is explainability with authority/data separation enforced in policy.
@@ -560,9 +574,17 @@ In agentic operations, autonomous agents may propose and execute bounded actions
 \label{fig:caf-sensor-swarm-verified-remediation}
 \end{figure}
 
-Automated remediation in CAF is not ``auto-fix.'' It is governed change executed at machine tempo under explicit scope. Drift and issues are detected through EMIT/ENRICH, adjudicated through SCORE, and surfaced as supervised work units with traceable evidence. Remediation agents then propose bounded plans that are attributable, consequence-tiered, and verification-first. The plan is itself evidence: it must reference the triggering envelopes, declare intended effects and blast radius, and specify how independent verification will confirm success or force rollback.
+Automated remediation in CAF is not ``auto-fix.'' It is governed change executed at machine tempo under explicit scope. Drift and issues are detected through EMIT/ENRICH, adjudicated through SCORE, and surfaced as supervised work units with traceable evidence.
 
-When policy and confidence allow, CAF authorizes remediation only through enforcement points. Agents do not execute side effects directly; they submit plans and requests that enforcement points validate against signed decision records, rate limits, rollback requirements, and consequence-tier constraints. After execution, ACT emits action evidence and requires independent verification signals to close the loop. If verification fails or confidence collapses, CAF tightens authority automatically---contain, reduce privileges, and escalate---rather than allowing ``optimistic remediation'' to become drift by another name.
+Remediation agents then propose bounded plans that are attributable, consequence-tiered, and verification-first. The plan is itself evidence: it must reference the triggering envelopes, declare intended effects and blast radius, and specify how independent verification will confirm success or force rollback.
+
+When policy and confidence allow, CAF authorizes remediation only through enforcement points. Agents do not execute side effects directly; they submit plans and requests that enforcement points validate against signed decision records, rate limits, rollback requirements, and consequence-tier constraints.
+
+After execution, ACT emits action evidence and requires independent verification signals to close the loop. If verification fails or confidence collapses, CAF tightens authority automatically---contain, reduce privileges, and escalate---rather than allowing ``optimistic remediation'' to become drift by another name.
+
+\begin{center}
+\textit{Agents propose. Enforcement points execute. Verification closes the loop.}
+\end{center}
 
 The ACT contract is explicit: it answers ``what bounded action is eligible now?''; it emits an action record cryptographically bound to a decision record and verification evidence; its unsafe failure mode is unmediated side effects or runaway remediation; and its primary control is enforcement-point mediation with consequence-tier constraints, rollback, and independent verification.
 
