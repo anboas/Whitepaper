@@ -1,0 +1,17 @@
+slug: resume-format-c-modern
+status: draft
+
+title: "Resume Format C - Modern Two-Column"
+date: 2026-02-23
+summary: "Modern two-column resume format balancing executive scanability with rich detail."
+tags:
+  - resume
+  - latex
+  - modern
+  - two-column
+
+pdfPath: /memos/resume-format-c-modern.pdf
+htmlPath: /writing/resume-format-c-modern/
+
+source:
+  tex: memos/resume-format-c-modern/tex/memo.tex

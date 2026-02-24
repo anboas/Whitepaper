@@ -1,0 +1,17 @@
+slug: resume-format-a-compact
+status: draft
+
+title: "Resume Format A - Compact One-Page"
+date: 2026-02-23
+summary: "One-page compact resume format focused on fast scanning and leadership narrative."
+tags:
+  - resume
+  - latex
+  - one-page
+  - compact
+
+pdfPath: /memos/resume-format-a-compact.pdf
+htmlPath: /writing/resume-format-a-compact/
+
+source:
+  tex: memos/resume-format-a-compact/tex/memo.tex
