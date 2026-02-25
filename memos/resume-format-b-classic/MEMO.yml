@@ -1,17 +1,17 @@
-slug: resume-format-b-classic
+slug: adam-boas-resume
 status: published
 
-title: "Resume Format B - Classic Full"
+title: "Adam Boas Resume"
 date: 2026-02-23
-summary: "Classic two-page resume with fuller role detail and publication highlights."
+summary: "Current public resume for Adam Boas."
 tags:
   - resume
   - latex
   - full
   - classic
 
-pdfPath: /memos/resume-format-b-classic.pdf
-htmlPath: /writing/resume-format-b-classic/
+pdfPath: /memos/adam-boas-resume.pdf
+htmlPath: /writing/adam-boas-resume/
 
 source:
   tex: memos/resume-format-b-classic/tex/memo.tex
