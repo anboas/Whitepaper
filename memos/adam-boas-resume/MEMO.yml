@@ -14,4 +14,4 @@ pdfPath: /memos/adam-boas-resume.pdf
 htmlPath: /writing/adam-boas-resume/
 
 source:
-  tex: memos/resume-format-b-classic/tex/memo.tex
+  tex: memos/adam-boas-resume/tex/memo.tex

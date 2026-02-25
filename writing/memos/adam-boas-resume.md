@@ -8,6 +8,8 @@ pdfPath: "/memos/adam-boas-resume.pdf"
 tags:
   - resume
   - latex
+  - full
+  - classic
 ---
 
 This memo is authored in the LaTeX memo pipeline and rendered from generated artifacts.
