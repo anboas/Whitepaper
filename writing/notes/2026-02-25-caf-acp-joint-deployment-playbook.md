@@ -67,7 +67,7 @@ Together they deliver machine-tempo execution without losing command authority.
 - **Consequence-tier controller** for bounded automation thresholds.
 - **Replay ledger/index** for post-incident governance reconstruction.
 
-## Live-fire scenario (CEO-ready)
+## Live-fire scenario (operational validation)
 
 ### Scenario: Production drift + suspicious privilege escalation in a mission-support workload
 
@@ -89,7 +89,7 @@ Together they deliver machine-tempo execution without losing command authority.
 - **Verification (close loop):**
   Independent telemetry verifies exfil path shut, no new unauthorized role assumptions, service SLO restored.
 
-### Why leadership should care
+### Why this matters operationally
 - Containment starts in minutes, not days.
 - Actions are bounded and attributable.
 - Governance is preserved under stress.
@@ -106,7 +106,7 @@ Together they deliver machine-tempo execution without losing command authority.
 
 ## Suggested publication path
 
-1. Publish this as a **note first** (fast cycle, CEO conversation support).
+1. Publish this as a **note first** (fast cycle, architecture + operations alignment support).
 2. Expand into a **paper** with:
    - reference deployment diagrams,
    - control contracts per boundary,
