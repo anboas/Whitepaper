@@ -1,7 +1,7 @@
 ---
-title: "CAF + ACP in Production: Joint Deployment Playbook (Live-Fire Pattern)"
+title: "CAF + ACP in Production: Joint Deployment Reference Pattern"
 date: 2026-02-25
-summary: "How CAF-RA and ACP-RA operate together in a real enterprise stack, including tooling map, custom control-plane components, and a live-fire production scenario."
+summary: "A deployment-grade architecture note showing how CAF-RA and ACP-RA run together using real tooling, custom control-plane components, and a live-fire production workload."
 status: draft
 type: note
 tags:
@@ -15,199 +15,223 @@ tags:
   - continuous-assurance
 ---
 
-## Why this note
+## Operating problem
 
-CAF and ACP are strongest when presented together as one operating model:
-- **ACP governs who/what can act** (identity, trust scopes, policy decisioning, tool-use boundaries).
-- **CAF governs whether action is safe right now** (evidence, posture, confidence, bounded enforcement, verification).
+Most enterprises can either move fast **or** stay governable under stress. They rarely do both.
 
-Together they deliver machine-tempo execution without losing command authority.
+When autonomous agents, CI/CD systems, and platform controllers can all trigger consequential changes, legacy governance breaks in one of two ways:
+1. It becomes ceremonial and gets routed around.
+2. It becomes approval drag and kills tempo.
 
-## One-line thesis
+CAF + ACP is the control-plane answer to that failure mode.
 
-**ACP decides action eligibility; CAF decides action advisability under current evidence; enforcement points execute bounded change; verification closes the loop.**
+## Core assertion
 
-## Joint architecture spine (real-world)
+**ACP governs action eligibility. CAF governs action advisability under current evidence and confidence. Enforcement points execute bounded effects. Verification closes the loop.**
 
-1. **Identity + authority (ACP)**
-   - Non-person principals (agents/services) onboarded with attributable identity.
-   - Signed manifests + policy bundles define trust scopes and allowed action classes.
+That is the spine.
 
-2. **Evidence pipeline (CAF)**
-   - Runtime, pipeline, identity, and validation signals emitted as attributable evidence.
-   - ENRICH gateway validates schema, labels handling boundaries, anti-replay checks, and tamper-evident anchoring.
+## What this pattern is, and what it is not
 
-3. **Decisioning (ACP + CAF)**
-   - ACP policy decision point evaluates whether a requested action is authorized.
-   - CAF SCORE computes posture + confidence from current evidence set.
-   - Decision record binds policy hash + manifest hash + evidence references.
+### It is
+- A deployable architecture pattern for mission-tempo operations.
+- A way to keep non-person principals fast but bounded.
+- A method for producing replayable governance evidence, not just dashboards.
 
-4. **Execution at boundaries (ACP-mediated, CAF-governed)**
-   - Enforcement points at CI/CD gates, admission control, segmentation, identity issuance, data access, and bounded response automation.
-   - Agents propose; enforcement points execute.
+### It is not
+- A product SKU.
+- A one-time authorization event.
+- A trust model where model output becomes authority.
 
-5. **Verification + replay (CAF)**
-   - Independent verification confirms intended effect.
-   - Action evidence closes loop for audit and after-action reconstruction.
+## Joint architecture model (two planes, one doctrine)
 
-## Tooling map (example production stack)
+### Plane A: Authority and action governance (ACP)
+ACP defines who/what may act and under what explicit scope:
+- attributable principal identity,
+- trust scopes,
+- signed authority manifests,
+- signed policy bundles,
+- mediated tool/action surfaces.
 
-### Off-the-shelf stack
+### Plane B: Continuous assurance and bounded execution (CAF)
+CAF defines whether action is safe now and how tightly to constrain it:
+- evidence emission and enrichment,
+- confidence-bearing posture computation,
+- supervised decision work units,
+- consequence-tiered, mediated execution,
+- independent verification and replay.
+
+### Doctrine at the seam
+- ACP prevents unauthorized action.
+- CAF prevents unwise action under uncertainty.
+- Decision records bind both.
+
+## Loop contract in production terms
+
+1. **EMIT**
+   - Question: what changed, and who is asserting it?
+   - Output: attributable, sealable evidence claims.
+   - Unsafe failure mode: anonymous or spoofed producers.
+
+2. **ENRICH**
+   - Question: is this evidence admissible and replay-safe?
+   - Output: normalized, labeled, anti-replay-validated envelopes.
+   - Unsafe failure mode: poisoned/replayed evidence entering governance.
+
+3. **SCORE**
+   - Question: what is current posture, and how certain are we?
+   - Output: confidence-bearing posture with evidence traceability.
+   - Unsafe failure mode: opaque scoring treated as authority.
+
+4. **SURFACE**
+   - Question: what decision is pending, under which authority, with what evidence?
+   - Output: supervised assurance work units.
+   - Unsafe failure mode: dashboard theater disconnected from decisions.
+
+5. **ACT**
+   - Question: what bounded action is eligible now?
+   - Output: mediated enforcement action + verification evidence.
+   - Unsafe failure mode: unmediated side effects/runaway remediation.
+
+## Tooling map (real-world stack)
+
+### Off-the-shelf components
 - **Identity/Auth:** Entra ID or Okta, workload identities, OIDC federation.
 - **Policy/Enforcement:** OPA/Gatekeeper, Kyverno, IAM condition policies, API gateway policy.
 - **Delivery plane:** GitHub Actions or GitLab CI, Argo CD / Flux.
 - **Runtime controls:** EKS/AKS admission webhooks, network policies, service mesh policy, WAF.
 - **Observability/evidence:** OpenTelemetry, SIEM (Splunk/Elastic), cloud audit logs.
-- **Secrets/keys:** Vault / KMS / HSM-backed signing.
+- **Secrets/signing:** Vault, KMS, HSM-backed signing.
 
-### Custom components (your differentiators)
-- **Authority Surface Manifest (ASM) service** (signed, versioned trust scopes).
-- **Evidence Envelope + ENRICH gateway** (schema, anti-replay, label discipline).
-- **Decision Record service** binding policy + authority + evidence.
-- **Consequence-tier controller** for bounded automation thresholds.
-- **Replay ledger/index** for post-incident governance reconstruction.
+### Custom components (control-plane differentiators)
+- **Authority Surface Manifest (ASM) service** for signed scope boundaries.
+- **ENRICH gateway + Evidence Envelope service** for admissibility and anti-replay discipline.
+- **Decision Record service** binding authority hash + policy hash + evidence references.
+- **Consequence-tier controller** enforcing automation bounds by mission impact.
+- **Replay ledger/index** for after-action reconstruction and audit-grade provenance.
 
-## Example production workload (reference target)
+## Reference production workload
 
-**Workload archetype:** mission-support API + event processor + analytics store running in Kubernetes across two environments (mission-prod and mission-stage).
+**Workload archetype:** mission-support API + event processor + analytics store in Kubernetes, split across `mission-stage` and `mission-prod`.
 
-- **Data sensitivity:** mixed (operational telemetry + controlled mission metadata).
-- **Blast-radius concern:** identity abuse, poisoned deployment, unauthorized data movement.
-- **Operational requirement:** maintain service availability while enforcing containment at machine tempo.
+- Data class: mixed operational + controlled mission metadata.
+- Threat focus: identity abuse, supply-chain contamination, unauthorized data movement.
+- Constraint: maintain availability while containing risk at machine tempo.
 
-### Practical control boundaries for this workload
-- **Pipeline boundary:** block unsigned artifacts, failed policy checks, or missing decision records.
-- **Admission boundary:** deny deploy when trust-scope or consequence-tier constraints are violated.
-- **Network boundary:** isolate compromised workload segments via policy-based quarantine.
-- **Identity boundary:** rotate/disable compromised credentials and constrain token issuance.
-- **Data boundary:** enforce query/access controls and egress restrictions under incident posture.
+### Enforcement boundaries for this workload
+- **Pipeline gate:** release promotion boundary.
+- **Admission gate:** deployment/runtime boundary.
+- **Segmentation gate:** network blast-radius boundary.
+- **Identity gate:** privilege/token boundary.
+- **Data gate:** access/egress boundary.
 
-## Boundary-by-boundary control contracts (ACP + CAF)
+## Boundary contracts (ACP + CAF together)
 
-1. **Pipeline Gate**
-   - ACP: validates principal + trust scope for proposed release action.
-   - CAF: requires evidence package (build integrity, scan outputs, drift posture, confidence).
-   - Enforcement: promote/deny with signed decision record.
+### 1) Pipeline gate
+- ACP checks principal trust scope for release action.
+- CAF requires decision-grade release evidence (integrity, vulnerability posture, drift, confidence).
+- Enforcement outcome: promote, hold, or deny via signed decision record.
 
-2. **Admission Gate**
-   - ACP: validates deployment actor and environment policy.
-   - CAF: checks latest posture confidence and consequence-tier constraints.
-   - Enforcement: admit, canary-only, or deny.
+### 2) Admission gate
+- ACP validates deploy actor and policy compatibility.
+- CAF checks live posture confidence and consequence-tier constraints.
+- Enforcement outcome: admit, canary-only, or deny.
 
-3. **Segmentation Gate**
-   - ACP: validates authority for network policy changes.
-   - CAF: uses incident evidence to determine containment scope.
-   - Enforcement: isolate workloads, restrict east-west communication.
+### 3) Segmentation gate
+- ACP validates authority to change segmentation posture.
+- CAF computes containment scope from active incident evidence.
+- Enforcement outcome: isolate affected services, preserve mission-critical traffic paths.
 
-4. **Identity Gate**
-   - ACP: enforces who can mint/assume privileged identities.
-   - CAF: triggers tighter controls when confidence drops.
-   - Enforcement: token restrictions, credential rotation, privilege reduction.
+### 4) Identity gate
+- ACP enforces issuance/assumption rules for privileged identities.
+- CAF tightens action eligibility as confidence degrades.
+- Enforcement outcome: credential rotation, token narrowing, privilege reduction.
 
-5. **Data Access Gate**
-   - ACP: enforces role/data policy compatibility.
-   - CAF: applies active posture constraints to dynamic access decisions.
-   - Enforcement: deny/high-friction approvals for high-risk paths.
+### 5) Data gate
+- ACP enforces role-to-data policy compatibility.
+- CAF applies active risk posture to data-access decisions.
+- Enforcement outcome: deny or step-up controls for high-risk access paths.
 
-## Live-fire scenario (operational validation)
+## Live-fire scenario: production drift + privilege escalation attempt
 
-### Scenario: Production drift + suspicious privilege escalation in a mission-support workload
+### Situation
+A production service begins making anomalous calls and attempts to assume a higher-privilege identity path. Simultaneously, a recent deployment introduces config drift in a network policy.
 
-- **Trigger (EMIT/ENRICH):**
-  Runtime detector flags anomalous pod behavior and IAM role misuse attempt. Signals sealed as evidence envelopes.
+### Execution sequence
+- **T+0 to T+5**
+  - Evidence emitted from runtime telemetry, IAM audit events, and deployment controls.
+  - ENRICH validates provenance/labels and opens incident work unit.
 
-- **Assessment (SCORE):**
-  CAF computes high-risk posture with degraded confidence in one service boundary; correlated evidence from independent producers raises confidence enough for containment.
+- **T+5 to T+15**
+  - SCORE computes high-risk posture with sufficient confidence for containment.
+  - SURFACE produces a bounded decision package: affected scope, consequence tier, allowed action set.
 
-- **Decision (SURFACE):**
-  Decision work unit shows: affected service, blast radius estimate, allowed actions by consequence tier, and required approvals.
+- **T+15 to T+30**
+  - ACT executes through enforcement points:
+    1) quarantine impacted workload segment,
+    2) rotate credentials and constrain token minting,
+    3) gate deployment promotion for impacted scope.
 
-- **Action (ACT):**
-  Under signed decision record, enforcement points:
-  1) quarantine affected workload segment,
-  2) rotate compromised credentials,
-  3) gate further deployments touching impacted scope.
-
-- **Verification (close loop):**
-  Independent telemetry verifies exfil path shut, no new unauthorized role assumptions, service SLO restored.
-
-### Why this matters operationally
-- Containment starts in minutes, not days.
-- Actions are bounded and attributable.
-- Governance is preserved under stress.
-- Post-incident replay is evidence-complete for command review.
-
-## Live-fire execution timeline (operator runbook)
-
-- **T+0 to T+5 min**
-  - Detect anomaly, seal evidence, open incident work unit.
-  - Auto-apply temporary consequence-tier elevation for affected scope.
-
-- **T+5 to T+15 min**
-  - Swarm/ensemble assessment confirms posture + confidence.
-  - Generate signed decision record with bounded containment plan.
-
-- **T+15 to T+30 min**
-  - Enforcement points execute quarantine + credential controls.
-  - Deploy pipeline for impacted scope moves to restricted mode.
-
-- **T+30 to T+60 min**
-  - Independent verification checks whether threat path is closed.
-  - If failed: auto-tighten scope, reduce privileges further, escalate human approval tier.
+- **T+30 to T+60**
+  - Independent verification confirms whether abuse path is closed and service objectives recover.
+  - If not closed: automatic authority tightening and human-tier escalation.
 
 - **T+60+**
-  - Controlled recovery using decision-recorded rollback/forward actions.
-  - After-action replay report generated directly from evidence + action records.
+  - Controlled rollback/forward recovery under decision-record discipline.
+  - Replay package generated from evidence + decision + action chain.
 
-## Known failure modes and explicit guardrails
+## Operational quality metrics
 
-- **Failure mode:** “Model confidence masquerades as authority.”
-  - **Guardrail:** authority only from signed manifest + policy, never from score output.
+- **MTTD2D:** mean time from detection to signed decision.
+- **MTTBC:** mean time to bounded containment.
+- **Decision binding rate:** % consequential actions with complete decision-record linkage.
+- **Verification success rate:** % autonomous/assisted actions verified on first pass.
+- **Escalation precision:** % tier escalations that were necessary (not noise).
+- **Replay completeness:** ability to reconstruct exactly what was known/decided/done.
 
-- **Failure mode:** unmediated automation side effects.
-  - **Guardrail:** all consequential actions must traverse enforcement points under signed decision records.
+## Failure modes and hard guardrails
 
-- **Failure mode:** contaminated or replayed evidence influences posture.
-  - **Guardrail:** ENRICH gateway signature checks, anti-replay fields, schema controls, quarantine path.
+1. **Score becomes authority**
+   - Guardrail: only signed manifest + policy grant authority.
 
-- **Failure mode:** containment succeeds but business continuity collapses.
-  - **Guardrail:** consequence tiers + bounded action sets + staged recovery verification.
+2. **Unmediated automation side effects**
+   - Guardrail: all consequential actions must traverse enforcement points.
 
-## Metrics that prove it works
+3. **Evidence poisoning/replay**
+   - Guardrail: ENRICH anti-replay + schema validation + quarantine pipeline.
 
-- Mean time to detection-to-decision (MTTD2D)
-- Mean time to bounded containment (MTTBC)
-- % actions executed with complete decision record binding
-- % autonomous actions that pass independent verification on first attempt
-- Policy exception rate by consequence tier
-- Replay completeness score (can we reconstruct exactly what happened?)
+4. **Containment breaks mission continuity**
+   - Guardrail: consequence-tiered action sets + staged recovery verification.
 
-## Suggested publication path
+5. **Policy drift between environments**
+   - Guardrail: signed policy bundle version pinning + environment attestation checks.
 
-1. Publish this as a **note first** (fast cycle, architecture + operations alignment support).
-2. Expand into a **paper** with:
-   - reference deployment diagrams,
-   - control contracts per boundary,
-   - one full red-team/live-fire walkthrough,
-   - implementation profiles (core vs high-assurance).
+## 90-day implementation sequence
 
-## Suggested implementation sequence (90-day)
+### Days 0-30: foundation
+- Stand up principal onboarding + workload identity discipline.
+- Deploy ENRICH gateway minimum controls.
+- Require signed decision records for at least one production pipeline gate.
 
-- **Days 0-30 (Foundations)**
-  - Stand up identity-bound producer onboarding.
-  - Implement ENRICH gateway minimum controls (schema, anti-replay, labeling).
-  - Introduce signed decision records for one high-value pipeline gate.
+### Days 31-60: bounded enforcement
+- Extend enforcement to admission and segmentation boundaries.
+- Activate consequence-tier policy constraints.
+- Begin replay index for evidence and actions.
 
-- **Days 31-60 (Bounded enforcement)**
-  - Expand enforcement points to admission + segmentation boundaries.
-  - Add consequence-tier policy constraints and rollback discipline.
-  - Enable replay ledger indexing for evidence + actions.
+### Days 61-90: live-fire hardening
+- Run a production-like live-fire exercise.
+- Measure MTTD2D, MTTBC, verification success, and replay completeness.
+- Tune quorum/outlier/escalation controls based on observed failure patterns.
 
-- **Days 61-90 (Operational hardening)**
-  - Run live-fire exercise against a production-like workload.
-  - Measure MTTD2D/MTTBC + verification pass rates.
-  - Tune quorum/outlier and escalation policies from observed failures.
+## Expansion path to full paper
 
-## Draft abstract for paper version
+This draft should remain a working architecture note until we lock:
+- canonical boundary contracts,
+- baseline implementation profile,
+- one full red-team/live-fire evidence chain.
 
-This paper operationalizes CAF-RA and ACP-RA as a unified production control-plane model for agentic enterprise operations. ACP defines enforceable authority for non-person principals and bounded tool use; CAF converts enterprise telemetry into decision-grade assurance through replayable evidence, confidence-bearing posture, and mediated enforcement. We present a deployable architecture using commodity enterprise tooling plus minimal custom control-plane components, and we validate the model against a live-fire production scenario. The result is a machine-tempo governance system where autonomous speed remains subordinate to explicit authority, bounded execution, and independent verification.
+Then expand into a full paper with deployment diagrams, conformance profiles, and a reference implementation appendix.
+
+## Working abstract (paper candidate)
+
+This paper operationalizes CAF-RA and ACP-RA as a unified production control-plane pattern for agentic enterprise operations. ACP defines enforceable authority for non-person principals and bounded action surfaces; CAF converts enterprise telemetry into decision-grade assurance through replayable evidence, confidence-bearing posture, and mediated enforcement. Using a reference mission-support workload, we show how authority, evidence, and execution are bound through signed decision records and verified outcomes at real change boundaries. The resulting architecture preserves governable control at machine tempo without sacrificing operational continuity.
