@@ -2,7 +2,7 @@
 title: "Adam Boas Resume"
 date: 2026-02-23
 summary: "Current public resume for Adam Boas."
-status: "published"
+status: "draft"
 type: "memo"
 pdfPath: "/memos/adam-boas-resume.pdf"
 tags:
