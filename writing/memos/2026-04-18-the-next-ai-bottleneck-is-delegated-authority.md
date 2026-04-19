@@ -5,6 +5,7 @@ summary: "NIST is starting to standardize it. DARPA is starting to research it. 
 status: "published"
 type: "memo"
 pdfPath: "/memos/2026-04-18-the-next-ai-bottleneck-is-delegated-authority.pdf"
+audioPath: "/audio/writing/2026-04-18-the-next-ai-bottleneck-is-delegated-authority.m4a"
 tags:
   - autonomy
   - agents

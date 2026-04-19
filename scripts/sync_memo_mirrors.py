@@ -35,7 +35,7 @@ def parse_frontmatter(md_text: str) -> tuple[dict, str]:
 
 def render_frontmatter(meta: dict) -> str:
     lines: list[str] = ["---"]
-    ordered_keys = ["title", "date", "summary", "status", "type", "pdfPath", "tags"]
+    ordered_keys = ["title", "date", "summary", "status", "type", "pdfPath", "audioPath", "tags"]
 
     for k in ordered_keys:
         if k not in meta:
@@ -58,7 +58,7 @@ def render_frontmatter(meta: dict) -> str:
 
 
 def expected_from_memo_yml(data: dict) -> dict:
-    return {
+    out = {
         "title": data.get("title", ""),
         "date": data.get("date", ""),
         "summary": data.get("summary", ""),
@@ -67,6 +67,10 @@ def expected_from_memo_yml(data: dict) -> dict:
         "pdfPath": data.get("pdfPath", ""),
         "tags": data.get("tags", []) or [],
     }
+    audio_path = str(data.get("audioPath", "") or "").strip()
+    if audio_path:
+        out["audioPath"] = audio_path
+    return out
 
 
 def main() -> int:
