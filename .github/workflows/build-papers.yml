@@ -152,7 +152,7 @@ jobs:
             --out build/${{ matrix.paper }}/manifest.json
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: paper-${{ matrix.paper }}
           path: |
