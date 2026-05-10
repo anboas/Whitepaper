@@ -1,0 +1,5 @@
+# Default code owners
+* @anboas
+
+# Workflow changes require explicit owner review
+.github/workflows/* @anboas
