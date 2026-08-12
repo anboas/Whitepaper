@@ -7,13 +7,16 @@
 \input{../../../tex/memo_preamble.tex}
 \hypersetup{pdfsubject={Top Secret}, pdfkeywords={Clearance: Top Secret}}
 
-\newcommand{\ResumeSection}[1]{\vspace{0.18em}\noindent\textbf{\large #1}\par\nointerlineskip\textcolor{accentgold}{\rule{\textwidth}{0.75pt}}\vspace{0.02em}}
-\newcommand{\Role}[3]{{\footnotesize\textbf{#1} -- \textit{#2} \hfill #3}\par}
-\newcommand{\LinkedEntry}[3]{{\footnotesize\textbf{#1} (#2). \href{#3}{#3}}\par}
+\newcommand{\ResumeSection}[1]{\vspace{0.16em}\noindent\textbf{\large #1}\par\nointerlineskip\textcolor{accentgold}{\rule{\textwidth}{0.75pt}}\vspace{0.01em}}
+\newcommand{\Role}[4]{%
+{\footnotesize\textbf{#1} -- \textit{#2} \hfill #3}\par
+{\scriptsize #4}\par\vspace{0.03em}
+}
+\newcommand{\LinkedEntry}[3]{{\scriptsize\textbf{#1} (#2). \href{#3}{#3}}\par}
 
 \begin{document}
-\newgeometry{top=0.65in,bottom=0.65in,left=0.78in,right=0.78in}
-\setlength{\parskip}{0.18em}
+\newgeometry{top=0.52in,bottom=0.52in,left=0.74in,right=0.74in}
+\setlength{\parskip}{0.10em}
 
 \begin{center}
 {\LARGE\bfseries Adam Boas}\\
@@ -22,16 +25,16 @@
 \end{center}
 
 \ResumeSection{Experience}
-\Role{KBR}{Solutions Architect}{2025 - present}
-\Role{Booz Allen Hamilton}{Solutions Architect}{2024 - 2025}
-\Role{KBR}{Solutions Architect}{2022 - 2024}
-\Role{Booz Allen Hamilton}{Solutions Architect}{2019 - 2022}
-\Role{KBRwyle}{Cloud Architect / Site Reliability Engineer}{2018 - 2019}
-\Role{KBRwyle}{Architecture Analyst / Software Engineer}{2018}
-\Role{KBR}{Software Engineer}{2015 - 2018}
-\Role{Fast DAS}{Jr. RF Engineer}{2015}
-\Role{Kerry Group}{Programming Consultant}{2014}
-\Role{Central Florida Health Alliance}{Programming Consultant}{2014}
+\Role{KBR}{Solutions Architect}{2025 - present}{Support enterprise technology strategy, solution architecture, technical capture, proposal solutioning, and modernization initiatives.}
+\Role{Booz Allen Hamilton}{Solutions Architect}{2024 - 2025}{Supported DoD CIO Information Enterprise across software modernization policy, AI4SDLC governance, cloud, DevSecOps, and acquisition coordination.}
+\Role{KBR}{Solutions Architect}{2022 - 2024}{Supported Navy aviation mission-system modernization, IL5 cloud architecture, DevSecOps alignment, and secure cloud integration.}
+\Role{Booz Allen Hamilton}{Solutions Architect}{2019 - 2022}{Advised Information Warfare stakeholders on DevSecOps, secure cloud architecture, modernization strategy, and Compile-to-Combat initiatives.}
+\Role{KBRwyle}{Cloud Architect / Site Reliability Engineer}{2018 - 2019}{Built and operated automated cloud environments with CI/CD, configuration management, monitoring, recovery automation, and cost tracking.}
+\Role{KBRwyle}{Architecture Analyst / Software Engineer}{2018}{Stabilized multi-host development environments spanning TFS, SQL, SharePoint, Fortify, custom apps, ESXi/vCenter, and storage.}
+\Role{KBR}{Software Engineer}{2015 - 2018}{Delivered Agile software, strengthened ALM and security tooling, configured Fortify SSC/SCA, and shipped reusable shared libraries.}
+\Role{Fast DAS}{Jr. RF Engineer}{2015}{Supported RF testing and deployment troubleshooting for in-building distributed antenna systems.}
+\Role{Kerry Group}{Programming Consultant}{2014}{Delivered remote, short-cycle software consulting to unblock delivery and improve operational outcomes.}
+\Role{Central Florida Health Alliance}{Programming Consultant}{2014}{Provided remote software development consulting focused on practical fixes, speed, and stakeholder alignment.}
 
 \ResumeSection{Education}
 {\setlength{\parskip}{0.06em}
