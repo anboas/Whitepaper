@@ -4,6 +4,7 @@ date: 2026-02-09
 summary: "Reading notes on prompt injection, tool-use at scale, and execution-based evaluation that drove ACP-RA design choices (gateways, envelopes, evidence, anti-replay, and upgrade discipline)."
 status: published
 type: note
+pdfPath: "/notes/2026-02-09-agent-tool-security-research.pdf"
 tags:
   - acp-ra
   - agents
