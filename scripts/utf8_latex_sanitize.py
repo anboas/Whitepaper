@@ -41,6 +41,8 @@ REPLACEMENTS = {
     "\u202F": " ",  # narrow NBSP
     "\u2007": " ",  # figure space
     "\u2009": " ",  # thin space
+    "\u2192": "\\ensuremath{\\rightarrow}",  # right arrow
+    "\u2229": "\\ensuremath{\\cap}",  # intersection
 }
 
 # Characters we consider unacceptable in LaTeX inputs for this repo.

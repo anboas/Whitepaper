@@ -820,8 +820,8 @@ deny-by-default; quorum approvals; constrained degraded modes;
 full-fidelity evidence on trigger; mandatory after-action review \\
 \end{longtable}
 
-\textbf{Composition rule:} when scopes combine (agent→agent,
-agent→ensemble, cross-enclave), authority composes by
+\textbf{Composition rule:} when scopes combine (agent\ensuremath{\rightarrow}agent,
+agent\ensuremath{\rightarrow}ensemble, cross-enclave), authority composes by
 \textbf{intersection}, not union. The effective authority is the overlap
 of allowed actions, data, and environments---never the sum.
 
@@ -1015,7 +1015,7 @@ Minimum capabilities:
   intervention controls (pause/resume/cancel; quarantine/kill; tighten
   scope)
 \item
-  evidence drill-down by work\_unit\_id (macro→meso→micro replay tiers)
+  evidence drill-down by work\_unit\_id (macro\ensuremath{\rightarrow}meso\ensuremath{\rightarrow}micro replay tiers)
 \item
   after-action review workflow that generates new eval cases and policy
   refinements
@@ -1134,7 +1134,7 @@ The model gateway is also the upgrade discipline:
 \begin{itemize}
 \tightlist
 \item
-  shadow → canary → promote → rollback
+  shadow \ensuremath{\rightarrow} canary \ensuremath{\rightarrow} promote \ensuremath{\rightarrow} rollback
 \item
   policy-hash and eval-pack gating
 \end{itemize}
@@ -1532,13 +1532,13 @@ Evidence is a structured event stream supporting:
 \item
   attribution: who/what/under which scope/policy
 \item
-  replay: reconstructing intent → context → decision → action → outcome
+  replay: reconstructing intent \ensuremath{\rightarrow} context \ensuremath{\rightarrow} decision \ensuremath{\rightarrow} action \ensuremath{\rightarrow} outcome
 \item
   continuous authorization: evidence inside the system boundary
 \end{itemize}
 
 \hypertarget{lineage-graph-data-logic-action-artifact}{%
-\subsubsection{Lineage Graph (Data → Logic → Action → Artifact)}\label{lineage-graph-data-logic-action-artifact}}
+\subsubsection{Lineage Graph (Data \ensuremath{\rightarrow} Logic \ensuremath{\rightarrow} Action \ensuremath{\rightarrow} Artifact)}\label{lineage-graph-data-logic-action-artifact}}
 
 Replay is only useful if the system can answer ``what changed because of
 what.'' ACP therefore requires a lineage graph that ties together data,
@@ -1865,7 +1865,7 @@ evidence as portable artifacts:
 \section{Control Loops (How the System Behaves)}\label{control-loops-how-the-system-behaves}}
 
 \hypertarget{action-loop-intent-policy-mediated-action-evidence}{%
-\subsection{Action Loop: Intent → Policy → Mediated Action → Evidence}\label{action-loop-intent-policy-mediated-action-evidence}}
+\subsection{Action Loop: Intent \ensuremath{\rightarrow} Policy \ensuremath{\rightarrow} Mediated Action \ensuremath{\rightarrow} Evidence}\label{action-loop-intent-policy-mediated-action-evidence}}
 
 \begin{figure}[H]
 \centering
@@ -1901,7 +1901,7 @@ Narrative flow:
 \end{enumerate}
 
 \hypertarget{governance-loop-artifacts-tests-promotion-enforcement}{%
-\subsection{Governance Loop: Artifacts → Tests → Promotion → Enforcement}\label{governance-loop-artifacts-tests-promotion-enforcement}}
+\subsection{Governance Loop: Artifacts \ensuremath{\rightarrow} Tests \ensuremath{\rightarrow} Promotion \ensuremath{\rightarrow} Enforcement}\label{governance-loop-artifacts-tests-promotion-enforcement}}
 
 \begin{figure}[H]
 \centering
@@ -1946,7 +1946,7 @@ Common patterns are supported as declared coordination policies:
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Hierarchical (orchestrator → workers):} orchestrator
+  \textbf{Hierarchical (orchestrator \ensuremath{\rightarrow} workers):} orchestrator
   decomposes tasks, workers execute narrow scopes. Strong accountability
   and containment.
 \item
@@ -2368,7 +2368,7 @@ ACP is tested like a mission system:
   red-team simulations targeting policy, ledger, registry, and
   revocation channels
 \item
-  replay drills: reconstruct ensemble failures using macro→meso→micro
+  replay drills: reconstruct ensemble failures using macro\ensuremath{\rightarrow}meso\ensuremath{\rightarrow}micro
   evidence tiers
 \end{itemize}
 
@@ -2445,7 +2445,7 @@ orchestration, arbitration, shared state, budgets, and containment.
 \item
   work-unit completion time distributions by tier and mission thread
 \item
-  model/tool update cycle time (shadow → canary → promote → rollback)
+  model/tool update cycle time (shadow \ensuremath{\rightarrow} canary \ensuremath{\rightarrow} promote \ensuremath{\rightarrow} rollback)
 \item
   mean time to quarantine/revoke (MTTQ / MTTR-Q)
 \end{itemize}
@@ -2471,7 +2471,7 @@ orchestration, arbitration, shared state, budgets, and containment.
 \item
   deadlock/livelock frequency
 \item
-  cascade containment time (detect → throttle → isolate)
+  cascade containment time (detect \ensuremath{\rightarrow} throttle \ensuremath{\rightarrow} isolate)
 \item
   ensemble success rate on golden scenarios
 \end{itemize}
@@ -2497,7 +2497,7 @@ orchestration, arbitration, shared state, budgets, and containment.
 \item
   drift detection sensitivity/precision
 \item
-  anomaly response time (detect → contain)
+  anomaly response time (detect \ensuremath{\rightarrow} contain)
 \end{itemize}
 
 \textbf{Resources}
@@ -2539,7 +2539,7 @@ orchestration, arbitration, shared state, budgets, and containment.
 \end{itemize}
 
 \hypertarget{transition-roadmap-copilots-governed-agents-supervised-autonomy-governed-swarms}{%
-\subsection{Transition Roadmap (Copilots → Governed Agents → Supervised Autonomy → Governed Swarms)}\label{transition-roadmap-copilots-governed-agents-supervised-autonomy-governed-swarms}}
+\subsection{Transition Roadmap (Copilots \ensuremath{\rightarrow} Governed Agents \ensuremath{\rightarrow} Supervised Autonomy \ensuremath{\rightarrow} Governed Swarms)}\label{transition-roadmap-copilots-governed-agents-supervised-autonomy-governed-swarms}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
