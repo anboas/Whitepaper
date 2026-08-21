@@ -7,8 +7,8 @@ formatting hacks.
 We check two sources of truth:
 - papers/<paper>/draft.md (optional): when present, must have a single YAML
   front matter block at top.
-- papers/<paper>/tex/paper.tex: must include the shared preamble and the
-  standard title-page + ToC + execsummary wrapper.
+- papers/<paper>/tex/paper.tex: must include the shared preamble and call the
+  standard cover generator + ToC + execsummary wrapper.
 
 Exit codes:
 - 0 pass
@@ -108,9 +108,9 @@ def check_paper_tex(paper_dir: Path) -> tuple[bool, str]:
         if not re.search(pat, txt):
             return False, f"FORMAT validation: FAIL\nMissing required metadata macro: {pat}"
 
-    # Title-page rule and ToC/execsummary wrapper should be present.
+    # Cover-page rule and ToC/execsummary wrapper should be present.
     must_contain = [
-        r"\\thispagestyle\{empty\}",
+        r"\\makepapercover",
         r"\\tableofcontents",
         r"\\begin\{execsummary\}",
         r"\\end\{execsummary\}",
@@ -118,6 +118,18 @@ def check_paper_tex(paper_dir: Path) -> tuple[bool, str]:
     for pat in must_contain:
         if not re.search(pat, txt):
             return False, f"FORMAT validation: FAIL\nMissing expected front-matter structure token: {pat}"
+
+    forbidden_cover_tokens = [
+        r"\\thispagestyle\{empty\}",
+        r"ADAMBOAS\.COM\s+\\textbullet\{\}\s+PAPER",
+        r"\\Huge\\bfseries\\color\{BrandAccent\}\\PaperTitle",
+    ]
+    for pat in forbidden_cover_tokens:
+        if re.search(pat, txt):
+            return False, (
+                "FORMAT validation: FAIL\n"
+                "Paper source must not hand-write the cover page. Use the shared \\makepapercover macro."
+            )
 
     # Prevent one-off stray sections before the main body section.
     # After \end{execsummary}, the next real sectioning command should be a numbered \section{...}

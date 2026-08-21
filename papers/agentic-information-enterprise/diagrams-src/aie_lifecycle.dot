@@ -1,0 +1,51 @@
+digraph AIELifecycle {
+  graph [
+    rankdir=LR,
+    bgcolor="#ffffff",
+    pad="0.35",
+    nodesep="0.42",
+    ranksep="0.55",
+    splines=ortho,
+    fontname="Arial",
+    labelloc="t",
+    label="Agent Employment Lifecycle",
+    fontsize=22,
+    fontcolor="#0f172a"
+  ];
+
+  node [
+    shape=rect,
+    style="rounded,filled",
+    color="#475569",
+    penwidth=1.4,
+    fillcolor="#f8fafc",
+    fontname="Arial",
+    fontsize=13,
+    fontcolor="#0f172a",
+    margin="0.14,0.09"
+  ];
+
+  edge [
+    color="#64748b",
+    penwidth=1.35,
+    arrowsize=0.75,
+    fontname="Arial",
+    fontsize=10,
+    fontcolor="#334155"
+  ];
+
+  define [label="1. Define Demand\nbacklog, quality,\nsources, reserved decisions", fillcolor="#ecfeff", color="#0891b2"];
+  design [label="2. Design Employment\nWEP, ARG, policy,\nevidence, degraded mode", fillcolor="#fffbeb", color="#d97706"];
+  approve [label="3. Complete Approvals\nmission, identity,\nsystem, AO, domain owners", fillcolor="#fff7ed", color="#ea580c"];
+  execute [label="4. Execute + Accept\nassign Work Unit,\nACP action, CAF evidence", fillcolor="#eff6ff", color="#2563eb"];
+  measure [label="5. Measure Change\ncapacity, quality,\nburden, cost, risk", fillcolor="#fefce8", color="#ca8a04"];
+  retire [label="6. Suspend or Retire\nstop tasking, revoke,\npreserve records", fillcolor="#fff1f2", color="#e11d48"];
+
+  define -> design;
+  design -> approve;
+  approve -> execute;
+  execute -> measure;
+  measure -> retire [label="end or fail gate"];
+  measure -> design [label="amend", constraint=false];
+  retire -> define [label="new demand", constraint=false];
+}

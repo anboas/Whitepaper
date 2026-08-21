@@ -1,0 +1,58 @@
+digraph AIEOperatingModel {
+  graph [
+    rankdir=TB,
+    bgcolor="#ffffff",
+    pad="0.35",
+    nodesep="0.55",
+    ranksep="0.82",
+    splines=ortho,
+    fontname="Arial",
+    labelloc="t",
+    label="Agentic Information Enterprise: Governed Workforce Creation",
+    fontsize=22,
+    fontcolor="#0f172a"
+  ];
+
+  node [
+    shape=rect,
+    style="rounded,filled",
+    color="#475569",
+    penwidth=1.4,
+    fillcolor="#f8fafc",
+    fontname="Arial",
+    fontsize=14,
+    fontcolor="#0f172a",
+    margin="0.16,0.10"
+  ];
+
+  edge [
+    color="#64748b",
+    penwidth=1.4,
+    arrowsize=0.8,
+    fontname="Arial",
+    fontsize=11,
+    fontcolor="#334155"
+  ];
+
+  demand [label="Mission Demand\nBacklog, quality standard,\nreserved decisions", fillcolor="#ecfeff", color="#0891b2"];
+  wep [label="Workforce\nEmployment Profile\nWork, owners, boundaries,\nacceptance, lifecycle", fillcolor="#fffbeb", color="#d97706"];
+  registry [label="Agent Registry\nIdentity, lifecycle,\nmodels, tools, review", fillcolor="#f8fafc", color="#475569"];
+  acp [label="ACP-RA\nTrust Scope Manifest,\npolicy bundle,\nAction Envelopes", fillcolor="#eff6ff", color="#2563eb"];
+  caf [label="CAF-RA\nEvidence Ledger,\nevaluation, assurance", fillcolor="#f0fdf4", color="#16a34a"];
+  work [label="Bounded Work Units\nAssigned, executed,\nclosed", fillcolor="#f8fafc", color="#475569"];
+  accept [label="Human Acceptance\nor reserved decision", fillcolor="#fff1f2", color="#e11d48"];
+  ledger [label="Capacity Ledger\nAccepted work minus\nsupervision, cost, risk", fillcolor="#fefce8", color="#ca8a04"];
+  scale [label="Scale, constrain,\ntransfer, or retire", fillcolor="#f8fafc", color="#475569"];
+
+  { rank=same; registry; acp; caf; }
+  { rank=same; accept; ledger; scale; }
+
+  demand -> wep [label="defines eligible work"];
+  wep -> registry [label="registers employment"];
+  registry -> acp [label="binds identity and scope"];
+  acp -> work [label="mediates action"];
+  work -> caf [label="emits evidence"];
+  caf -> accept [label="supports decision"];
+  accept -> ledger [label="records closure"];
+  ledger -> scale [label="governs disposition"];
+}

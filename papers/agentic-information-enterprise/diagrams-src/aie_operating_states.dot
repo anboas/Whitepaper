@@ -1,0 +1,54 @@
+digraph AIEOperatingStates {
+  graph [
+    rankdir=LR,
+    bgcolor="#ffffff",
+    pad="0.35",
+    nodesep="0.50",
+    ranksep="0.65",
+    splines=ortho,
+    fontname="Arial",
+    labelloc="t",
+    label="Runtime Operating States",
+    fontsize=22,
+    fontcolor="#0f172a"
+  ];
+
+  node [
+    shape=rect,
+    style="rounded,filled",
+    color="#475569",
+    penwidth=1.4,
+    fillcolor="#f8fafc",
+    fontname="Arial",
+    fontsize=14,
+    fontcolor="#0f172a",
+    margin="0.17,0.10"
+  ];
+
+  edge [
+    color="#64748b",
+    penwidth=1.35,
+    arrowsize=0.75,
+    fontname="Arial",
+    fontsize=10,
+    fontcolor="#334155"
+  ];
+
+  start [label="Authorized\nLifecycle Gate", shape=oval, fillcolor="#ecfeff", color="#0891b2"];
+  normal [label="Normal\nWork Units inside WEP", fillcolor="#f0fdf4", color="#16a34a"];
+  degraded [label="Degraded\nNarrow profile;\ndurable evidence only", fillcolor="#fefce8", color="#ca8a04"];
+  incident [label="Incident-contained\nisolate, revoke,\npreserve evidence", fillcolor="#fff1f2", color="#e11d48"];
+  suspended [label="Suspended\nstop tasking;\nfreeze work", fillcolor="#f8fafc", color="#475569"];
+  retired [label="Retired\narchive employment", shape=oval, fillcolor="#f1f5f9", color="#64748b"];
+
+  start -> normal;
+  normal -> degraded [label="dependency loss"];
+  degraded -> normal [label="controls restored"];
+  normal -> suspended [label="authority lapse"];
+  degraded -> suspended [label="minimum controls unavailable"];
+  normal -> incident [label="suspected compromise"];
+  degraded -> incident [label="unauthorized effect"];
+  incident -> suspended [label="containment complete"];
+  suspended -> normal [label="reauthorized"];
+  suspended -> retired [label="retire"];
+}

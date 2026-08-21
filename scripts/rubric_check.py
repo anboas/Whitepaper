@@ -33,6 +33,21 @@ def read_text(path: Path) -> str:
 def strip_latex(text: str) -> str:
     """Very rough LaTeX -> plain text."""
     text = re.sub(r"%.*", "", text)  # comments
+    # Readability checks should evaluate prose, not code listings or dense tables.
+    non_prose_envs = [
+        "Shaded",
+        "Highlighting",
+        "yamlblock",
+        "lstlisting",
+        "verbatim",
+        "Verbatim",
+        "longtable",
+        "tabular",
+        "tabularx",
+    ]
+    for env in non_prose_envs:
+        text = re.sub(rf"\\begin\{{{env}\}}[\s\S]*?\\end\{{{env}\}}", " ", text)
+        text = re.sub(rf"\\begin\{{{env}\}}\{{[^}}]*\}}[\s\S]*?\\end\{{{env}\}}", " ", text)
     text = re.sub(r"\\(begin|end)\{[^}]+\}", " ", text)
     # remove common commands and their optional args/braces
     text = re.sub(r"\\[a-zA-Z@]+\*?(\[[^\]]*\])?(\{[^}]*\})?", " ", text)

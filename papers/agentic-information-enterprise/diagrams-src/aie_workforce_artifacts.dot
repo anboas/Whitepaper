@@ -1,0 +1,55 @@
+digraph AIEWorkforceArtifacts {
+  graph [
+    rankdir=TB,
+    bgcolor="#ffffff",
+    pad="0.35",
+    nodesep="0.55",
+    ranksep="0.72",
+    splines=ortho,
+    fontname="Arial",
+    labelloc="t",
+    label="Workforce Operating Artifacts",
+    fontsize=22,
+    fontcolor="#0f172a"
+  ];
+
+  node [
+    shape=rect,
+    style="rounded,filled",
+    color="#475569",
+    penwidth=1.4,
+    fillcolor="#f8fafc",
+    fontname="Arial",
+    fontsize=14,
+    fontcolor="#0f172a",
+    margin="0.17,0.10"
+  ];
+
+  edge [
+    color="#64748b",
+    penwidth=1.35,
+    arrowsize=0.8,
+    fontname="Arial",
+    fontsize=11,
+    fontcolor="#334155"
+  ];
+
+  mission [label="Mission Employment\nWhat work should be assigned?", fillcolor="#ecfeff", color="#0891b2"];
+  wep [label="Workforce Employment Profile\nPurpose, owners, trust scope,\nreserved decisions, lifecycle", fillcolor="#fffbeb", color="#d97706"];
+  arg [label="Authority and Responsibility Graph\nAuthority source to official,\nWork Unit, action, evidence, acceptance", fillcolor="#eff6ff", color="#2563eb"];
+  cap [label="Capacity Ledger\nThroughput, quality, burden,\ncost, control, workforce effect", fillcolor="#fefce8", color="#ca8a04"];
+  reg [label="Agent Registry\nIdentity, deployment, model,\ntools, status, review, retirement", fillcolor="#f8fafc", color="#475569"];
+  acp [label="ACP Enforcement\nPermitted attempts and tool effects", fillcolor="#eef2ff", color="#4f46e5"];
+  caf [label="CAF Assurance\nReplayable evidence and evaluations", fillcolor="#f0fdf4", color="#16a34a"];
+  decision [label="Institutional Disposition\nContinue, scale, constrain,\nsuspend, transfer, retire", fillcolor="#fff1f2", color="#e11d48"];
+
+  mission -> wep;
+  wep -> arg;
+  wep -> reg;
+  arg -> acp;
+  acp -> caf;
+  caf -> cap;
+  reg -> cap;
+  cap -> decision;
+  decision -> wep [label="amend profile", constraint=false];
+}

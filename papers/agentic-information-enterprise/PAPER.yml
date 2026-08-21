@@ -1,0 +1,15 @@
+paper:
+  id: agentic-information-enterprise
+  title: "The Agentic Information Enterprise: A DoW CIO Operating Concept for Governed Workforce Creation"
+  subtitle: "A DoW CIO operating concept for assigning, supervising, assuring, measuring, and scaling governed non-person agent capacity across the DoD Information Enterprise"
+  date: "August 2026"
+  series_tag: "Whitepaper Series"
+  status: published
+
+author:
+  name: "Adam Boas"
+  role: "Agentic Warfare Architect, Department of War"
+
+distribution:
+  channel: "Public"
+  disclaimer: "Views are the author's and do not represent official policy."

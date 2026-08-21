@@ -1,0 +1,1366 @@
+% =========================================================
+% Whitepaper: The Agentic Information Enterprise
+% =========================================================
+\documentclass[11pt]{article}
+\input{tex/paper_preamble.tex}
+
+\newcommand{\PaperTitle}{The Agentic Information Enterprise: A DoW CIO Operating Concept for Governed Workforce Creation}
+\newcommand{\PaperSubtitle}{A DoW CIO operating concept for assigning, supervising, assuring, measuring, and scaling governed non-person agent capacity across the DoD Information Enterprise}
+\newcommand{\AuthorName}{Adam Boas}
+\newcommand{\AuthorRole}{Agentic Warfare Architect, Department of War}
+\newcommand{\PaperDate}{August 2026}
+\renewcommand{\ShortTitle}{Agentic Information Enterprise}
+\renewcommand{\DocVersion}{v1.0}
+\renewcommand{\PaperDistribution}{Public}
+\renewcommand{\PaperPublishDate}{2026-08-21}
+
+\begin{document}
+
+\makepapercover
+
+{\small\renewcommand{\baselinestretch}{0.96}\selectfont\tableofcontents}
+\newpage
+
+\begin{execsummary}
+The Department\textquotesingle s next agentic problem is not access to
+models. It is institutional employment. The \textbf{agentic information
+enterprise} is the resulting mixed human-and-software operating
+environment: non-person agents receive bounded work through common
+identity, authority, assurance, acceptance, and performance mechanisms.
+
+Software can now receive tasking, retrieve authoritative information,
+invoke tools, maintain context, and act across enterprise systems.
+Procurement alone does not determine what work may be assigned, which
+decisions remain human, how outputs become authoritative, what evidence
+survives, or who remains accountable.
+
+That gap separates productivity from force creation. A copilot helps a
+person perform existing work. An employed agent becomes additional
+assignable capacity: it receives bounded Work Units, operates through a
+durable non-person identity, uses approved data and tools, produces
+evidence, escalates exceptions, and returns work through a defined
+acceptance path. It remains software. It does not occupy a billet, hold
+public office, accept governmental risk, issue policy, or acquire
+independent decision authority. Workforce creation is an operating
+model, not a grant of legal personhood.
+
+This paper proposes that operating model for the DoD Information
+Enterprise. It is the institutional layer above the Agent Control Plane
+Reference Architecture (ACP-RA) and Continuous Assurance Fabric
+Reference Architecture (CAF-RA). ACP determines what technical controls
+permit an agent to attempt, through which tools, under bounded technical
+permissions and retained Government authority. CAF preserves and
+evaluates evidence of the resulting behavior. The workforce operating
+concept determines what work the agent receives, who supervises and
+accepts it, how its net capacity is measured, and when it is scaled,
+constrained, or retired.
+
+The model rests on three constructs:
+
+\begin{itemize}
+\tightlist
+\item
+  A \textbf{Workforce Employment Profile} defines the mission function,
+  eligible Work Units, identity, sponsor, tools, data, supervision,
+  reserved human decisions, resource budget, evidence, and retirement
+  conditions for an agent.
+\item
+  An \textbf{Authority and Responsibility Graph} preserves the traceable
+  chain from governing authority to accountable official, delegated
+  work, agent action, evidence, and human acceptance.
+\item
+  A \textbf{Capacity Ledger} determines whether the deployment created
+  useful throughput after supervision, assurance, rework, platform, and
+  sustainment burdens are counted.
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.94\linewidth,height=0.62\textheight,keepaspectratio]{papers/agentic-information-enterprise/diagrams/aie_operating_model.png}
+\end{figure}
+
+DoW CIO is the correct proving ground. Its responsibilities for
+enterprise architecture, cybersecurity, identity, records, IT
+investment, policy, and the digital workforce contain evidence-heavy
+staff work that is consequential but decomposable, reviewable, and
+largely reversible. Agents can trace policy impacts, evaluate
+architecture conformance, prepare continuous-monitoring and
+authorization evidence, analyze portfolio data, and surface exceptions.
+Humans retain issuance, waiver, certification, authorization,
+investment, and risk decisions.
+
+The Department will create agentic capacity either deliberately or by
+accumulation, one local workflow, vendor feature, and service account at
+a time. The choice is whether that capacity enters the information
+enterprise as governed force creation or as an unmanaged shadow
+workforce.
+\end{execsummary}
+
+\hypertarget{1-from-agent-control-to-institutional-employment}{%
+\section{1. From Agent Control To Institutional
+Employment}\label{1-from-agent-control-to-institutional-employment}}
+
+This paper uses current Department of War office titles. Legacy DoD
+issuance titles and the established term \textbf{DoD Information
+Enterprise} are retained as published.
+
+\href{https://www.adamboas.com/writing/code-as-policy/}{Code-as-Policy}
+makes governance executable.
+\href{https://www.adamboas.com/writing/agentic-force-creation/}{Force
+Creation} identifies the strategic opportunity.
+\href{https://www.adamboas.com/writing/acp-ra/}{ACP-RA} defines governed
+bounded action. \href{https://www.adamboas.com/writing/caf-ra/}{CAF-RA}
+preserves and evaluates evidence of behavior. This operating concept
+supplies the institutional layer: how the Department assigns agent work
+and incorporates accepted results into mission processes.
+
+A \textbf{Work Unit} is a bounded task thread with an authoritative
+source, assigned outcome, permitted actions, acceptance criteria,
+accountable owner, and recorded closure. It is the unit of assignment,
+evidence, supervision, and performance, not the agent, token, tool call,
+or operating hour.
+
+The
+\href{https://media.defense.gov/2026/Jan/12/2003855671/-1/-1/0/ARTIFICIAL-INTELLIGENCE-STRATEGY-FOR-THE-DEPARTMENT-OF-WAR.PDF}{2026
+Artificial Intelligence Strategy for the Department of War} designates
+Enterprise Agents as one of seven Pace-Setting Projects. Each PSP has a
+program leader and sponsoring organization; the Chief Digital and
+Artificial Intelligence Officer (CDAO) enables the projects, establishes
+common metrics, and provides foundational enablers. The strategy directs
+CDAO and the CIO to use their respective authorities for capability
+delivery, including cross-domain data access and rapid
+authorization-to-operate (ATO) reciprocity, while the Under Secretary of
+War for Research and Engineering (USW(R\&E)) operates the Barrier
+Removal Board. It does not designate CIO or CDAO as the sole Enterprise
+Agents owner. DoW CIO\textquotesingle s
+\href{https://dodcio.defense.gov/Portals/0/Documents/Library/FulcrumAdvStrat.pdf}{Fulcrum
+strategy} supplies the information-enterprise context across warfighting
+IT, networks and compute, governance, and the digital workforce.
+
+Commercial platforms confirm the direction.
+\href{https://www.microsoft.com/en-us/microsoft-agent-365}{Microsoft
+Agent 365},
+\href{https://newsroom.workday.com/2025-02-11-The-Next-Generation-of-Workforce-Management-is-Here-Workday-Unveils-New-Agent-System-of-Record}{Workday\textquotesingle s
+Agent System of Record},
+\href{https://www.servicenow.com/products/ai-control-tower.html}{ServiceNow
+AI Control Tower}, and
+\href{https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/policy.html}{AWS
+AgentCore Policy} are normalizing identity, sponsorship, lifecycle,
+policy enforcement, observability, and cost control. The
+\href{https://www.nist.gov/news-events/news/2026/02/announcing-ai-agent-standards-initiative-interoperable-and-secure}{NIST
+AI Agent Standards Initiative} is advancing agent interoperability and
+security.
+
+Those capabilities are necessary but no longer distinctive. The
+Department\textquotesingle s remaining problem is binding them to
+governmental authority, reserved decisions, mission acceptance, records,
+risk, enterprise architecture, and public accountability. ACP mediates
+authority. CAF preserves and evaluates evidence of behavior. The
+workforce operating concept determines whether the resulting work has
+earned institutional acceptance and continued employment.
+
+\hypertarget{2-the-institutional-boundary}{%
+\section{2. The Institutional
+Boundary}\label{2-the-institutional-boundary}}
+
+An agent is software. Treating software with durable identity, assigned
+work, enterprise access, bounded tool permissions, and persistent
+context as workforce capacity is an operating model, not legal
+personality, employment status, public office, command authority, or
+independent governmental discretion.
+
+Agents do not occupy billets, count toward end strength, or become
+members of the Total Force under
+\href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodd/512402p.PDF}{DoDD
+5124.02}. Non-person entity (NPE) identity establishes technical
+accountability, not institutional authority. The question is what work
+may be assigned, which effects are permitted, and who accepts the
+result.
+
+\hypertarget{reserved-human-authority}{%
+\subsection{Reserved Human Authority}\label{reserved-human-authority}}
+
+Tasking applies to work and bounded technical actions. It does not
+transfer governmental office. Agents may prepare evidence, synthesize
+sources, identify conflicts, draft products, route work, and perform
+reversible actions when authorized. They may not independently exercise
+authorities assigned by law, regulation, policy, warrant, command, or
+appointment.
+
+\begingroup\footnotesize\setlength{\tabcolsep}{3pt}\begin{longtable}{p{0.28\linewidth}p{0.32\linewidth}p{0.34\linewidth}}
+\toprule\noalign{}
+Decision or effect & Agent role & Required human role \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Policy issuance or authoritative interpretation & Trace sources, draft
+language, identify impacts and conflicts & Authorized official
+interprets, approves, and issues policy \\
+Cybersecurity authorization or risk acceptance & Assemble evidence, test
+completeness, identify exceptions & The Authorizing Official (AO), who
+must be Government personnel, determines whether system risk is
+acceptable and approves, denies, conditions, or revokes authorization \\
+Architecture standard, certification, or waiver & Evaluate conformance
+and prepare supporting material & Authorized official decides and
+executes the act \\
+Contractual action & Prepare and validate supporting material & A
+contracting officer acting within the limits of a valid warrant executes
+the contractual action \\
+Personnel, adjudicative, disciplinary, command, or operational decision
+& Organize evidence and provide bounded decision support & Authorized
+human decides, directs, and signs \\
+Official external communication & Draft, validate, and route the
+communication & Authorized human approves transmission unless a bounded
+service notification is preauthorized \\
+\end{longtable}\endgroup
+
+\href{https://www.acquisition.gov/far/subpart-7.5}{FAR Subpart 7.5} is a
+useful contractor-focused analogy, not a direct rule for software. If an
+effect depends on the office, judgment, certification, risk acceptance,
+or accountability of an authorized person, an agent may support but
+cannot hold that authority.
+
+Completion means the agent satisfied technical exit criteria. Closure
+means the designated acceptance mechanism accepted, rejected, corrected,
+or escalated the result. Reserved decisions always require the
+authorized human official. Automated acceptance is permissible only for
+explicitly preauthorized, non-reserved, bounded effects with a named
+accountable owner and tested exception path.
+
+\hypertarget{3-dow-cio-as-the-proving-ground}{%
+\section{3. DoW CIO As The Proving
+Ground}\label{3-dow-cio-as-the-proving-ground}}
+
+DoW CIO is not the sole owner of the Department\textquotesingle s
+agentic workforce, but it is the correct enterprise proving ground.
+\href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodd/514402p.pdf}{DoDD
+5144.02} assigns the CIO responsibilities spanning the information
+enterprise, architecture and standards, cybersecurity, interoperability,
+records and information management, IT investment, and the IT and cyber
+workforce. Those responsibilities contain the precise combination of
+evidence, coordination, policy, and review work needed to demonstrate
+governed force creation.
+
+The proving-ground approach is deliberate. DoW CIO can validate the
+operating model against its own mission responsibilities, establish
+reusable enterprise patterns with CDAO and the Components, and avoid
+claiming ownership over mission functions assigned elsewhere. The
+initial objective is not a universal agent workforce. It is an
+evidence-backed method that can be generalized after it works.
+
+\begingroup\scriptsize\setlength{\tabcolsep}{2pt}\begin{longtable}{p{0.17\linewidth}p{0.20\linewidth}p{0.20\linewidth}p{0.18\linewidth}p{0.19\linewidth}}
+\toprule\noalign{}
+DoW CIO responsibility & Candidate Work Unit & Agent contribution &
+Reserved human act & Acceptance evidence \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Enterprise architecture and standards & Evaluate an architecture package
+against applicable standards & Build source traceability, identify
+deviations, and draft conformance findings & Establish, interpret, or
+waive standards & Source-linked findings and approved disposition \\
+Cybersecurity, identity, credential, and access management (ICAM), zero
+trust, and authorization evidence & Evaluate identity, access, evidence
+currency, and control coverage & Map requirements; identify missing,
+stale, excessive, or conflicting evidence and access & CIO establishes
+ICAM policy and standards and approves enterprise authoritative
+attribute services; system and resource owners define and enforce
+access; the AO makes the authorization decision & Conformance map,
+exceptions, and accountable decision \\
+Software, cloud, infrastructure, and IT portfolio modernization & Assess
+implementation, cost, performance, duplication, risk, and strategic
+alignment & Trace outcomes and dependencies; surface technical debt,
+anomalies, and barriers & Set priorities; certify, modify, or terminate
+investments; direct corrective action & Accepted assessment and decision
+record \\
+Policy and guidance & Assess the impact of new authorities or guidance &
+Trace affected issuances, systems, organizations, and obligations; draft
+changes & Officially interpret, coordinate, approve, and issue policy &
+Authoritative source trace and approved issuance \\
+Records and information management & Identify candidate records and
+disposition requirements & Apply approved metadata and tagging rules,
+preserve provenance, and route records questions & Records officials
+validate treatment and apply approved schedules; new or changed
+schedules require NARA approval & Applicable disposition authority, hold
+status, and records-official instruction \\
+\end{longtable}\endgroup
+
+These Work Units share five useful properties: the authoritative sources
+can be identified; the work can be decomposed; evidence quality can be
+tested; human decision rights can be preserved; and rejected outputs can
+usually be corrected without irreversible mission effect. That makes
+them a stronger first edge than public communication, autonomous
+personnel action, financial commitment, or operational command.
+
+The mission map identifies eligible demand. The workforce operating
+model converts that demand into bounded employment.
+
+\hypertarget{4-the-workforce-operating-model}{%
+\section{4. The Workforce Operating
+Model}\label{4-the-workforce-operating-model}}
+
+The operating model does not create a parallel technical architecture.
+It binds mission employment to ACP and CAF through three institutional
+artifacts and a supporting registry.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.94\linewidth,height=0.62\textheight,keepaspectratio]{papers/agentic-information-enterprise/diagrams/aie_workforce_artifacts.png}
+\end{figure}
+
+\hypertarget{41-workforce-employment-profile}{%
+\subsection{4.1 Workforce Employment
+Profile}\label{41-workforce-employment-profile}}
+
+The \textbf{Workforce Employment Profile (WEP)} is the authoritative
+management description of employment, not an independent source of
+authority. It defines work, ownership, technical boundaries, acceptance,
+economics, and lifecycle.
+
+At minimum, the WEP includes:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Purpose and work:} mission outcome; eligible, prohibited, and
+  exception-only Work Units; priority and closure rules.
+\item
+  \textbf{Ownership and authority:} sponsor, mission owner, supervisor,
+  technical and sustainment owners, data steward, reserved decisions,
+  and accepting officials.
+\item
+  \textbf{Identity and operating boundary:} blueprint, deployment, and
+  runtime identities; tools, data, systems, models, environments,
+  communications, effects, consequence, reversibility, and exposure.
+\item
+  \textbf{Control and supervision:} Trust Scope Manifest, policy bundle,
+  Model Assurance Profiles, approval and sampling rules, evaluation,
+  escalation, and degraded operation.
+\item
+  \textbf{Resources and evidence:} duty cycle, concurrency, cost and
+  compute budgets, Action Envelopes, Evidence Ledger, records, privacy,
+  and retention.
+\item
+  \textbf{Lifecycle:} change control, authorization status, review and
+  expiration dates, renewal criteria, suspension, transfer, and
+  retirement.
+\end{itemize}
+
+The WEP references rather than reproduces technical artifacts: ACP
+enforces the trust scope and policy; CAF binds actions, sources,
+outputs, exceptions, and approvals to evidence.
+
+\hypertarget{42-authority-and-responsibility-graph}{%
+\subsection{4.2 Authority And Responsibility
+Graph}\label{42-authority-and-responsibility-graph}}
+
+The \textbf{Authority and Responsibility Graph (ARG)} makes the source,
+delegation, execution, and acceptance of agent work queryable. It
+prevents authority from disappearing into a prompt, service account,
+orchestration script, or vendor configuration.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.94\linewidth,height=0.62\textheight,keepaspectratio]{papers/agentic-information-enterprise/diagrams/aie_authority_graph.png}
+\end{figure}
+
+For every production Work Unit, the ARG should answer:
+
+\begin{itemize}
+\tightlist
+\item
+  What authority and official generated the work?
+\item
+  Which employment, tasking, identity, model, tool, data, and credential
+  conditions governed execution?
+\item
+  Which actions and effects occurred, what evidence supports them, and
+  who accepted the result?
+\item
+  Which change, revocation, performance, or incident altered future
+  employment?
+\end{itemize}
+
+The WEP narrows employment but does not originate authority. The ARG is
+a canonical relationship model resolved from policy, ICAM, tasking, ACP,
+CAF, and acceptance records, not necessarily a monolithic new database.
+It should be materialized where consequence, oversight, or audit needs
+justify it and remain traversable from an institutional decision to its
+contributing work, or from an agent action back to its authority and
+accepting official.
+
+\hypertarget{43-capacity-ledger}{%
+\subsection{4.3 Capacity Ledger}\label{43-capacity-ledger}}
+
+The \textbf{Capacity Ledger} links mission demand, accepted Work Units,
+human burden, platform cost, and risk. Capacity exists when throughput
+against a declared quality standard increases without equal or greater
+supervision, correction, assurance, platform, and incident burden. For
+comparable work, the ledger separately reports net human capacity
+released, cost, quality, timeliness, risk, and newly created throughput.
+
+Agent-hours, tokens, autonomy percentages, and raw completion are
+operating telemetry. They are not force-creation measures. Reviewer
+acceptance alone is also insufficient when the product fails a
+predeclared quality standard.
+
+\hypertarget{44-agent-registry}{%
+\subsection{4.4 Agent Registry}\label{44-agent-registry}}
+
+The supporting registry records deployment, lifecycle, owners, identity,
+WEP, trust scope, approved models and tools, environment, review, and
+retirement. It integrates with ICAM, configuration, authorization,
+records, financial, and service-management systems. Unregistered agents
+receive no production access; agents without a current WEP or resolvable
+ARG receive no production Work Unit.
+
+The WEP defines employment, the ARG traces authority and acceptance, and
+the Capacity Ledger determines whether the deployment should continue.
+
+\hypertarget{5-concept-of-operations}{%
+\section{5. Concept Of Operations}\label{5-concept-of-operations}}
+
+The CONOPS follows work from demand through acceptance and retirement.
+It does not assume that higher autonomy is the objective. The objective
+is to create dependable capacity at the lowest operating authority and
+supervision burden that satisfies the mission.
+
+\hypertarget{51-operating-lifecycle}{%
+\subsection{5.1 Operating Lifecycle}\label{51-operating-lifecycle}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Define demand and work.} Establish the backlog, mission
+  quality standard, baseline burden, authoritative sources, delegable
+  tasks, and reserved decisions.
+\item
+  \textbf{Design and evaluate employment.} Create the WEP and ARG; test
+  representative and adversarial Work Units, policy enforcement,
+  evidence, degraded operation, revocation, and rollback in a sandbox.
+\item
+  \textbf{Complete required approvals.} The mission owner approves
+  employment; designated identity and account authorities provision
+  identity and accounts; system and control owners implement controls;
+  the AO makes authorization decisions; other domain owners act within
+  assigned authority.
+\item
+  \textbf{Assign, execute, and accept.} A human or approved
+  deterministic rule assigns the Work Unit. ACP mediates consequential
+  actions, CAF preserves and evaluates evidence, and the designated
+  human or preauthorized acceptance mechanism closes the work.
+\item
+  \textbf{Measure and review change.} Record mission, burden, cost,
+  control, workforce, and capacity outcomes. Changes to mission, work,
+  models, tools, data, effects, supervision, authority, or permissions
+  enter applicable change control.
+\item
+  \textbf{Suspend or retire.} Stop tasking, revoke action credentials,
+  freeze or transfer open work, preserve required evidence, complete
+  records and closeout obligations, and archive the employment decision.
+\end{enumerate}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.94\linewidth,height=0.62\textheight,keepaspectratio]{papers/agentic-information-enterprise/diagrams/aie_lifecycle.png}
+\end{figure}
+
+\hypertarget{52-operating-states}{%
+\subsection{5.2 Operating States}\label{52-operating-states}}
+
+The registry separates lifecycle status from runtime operating state.
+Fielding gates authorize lifecycle transitions; operating conditions
+trigger normal, degraded, suspended, or incident-contained states.
+
+\begingroup\scriptsize\setlength{\tabcolsep}{2pt}\begin{longtable}{p{0.22\linewidth}p{0.23\linewidth}p{0.25\linewidth}p{0.24\linewidth}}
+\toprule\noalign{}
+State & Entry condition & Permitted behavior & Exit requirement \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Normal} & Required authority, controls, owners, services, and
+evaluations are current & Perform Work Units inside the WEP & Continue
+while minimum conditions hold \\
+\textbf{Degraded} & A dependency or quality signal weakens without
+evidence of compromise & Narrow to the approved profile; continue only
+with durable evidence & Restore the dependency and revalidate queued
+work \\
+\textbf{Suspended} & Authority, ownership, controls, or performance
+become invalid & Stop tasking and action sessions; revoke credentials;
+freeze work & Correct and reauthorize, or retire \\
+\textbf{Incident-contained} & Suspected compromise, unauthorized effect,
+identity misuse, or evidence failure & Isolate, revoke, preserve
+evidence, and identify dependent actions & Complete impact analysis,
+then suspend pending recovery approval \\
+\end{longtable}\endgroup
+
+An exception pauses and routes the affected action without necessarily
+changing deployment state. Every state transition records its trigger,
+authority, affected work, changed access, preserved evidence, and
+restoration conditions. Without a safe degraded profile, degradation
+becomes suspension; queued actions do not replay automatically.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.94\linewidth,height=0.62\textheight,keepaspectratio]{papers/agentic-information-enterprise/diagrams/aie_operating_states.png}
+\end{figure}
+
+\hypertarget{53-worked-mission-thread-policy-impact-agent}{%
+\subsection{5.3 Worked Mission Thread: Policy-Impact
+Agent}\label{53-worked-mission-thread-policy-impact-agent}}
+
+DoW CIO policy work is an appropriate first mission thread because it is
+evidence-heavy, source-dependent, reviewable, and naturally compatible
+with Code-as-Policy. The agent increases the speed and completeness of
+policy analysis without acquiring authority to interpret, issue, waive,
+or enforce policy.
+
+The WEP authorizes impact assessments, conflict analysis, traceability
+updates, and non-authoritative policy drafts. A DoW CIO policy director
+owns the mission; a qualified policy lead supervises; an authorized
+official accepts the analysis. The agent may read allowlisted sources
+and create internal drafts, branches, tasks, and input requests. It
+cannot interpret, issue, sign, publish, rescind, waive, or merge
+authoritative policy; accept risk; direct Component compliance; or
+communicate an official position.
+
+The mission thread operates as follows:
+
+\begingroup\scriptsize\setlength{\tabcolsep}{2pt}\begin{longtable}{p{0.22\linewidth}p{0.23\linewidth}p{0.25\linewidth}p{0.24\linewidth}}
+\toprule\noalign{}
+Stage & Agent and control-plane activity & Retained human decision &
+Closure evidence \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{1. Intake and assignment} & Validate an allowlisted event or
+submission; create an intake candidate; resolve identity, WEP, ARG,
+policy, model, and budget & Confirm priority, scope, accepting official,
+and assignment & Source snapshot and hash, intake decision, active Work
+Unit, and controls \\
+\textbf{2. Scope and retrieve} & Extract apparent obligations and
+retrieve the current authorized corpus under access, releasability,
+version, and freshness rules & Determine binding meaning and approve
+privileged or out-of-scope expansion & Corpus manifest, paragraph
+references, exclusions, uncertainty, and escalation \\
+\textbf{3. Analyze impacts} & Trace requirements to responsibilities,
+policies, systems, organizations, and actions; test claims, citations,
+contradictions, and scope & Resolve materiality, conflicts,
+institutional position, and priority & Traceability matrix, rationale,
+confidence, and unresolved questions \\
+\textbf{4. Draft and assure} & Prepare the impact brief, decisions,
+tasks, and non-authoritative change branch; ACP mediates actions and CAF
+evaluates evidence & Select required legal, cyber, architecture,
+acquisition, privacy, records, and executive reviews & Draft, diff,
+Action Envelopes, evaluations, provenance, and exceptions \\
+\textbf{5. Review and decide} & Present the version-bound evidence
+package and alternatives & Accept, reject, correct, or return the
+analysis; separately authorized officials sign, merge, publish, waive,
+rescind, or issue policy & Reviewer role, edits, rationale, approvals,
+and final artifact \\
+\textbf{6. Follow through and close} & Create approved actions, monitor
+dependencies, assemble the package, identify candidate records, and
+update performance & Accept closure; validate records treatment; decide
+scale, constraint, transfer, redesign, or retirement & Action results,
+accepted product, records instruction, cost, performance, and capacity
+disposition \\
+\end{longtable}\endgroup
+
+\hypertarget{6-control-assurance-and-risk}{%
+\section{6. Control, Assurance, And
+Risk}\label{6-control-assurance-and-risk}}
+
+The CONOPS describes how work moves. ACP and CAF make its authority and
+evidence enforceable without creating a competing control vocabulary.
+
+\begingroup\footnotesize\setlength{\tabcolsep}{3pt}\begin{longtable}{p{0.28\linewidth}p{0.32\linewidth}p{0.34\linewidth}}
+\toprule\noalign{}
+Control artifact & Employment function & Required question \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+NPE identity, technical-actor chain, and Work Unit & Distinguish the
+deployment, sponsor, runtime principal, assignment, expected outcome,
+and closure & Who acted, for whom, on what bounded task? \\
+Trust Scope Manifest and policy bundle & Encode authority, environment,
+consequence, tools, data, budgets, and escalation & What may this agent
+attempt under current conditions? \\
+Action Envelope & Represent a proposed or completed tool use,
+communication, state change, or artifact creation & What was attempted,
+under what policy, with what expected and actual effect? \\
+Model Assurance Profile & Bind approved model endpoints, data
+boundaries, usage modes, evaluations, and limitations & Was this model
+approved for this Work Unit, environment, and data? \\
+Evidence Ledger & Preserve sources, actions, outputs, exceptions,
+evaluations, approvals, and dispositions & Can the organization
+reconstruct and defend the result? \\
+\end{longtable}\endgroup
+
+\hypertarget{61-effective-authority}{%
+\subsection{6.1 Effective Authority}\label{61-effective-authority}}
+
+Agent employment intersects mission tasking, access, system
+authorization, data use, records, privacy, and acquisition. A mission
+owner can assign work but cannot independently grant access, accept
+cyber risk, alter a records schedule, approve a PIA, or bind the
+Government. Machine authority is therefore a control-plane abstraction
+for bounded technical permissions under retained Government authority.
+
+\textbf{Effective Technical Permission = Applicable Authority and
+Mission Rules ∩ Approved Tasking ∩ WEP ∩ System Authorization ∩ Trust
+Scope Manifest ∩ Work Unit ∩ Data-Use and Information-Handling Rules ∩
+Runtime Policy}
+
+The first two terms establish the institutional basis for the work. The
+remaining terms constrain technical execution; none can enlarge that
+basis.
+
+Three invariants apply:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Every consequential action resolves to authoritative mission rules and
+  an accountable official; an agent cannot originate authority.
+\item
+  Technical permissions narrow downstream, never expand, and revocation
+  propagates to dependent actions and Work Units.
+\item
+  Generation and acceptance remain separate; the producing identity
+  cannot represent that an official accepted, signed, certified, or
+  issued the result.
+\end{enumerate}
+
+\hypertarget{62-multidimensional-risk-classification}{%
+\subsection{6.2 Multidimensional Risk
+Classification}\label{62-multidimensional-risk-classification}}
+
+A single autonomy ladder is insufficient. Autonomy, consequence, data
+sensitivity, reversibility, exposure, and human control are independent.
+A drafting agent can mishandle highly sensitive data; a deterministic
+workflow can make an irreversible change; an adaptive agent can operate
+safely in a read-only sandbox.
+
+Each WEP therefore contains a risk vector:
+
+\begingroup\footnotesize\setlength{\tabcolsep}{3pt}\begin{longtable}{p{0.45\linewidth}p{0.49\linewidth}}
+\toprule\noalign{}
+Dimension & Required classification \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Planning latitude & Human-selected steps, predefined sequence, bounded
+multistep planning, or adaptive replanning \\
+Delegation topology & Single agent, fixed approved subagent, bounded
+team, or dynamic selection; include depth and resource limits \\
+Effect type & Read; draft or recommend; internal reversible workflow;
+authoritative state change; external communication; financial or legal
+commitment; reserved decision \\
+Consequence & Negligible, limited, material, or mission-, safety-,
+statutory-, or strategic-critical \\
+Reversibility & No persistent effect, automated rollback, bounded human
+recovery, or effectively irreversible \\
+Data boundary & Classification, CUI/privacy category, releasability,
+enclave, approved model boundary, residency, and retention \\
+Exposure & Internal system, enterprise internal, partner, public,
+cross-domain, or contested \\
+Human control & Human-performed effect, full review, prior approval, or
+exception-only supervision inside an approved envelope \\
+\end{longtable}\endgroup
+
+A handling tier may prioritize intake but cannot replace the vector.
+Each subordinate agent needs a distinct identity and resolvable
+authority path. Reserved or effectively irreversible decisions cannot
+use exception-only supervision. Controlled, external, or cross-domain
+operation needs an approved data, model, tool, environment, release, and
+retention path. Model confidence never expands authority.
+
+\hypertarget{63-identity-credentials-and-communications}{%
+\subsection{6.3 Identity, Credentials, And
+Communications}\label{63-identity-credentials-and-communications}}
+
+Logical identity, deployment identity, runtime credentials, and the
+assigning sponsor are distinct. Logical identity preserves
+accountability; deployment identity separates instances; runtime
+credentials should be scoped and rotated.
+
+When an NPE acts as a general, IT-privileged, or functional-privileged
+user,
+\href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodi/852004p.pdf}{DoDI
+8520.04} requires its own identity, credentials provisioned through the
+DoD PKI NPE issuance portal, and a unique network or application
+account. Its identifier must not map to a person identity. A service
+account is an NPE account. An approved workload identity or
+short-lived-token pattern may supplement these controls, but it does not
+replace requirements applicable to an NPE acting as a user or permit
+reuse of human credentials.
+
+Email is not identity. A machine-labeled service endpoint is warranted
+only when the WEP requires messaging under
+\href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodi/817001p.pdf}{DoDI
+8170.01}; consequential messages disclose the service identity and
+sponsor and never impersonate an official.
+
+\hypertarget{7-decision-rights-and-institutional-ownership}{%
+\section{7. Decision Rights And Institutional
+Ownership}\label{7-decision-rights-and-institutional-ownership}}
+
+No single office owns agent employment. Production use requires
+concurrent decisions across mission, AI, architecture, identity,
+cybersecurity, records, privacy, acquisition, and workforce domains.
+Each decision remains with the official or owner already assigned that
+authority.
+
+\begingroup\footnotesize\setlength{\tabcolsep}{3pt}\begin{longtable}{p{0.28\linewidth}p{0.32\linewidth}p{0.34\linewidth}}
+\toprule\noalign{}
+Actor & Primary responsibility & Retained boundary \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{DoW CIO} & Information-enterprise architecture and standards;
+ICAM policy, standards, and enterprise authoritative-attribute-service
+approval; cybersecurity policy and oversight; Senior Agency Official for
+Records Management (SAORM) functions; IT investment; IT/cyber workforce
+matters; and CIO-owned pilots & Does not own AI assurance, Component
+records implementation, procurement, human-capital policy, mission
+functions, or AO decisions \\
+\textbf{CDAO} & AI and data policy, adoption, evaluation, assurance,
+enabling services, selective scaling, and PSP enablers and metrics under
+\href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodd/510589p.PDF}{DoDD
+5105.89} & Coordinates with CIO, A\&S, and P\&R without replacing their
+authorities \\
+\textbf{PSP program leader and sponsor} & Deliver the Enterprise Agents
+PSP, demonstrate transition-partner use, report progress, and develop
+the playbook & PSP status does not displace mission, contracting,
+privacy, records, ICAM, or RMF authorities \\
+\textbf{USW(R\&E)} & Operate the Barrier Removal Board; coordinate
+AI/data/analytics records policy and tagging guidance with CIO & Acts
+only within assigned and delegated authorities \\
+\textbf{USW(P\&R) and Component human-capital officials} & Human-capital
+policy, labor relations, training, role design, and workforce transition
+& Agents are not billets, employees, FTEs, end strength, or members of
+the Total Force \\
+\textbf{USW(A\&S)} & Acquisition, procurement, and intellectual-property
+policy and oversight under
+\href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodd/513502p.pdf}{DoDD
+5135.02} & Does not own mission requirements or bind the Government
+contractually \\
+\textbf{Program manager or requirements owner} & Requirements,
+acquisition and IP strategy, data-rights needs, portability, and
+sustainment & Cannot bind the Government \\
+\textbf{Contracting officer} & Execute solicitation and contract actions
+within delegated authority & May bind the Government only within that
+authority under \href{https://www.acquisition.gov/far/1.602-1}{FAR
+1.602-1} \\
+\textbf{Mission or business owner} & Select work, define acceptance,
+appoint supervisors, remain accountable for mission use, and recommend
+scale or retirement & Cannot independently grant access, authorize a
+system, alter records schedules, approve PIAs, issue legal opinions, or
+bind the Government \\
+\textbf{Authorizing Official} & Determine whether system risk is
+acceptable and approve, deny, condition, or revoke authorization & Must
+be Government personnel; the authorization decision cannot be
+delegated \\
+\textbf{System owner, program manager, and control providers} &
+Implement controls, authorization evidence, change management, and
+system posture & Do not assume the AO\textquotesingle s decision \\
+\textbf{Privacy officials and Component CIO} & Administer privacy
+controls and review privacy impact assessments (PIAs); the Component CIO
+or designated reviewing official approves PIAs & Privacy review is
+distinct from cyber, records, and legal determinations \\
+\textbf{DoW/Component SAORMs and records officers} & Establish and
+implement records programs, schedules, capture, retention, and
+disposition controls & New or changed schedules require National
+Archives and Records Administration (NARA) approval \\
+\textbf{General Counsel (GC) and servicing counsel} & Provide legal
+advice; GC establishes the Department\textquotesingle s determinative
+legal position within assigned scope & Counsel does not own mission,
+privacy-program, records-program, or authorization decisions \\
+\textbf{Technical owner} & Operate the platform and implement approved
+controls, access, evidence, incident response, and decommissioning &
+Technical configuration cannot enlarge mission or governmental
+authority \\
+\end{longtable}\endgroup
+
+Existing architecture, authorization, portfolio, acquisition, records,
+privacy, and workforce governance should carry these decisions. A new
+standing board is warranted only where a specific unresolved decision
+cannot be exercised through existing authority.
+
+Suspension and retirement remain distributed: mission tasking stops;
+access and authorization are addressed by their owners; records,
+privacy, legal, acquisition, data, and technical closeout follow their
+governing requirements. Retirement never authorizes destruction contrary
+to an approved schedule, hold, freeze, or investigation.
+
+\hypertarget{8-information-records-cybersecurity-and-acquisition}{%
+\section{8. Information, Records, Cybersecurity, And
+Acquisition}\label{8-information-records-cybersecurity-and-acquisition}}
+
+\hypertarget{81-evidence-is-not-the-same-as-a-federal-record}{%
+\subsection{8.1 Evidence Is Not The Same As A Federal
+Record}\label{81-evidence-is-not-the-same-as-a-federal-record}}
+
+The Evidence Ledger supports accountability, but not every prompt,
+retrieval, intermediate, or telemetry event is automatically a Federal
+record. Status depends on content, function, use, evidentiary value, and
+approved disposition authority.
+
+Under
+\href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodi/501502p.pdf}{DoWI
+5015.02}, DoW CIO is the Department\textquotesingle s SAORM; Components
+implement approved programs and schedules; and USW(R\&E) coordinates
+AI-related records policy and tagging guidance with CIO. The WEP
+separates record copies from supporting evidence, telemetry, transients,
+privileged material, and incident data. Records, classification, CUI,
+privacy, and cyber determinations remain distinct.
+
+\hypertarget{82-privacy-and-cybersecurity-remain-independent-control-domains}{%
+\subsection{8.2 Privacy And Cybersecurity Remain Independent Control
+Domains}\label{82-privacy-and-cybersecurity-remain-independent-control-domains}}
+
+Privacy obligations arise from processing personally identifiable
+information (PII), not agent status. The program manager or designee
+assesses PIA need with security, privacy, and records officials; the
+Component CIO or designated official approves under
+\href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodi/540016p.pdf}{DoDI
+5400.16}. System of records notice (SORN) analysis applies when
+information is retrieved by a personal identifier and existing coverage
+is inadequate or materially changed.
+\href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodi/540011p.pdf}{DoDI
+5400.11} supplies the broader framework.
+
+An agent capability must be placed within a defined authorization
+boundary. A component, technology, or external service below the system
+level does not require a separate ATO solely because it is an agent, but
+it must complete applicable Assess Only procedures and change control
+within the system authorization boundary. If the capability constitutes
+a system, it follows the full Risk Management Framework (RMF). The
+system owner processes and documents the change; the AO determines
+whether resulting risk is acceptable and whether authorization or
+reauthorization is required. Production patterns should combine
+attributable least-privilege identity, externalized policy enforcement,
+approved models and tools, isolation, provenance, evaluation,
+revocation, containment, and rollback.
+
+\hypertarget{83-acquisition-and-portability}{%
+\subsection{8.3 Acquisition And
+Portability}\label{83-acquisition-and-portability}}
+
+Solicitations should require vendor-neutral outcomes rather than
+compatibility with a privately defined architecture: capability and
+change disclosure; Government-controlled identity, policy, suspension,
+and evidence export; portable configuration and lifecycle data; open
+interfaces; data-use limits; and rights sufficient for mission use,
+audit, competition, modernization, incident response, records, provider
+exit, and sustainment.
+
+The Government should not assert blanket ownership of vendor models,
+background intellectual property, or all telemetry. The program and
+contracting officer should acquire the deliverables and license rights
+needed to control and sustain the mission under
+\href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodi/501044p.pdf}{DoDI
+5010.44}.
+
+\hypertarget{9-mission-performance-and-workforce-legitimacy}{%
+\section{9. Mission Performance And Workforce
+Legitimacy}\label{9-mission-performance-and-workforce-legitimacy}}
+
+Agent employment succeeds only when mission performance improves after
+full burden is counted. Agent count, uptime, tokens, operating hours,
+autonomy, and raw completion do not demonstrate force creation.
+
+\hypertarget{91-measurement-model}{%
+\subsection{9.1 Measurement Model}\label{91-measurement-model}}
+
+Before a pilot, establish a baseline for each comparable Work Unit
+class: quality, time, human effort, backlog, cost, error, review, and
+consequence. Previously deferred work is newly created throughput, not
+assumed human capacity released.
+
+\begingroup\footnotesize\setlength{\tabcolsep}{3pt}\begin{longtable}{p{0.45\linewidth}p{0.49\linewidth}}
+\toprule\noalign{}
+Measurement area & Required measures \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Mission output & Assigned, accepted, rejected, unresolved, cycle time,
+backlog, decision latency, and degraded performance \\
+Quality & Source completeness, material correction, first-pass
+acceptance, escaped defects, and mission criteria \\
+Human burden & Supervisor, SME, correction, escalation, and incident
+minutes per accepted Work Unit \\
+Cost & Models, compute, licenses, tools, engineering, operations,
+assurance, review, rework, and incidents \\
+Control & Blocked or unauthorized actions, scope violations, evidence
+gaps, exceptions, reversals, revocation, and rollback \\
+Workforce & Burden reduction, supervisor load, training, workload
+change, challenge use, and role redesign \\
+\end{longtable}\endgroup
+
+Targets derive from baseline and consequence. Scale requires sustained
+capacity, required quality, acceptable control, and supportable
+supervision. Volume that transfers equal or greater burden to validators
+is not capacity.
+
+\hypertarget{92-supervision-as-a-designed-function}{%
+\subsection{9.2 Supervision As A Designed
+Function}\label{92-supervision-as-a-designed-function}}
+
+Supervision manages Work Units, exceptions, evidence, performance, and
+scope, not every token. The WEP defines supervisor qualifications and
+capacity, independence, review and approval modes, exception limits,
+accepting officials, and conditions for narrowing, reassignment,
+suspension, or reauthorization.
+
+Supervisor capacity is finite. Supervision, evaluation, workflow
+ownership, policy stewardship, and control-plane operations require
+explicit training and workload allocation.
+
+\hypertarget{93-human-capital-and-workforce-legitimacy}{%
+\subsection{9.3 Human Capital And Workforce
+Legitimacy}\label{93-human-capital-and-workforce-legitimacy}}
+
+Workers are rational to worry. Agent rollout can reduce low-value
+burden, but it can also create opaque surveillance, hidden displacement
+through delayed hiring or billet pressure, uneven access to
+augmentation, new validation burdens, and silent increases in expected
+output.
+
+The answer is not reassurance. It is operating discipline:
+
+\begin{itemize}
+\tightlist
+\item
+  Notify affected personnel when agents materially influence workload,
+  assignment, performance context, or authoritative products; do not
+  silently ratchet productivity expectations.
+\item
+  Provide paths into supervision, evaluation, workflow design, platform
+  operations, records stewardship, and policy engineering.
+\item
+  Preserve challenge, correction, and attribution mechanisms; never use
+  agent output as the sole basis for personnel, disciplinary,
+  adjudicative, or opportunity decisions.
+\item
+  Review surveillance, privacy, accessibility, equal-opportunity, labor,
+  due-process, and workforce-transition implications before scaling.
+\end{itemize}
+
+Agent capacity belongs in mission and resource planning, but not as a
+fictional headcount equivalent. The useful planning question is how much
+accepted work the mixed human-agent system can perform at a defined
+quality, cost, risk, and supervision burden.
+
+\hypertarget{10-fielding-strategy}{%
+\section{10. Fielding Strategy}\label{10-fielding-strategy}}
+
+The Department\textquotesingle s AI strategy emphasizes speed,
+experimentation, accountable teams, measurable outcomes, and reimagined
+workflows. Governance must therefore operate as a paved road, not a
+sequence of open-ended committee reviews.
+
+Fielding gates organize evidence and lifecycle-transition decisions;
+they do not create, consolidate, or transfer authority. Each official
+acts only within the official\textquotesingle s assigned domain.
+
+\begingroup\footnotesize\setlength{\tabcolsep}{3pt}\begin{longtable}{p{0.28\linewidth}p{0.32\linewidth}p{0.34\linewidth}}
+\toprule\noalign{}
+Gate & Minimum evidence and decision & Required decision owners \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{0. Nomination} & Demand, baseline, eligible work, reserved
+decisions, and benefit → reject, redesign, or sponsor sandbox work &
+Mission owner or prospective sponsor \\
+\textbf{1. Sandbox} & Draft WEP/ARG, NPE design, evaluation set, threat
+and data/tool boundaries, evidence profile, and budget → approve bounded
+evaluation & Mission, technical, and sandbox resource owners \\
+\textbf{2. Bounded pilot} & Approved bounded-pilot WEP and resolvable
+ARG; active pilot identity and trust scope; named supervisor and
+accepting official; representative and adversarial evaluation results;
+complete evidence; tested enforcement, revocation, containment,
+rollback, and records handling → approve a bounded real-work pilot
+within applicable domain approvals and the system authorization boundary
+& Mission owner and affected system, data, records, privacy, and
+authorization officials \\
+\textbf{3. Limited production} & Approved WEP/ARG, risk vector, degraded
+profile, state authority, identity, trust, acceptance, supervision,
+incident, sustainment, and authorization disposition → permit bounded
+production & Mission owner; system owner and AO as applicable;
+technical, sustainment, and affected domain officials \\
+\textbf{4. Scale} & Sustained capacity, quality, control, supervision,
+cost, workforce effect, and portability → expand volume inside the WEP &
+Existing owners for unchanged boundaries; affected officials for changed
+boundaries \\
+\textbf{5A. Renewal} & Current demand, ownership, WEP/ARG,
+authorization, models, tools, records, economics, and risk → renew,
+amend, constrain, or transfer & Mission owner and officials responsible
+for renewed determinations \\
+\textbf{5B. Retirement} & Stop tasking, resolve open work, revoke
+access, export evidence, validate records and holds, and close vendor,
+data, and system obligations → retire and archive & Mission/program
+owner and responsible closeout officials \\
+\end{longtable}\endgroup
+
+New users, Components, work classes, data, systems, effects, models,
+tools, or subordinate agents require an amended WEP and the
+corresponding domain review.
+
+\hypertarget{101-initial-dow-cio-demonstration}{%
+\subsection{10.1 Initial DoW CIO
+Demonstration}\label{101-initial-dow-cio-demonstration}}
+
+The first demonstration should pair two complementary Work Unit classes:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Policy-impact analysis}, using the mission thread in this
+  paper.
+\item
+  \textbf{Continuous-monitoring and authorization-evidence review},
+  focused on evidence currency, traceability, missing artifacts,
+  contradictions, and exception preparation while preserving AO
+  authority.
+\end{enumerate}
+
+Together, they test authoritative sources, Code-as-Policy, ICAM,
+controlled unclassified information (CUI), tool mediation, CAF evidence,
+human acceptance, records, RMF, supervision, and capacity.
+
+The team requires mission owners, supervisors, accepting officials, a
+PSP liaison, CDAO evaluation support, platform and system owners,
+security and AO representation, and domain officials only for decisions
+within their authority. It should use existing services and boundaries
+rather than wait for universal enterprise machinery.
+
+\hypertarget{102-scaling-rules}{%
+\subsection{10.2 Scaling Rules}\label{102-scaling-rules}}
+
+Scaling changes employment, not merely infrastructure. Standardize WEP,
+ARG, Work Unit, evidence, and capacity schemas; NPE/PKI and non-human
+credential patterns; reusable model, tool, data, evaluation, and
+evidence profiles; policy and containment interfaces; and portable
+contract and exit requirements.
+
+Broad isolated experimentation should continue. Promotion should be fast
+when reusable patterns satisfy a gate; the control plane reduces review
+through repeatability, not by hiding consequential action.
+
+\hypertarget{conclusion}{%
+\section{Conclusion}\label{conclusion}}
+
+Agents do not become workforce capacity because an organization
+inventories them, assigns them names, or counts their operating hours.
+Registration is asset management. Tool mediation is access control.
+Logging is assurance. Each is necessary; none establishes employment.
+
+Force creation begins when the institution decomposes mission demand,
+assigns bounded work, preserves authority, accepts the result, and
+demonstrates net capacity after full burden. It ends when ownership,
+authority, need, performance, or trust no longer justifies operation.
+
+DoW CIO should serve as a transition partner for the Enterprise Agents
+PSP, with CDAO evaluation and enabling support, to field the
+policy-impact and authorization-evidence demonstrations. The
+demonstrations should use common WEP, ARG, Work Unit, and Capacity
+Ledger schemas while maintaining separate approved employment profiles,
+authority relationships, baselines, and ledger partitions for each
+deployment and Work Unit class. The PSP leader and sponsor, USW(R\&E),
+and applicable mission, P\&R, A\&S, AO, privacy, records, and legal
+authorities retain their assigned decisions.
+
+Progress is accepted work, lower decision latency and review burden,
+improved evidence, controlled risk, and net capacity, not agents
+deployed or autonomy achieved. ACP defines permitted attempts. CAF
+establishes what occurred. The operating concept determines why the
+agent is working, for whom, under whose authority, and whether it has
+earned a larger place in the enterprise.
+
+\hypertarget{appendix-a-illustrative-workforce-employment-profile}{%
+\section{Appendix A: Illustrative Workforce Employment
+Profile}\label{appendix-a-illustrative-workforce-employment-profile}}
+
+The following profile is illustrative. WEP, ARG, Work Unit, Trust Scope
+Manifest, Action Envelope, Evidence Ledger, and Agent Persona are
+proposed architecture constructs, not established policy terms.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{workforce\_employment\_profile}\KeywordTok{:}
+\AttributeTok{  }\FunctionTok{wep\_id}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}wep://dodcio/policy{-}impact{-}analyst/v1.0\textquotesingle{}}
+\AttributeTok{  }\FunctionTok{wep\_status}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}approved\textquotesingle{}}
+\AttributeTok{  }\FunctionTok{deployment\_lifecycle\_status}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}bounded{-}pilot\textquotesingle{}}
+\AttributeTok{  }\FunctionTok{version}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}1.0.0\textquotesingle{}}
+
+\AttributeTok{  }\FunctionTok{organizational\_placement}\KeywordTok{:}
+\AttributeTok{    }\FunctionTok{mission\_function}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}enterprise{-}policy{-}governance\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{owning\_office}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}office://dodcio/policy\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{sponsor}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}role://policy{-}director\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{mission\_owner}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}role://policy{-}director\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{accountable\_supervisor}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}role://policy{-}lead\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{technical\_owner}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}office://dodcio/agent{-}platform\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{sustainment\_owner}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}office://dodcio/agent{-}platform\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{data\_steward}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}role://policy{-}data{-}steward\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{accepting\_official}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}role://authorized{-}policy{-}official\textquotesingle{}}
+
+\AttributeTok{  }\FunctionTok{identity}\KeywordTok{:}
+\AttributeTok{    }\FunctionTok{blueprint\_id}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}agent{-}blueprint://policy{-}impact{-}analyst/v1\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{deployment\_id}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}agent{-}deployment://dodcio{-}policy{-}impact/pilot{-}01\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{npe\_identity}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}npe://dodcio/agent/policy{-}impact{-}analyst{-}01\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{account\_pattern}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}unique{-}managed{-}npe{-}account\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{credential\_profile}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}credential://approved{-}npe{-}user{-}pattern\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{dod\_pki\_npe\_credential\_required}\KeywordTok{:}\AttributeTok{ }\CharTok{true}
+\AttributeTok{    }\FunctionTok{derived\_workload\_token}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}where{-}approved\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{human\_account\_impersonation}\KeywordTok{:}\AttributeTok{ }\CharTok{false}
+\AttributeTok{    }\FunctionTok{service\_messaging\_endpoint}\KeywordTok{:}\AttributeTok{ }\CharTok{null}
+
+\AttributeTok{  }\FunctionTok{employment}\KeywordTok{:}
+\FunctionTok{    purpose}\KeywordTok{: }\CharTok{\textgreater{}{-}}
+\NormalTok{      Identify and prepare the effects of new authoritative guidance on the}
+\NormalTok{      DoW CIO policy and architecture corpus.}
+\AttributeTok{    }\FunctionTok{workforce\_role\_augmented}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}policy{-}analyst\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{eligible\_work\_unit\_types}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}new{-}guidance{-}impact{-}assessment\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}policy{-}conflict{-}analysis\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}requirements{-}traceability{-}update\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}non{-}authoritative{-}policy{-}change{-}draft\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{prohibited\_work}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}issue{-}or{-}sign{-}policy\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}make{-}binding{-}legal{-}interpretation\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}accept{-}cyber{-}or{-}program{-}risk\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}merge{-}authoritative{-}policy{-}change\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}direct{-}component{-}compliance\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}send{-}external{-}official{-}communication\textquotesingle{}}
+
+\AttributeTok{  }\FunctionTok{reserved\_human\_decisions}\KeywordTok{:}
+\AttributeTok{    }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}determine{-}binding{-}policy{-}meaning\textquotesingle{}}
+\AttributeTok{    }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}approve{-}department{-}position\textquotesingle{}}
+\AttributeTok{    }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}prioritize{-}or{-}close{-}policy{-}action\textquotesingle{}}
+\AttributeTok{    }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}approve{-}waiver{-}or{-}exception\textquotesingle{}}
+\AttributeTok{    }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}publish{-}or{-}rescind{-}policy\textquotesingle{}}
+
+\AttributeTok{  }\FunctionTok{authority\_bindings}\KeywordTok{:}
+\AttributeTok{    }\FunctionTok{authority\_graph\_ref}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}arg://dodcio/policy{-}impact/v1\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{trust\_scope\_ref}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}trustscope://policy{-}impact{-}analyst@sha256:...\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{policy\_bundle\_ref}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}policy://agent{-}workforce{-}baseline@sha256:...\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{model\_assurance\_profiles}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}map://cui{-}policy{-}analysis@sha256:...\textquotesingle{}}
+
+\AttributeTok{  }\FunctionTok{risk\_profile}\KeywordTok{:}
+\AttributeTok{    }\FunctionTok{planning\_latitude}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}bounded{-}multistep{-}planning\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{delegation\_topology}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}single{-}agent{-}no{-}subdelegation\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{effect\_type}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}draft{-}and{-}internal{-}reversible{-}workflow\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{consequence}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}moderate\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{reversibility}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}immediate{-}or{-}bounded{-}human{-}recovery\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{data\_boundary}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}public{-}authoritative{-}guidance\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}approved{-}cui{-}policy{-}material\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{exposure}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}internal{-}enterprise\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{human\_control}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}full{-}product{-}review\textquotesingle{}}
+
+\AttributeTok{  }\FunctionTok{tools\_and\_data}\KeywordTok{:}
+\AttributeTok{    }\FunctionTok{allowed\_tools}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}tool://authoritative{-}policy{-}repository/read\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}tool://policy{-}code{-}repository/branch{-}and{-}draft\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}tool://internal{-}work{-}tracker/create{-}draft\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}tool://internal{-}work{-}tracker/create{-}approved{-}item\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}tool://internal{-}workflow/request{-}input\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{authoritative\_write\_access}\KeywordTok{:}\AttributeTok{ }\CharTok{false}
+\AttributeTok{    }\FunctionTok{external\_read\_access}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}allowlisted{-}authoritative{-}sources{-}only\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{external\_write\_or\_communication}\KeywordTok{:}\AttributeTok{ }\CharTok{false}
+\AttributeTok{    }\FunctionTok{prior\_human\_approval\_required\_for}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}tool://internal{-}work{-}tracker/create{-}approved{-}item\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}tool://internal{-}workflow/request{-}input\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{memory\_profile}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}memory://work{-}unit{-}scoped\textquotesingle{}}
+
+\AttributeTok{  }\FunctionTok{supervision}\KeywordTok{:}
+\AttributeTok{    }\FunctionTok{review\_mode}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}full{-}product{-}review\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{escalation\_conditions}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}conflicting{-}authoritative{-}sources\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}missing{-}or{-}unverifiable{-}source\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}material{-}legal{-}resource{-}or{-}mission{-}impact\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}confidence{-}below{-}approved{-}threshold\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}requested{-}action{-}outside{-}trust{-}scope\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{supervision\_capacity\_ref}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}supervision://policy{-}impact/pilot{-}v1\textquotesingle{}}
+
+\AttributeTok{  }\FunctionTok{acceptance}\KeywordTok{:}
+\AttributeTok{    }\FunctionTok{accepting\_official}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}role://authorized{-}policy{-}official\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{closure\_requires}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}source{-}complete\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}claims{-}linked{-}to{-}authoritative{-}paragraphs\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}uncertainty{-}and{-}conflicts{-}disclosed\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}human{-}disposition{-}recorded\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}evidence{-}profile{-}complete\textquotesingle{}}
+
+\AttributeTok{  }\FunctionTok{resources}\KeywordTok{:}
+\AttributeTok{    }\FunctionTok{model\_budget\_ref}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}budget://policy{-}impact/pilot\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{concurrency\_limit}\KeywordTok{:}\AttributeTok{ }\DecValTok{3}
+\AttributeTok{    }\FunctionTok{duty\_cycle}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}event{-}triggered\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{budget\_exhaustion\_behavior}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}pause{-}and{-}escalate\textquotesingle{}}
+
+\AttributeTok{  }\FunctionTok{evidence\_and\_records}\KeywordTok{:}
+\AttributeTok{    }\FunctionTok{evidence\_profile}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}evidence://policy{-}impact{-}v1\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{action\_envelope\_required\_for}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}repository{-}write\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}workflow{-}create\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}notification\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{records\_profile}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}records://policy{-}impact{-}work{-}unit\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{privileged\_content\_segregation}\KeywordTok{:}\AttributeTok{ }\CharTok{true}
+
+\AttributeTok{  }\FunctionTok{performance}\KeywordTok{:}
+\AttributeTok{    }\FunctionTok{work\_unit\_class}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}new{-}guidance{-}impact{-}assessment\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{baseline\_ref}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}baseline://policy{-}impact/human{-}process{-}v1\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{quality\_standard\_ref}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}quality://policy{-}impact/mission{-}standard{-}v1\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{quality\_gate}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}meets{-}mission{-}standard{-}source{-}complete{-}and{-}human{-}accepted\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{capacity\_ledger\_ref}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}capacity://dodcio/policy{-}impact\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{decision\_criteria\_ref}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}decision{-}criteria://policy{-}impact/pilot{-}v1\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{measurement\_window\_ref}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}measurement{-}window://policy{-}impact/pilot{-}v1\textquotesingle{}}
+
+\AttributeTok{  }\FunctionTok{operating\_states}\KeywordTok{:}
+\AttributeTok{    }\FunctionTok{normal\_profile}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}state://policy{-}impact/normal\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{degraded\_profile}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}state://policy{-}impact/read{-}draft{-}and{-}escalate\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{exception\_routing\_profile}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}exception://policy{-}impact/human{-}review\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{incident\_profile}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}incident://policy{-}impact/containment{-}v1\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{state\_transition\_evidence\_required}\KeywordTok{:}\AttributeTok{ }\CharTok{true}
+\AttributeTok{    }\FunctionTok{suspension\_on\_control\_expiration}\KeywordTok{:}\AttributeTok{ }\CharTok{true}
+
+\AttributeTok{  }\FunctionTok{lifecycle}\KeywordTok{:}
+\AttributeTok{    }\FunctionTok{effective\_date}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}2026{-}09{-}01\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{next\_review\_date}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}2026{-}10{-}01\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{expiration\_date}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}2026{-}12{-}01\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{mission\_renewal\_decider}\KeywordTok{:}\AttributeTok{ }\StringTok{\textquotesingle{}role://policy{-}director\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{renewal\_requires\_current}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}authority{-}graph\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}trust{-}scope\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}system{-}authorization{-}disposition\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}model{-}assurance{-}profile\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}evidence{-}and{-}records{-}profile\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}technical{-}sustainment{-}acceptance\textquotesingle{}}
+\AttributeTok{    }\FunctionTok{retirement\_plan}\KeywordTok{:}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}stop{-}new{-}tasking\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}freeze{-}or{-}transfer{-}open{-}work{-}units\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}revoke{-}credentials{-}and{-}access\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}export{-}required{-}evidence\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}apply{-}approved{-}records{-}disposition{-}after{-}hold{-}check{-}and{-}records{-}official{-}validation\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}close{-}data{-}vendor{-}and{-}system{-}obligations\textquotesingle{}}
+\AttributeTok{      }\KeywordTok{{-}}\AttributeTok{ }\StringTok{\textquotesingle{}archive{-}wep{-}and{-}authorization\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{appendix-b-minimum-portability-and-standards-map}{%
+\section{Appendix B: Minimum Portability And Standards
+Map}\label{appendix-b-minimum-portability-and-standards-map}}
+
+The operating concept should use open, modular interfaces and map to
+applicable standards rather than hard-code one platform.
+
+\begingroup\footnotesize\setlength{\tabcolsep}{3pt}\begin{longtable}{p{0.28\linewidth}p{0.32\linewidth}p{0.34\linewidth}}
+\toprule\noalign{}
+Concern & Candidate standard or pattern & Required outcome \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Workload identity & DoD ICAM and NPE patterns; credentials through the
+DoD PKI NPE issuance portal when the workload acts as a user;
+\href{https://spiffe.io/docs/latest/}{SPIFFE} only where separately
+approved & Unique and attributable identity; workload patterns do not
+replace applicable DoD PKI NPE requirements \\
+Tasking and token exchange & OAuth 2.0 Token Exchange
+(\href{https://www.rfc-editor.org/rfc/rfc8693}{RFC 8693}); on-behalf-of
+claims & Traceable subject/actor technical chain without human
+credential reuse \\
+Fine-grained authorization & External policy decision and enforcement;
+\href{https://openid.net/wg/authzen/}{OpenID AuthZEN} where applicable &
+Deterministic, testable authorization outside model reasoning \\
+Tool authorization & Approved API gateways and the
+\href{https://modelcontextprotocol.io/specification/draft/basic/authorization}{Model
+Context Protocol authorization specification} where applicable &
+Per-tool, per-action, per-resource authorization with revocation and
+evidence \\
+Agent interoperability &
+\href{https://a2a-protocol.org/latest/specification/}{Agent2Agent
+protocol} or equivalent open interface & Discoverable capabilities,
+distinct identities, bounded delegation, and portable messages \\
+Evidence & Signed, versioned, exportable Action Envelopes and Evidence
+Ledger events & Reconstruction across vendors, models, tools, and
+hosting environments \\
+Software and architecture & Modular open systems approach; containerized
+and API-mediated deployment & Replaceable models, tools, registries,
+policy engines, and evidence stores \\
+\end{longtable}\endgroup
+
+These are candidate implementation mappings, not blanket mandates.
+Suitability depends on the authorization boundary, classification,
+interoperability need, operational environment, and applicable
+Department standards.
+
+\hypertarget{references}{%
+\section{References}\label{references}}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://media.defense.gov/2026/Jan/12/2003855671/-1/-1/0/ARTIFICIAL-INTELLIGENCE-STRATEGY-FOR-THE-DEPARTMENT-OF-WAR.PDF}{Artificial
+  Intelligence Strategy for the Department of War}, January 2026.
+\item
+  \href{https://dodcio.defense.gov/Portals/0/Documents/Library/FulcrumAdvStrat.pdf}{Fulcrum:
+  DoD Information Technology Advancement Strategy}, FY 2025-2029.
+\item
+  \href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodd/514402p.pdf}{DoDD
+  5144.02, DoD Chief Information Officer}.
+\item
+  \href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodd/510589p.PDF}{DoDD
+  5105.89, Chief Digital and Artificial Intelligence Officer}.
+\item
+  \href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodd/512402p.pdf}{DoDD
+  5124.02, Under Secretary of Defense for Personnel and Readiness}.
+\item
+  \href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodd/513502p.pdf}{DoDD
+  5135.02, Under Secretary of Defense for Acquisition and Sustainment}.
+\item
+  \href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodi/852004p.pdf}{DoDI
+  8520.04, Access Management for DoD Information Systems}.
+\item
+  \href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodi/851001p.pdf}{DoDI
+  8510.01, Risk Management Framework for DoD Systems}.
+\item
+  \href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodi/501502p.pdf}{DoWI
+  5015.02, DoW Records Management Program}.
+\item
+  \href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodi/540011p.pdf}{DoDI
+  5400.11, DoD Privacy and Civil Liberties Programs}.
+\item
+  \href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodi/540016p.pdf}{DoDI
+  5400.16, DoD Privacy Impact Assessment Guidance}.
+\item
+  \href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodi/501044p.pdf}{DoDI
+  5010.44, Intellectual Property Acquisition and Licensing}.
+\item
+  \href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodi/817001p.pdf}{DoDI
+  8170.01, Online Information Management and Electronic Messaging}.
+\item
+  \href{https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodd/514501p.pdf}{DoDD
+  5145.01, General Counsel of the Department of Defense}.
+\item
+  \href{https://www.acquisition.gov/far/subpart-7.5}{FAR Subpart 7.5,
+  Inherently Governmental Functions}.
+\item
+  \href{https://www.acquisition.gov/far/1.602-1}{FAR 1.602-1,
+  Authority}.
+\end{itemize}
+\end{document}

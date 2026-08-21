@@ -55,10 +55,30 @@
 % Papers can override these in their own preamble.
 \providecommand{\ShortTitle}{White Paper}
 \providecommand{\DocVersion}{v1.0}
+\providecommand{\PaperDistribution}{Public}
+\providecommand{\PaperDisclaimer}{Views are the author's and do not represent official policy.}
+\providecommand{\PaperPublishDate}{\PaperDate}
 
-\fancyfoot[L]{\small\textcolor{BrandGray}{\ShortTitle}}
+\fancyfoot[L]{\small\textcolor{BrandGray}{\ShortTitle\ \DocVersion\ | \PaperDate}}
 \fancyfoot[C]{\small\textcolor{BrandGray}{\thepage}}
-\fancyfoot[R]{\small\textcolor{BrandGray}{\DocVersion\ | \PaperDate}}
+\fancyfoot[R]{}
+
+% Canonical paper cover. Paper files provide metadata only; cover layout lives here.
+\newcommand{\makepapercover}{%
+  \thispagestyle{empty}%
+  \noindent{\small\bfseries\color{BrandGray}ADAMBOAS.COM \textbullet{} PAPER \textbullet{} \PaperPublishDate\par}%
+  \vspace*{0.42in}%
+  \noindent{\Huge\bfseries\color{BrandAccent}\PaperTitle\par}%
+  \vspace{0.12in}%
+  {\large\color{BrandGray}\PaperSubtitle\par}%
+  \vspace{0.25in}%
+  \noindent\textcolor{RuleGray}{\rule{\textwidth}{0.8pt}}%
+  \vspace{0.2in}%
+  {\normalsize\textbf{\AuthorName}\par\textcolor{BrandGray}{\AuthorRole}\par\vspace{6pt}\textcolor{BrandGray}{Published \PaperDate}\par}%
+  \vfill%
+  \noindent\textcolor{BrandGray}{\small\textbf{Distribution:} \PaperDistribution.\quad\textbf{Disclaimer:} \PaperDisclaimer}%
+  \newpage%
+}
 
 \usepackage{xurl}
 \usepackage[hidelinks]{hyperref}
