@@ -157,7 +157,7 @@ jobs:
           cp memos/${{ matrix.memo }}/MEMO.yml build/memos/${{ matrix.memo }}/MEMO.yml
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: memo-${{ matrix.memo }}
           path: |
