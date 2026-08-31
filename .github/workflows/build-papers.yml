@@ -70,7 +70,7 @@ jobs:
           python3 scripts/render_graphviz_diagrams.py --paper-dir papers/${{ matrix.paper }} || true
 
       - name: Compile PDF
-        uses: xu-cheng/latex-action@v3
+        uses: xu-cheng/latex-action@v4
         with:
           root_file: papers/${{ matrix.paper }}/tex/paper.tex
           # latexmk defaults to DVI unless -pdf is specified.

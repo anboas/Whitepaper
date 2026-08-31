@@ -76,7 +76,7 @@ jobs:
           PY
 
       - name: Compile PDF
-        uses: xu-cheng/latex-action@v3
+        uses: xu-cheng/latex-action@v4
         with:
           root_file: memos/${{ matrix.memo }}/tex/memo.tex
           args: -pdf -interaction=nonstopmode -halt-on-error -output-directory=build/memos/${{ matrix.memo }}
